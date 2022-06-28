@@ -1,0 +1,115 @@
+<ion-content>
+
+    <div class="addtokenview">
+        <div class="header">
+            <div class="goback" (click)="router.goBack()">
+                <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
+            </div>
+            <div class="searchtoken">
+                <input class="searchinput" [(ngModel)]="searchinput" (keyup)="searchToken(searchinput)" type="text" placeholder="Search for tokens.." autocomplete="off">
+            </div>
+        </div>
+
+        <div class="addtokenbody" *ngIf="!searching">
+
+            <div class="fadedtext">My Tokens</div>
+
+            <div class="tokentab">
+
+                <ng-container *ngFor="let token of mytokens">
+                    <div class="eachtoken" *ngIf="token !==''">
+                        <div class="imgcirc">
+                            <img src="{{token.img || token.logoURI}}" class="tokenimg">
+                        </div>
+                        <div class="tokenname">{{token.name}}<br>
+                            <div class="tokentype">{{token.type}}</div>
+                        </div>
+                        <div class="toggler toggleractive" (click)="deselectToken(token.name,token.type)">
+                            <div class="outerswitch">
+                                <div class="innercircle"></div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </ng-container>
+
+            </div>
+
+
+            <div class="fadedtext">Tokens</div>
+
+            <div class="tokentab">
+
+                <ng-container *ngFor="let token of allchains">
+                    <div class="eachtoken" *ngIf="!searchMyTokens(token.name)">
+
+
+                        <div class="imgcirc">
+                            <img src="{{token.img || token.logoURI}}" class="tokenimg">
+                        </div>
+                        <div class="tokenname">{{token.name}}<br>
+                            <div class="tokentype">{{token.type}}</div>
+                        </div>
+                        <div class="toggler" (click)="selectToken(token.name,token.type)">
+                            <div class="outerswitch">
+                                <div class="innercircle"></div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </ng-container>
+
+
+                <div class="eachtoken lefttokens">
+                    {{alltokens.length-allchains.length}} more tokens,search for tokens above.
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="addtokenbody" *ngIf="searching">
+
+            <div class="tokentab">
+
+                <ng-container *ngFor="let token of searchedTokens">
+                    <div class="eachtoken" *ngIf="token !==''">
+                        <div class="imgcirc">
+                            <img src="{{token.img || token.logoURI}}" class="tokenimg">
+                        </div>
+                        <div class="tokenname">{{token.name}}<br>
+                            <div class="tokentype">{{token.type}}</div>
+                        </div>
+                        <div class="toggler" [ngClass]="{'toggleractive':checkAvail(token.name,token.type)}" (click)="toggleSelect(token.name,token.type)">
+                            <div class="outerswitch">
+                                <div class="innercircle"></div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </ng-container>
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</ion-content>

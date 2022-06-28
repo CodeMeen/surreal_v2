@@ -1,0 +1,141 @@
+.addtokenview {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+    background: var(--ion-background-color);
+    .header {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 60px calc(100% - 90px);
+        grid-gap: 10px;
+        border-bottom: 1px solid rgba(192, 192, 192, 0.3);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: var(--ion-background-color);
+        z-index: 1;
+    }
+    .addtokenbody {
+        margin-top: 75px;
+    }
+    .goback {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 10px;
+    }
+    .gobackicon {
+        height: 32px;
+        width: 32px;
+        color: var(--ion-color-secondary);
+    }
+    .searchtoken {
+        padding-top: 19px;
+    }
+    .searchinput {
+        border: 1px solid rgba(192, 192, 192, 0.7);
+        border-radius: 20px;
+        padding: 7px 20px;
+        font-size: 13px;
+        background: #fff;
+        width: 100%;
+    }
+    .fadedtext {
+        color: rgba(192, 192, 192, 0.7);
+        font-size: 13px;
+        letter-spacing: 0.03em;
+        font-family: mntssemibold;
+        text-transform: uppercase;
+        padding: 20px;
+    }
+    .eachtoken {
+        padding: 20px;
+        box-shadow: 0px 4px 19px -9px rgba(0, 0, 0, 0.15);
+        -webkit-box-shadow: 0px 4px 19px -9px rgba(0, 0, 0, 0.15);
+        -moz-box-shadow: 0px 4px 19px -9px rgba(0, 0, 0, 0.15);
+        background: #fff;
+        border-radius: 10px;
+        display: grid;
+        grid-template-columns: 20% 60% 20%;
+        margin: 10px 0px;
+    }
+    .imgcirc {
+        height: 40px;
+        width: 40px;
+        margin: 10px;
+    }
+    .tokenname {
+        align-items: center;
+        font-family: mntsreg;
+        font-size: 15px;
+        font-family: mntssemibold;
+        padding: 9px 0px;
+    }
+    .tokentype {
+        padding: 5px 0px;
+        font-size: 14px;
+        font-family: mntsreg;
+        color: #5d6969;
+        text-transform: uppercase;
+    }
+    .tokenabbrev {
+        padding: 5px 0px;
+        font-family: mntssemibold;
+        font-size: 15px;
+    }
+    .usdbalance {
+        color: #5d6969;
+        font-size: 11px;
+        font-family: mntsreg;
+        padding: 10px 0px;
+    }
+    .tokenimg {
+        border-radius: 50%;
+        height: 100%;
+        width: 100%;
+    }
+    .outerswitch {
+        width: 55px;
+        border-radius: 20px;
+        background: #c0c0c0;
+        position: relative;
+        padding: 0px;
+        height: 31px;
+    }
+    .innercircle {
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        background: #fff;
+        border-radius: 50%;
+        left: 3px;
+        top: 3px;
+    }
+    .toggler {
+        display: flex;
+        align-items: center
+    }
+    .toggleractive {
+        .outerswitch {
+            background: darkgreen !important;
+        }
+        .innercircle {
+            left: 27px !important;
+        }
+    }
+    .tokentab {
+        padding: 0px 10px;
+    }
+    .lefttokens {
+        margin: 10px 0px;
+        font-size: 14px;
+        font-family: mntssemibold;
+        color: #5d6969;
+        text-align: center;
+        padding: 20px;
+        display: block !important;
+    }
+}

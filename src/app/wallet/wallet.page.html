@@ -1,0 +1,104 @@
+<ion-content>
+    <div class="walletview">
+
+        <div class="purpbox">
+            <div class="purpheader">
+                <div class="noticont">
+                    <ion-icon name="notifications-outline" class="noti"></ion-icon>
+                </div>
+                <div class="centerdiv">
+                    <div class="logo"></div>
+                </div>
+                <div></div>
+            </div>
+
+            <div class="balancemodalbox">
+                <div class="balancemodal">
+                    <div class="baltitle">{{mywallet.name}}</div>
+                    <div class="balancetext">${{totalbalance}}.00</div>
+                    <div class="actiontab">
+                        <div class="eachaction">
+                            <ion-icon name="push-outline" class="actionicon"></ion-icon>
+                            Send
+                        </div>
+                        <div class="eachaction">
+                            <ion-icon name="download-outline" class="actionicon"></ion-icon>
+                            Receive
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="chooser">
+            <div class="eachchooser chooseractive" (click)="toToken()">Tokens</div>
+            <div class="eachchooser" (click)="toNft()">NFTs</div>
+        </div>
+
+
+        <div class="slidertab">
+
+
+
+            <swiper #swiper [config]="assetsconfig">
+                <ng-template swiperSlide>
+                    <div>
+                        <div class="fadedtext">My Tokens ({{numoftk}})</div>
+
+                        <div class="tokengrid">
+
+                            <ng-container *ngFor="let tok of mywallet.mytokens">
+                                <div class="eachtoken" *ngIf="tok !==''">
+
+                                    <div class="imgcirc">
+                                        <img src="{{tok.img || tok.logoURI}}" class="tokenimg">
+                                    </div>
+                                    <div class="tokenname">{{tok.name}}</div>
+                                    <div class="tokenabbrev">{{tok.coinbalance}} {{tok.symbol}}</div>
+                                    <div class="usdbalance">${{tok.usdbalance}}</div>
+
+                                </div>
+                            </ng-container>
+
+                        </div>
+
+                        <div class="addmorecont">
+                            <button class="addmorebtn" [routerLink]="['/account','addtoken']"><ion-icon name="options-outline" class="addorremove"></ion-icon>add or remove</button>
+                        </div>
+
+                    </div>
+
+                </ng-template>
+
+                <ng-template swiperSlide>
+                    <div>
+                        <div class="fadedtext">No NFTS yet!</div>
+
+                        <div class="bigtext">Private and fully secured</div>
+                        <div class="line"></div>
+                        <div class="smalltext">Private keys and mnemonic phrase never leave your device</div>
+                    </div>
+
+                </ng-template>
+
+            </swiper>
+
+
+        </div>
+
+        <div class="downnav">
+            <div class="eachdnav eachdnavactive">
+                <ion-icon name="wallet" class="eachdnavicon"></ion-icon>
+            </div>
+            <div class="eachdnav">
+                <ion-icon name="grid" class="eachdnavicon"></ion-icon>
+            </div>
+            <div class="eachdnav">
+                <ion-icon name="settings" class="eachdnavicon"></ion-icon>
+            </div>
+        </div>
+
+
+    </div>
+</ion-content>

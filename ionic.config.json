@@ -1,0 +1,7 @@
+{
+  "name": "Surreal Wallet",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

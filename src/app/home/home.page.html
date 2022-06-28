@@ -1,0 +1,70 @@
+<ion-content [fullscreen]="true">
+    <div class="homeview">
+
+        <div class="logohead">
+            <div class="logo"></div>
+        </div>
+        <div id="container" class="bodycontainer">
+
+
+
+            <swiper #swiper [config]="config">
+
+                <ng-template swiperSlide>
+                    <div>
+                        <div class="cener">
+                            <ion-icon name="lock-closed-outline" class="bigicon"></ion-icon>
+                        </div>
+
+                        <div class="bigtext">Private and fully secured</div>
+                        <div class="line"></div>
+                        <div class="smalltext">Private keys and mnemonic phrase never leave your device</div>
+                    </div>
+
+                </ng-template>
+
+                <ng-template swiperSlide>
+                    <div>
+                        <div class="cener">
+                            <ion-icon name="albums-outline" class="bigicon"></ion-icon>
+                        </div>
+                        <div class="bigtext">All your crypto assets in one place</div>
+                        <div class="line"></div>
+                        <div class="smalltext">Manage and keep your assets perfectly</div>
+                    </div>
+                </ng-template>
+
+                <ng-template swiperSlide>
+                    <div>
+                        <div class="cener">
+                            <ion-icon name="flash-outline" class="bigicon"></ion-icon>
+                        </div>
+                        <div class="bigtext">Send and receive assets easily</div>
+                        <div class="line"></div>
+                        <div class="smalltext">Transfer out and receive assets with our super easy app</div>
+                    </div>
+                </ng-template>
+
+                <ng-template swiperSlide>
+                    <div>
+                        <div class="cener">
+                            <ion-icon name="sunny-outline" class="bigicon"></ion-icon>
+                        </div>
+                        <div class="bigtext">Super easy to use</div>
+                        <div class="line"></div>
+                        <div class="smalltext">Built with super amazing user interface for easy accessibility</div>
+                    </div>
+                </ng-template>
+
+            </swiper>
+
+
+            <div class="buttonc">
+                <button class="nbutton" [routerLink]="['/account']" (click)="getStarted()">Get Started</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</ion-content>
