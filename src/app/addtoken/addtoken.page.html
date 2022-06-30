@@ -12,7 +12,7 @@
 
         <div class="addtokenbody" *ngIf="!searching">
 
-            <div class="fadedtext">My Tokens</div>
+            <div class="fadedtext">My Tokens ({{mytokens.length}})</div>
 
             <div class="tokentab">
 
@@ -74,6 +74,8 @@
         </div>
 
         <div class="addtokenbody" *ngIf="searching">
+
+            <div class="fadedtext">Found ({{searchedTokens.length}})</div>
 
             <div class="tokentab">
 

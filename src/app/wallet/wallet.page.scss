@@ -249,6 +249,40 @@
             color: #fff;
             margin: 0px 10px;
         }
+
+.centerbox{
+    margin:100px auto; 
+    width:50%;
+    display: grid;
+    grid-template-columns: 1fr;
+justify-content: center;
+
+
+.emptybox{
+    width:120px;
+    height:120px;
+    margin:0px auto;
+    background-repeat: no-repeat;
+    background-image:url(../../assets/images/emptybox.svg);
+ background-size: contain;
+ background-position: center;
+
+}
+
+.fadedtext{
+    text-align: center;
+}
+
+
+
+
+}
+
+
+
+
+
+
         /**
  * Swiper 8.2.4
  * Most modern mobile touch slider and framework with hardware accelerated transitions
