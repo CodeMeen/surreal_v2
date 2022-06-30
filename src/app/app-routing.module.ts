@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'addtoken',
     loadChildren: () => import('./addtoken/addtoken.module').then( m => m.AddtokenPageModule)
   },
+  {
+    path: 'showtoken',
+    loadChildren: () => import('./showtoken/showtoken.module').then( m => m.ShowtokenPageModule)
+  },
 ];
 
 @NgModule({

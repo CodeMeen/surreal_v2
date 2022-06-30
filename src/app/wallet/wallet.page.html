@@ -32,8 +32,8 @@
         </div>
 
         <div class="chooser">
-            <div class="eachchooser chooseractive" (click)="toToken()">Tokens</div>
-            <div class="eachchooser" (click)="toNft()">NFTs</div>
+            <div class="eachchooser"  [ngClass]="{'chooseractive':currentslide==0}"   (click)="toToken()">Tokens</div>
+            <div class="eachchooser" [ngClass]="{'chooseractive':currentslide==1}" (click)="toNft()">NFTs</div>
         </div>
 
 
@@ -41,7 +41,7 @@
 
 
 
-            <swiper #swiper [config]="assetsconfig">
+            <swiper #swiper [config]="assetsconfig" (slideChange)="updatecurrindex($event)">
                 <ng-template swiperSlide>
                     <div>
                         <div class="fadedtext">My Tokens ({{numoftk}})</div>
