@@ -1,0 +1,31 @@
+
+    .downnav {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 10;
+        padding: 10px 0px;
+        /* From https://css.glass */
+        background: rgba(255, 255, 255, 0.91);
+        backdrop-filter: blur(9.5px);
+        -webkit-backdrop-filter: blur(9.5px);
+    }
+    .eachdnav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .eachdnavicon {
+        height: 28px;
+        width: 28px;
+        color: rgba(106, 13, 173, 0.23);
+    }
+    .eachdnavactive .eachdnavicon {
+        color: var(--ion-color-secondary)!important;
+    }
+
+

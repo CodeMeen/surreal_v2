@@ -7145,6 +7145,15 @@ eachtoken["tokens"]="";
 
    }
 
+   async getToken(tokenname,tokentype,walletid?){
+
+    const mytokens=await this.getMyTokens(walletid);
+
+    let tokensearch=mytokens.filter((el)=>el.name==tokenname && el.type==tokentype);
+
+    return tokensearch[0];
+   }
+
    async getAllChains(){
  let chains=[];
 

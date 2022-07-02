@@ -5,6 +5,7 @@ import { Router,ActivatedRoute,NavigationExtras} from '@angular/router';
 import { Storage } from '@capacitor/storage';
 import { WalletsService } from '../wallets.service';
 import { IonRouterOutlet } from '@ionic/angular';
+import { EventsService } from '../events.service';
 
 SwiperCore.use([Pagination]);
 
@@ -29,7 +30,7 @@ export class WalletPage implements OnInit,AfterContentChecked {
 
  currentslide=0;
 
-  constructor(private cd: ChangeDetectorRef,private wallet: WalletsService,private router: Router,private activatedRoute: ActivatedRoute,private routerOutlet: IonRouterOutlet) { }
+  constructor(private cd: ChangeDetectorRef,private wallet: WalletsService,private router: Router,private activatedRoute: ActivatedRoute,private routerOutlet: IonRouterOutlet,private events: EventsService) { }
 
   updatecurrindex(event){
     this.currentslide=this.swiper.swiperRef.activeIndex;
@@ -81,8 +82,14 @@ async goToBack(){
   }
 
 ionViewWillEnter(){
-    this.syncTokens();
+  this.events.getData().subscribe((data) => {
+    if(data=="UpdateHome"){
+      this.syncTokens();
+    }
+});
+    
   }
+  
   async ngOnInit() {
 
 this.syncTokens()

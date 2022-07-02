@@ -8,10 +8,8 @@ const routes: Routes = [
     path: '',
     component: AccountPage,
     children: [
-      {path:'',redirectTo: 'wallet', pathMatch:'full'},
-      {path: 'wallet', loadChildren: () => import('../wallet/wallet.module').then( m => m.WalletPageModule)},
-      {path:'addtoken', loadChildren: () => import('../addtoken/addtoken.module').then(m=> m.AddtokenPageModule)},
-      {path:'showtoken/:tokenname/:tokensymbol',loadChildren:()=>import('../showtoken/showtoken.module').then(m=> m.ShowtokenPageModule)}
+      {path:'',redirectTo: '/account/wallet', pathMatch:'full'},
+      {path: 'wallet', loadChildren: () => import('../wallet/wallet.module').then( m => m.WalletPageModule)}
     ]
   }
 ];
