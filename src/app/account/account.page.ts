@@ -23,6 +23,7 @@ export class AccountPage implements OnInit {
 
   async ionViewDidEnter() {
     this.events.publish('UpdateHome')
+    this.routerOutlet.swipeGesture = false;
 }
 
 

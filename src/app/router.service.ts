@@ -30,6 +30,13 @@ export class RouterService {
     this.zone.run(() => {
       this.navCtrl.back();
   });
+  }
 
+  goBackHome(){
+    this.zone.run(() => {
+      this.navCtrl.setDirection('back');
+      this.router.navigate(['/account', 'wallet']);
+      console.log("Triggered");
+  });
   }
 }

@@ -25,6 +25,22 @@ const routes: Routes = [
     path: 'showtoken/:name/:type',
     loadChildren: () => import('./showtoken/showtoken.module').then( m => m.ShowtokenPageModule)
   },
+  {
+    path: 'sendtoken/:name/:type',
+    loadChildren: () => import('./sendtoken/sendtoken.module').then( m => m.SendtokenPageModule)
+  },
+  {
+    path: 'receivetoken/:name/:type',
+    loadChildren: () => import('./receivetoken/receivetoken.module').then( m => m.ReceivetokenPageModule)
+  },
+  {
+    path: 'receivingselect',
+    loadChildren: () => import('./receivingselect/receivingselect.module').then( m => m.ReceivingselectPageModule)
+  },
+  {
+    path: 'sendingselect',
+    loadChildren: () => import('./sendingselect/sendingselect.module').then( m => m.SendingselectPageModule)
+  },
 ];
 
 @NgModule({

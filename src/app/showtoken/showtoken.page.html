@@ -32,12 +32,12 @@
 
           <div class="outacttab">
             <div class="actiontab">
-                <div class="eachaction">
+                <div class="eachaction" [routerLink]="['/sendtoken',mytoken.name,mytoken.type]">
                     <ion-icon name="push-outline" class="actionicon"></ion-icon>
                     Send
                 </div>
-                <div class="eachaction">
-                    <ion-icon name="download-outline" class="actionicon"></ion-icon>
+                <div class="eachaction" [routerLink]="['/receivetoken',mytoken.name,mytoken.type]">
+                    <ion-icon name="download-outline" class="actionicon" ></ion-icon>
                     Receive
                 </div>
             </div>

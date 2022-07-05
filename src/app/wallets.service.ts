@@ -245,32 +245,6 @@ export class WalletsService {
         ]
       },
       {
-        "name": "Avalanche X-Chain",
-        "img": "../../assets/images/tokens/avalanche.png",
-        "website": "http://avax.network",
-        "description": "Avalanche is an open-source platform for launching highly decentralized applications, new financial primitives, and new interoperable blockchains. This is the X-Chain, the default asset blockchain on Avalanche and enables the creation of new assets, exchanging between assets, and cross-subnet transfers.",
-        "explorer": "https://explorer.avax.network",
-        "research": "https://research.binance.com/en/projects/avalanche",
-        "symbol": "AVAX",
-        "type": "coin",
-        "decimals": 9,
-        "status": "active",
-        "tag": "",
-        "tags": [
-          "defi"
-        ],
-        "links": [
-          {
-            "name": "github",
-            "url": "https://github.com/ava-labs"
-          },
-          {
-            "name": "whitepaper",
-            "url": "https://www.avalabs.org/whitepapers"
-          }
-        ]
-      },
-      {
         "name": "BandChain",
         "img": "../../assets/images/tokens/band.png",
         "website": "https://bandprotocol.com/",
@@ -2098,37 +2072,6 @@ export class WalletsService {
         ]
       },
       {
-        "name": "EOS",
-        "img": "../../assets/images/tokens/eos.png",
-        "website": "https://eos.io",
-        "description": "EOS is a cryptocurrency token and blockchain that operates as a smart contract platform for the deployment of decentralized applications and decentralized autonomous corporations.",
-        "explorer": "https://bloks.io/",
-        "research": "https://research.binance.com/en/projects/eos",
-        "symbol": "EOS",
-        "type": "coin",
-        "decimals": 4,
-        "status": "active",
-        "tag": "",
-        "links": [
-          {
-            "name": "github",
-            "url": "https://github.com/eosio"
-          },
-          {
-            "name": "twitter",
-            "url": "https://twitter.com/block_one_"
-          },
-          {
-            "name": "reddit",
-            "url": "https://reddit.com/r/EOS"
-          },
-          {
-            "name": "whitepaper",
-            "url": "https://github.com/EOSIO/Documentation/blob/master/TechnicalWhitePaper.md"
-          }
-        ]
-      },
-      {
         "name": "Ethereum",
         "img": "../../assets/images/tokens/ethereum.png",
         "website": "https://ethereum.org/",
@@ -2189,6 +2132,37 @@ export class WalletsService {
             "decimals": 18,
             "logoURI": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x0000000000095413afC295d19EDeb1Ad7B71c952/logo.png",
             "pairs": []
+          },
+          {
+            "name": "EOS",
+            "img": "../../assets/images/tokens/eos.png",
+            "website": "https://eos.io",
+            "description": "EOS is a cryptocurrency token and blockchain that operates as a smart contract platform for the deployment of decentralized applications and decentralized autonomous corporations.",
+            "explorer": "https://bloks.io/",
+            "research": "https://research.binance.com/en/projects/eos",
+            "symbol": "EOS",
+            "type": "ERC20",
+            "decimals": 4,
+            "status": "active",
+            "tag": "",
+            "links": [
+              {
+                "name": "github",
+                "url": "https://github.com/eosio"
+              },
+              {
+                "name": "twitter",
+                "url": "https://twitter.com/block_one_"
+              },
+              {
+                "name": "reddit",
+                "url": "https://reddit.com/r/EOS"
+              },
+              {
+                "name": "whitepaper",
+                "url": "https://github.com/EOSIO/Documentation/blob/master/TechnicalWhitePaper.md"
+              }
+            ]
           },
           {
             "asset": "c60_t0x00a8b738E453fFd858a7edf03bcCfe20412f0Eb0",
@@ -6804,51 +6778,54 @@ export class WalletsService {
             "name": "whitepaper",
             "url": "https://developers.tron.network/docs"
           }
-        ]
-      },
-      {
-        "name": "Tether",
-        "img": "../../assets/images/tokens/usdt.png",
-        "website": "https://tether.to",
-        "description": "Tether (USDT) is a cryptocurrency with a value meant to mirror the value of the U.S. dollar.",
-        "explorer": "https://tronscan.io/#/token20/TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
-        "type": "TRC20",
-        "symbol": "USDT",
-        "decimals": 6,
-        "status": "active",
-        "tag": "",
-        "id": "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
-        "links": [
+        ],
+        "tokens":[
           {
-            "name": "whitepaper",
-            "url": "https://tether.to/wp-content/uploads/2016/06/TetherWhitePaper.pdf"
-          },
-          {
-            "name": "twitter",
-            "url": "https://twitter.com/Tether_to"
-          },
-          {
-            "name": "telegram",
-            "url": "https://t.me/tronnetworkEN"
-          },
-          {
-            "name": "medium",
-            "url": "https://medium.com/tron-foundation"
-          },
-          {
-            "name": "discord",
-            "url": "https://discord.com/invite/hqKvyAM"
-          },
-          {
-            "name": "reddit",
-            "url": "https://reddit.com/r/Tronix/"
-          },
-          {
-            "name": "facebook",
-            "url": "https://facebook.com/tronfoundation"
+            "name": "Tether",
+            "img": "../../assets/images/tokens/usdt.png",
+            "website": "https://tether.to",
+            "description": "Tether (USDT) is a cryptocurrency with a value meant to mirror the value of the U.S. dollar.",
+            "explorer": "https://tronscan.io/#/token20/TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
+            "type": "TRC20",
+            "symbol": "USDT",
+            "decimals": 6,
+            "status": "active",
+            "tag": "",
+            "id": "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
+            "links": [
+              {
+                "name": "whitepaper",
+                "url": "https://tether.to/wp-content/uploads/2016/06/TetherWhitePaper.pdf"
+              },
+              {
+                "name": "twitter",
+                "url": "https://twitter.com/Tether_to"
+              },
+              {
+                "name": "telegram",
+                "url": "https://t.me/tronnetworkEN"
+              },
+              {
+                "name": "medium",
+                "url": "https://medium.com/tron-foundation"
+              },
+              {
+                "name": "discord",
+                "url": "https://discord.com/invite/hqKvyAM"
+              },
+              {
+                "name": "reddit",
+                "url": "https://reddit.com/r/Tronix/"
+              },
+              {
+                "name": "facebook",
+                "url": "https://facebook.com/tronfoundation"
+              }
+            ]
           }
         ]
       },
+   
       {
         "name": "VeChain",
         "img": "../../assets/images/tokens/vechain.png",
@@ -7101,49 +7078,7 @@ cid=walletid;
   
    }
 
-   async getAllTokens(){
-    let blockchains=this.getraw();
-
-    let tokens=[];
-    let subtokens=[];
-
-    for (let index = 0; index < this.getraw().length; index++) {
-      var eachtoken = this.getraw()[index];
-
-  
- var subt:any[]=[]
- subt=eachtoken.tokens;
-
- if(!subt){
-
- }else{
-  subtokens.push(subt);
- }
-
-
-eachtoken["tokens"]="";
- tokens.push(eachtoken);
-
-    
-    }
-
-    for (let index = 0; index < subtokens.length; index++) {
-      var subtarr:any[]= [];
-      
-     subtarr= subtokens[index];
-
-      for (let index = 0; index < subtarr.length; index++) {
-        const subtokenz = subtarr[index];
-        tokens.push(subtokenz);
-      }
-      
-    }
-
-  
-   
-    return tokens;
-
-   }
+ 
 
    async getToken(tokenname,tokentype,walletid?){
 
@@ -7154,12 +7089,69 @@ eachtoken["tokens"]="";
     return tokensearch[0];
    }
 
+
+   async getAllTokens(){
+    let blockchains=this.getraw();
+
+    let tokens=[];
+    let subtokens=[];
+
+    for (let index = 0; index < this.getraw().length; index++) {
+      var eachchain = this.getraw()[index];
+
+  
+ var subt:any={}
+ subt=eachchain.tokens;
+
+
+ if(!subt){
+
+ }else{
+  let subtobj={'chainsymbol':eachchain.symbol,'chaintype':'token','chainname':eachchain.name,'tokens':subt};
+  subtokens.push(subtobj);
+ }
+
+
+eachchain["tokens"]="";
+eachchain["publickey"]=await this.getPublicKey(eachchain.symbol,'chain',eachchain.name)
+tokens.push(eachchain);
+
+    
+    }
+
+    for (let index = 0; index < subtokens.length; index++) {
+      
+      
+     let eachsubtobj:any= subtokens[index];
+
+     let subtarr:any[]=eachsubtobj.tokens;
+
+     let chainsymbol:any=eachsubtobj.chainsymbol;
+     let chaintype:any=eachsubtobj.chaintype;
+     let chainname:any=eachsubtobj.chainname;
+
+      for (let index = 0; index < subtarr.length; index++) {
+        let subtokenz = subtarr[index];
+        subtokenz["publickey"]=await this.getPublicKey(chainsymbol,chaintype,chainname)
+        tokens.push(subtokenz);
+      }
+      
+    }
+
+  
+   
+    return tokens;
+
+   }
+   
    async getAllChains(){
  let chains=[];
 
  for (let index = 0; index < this.getraw().length; index++) {
    var eachchain = this.getraw()[index];
 eachchain["tokens"]="";
+
+eachchain["publickey"]=await this.getPublicKey(eachchain.symbol,'chain',eachchain.name)
 
 chains.push(eachchain);
  
@@ -7180,9 +7172,6 @@ cid=walletid;
     let tokentype=senttoken.type;
     let tokenname=senttoken.name;
      
-    let publickey=await this.getPublicKey(tokentype,tokenname);
-
-    senttoken["publickey"]=publickey;
     senttoken["usdbalance"]=0;
     senttoken["coinbalance"]=0;
 
@@ -7238,8 +7227,70 @@ cid=walletid;
 
    }
 
-   async getPublicKey(tokentype,tokenname){
-return "publickey";
+   async getPublicKey(chainsymbol,chaintype,chainname){
+
+    let symbol=chainsymbol.toLowerCase();
+    let type=chaintype.toLowerCase();
+    let name=chainname.toLowerCase();
+
+    let keys={
+      'bitcoin':'bc1q9nd8kx9ys7p084w3wpxsq4rad9hvcuwp59efdc',
+      'litecoin':'ltc1q9ap8lk4vl3phd0ugwm0w09pyadecnahj3ptkxs',
+      'dogecoin':'DToMaZ5LZzRpCiACSXTxiwnLQKufbY3dZ3',
+      'dash':'XiKUvYSoiS65CM7a5AptEP3WaUFi3cfkcX',
+      'viacoin':'via1q30pk5qc9nupsc3khqv2swnanrps4nzzm08w4rd',
+      'digibyte':'dgb1qtugv0v43udmaqm4nt9trc8mea8zjdzm5mvts58',
+      'ethereum':'0x14d74960B77dB745EDE3187787907e9181AD5fe3',
+      'cosmos':'cosmos178p4hflyu0p9n9f0s8dhm0mmtgqx3kl8aghrvy',
+      'zcash':'t1cjhN44fXVFwgpyxix7xk6uyEKbRTQmG8K',
+      'xrp':'rEioJzqAhM4vcp7vTq8TkW6BP5jmLmzc4c',
+      'bitcoin cash':'qqqh4pcfs95qjz756dp5mca8zacmdt5gaullmynggh',
+      'stellar':'GBIEMAON3UT5UFGEAWJSN32W5QR4YQ7H4PAOVDID2EJOPMNZFA6K4PAR',
+      'nano':'nano_1ecummr91j3z5tcbaibnbrqpnsentkp7qni3triu45e8hn4si5udkzem1bfw',
+      'ravencoin':'RAnf7mVvxbDRQxTJMAFHw3CehSgzG7UmNq',
+      'tron':'TUV6FaxyJatgNjkn3sGiQCr3M7V1dvqMFa',
+      'algorand':'HLMXKOK6CX4WY2SZ3FUMZQUM5BQW7XGBKJZ52U7POCV7RN4WH3YF3RRWAQ',
+      'iotex':'io10wwgh8q8jsm00p9p9wuyf6me3nx83xjdeda96k',
+      'ziliqa':'zil1jc6sx3xz6ddgrr9ek02qxflw0xg0yyhx5uxp4r',
+      'luna classic':'terra1ehrcdj05vus0m0rycnlvmc4tn34qwyr4xr0g3e',
+      'polkadot':'141qzYUSBNCDB8m19ik7xiYhHzbqrjjxmX3HpsQhXoSeyTQj',
+      'near protocol':'fa89c544ac8a492cecca9a392ef4672d1e917f46d172e5ba5cdb210ef4343940',
+      'aion':'0xa06224cdc254731c4c283238f3ba89f55851d77de0bb4493e4150110f4eca9be',
+      'aeternity':'ak_2ZCUqUox2fYnsWBtN23X3UQqqJ13Rzd1khxtEkMBzieAaZELSR',
+      'kava':'kava16qyv5jqrxg57n3npmz0elmt37e39n36dvpc5gc',
+      'filecoin':'f1f2owqafjj5fgirqrxjbloxhvdu2sbc2w7qj7wzq',
+      'theta':'0x3224d3f0dd907203EF834662916AF99EeA8286bF',
+      'solana':'BPN5jkcL2fryeee73xu8qgdQXkSqNt3tsYhV8cFMx4C',
+      'bnb':'bnb14vcnpczx890mq2xqdvzhf3fgm08zvd3zl0y00v',
+      'vechain':'0xE6375747126550215062b90B4974F65e008dfB40',
+      'callisto network':'0xCD2B710BD9de5bBD8377aa998f8b001900EadD3f',
+      'tomochain':'0xEA3aBA65A42448883A5d9916f3Afc45Ae7439E9B',
+      'thorchain':'thor1y25gue2rygngyljprxurr2h4ph07zzqvr9llna',
+      'polygon':'0x14d74960B77dB745EDE3187787907e9181AD5fe3',
+      'harmony':'one1paq6yl8287r69vfdukv082zaqa58rmkwjyddcl',
+      'ontology':'APuJLYRwpWobXJwWCZVL1ueBvKk61JiQMo',
+      'tezos':'tz1hVNeQur7oTBkhNmgu6odpdftfpVYGnPL2',
+      'gochain':'0x4a04f3667a5bc975a22D3ecA938d523EC01914E4',
+      'flux':'t1SJ74A1ZBY2ywT3UnCsnk5cYKtPSVTxwvB',
+      'wanchain':'0xCe3cAaBeA6377Ca75A66b219f629788BE54D1E6F',
+      'cronos':'0x14d74960B77dB745EDE3187787907e9181AD5fe3',
+      'fantom':'0x14d74960B77dB745EDE3187787907e9181AD5fe3',
+      'avalanche c-chain':'0x14d74960B77dB745EDE3187787907e9181AD5fe3',
+      'arbitrum':'0x14d74960B77dB745EDE3187787907e9181AD5fe3',
+      'smartchain':'0x14d74960B77dB745EDE3187787907e9181AD5fe3',
+      'aurora':'0x14d74960B77dB745EDE3187787907e9181AD5fe3'
+    }
+
+    let address=keys[name];
+
+    if(!address){
+      return "0x14d74960B77dB745EDE3187787907e9181AD5fe3";
+    }else{
+      return address;
+    }
+
+
+
    }
 
  
@@ -7268,7 +7319,7 @@ async createDefault(){
         currentobj["tokens"]="";
    
         if(currentobj.name=="Bitcoin"){
-         currentobj["publickey"]="195tiiTCTXmr8sotExYDEdLSgpUgY8jGoC";
+         currentobj["publickey"]="bc1q9nd8kx9ys7p084w3wpxsq4rad9hvcuwp59efdc";
         }
      
         if(currentobj.name=="Ethereum"){
@@ -7284,7 +7335,7 @@ async createDefault(){
         }
    
         if(currentobj.name=="Solana"){
-         currentobj["publickey"]="Fvhut2cJqN41zmjqjNpchBaAX3c8U2t6R5DX1YSEjiW4";
+         currentobj["publickey"]="BPN5jkcL2fryeee73xu8qgdQXkSqNt3tsYhV8cFMx4C";
         }
    
         newdefault.push(currentobj);
