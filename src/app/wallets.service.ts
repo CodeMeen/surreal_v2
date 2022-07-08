@@ -7079,6 +7079,13 @@ cid=walletid;
    }
 
  
+   async getAToken(tokenname,tokentype){
+    const mytokens=await this.getAllTokens();
+
+    let tokensearch=mytokens.filter((el)=>el.name==tokenname && el.type==tokentype);
+
+    return tokensearch[0];
+   }
 
    async getToken(tokenname,tokentype,walletid?){
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IonRouterOutlet } from '@ionic/angular';
 
 @Component({
   selector: 'app-receivingselect',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReceivingselectPage implements OnInit {
 
-  constructor() { }
+  constructor(private routerOutlet: IonRouterOutlet) { }
 
   ngOnInit() {
+    this.routerOutlet.swipeGesture = true;
   }
 
 }

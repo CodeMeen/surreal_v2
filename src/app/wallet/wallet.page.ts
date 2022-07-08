@@ -85,6 +85,7 @@ ionViewWillEnter(){
   this.events.getData().subscribe((data) => {
     if(data=="UpdateHome"){
       this.syncTokens();
+      this.routerOutlet.swipeGesture = false;
     }
 });
     

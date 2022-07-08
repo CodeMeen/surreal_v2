@@ -11,6 +11,12 @@ export class RouterService {
 
   constructor(private navCtrl: NavController,private zone: NgZone ,private router: Router) { }
 
+naviTo(array){
+  this.zone.run(()=>{
+    this.router.navigate(array);
+    });
+}
+
   goTo(comp, param?){
 
     if(!param){

@@ -17,11 +17,11 @@
                     <div class="baltitle">{{mywallet.name}}</div>
                     <div class="balancetext">${{totalbalance}}.00</div>
                     <div class="actiontab">
-                        <div class="eachaction">
+                        <div class="eachaction" [routerLink]="['/sendingselect']">
                             <ion-icon name="push-outline" class="actionicon"></ion-icon>
                             Send
                         </div>
-                        <div class="eachaction">
+                        <div class="eachaction" [routerLink]="['/receivingselect']">
                             <ion-icon name="download-outline" class="actionicon"></ion-icon>
                             Receive
                         </div>
