@@ -1,0 +1,20 @@
+<div class="notipanel" [ngClass]="{'notishow':noti.opened,'notisuccess':noti.type==='success','notierr':noti.type==='networkerr' || noti.type==='servererr' || noti.type==='error'}">
+  <div class="notiimgcont">
+      <div class="notiimg" [ngClass]="{'nuisuccess':noti.type==='success','no-wifi':noti.type==='networkerr','nuierror':noti.type==='servererr' || noti.type==='error'}"></div>
+  </div>
+
+
+  <div>
+      <div class="notititle">{{ noti.mtitle }}</div>
+      <div class="notimessage">
+          {{ noti.mmessage }}
+      </div>
+  </div>
+
+  <div class="noticlosecont">
+      <div class="noticlose" (click)="noti.closenoti()"></div>
+  </div>
+
+
+
+</div>

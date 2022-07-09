@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@capacitor/storage';
 import { HomePageRoutingModule } from './home/home-routing.module';
@@ -7049,7 +7050,7 @@ export class WalletsService {
   }
 
  
-  constructor() {}
+  constructor(private http:HttpClient) {}
 
 
 private getDefaultTokens(){
@@ -7096,6 +7097,22 @@ cid=walletid;
     return tokensearch[0];
    }
 
+
+async getTokenPrice(symbol){
+  let tokenurl="";
+
+  tokenurl="http://localhost:3000/getTokenData/symbol/"+symbol
+ 
+
+ this.http.get(tokenurl).subscribe((value:any)=>{
+return (value.data[symbol].quote.USD.price).toFixed(2);
+ },
+ error=>{
+return false;
+ });
+
+
+}
 
    async getAllTokens(){
     let blockchains=this.getraw();

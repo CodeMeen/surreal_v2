@@ -15,6 +15,7 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 export class SendtokenPage implements OnInit {
 
   mytoken:any={};
+  tokenusd:any;
   recipientaddr="";
 
   constructor(private http: HttpClient,private route: ActivatedRoute,public router:RouterService,private wallet:WalletsService) { }
@@ -37,15 +38,7 @@ export class SendtokenPage implements OnInit {
     let tktype=routeParams.get('type');
 
     this.mytoken=await this.wallet.getAToken(tkname,tktype);
-
-   let tokenurl="http://localhost:3000/getTokenData/symbol/"+this.mytoken.symbol
-
-    this.http.get(tokenurl).subscribe(value=>{
-console.log(value)
-    },
-    error=>{
-console.log(error)
-    });
+    this.tokenusd=await this.wallet.getTokenPrice(this.mytoken.symbol);
 
 
   }

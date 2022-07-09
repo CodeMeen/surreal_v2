@@ -70,14 +70,15 @@ async goToBack(){
 }
   async syncTokens(){
     try {
+
       let data=await this.wallet.getMyWallet();
       this.mywallet=data;
       this.numoftk=this.mywallet.mytokens.length;
-     
+
     } catch (error) {
       this.router.navigate(['home']);
     }
-
+  
     this.calculatebalance();
   }
 
