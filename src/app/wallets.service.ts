@@ -7099,18 +7099,27 @@ cid=walletid;
 
 
 async getTokenPrice(symbol){
-  let tokenurl="";
 
-  tokenurl="http://localhost:3000/getTokenData/symbol/"+symbol
- 
 
- this.http.get(tokenurl).subscribe((value:any)=>{
-return (value.data[symbol].quote.USD.price).toFixed(2);
- },
- error=>{
-return false;
- });
+  let res=new Promise(async (resolve,reject)=>{
+   
+    let tokenurl="http://localhost:3000/getTokenData/symbol/"+symbol
 
+    await this.http.get(tokenurl).subscribe((value:any)=>{
+
+   let response=(value.data[symbol].quote.USD.price).toFixed(2);
+   resolve(response);
+
+    },
+    error=>{
+
+   console.log(error);
+   reject(error);
+    });
+
+  })
+
+  return res;
 
 }
 
@@ -7183,6 +7192,45 @@ chains.push(eachchain);
 
  return chains;
    }
+
+   async updateToken(name,type,update,walletid?){
+    let cid;
+
+    if(!walletid){
+cid=await this.getCurrentWalletId();
+    }else{
+cid=walletid;
+    }
+
+    let database=await Storage.get({ key: 'wallets' });
+    let wallets:any[]=JSON.parse(database.value);
+
+
+    let searchwallet=wallets.filter((el)=>el.id==cid);
+
+    
+    let mywallet=searchwallet[0];
+
+    let mytokens=mywallet.mytokens;
+
+    let arrtoken=mytokens.filter((el)=>el.name==name && el.type==type);
+    let thetoken:any=arrtoken[0];
+
+    let sorted=Object.entries(update)
+
+    for (let index = 0; index < sorted.length; index++) {
+      const element = sorted[index];
+      const name=element[0];
+      const value=element[1];
+      thetoken[name]=value;    
+    }
+
+await Storage.set({
+  key: 'wallets',
+  value: JSON.stringify(wallets)
+}); 
+
+  }
 
    async saveToken(senttoken,walletid?){
     let cid;
