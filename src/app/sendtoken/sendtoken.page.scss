@@ -72,6 +72,7 @@
         border: 1px solid rgba(255, 255, 255, 0.07);
         height: auto;
         margin:40px 20px;
+        margin-bottom: 0px;
     }
 
     .inputbox{
@@ -147,6 +148,22 @@
     }
 }
 
+.valuebox{
+    text-align: center;
+    margin-top:10px;
+    color:#fff;
+    font-size:20px;
+    font-family: mntssemibold;
+}
+
+.swpicon{
+    padding:10px;
+    color:#f1f1f1;
+}
+
+.swptext{
+    color:#f3f3f3;
+}
 
 
 }

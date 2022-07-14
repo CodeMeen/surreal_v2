@@ -94,9 +94,9 @@ ionViewWillEnter(){
   
   async ngOnInit() {
 
-this.syncTokens()
-
+    this.syncTokens()
     this.routerOutlet.swipeGesture = false;
+    
   }
 
 

@@ -32,7 +32,7 @@
     <hr class="sepline">
   
     <div class="inputbox">
-      <input class="input" style="width:68% !important" type="text" required>
+      <input class="input" [(ngModel)]="valueInput" (keyup)="swapFunc(valueInput)" style="width:68% !important" type="text" required>
       <span class="floating-label">{{mytoken.symbol}} Amount</span>
       <div class="choosy"  style="width:30% !important;margin-right:5px;">
         <div class="eachhalf">max</div>
@@ -40,6 +40,16 @@
       </div>
     </div>
 
+  </div>
+
+  <div class="valuebox" *ngIf="swap">
+    <div class="swpicon">
+      <ion-icon name="swap-vertical-outline"></ion-icon>
+    </div>
+   
+  <div class="swptext" *ngIf="swap.swapFrom=='coin'">${{numberize(swap.returnAmt)}}</div>
+  <div class="swptext" *ngIf="swap.swapFrom=='usd'">{{numberize(swap.returnAmt)}}<span>{{mytoken.symbol}}</span></div>
+  
   </div>
 
 

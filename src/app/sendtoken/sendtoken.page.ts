@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation,ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IonRouterOutlet } from '@ionic/angular';
 import { RouterService } from '../router.service';
@@ -16,10 +16,65 @@ import { NotiService } from '../noti.service';
 export class SendtokenPage implements OnInit {
 
   mytoken:any={};
-  tokenusd:any;
+
+  
+
+  tokenusd:any=null;
+  swap:any={
+    'swapFrom':'coin',
+    'returnAmt':0
+  };
+
+  valueInput:any;
+  inputType='coin';
+
+
+
+ 
   recipientaddr="";
 
-  constructor(private http: HttpClient,private route: ActivatedRoute,public router:RouterService,private wallet:WalletsService,public noti:NotiService) { }
+  constructor(private http: HttpClient,private route: ActivatedRoute,public router:RouterService,private wallet:WalletsService,public noti:NotiService,private cd:ChangeDetectorRef) { }
+  
+ numberize(x) {
+   let rx=x.toFixed(2);
+    return rx.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
+  async swapFunc(value){
+
+    if(isNaN(value)){
+
+    }
+
+    if(this.tokenusd){
+
+    
+      if(this.inputType=='coin'){
+      
+        let usdAmt=await (this.tokenusd * value);
+
+        this.swap.swapFrom=this.inputType
+        this.swap.returnAmt=usdAmt
+
+        this.cd.detectChanges();
+         
+  
+      }else if(this.inputType=='usd'){
+        
+          let coinAmt=await (this.tokenusd / value);
+  
+          this.swap.swapFrom=this.inputType
+          this.swap.returnAmt=coinAmt
+
+          this.cd.detectChanges();
+
+      }
+      
+    
+  }
+
+}
 
  async pasteAddress(){
 
@@ -34,36 +89,44 @@ export class SendtokenPage implements OnInit {
     const routeParams = this.route.snapshot.paramMap;
     let tkname=routeParams.get('name');
     let tktype=routeParams.get('type');
-    this.mytoken=await this.wallet.getAToken(tkname,tktype);
-    console.log(this.mytoken);
+  let procv=await this.wallet.searchMyTokens(tkname,tktype)
+ 
+    if(procv===true){
+      this.mytoken=await this.wallet.getToken(tkname,tktype);
+    }else{
+      this.mytoken=await this.wallet.getAToken(tkname,tktype); 
+    }
   }
 
   async syncTokenPrice(){
 
-    this.wallet.getTokenPrice(this.mytoken.symbol).then((value)=>{
+    await this.wallet.getTokenPrice(this.mytoken.symbol).then(async (value)=>{
       this.tokenusd=value;
-      this.wallet.updateToken(this.mytoken.name,this.mytoken.type,{'usdprice':this.tokenusd});
-      console.log(value);
+    await this.wallet.updateToken(this.mytoken.name,this.mytoken.type,{'usdprice':this.tokenusd});
+      console.log(value+" Loaded from market");
     })
-    .catch((error)=>{
-     this.syncToken();
+    .catch(async (error)=>{
 
       let prt:any=this.mytoken.usdprice
-console.log(prt);
+
       if(!prt){
 this.noti.notify('error',"Couldn't load resources","Check internet connection!");
       }else{
   this.tokenusd=prt;
+  console.log(this.tokenusd+" Loaded from memory");
       }
 
 
     })
   }
 
+
+
   async ngOnInit() {
    
-this.syncToken();
-this.syncTokenPrice();
+await this.syncToken().then(async (value)=>{
+  await this.syncTokenPrice();
+})
 
   }
 

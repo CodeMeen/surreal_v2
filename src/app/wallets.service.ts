@@ -7090,7 +7090,7 @@ cid=walletid;
 
    async getToken(tokenname,tokentype,walletid?){
 
-    const mytokens=await this.getMyTokens(walletid);
+    const mytokens=await this.getMyTokens();
 
     let tokensearch=mytokens.filter((el)=>el.name==tokenname && el.type==tokentype);
 
@@ -7229,6 +7229,20 @@ await Storage.set({
   key: 'wallets',
   value: JSON.stringify(wallets)
 }); 
+
+  }
+
+  async searchMyTokens(name,type){
+
+    let mytokens=await this.getMyTokens();
+
+ let searchedTokens:any[]=mytokens.filter((el)=>el.name==name && el.type==type);
+
+ if(searchedTokens.length>=1){
+return true
+ }else{
+   return false
+ }
 
   }
 
