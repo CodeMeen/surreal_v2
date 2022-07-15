@@ -19,7 +19,7 @@
                     <div class="actiontab">
                         <div class="eachaction" [routerLink]="['/sendingselect']">
                             <ion-icon name="push-outline" class="actionicon"></ion-icon>
-                            Send
+                            Sendd
                         </div>
                         <div class="eachaction" [routerLink]="['/receivingselect']">
                             <ion-icon name="download-outline" class="actionicon"></ion-icon>
@@ -32,7 +32,7 @@
         </div>
 
         <div class="chooser">
-            <div class="eachchooser"  [ngClass]="{'chooseractive':currentslide==0}"   (click)="toToken()">Tokens</div>
+            <div class="eachchooser" [ngClass]="{'chooseractive':currentslide==0}" (click)="toToken()">Tokens</div>
             <div class="eachchooser" [ngClass]="{'chooseractive':currentslide==1}" (click)="toNft()">NFTs</div>
         </div>
 
@@ -73,17 +73,17 @@
 
                 <ng-template swiperSlide>
                     <div>
-                        
+
 
 
                         <div class="centerbox">
                             <div class="emptybox">
-                                
+
                             </div>
                             <div class="fadedtext">EMPTY</div>
                         </div>
 
-                    
+
                     </div>
 
                 </ng-template>
@@ -93,7 +93,7 @@
 
         </div>
 
-       
+
 
 
     </div>
