@@ -20,13 +20,16 @@ export class SendtokenPage implements OnInit {
   
 
   tokenusd:any=null;
+
   swap:any={
-    'swapFrom':'coin',
+    'swapFrom':'',
     'returnAmt':0
   };
 
+
   valueInput:any;
-  inputType='coin';
+
+  inputType;
 
 
 
@@ -35,44 +38,64 @@ export class SendtokenPage implements OnInit {
 
   constructor(private http: HttpClient,private route: ActivatedRoute,public router:RouterService,private wallet:WalletsService,public noti:NotiService,private cd:ChangeDetectorRef) { }
   
- numberize(x) {
-   let rx=x.toFixed(2);
+ numberize(x,num?) {
+   let rx;
+   if(num){
+    rx=x.toFixed(num);
+   }else{
+   rx=x.toFixed(2);
+   }
+   
     return rx.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 }
 
 
+async switchType(){
+
+if(this.inputType==this.mytoken.symbol){
+this.inputType='USD'
+this.valueInput=0;
+this.swapFunc(this.valueInput);
+}else if(this.inputType=='USD'){
+this.inputType=this.mytoken.symbol
+this.valueInput=0;
+this.swapFunc(this.valueInput);
+}
+}
   async swapFunc(value){
 
     if(isNaN(value)){
-
-    }
-
-    if(this.tokenusd){
+this.noti.notify('error','Invalid Input','Only numbers are allowed');
+    }else{
+      if(this.tokenusd){
 
     
-      if(this.inputType=='coin'){
-      
-        let usdAmt=await (this.tokenusd * value);
-
-        this.swap.swapFrom=this.inputType
-        this.swap.returnAmt=usdAmt
-
-        this.cd.detectChanges();
-         
-  
-      }else if(this.inputType=='usd'){
+        if(this.inputType=='USD'){
         
-          let coinAmt=await (this.tokenusd / value);
+          let usdAmt=await (value / this.tokenusd);
   
           this.swap.swapFrom=this.inputType
-          this.swap.returnAmt=coinAmt
-
+          this.swap.returnAmt=usdAmt
+  
           this.cd.detectChanges();
-
-      }
-      
+           
     
-  }
+        }else if(this.inputType==this.mytoken.symbol){
+          
+            let coinAmt=await ( value*this.tokenusd );
+    
+            this.swap.swapFrom=this.inputType
+            this.swap.returnAmt=coinAmt
+  
+            this.cd.detectChanges();
+  
+        }
+        
+      
+    }
+    }
+
+ 
 
 }
 
@@ -96,6 +119,8 @@ export class SendtokenPage implements OnInit {
     }else{
       this.mytoken=await this.wallet.getAToken(tkname,tktype); 
     }
+
+    this.inputType=this.mytoken.symbol
   }
 
   async syncTokenPrice(){

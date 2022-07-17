@@ -33,10 +33,13 @@
   
     <div class="inputbox">
       <input class="input" [(ngModel)]="valueInput" (keyup)="swapFunc(valueInput)" style="width:68% !important" type="text" required>
-      <span class="floating-label">{{mytoken.symbol}} Amount</span>
+      <span class="floating-label">{{inputType}} Amount</span>
       <div class="choosy"  style="width:30% !important;margin-right:5px;">
         <div class="eachhalf">max</div>
-        <div class="eachhalf">usd</div>
+        <div class="eachhalf" (click)="switchType()">
+          <span *ngIf="inputType==mytoken.symbol">USD</span>
+          <span *ngIf="inputType=='USD'">{{mytoken.symbol}}</span>    
+        </div>
       </div>
     </div>
 
@@ -47,8 +50,8 @@
       <ion-icon name="swap-vertical-outline"></ion-icon>
     </div>
    
-  <div class="swptext" *ngIf="swap.swapFrom=='coin'">${{numberize(swap.returnAmt)}}</div>
-  <div class="swptext" *ngIf="swap.swapFrom=='usd'">{{numberize(swap.returnAmt)}}<span>{{mytoken.symbol}}</span></div>
+  <div class="swptext" *ngIf="inputType==mytoken.symbol">${{numberize(swap.returnAmt)}}</div>
+  <div class="swptext" *ngIf="inputType=='USD'">{{numberize(swap.returnAmt,3)}}<span> {{mytoken.symbol}}</span></div>
   
   </div>
 
