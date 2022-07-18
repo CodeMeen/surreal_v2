@@ -1,7 +1,7 @@
 import { AfterContentChecked, ChangeDetectorRef, Component,ViewChild,ViewEncapsulation,OnInit } from '@angular/core';
 import {SwiperComponent} from 'swiper/angular';
 import SwiperCore, { SwiperOptions,Pagination } from 'swiper';
-import { Router,ActivatedRoute,NavigationExtras} from '@angular/router';
+import { RouterService } from '../router.service';
 import { Storage } from '@capacitor/storage';
 import { WalletsService } from '../wallets.service';
 
@@ -25,13 +25,13 @@ export class HomePage implements AfterContentChecked,OnInit{
 
  
 
-  constructor(private cd: ChangeDetectorRef,private router: Router,private activatedRoute: ActivatedRoute,private wallet: WalletsService) {
+  constructor(private cd: ChangeDetectorRef,private router: RouterService,private wallet: WalletsService) {
 
   }
 
   getStarted(){
     this.wallet.createDefault();
-    this.router.navigate(['account']);
+    this.router.naviTo(['/account']);
   }
 
   ngAfterContentChecked() {
@@ -49,7 +49,7 @@ export class HomePage implements AfterContentChecked,OnInit{
       if(!wallets){
 
       }else{
-this.router.navigate(['account']);
+this.router.naviTo(['/account']);
       }
 
     }

@@ -1,7 +1,8 @@
 import { Component, OnInit,AfterContentChecked,ViewChild, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import {EventsParams, SwiperComponent} from 'swiper/angular';
 import SwiperCore, { SwiperOptions,Pagination } from 'swiper';
-import { Router,ActivatedRoute,NavigationExtras} from '@angular/router';
+import { ActivatedRoute,NavigationExtras} from '@angular/router';
+import { RouterService } from '../router.service';
 import { Storage } from '@capacitor/storage';
 import { WalletsService } from '../wallets.service';
 import { IonRouterOutlet } from '@ionic/angular';
@@ -30,7 +31,7 @@ export class WalletPage implements OnInit,AfterContentChecked {
 
  currentslide=0;
 
-  constructor(private cd: ChangeDetectorRef,private wallet: WalletsService,private router: Router,private activatedRoute: ActivatedRoute,private routerOutlet: IonRouterOutlet,private events: EventsService) { }
+  constructor(private cd: ChangeDetectorRef,private wallet: WalletsService,public router: RouterService,private activatedRoute: ActivatedRoute,private routerOutlet: IonRouterOutlet,private events: EventsService) { }
 
   updatecurrindex(event){
     this.currentslide=this.swiper.swiperRef.activeIndex;
@@ -76,7 +77,7 @@ async goToBack(){
       this.numoftk=this.mywallet.mytokens.length;
 
     } catch (error) {
-      this.router.navigate(['home']);
+      this.router.naviTo(['home']);
     }
   
     this.calculatebalance();

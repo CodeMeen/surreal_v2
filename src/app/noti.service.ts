@@ -59,7 +59,6 @@ export class NotiService {
   
   
   closenoti(){
-  
     this.opened=false;
     this.type='';
   }

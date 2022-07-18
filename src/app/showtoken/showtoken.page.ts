@@ -28,9 +28,6 @@ let tktype=routeParams.get('type');
 
 this.mytoken=await this.wallet.getToken(tkname,tktype);
 
-
-
-
   }
 
 }

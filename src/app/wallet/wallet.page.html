@@ -49,7 +49,7 @@
                         <div class="tokengrid">
 
                             <ng-container *ngFor="let tok of mywallet.mytokens">
-                                <div class="eachtoken" [routerLink]="['/showtoken', tok.name,tok.type]" *ngIf="tok !==''">
+                                <div class="eachtoken" (click)="router.naviTo(['/showtoken', tok.name,tok.type])" *ngIf="tok !==''">
 
                                     <div class="imgcirc">
                                         <img src="{{tok.img || tok.logoURI}}" class="tokenimg">
@@ -64,7 +64,7 @@
                         </div>
 
                         <div class="addmorecont">
-                            <button class="addmorebtn" [routerLink]="['/addtoken']"><ion-icon name="options-outline" class="addorremove"></ion-icon>add or remove</button>
+                            <button class="addmorebtn" (click)="router.naviTo(['/addtoken'])"><ion-icon name="options-outline" class="addorremove"></ion-icon>add or remove</button>
                         </div>
 
                     </div>

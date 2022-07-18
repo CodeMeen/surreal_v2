@@ -1,7 +1,7 @@
 import { Component, OnInit,ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { IonRouterOutlet } from '@ionic/angular';
 import { EventsService } from '../events.service';
+import { RouterService } from '../router.service';
 
 
 @Component({
@@ -13,7 +13,7 @@ export class AccountPage implements OnInit {
   
 
   
-  constructor(private router: Router,private activatedRoute: ActivatedRoute,private routerOutlet: IonRouterOutlet,private events:EventsService) { }
+  constructor(private router: RouterService,private routerOutlet: IonRouterOutlet,private events:EventsService) { }
 
  
 

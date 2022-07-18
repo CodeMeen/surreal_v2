@@ -19,7 +19,7 @@ export class SendtokenPage implements OnInit {
 
   
 
-  tokenusd:any=null;
+  tokenusd:any="";
 
   swap:any={
     'swapFrom':'',
@@ -27,14 +27,11 @@ export class SendtokenPage implements OnInit {
   };
 
 
-  valueInput:any;
-
+  valueInput:any="";
   inputType;
-
-
-
  
-  recipientaddr="";
+  recipientaddr:any="";
+  successflag=false;
 
   constructor(private http: HttpClient,private route: ActivatedRoute,public router:RouterService,private wallet:WalletsService,public noti:NotiService,private cd:ChangeDetectorRef) { }
   
@@ -63,13 +60,14 @@ this.swapFunc(this.valueInput);
 }
 }
   async swapFunc(value){
-
     if(isNaN(value)){
 this.noti.notify('error','Invalid Input','Only numbers are allowed');
+this.successflag=false;
+console.log("isnan")
     }else{
+this.successflag=true;
       if(this.tokenusd){
 
-    
         if(this.inputType=='USD'){
         
           let usdAmt=await (value / this.tokenusd);
@@ -77,7 +75,7 @@ this.noti.notify('error','Invalid Input','Only numbers are allowed');
           this.swap.swapFrom=this.inputType
           this.swap.returnAmt=usdAmt
   
-          this.cd.detectChanges();
+          
            
     
         }else if(this.inputType==this.mytoken.symbol){
@@ -87,7 +85,7 @@ this.noti.notify('error','Invalid Input','Only numbers are allowed');
             this.swap.swapFrom=this.inputType
             this.swap.returnAmt=coinAmt
   
-            this.cd.detectChanges();
+            
   
         }
         
