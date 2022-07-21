@@ -35,6 +35,18 @@ export class SendtokenPage implements OnInit {
 
   constructor(private http: HttpClient,private route: ActivatedRoute,public router:RouterService,private wallet:WalletsService,public noti:NotiService,private cd:ChangeDetectorRef) { }
   
+max(){
+  if(this.inputType==this.mytoken.symbol){
+    this.valueInput=this.mytoken.coinbalance
+    this.swapFunc(this.valueInput)
+  }else if(this.inputType=='USD'){
+    this.valueInput=this.mytoken.usdbalance
+    this.swapFunc(this.valueInput)
+  }
+
+
+}
+
  numberize(x,num?) {
    let rx;
    if(num){
@@ -75,9 +87,6 @@ this.successflag=true;
           this.swap.swapFrom=this.inputType
           this.swap.returnAmt=usdAmt
   
-          
-           
-    
         }else if(this.inputType==this.mytoken.symbol){
           
             let coinAmt=await ( value*this.tokenusd );

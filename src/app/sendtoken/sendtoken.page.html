@@ -17,6 +17,10 @@
   <div class="balancetext">Send {{mytoken.symbol}} <span style="text-transform: uppercase;" *ngIf="mytoken.type!='coin'">({{mytoken.type}})</span></div>
   <div class="smallline"></div>
 
+  <div class="fullbox balbox">
+   <span class="left">Balance</span>
+   <span class="right">{{mytoken.coinbalance}}.00 {{mytoken.symbol}}</span>
+  </div>
 
   <div class="fullbox">
 
@@ -35,7 +39,7 @@
       <input class="input" [(ngModel)]="valueInput" (keyup)="swapFunc(valueInput)" style="width:68% !important" type="text" required>
       <span class="floating-label">{{inputType}} Amount</span>
       <div class="choosy"  style="width:30% !important;margin-right:5px;">
-        <div class="eachhalf">max</div>
+        <div class="eachhalf" (click)="max()">max</div>
         <div class="eachhalf" (click)="switchType()">
           <span *ngIf="inputType==mytoken.symbol">USD</span>
           <span *ngIf="inputType=='USD'">{{mytoken.symbol}}</span>    
