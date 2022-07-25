@@ -3970,7 +3970,8 @@ export class WalletsService {
             "symbol": "USDC",
             "decimals": 6,
             "logoURI": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
-            "pairs": []
+            "pairs": [],
+            "tag": "default",
           },
           {
             "asset": "c60_t0xa117000000f279D81A1D3cc75430fAA017FA5A2e",
@@ -4608,7 +4609,8 @@ export class WalletsService {
             "symbol": "USDT",
             "decimals": 6,
             "logoURI": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
-            "pairs": []
+            "pairs": [],
+            "tag": "default",
           },
           {
             "asset": "c60_t0xdacD69347dE42baBfAEcD09dC88958378780FB62",
@@ -5080,7 +5082,8 @@ export class WalletsService {
             "symbol": "BUSD",
             "decimals": 18,
             "logoURI": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x4Fabb145d64652a948d72533023f6E7A623C7C53/logo.png",
-            "pairs": []
+            "pairs": [],
+            "tag": "default",
           },
           {
             "asset": "c60_t0x9E32b13ce7f2E80A01932B42553652E053D6ed8e",
@@ -7046,18 +7049,21 @@ export class WalletsService {
     ];
 
 
-    return blockchains;
+    let newArray = blockchains.filter((el)=>el.name=='Ethereum');
+    return newArray;
   }
 
  
   constructor(private http:HttpClient) {}
 
 
-private getDefaultTokens(){
-
-let newArray = this.getraw().filter((el)=>el.tag=='default');
-return newArray;
-
+async getDefaultTokens(){
+  let newArr;
+  await this.getAllTokens().then((value)=>{
+  newArr=value.filter((el)=>el.tag=='default');
+  }
+  );
+  return newArr;
   }
 
   async getMyTokens(walletid?){
@@ -7178,6 +7184,7 @@ tokens.push(eachchain);
    }
    
    async getAllChains(){
+
  let chains=[];
 
  for (let index = 0; index < this.getraw().length; index++) {
@@ -7191,6 +7198,7 @@ chains.push(eachchain);
  }
 
  return chains;
+
    }
 
    async updateToken(name,type,update,walletid?){
@@ -7393,7 +7401,7 @@ async createDefault(){
   };
 
 
-    let defaulttoken=this.getDefaultTokens();
+    let defaulttoken=await this.getDefaultTokens();
     let newdefault:any[]=[];
 
   

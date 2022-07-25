@@ -71,11 +71,40 @@ this.valueInput=0;
 this.swapFunc(this.valueInput);
 }
 }
+
+ measureValue(){
+
+  
+
+  if(this.inputType=='USD'){
+    let balance=this.mytoken.usdbalance
+    if(this.valueInput > balance || this.valueInput==0){
+      return false;
+    }else{
+      return true;
+    }
+  }else if(this.inputType==this.mytoken.symbol){
+    let balance=this.mytoken.coinbalance
+
+    if(this.valueInput > balance || this.valueInput==0){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+
+}
+
   async swapFunc(value){
+
     if(isNaN(value)){
 this.noti.notify('error','Invalid Input','Only numbers are allowed');
 this.successflag=false;
-console.log("isnan")
+console.log("Not a number")
+    }else if(this.measureValue()==false){
+      this.successflag=false;
+      this.noti.notify('error','Insufficient balance!')
     }else{
 this.successflag=true;
       if(this.tokenusd){
@@ -101,8 +130,6 @@ this.successflag=true;
       
     }
     }
-
- 
 
 }
 

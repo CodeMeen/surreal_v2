@@ -42,7 +42,7 @@
 
             <div class="tokentab">
 
-                <ng-container *ngFor="let token of allchains">
+                <ng-container *ngFor="let token of alltokens">
                     <div class="eachtoken" *ngIf="!searchMyTokens(token.name)">
 
 
@@ -64,9 +64,7 @@
                 </ng-container>
 
 
-                <div class="eachtoken lefttokens">
-                    {{alltokens.length-allchains.length}} more tokens,search for tokens above.
-                </div>
+              
             </div>
 
 
