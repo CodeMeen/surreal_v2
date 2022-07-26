@@ -17,10 +17,21 @@
 
      <div class="fullbox balbox">
 
-       <div class="qrbox">
-        <qr-code [value]="qrInfo" size="350"></qr-code>
-           </div>
+       <div class="qrbox" (click)="copyAddr()"> 
+        <qr-code [value]="qrInfo" size="200"></qr-code>
+        </div>
+
+        <div class="addressbox" (click)="copyAddr()">{{mytoken.publickey}}</div>
       
+      </div>
+
+      <div class="threeopt">
+<div class="eopt" (click)="copyAddr()">
+  <ion-icon name="copy-outline" class="copybtn"></ion-icon>
+</div>
+<div class="eopttext">copy</div>
+
+
       </div>
 
 

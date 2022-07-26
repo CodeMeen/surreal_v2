@@ -5083,7 +5083,7 @@ export class WalletsService {
             "decimals": 18,
             "logoURI": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x4Fabb145d64652a948d72533023f6E7A623C7C53/logo.png",
             "pairs": [],
-            "tag": "default",
+             "tag": "default",
           },
           {
             "asset": "c60_t0x9E32b13ce7f2E80A01932B42553652E053D6ed8e",
@@ -7222,6 +7222,12 @@ cid=walletid;
     let mytokens=mywallet.mytokens;
 
     let arrtoken=mytokens.filter((el)=>el.name==name && el.type==type);
+
+    if(arrtoken.length <= 0){
+
+    }else{
+
+
     let thetoken:any=arrtoken[0];
 
     let sorted=Object.entries(update)
@@ -7237,6 +7243,10 @@ await Storage.set({
   key: 'wallets',
   value: JSON.stringify(wallets)
 }); 
+
+
+    }
+
 
   }
 
@@ -7397,6 +7407,8 @@ async createDefault(){
     id:"1",
     name:"Main Wallet",
     mytokens:[],
+    privatekey:"default",
+    mnemonic:"default",
     currentview:true,
   };
 
@@ -7411,26 +7423,6 @@ async createDefault(){
         currentobj["usdbalance"]=0;
         currentobj["coinbalance"]=0;
         currentobj["tokens"]="";
-   
-        if(currentobj.name=="Bitcoin"){
-         currentobj["publickey"]="bc1q9nd8kx9ys7p084w3wpxsq4rad9hvcuwp59efdc";
-        }
-     
-        if(currentobj.name=="Ethereum"){
-         currentobj["publickey"]="0x14d74960B77dB745EDE3187787907e9181AD5fe3";
-        }
-   
-        if(currentobj.name=="BNB"){
-         currentobj["publickey"]="bnb14vcnpczx890mq2xqdvzhf3fgm08zvd3zl0y00v"
-        }
-   
-        if(currentobj.name=="Smart Chain"){
-         currentobj["publickey"]="0x14d74960B77dB745EDE3187787907e9181AD5fe3";
-        }
-   
-        if(currentobj.name=="Solana"){
-         currentobj["publickey"]="BPN5jkcL2fryeee73xu8qgdQXkSqNt3tsYhV8cFMx4C";
-        }
    
         newdefault.push(currentobj);
       

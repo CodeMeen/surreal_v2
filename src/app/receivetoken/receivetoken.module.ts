@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ReceivetokenPageRoutingModule } from './receivetoken-routing.module';
 
 import { ReceivetokenPage } from './receivetoken.page';
+import { QRCodeModule } from 'angular2-qrcode';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ReceivetokenPageRoutingModule
+    ReceivetokenPageRoutingModule,
+    QRCodeModule
   ],
   declarations: [ReceivetokenPage]
 })

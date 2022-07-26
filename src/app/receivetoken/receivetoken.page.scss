@@ -191,6 +191,7 @@ letter-spacing: 0.05em;
 
 .balbox{
     padding: 20px;
+    padding-top: 30px;
     overflow: hidden;
 }
 
@@ -208,8 +209,11 @@ letter-spacing: 0.05em;
 }
 
 .qrbox{
-    height: 300px;
+    height: 200px;
     width:100%;
+    display: flex;
+justify-content: center;
+align-items: center;
 }
 
 .qrcodeimg{
@@ -218,5 +222,55 @@ width:100%;
 object-position: center;
 object-fit: contain;
 }
+
+.addressbox{
+    font-family:mntsreg;
+    text-align: center;
+    padding:20px;
+    padding-bottom: 10px;
+    color:white;
+}
+
+.threeopt{
+    display:grid;
+    grid-template-columns: 1fr;
+    width:40%;
+    margin:40px auto;
+}
+
+.eopt{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.eopttext{
+  font-size:14px;
+  letter-spacing: 0.05em;
+  text-align:center;
+  color:white;
+  text-transform: uppercase;
+  padding:10px;
+  font-family: mntssemibold;
+  transition: 0.5s;
+}
+
+.copybtn{
+    color:#fff;
+    font-size: 40px;
+    transition: 0.5s;
+}
+
+.threeopt:hover{
+    .eopttext{
+        opacity: 0.5;
+    }
+
+    .copybtn{
+        opacity: 0.5;
+    }
+}
+
+
 
 }

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NotiService } from '../noti.service';
 import { RouterService } from '../router.service';
 import { WalletsService } from '../wallets.service';
-
+import { Clipboard } from '@capacitor/clipboard';
 
 @Component({
   selector: 'app-receivetoken',
@@ -15,8 +15,19 @@ export class ReceivetokenPage implements OnInit {
 
   mytoken:any={};
 
+  qrInfo;
+
 
   constructor(private http: HttpClient,private route: ActivatedRoute,public router:RouterService,private wallet:WalletsService,public noti:NotiService) { }
+
+  async copyAddr(){
+    await Clipboard.write({
+      string: this.mytoken.publickey
+    });
+
+    this.noti.notify('success','Copied!');
+  }
+
 
   async syncToken(){
     const routeParams = this.route.snapshot.paramMap;
@@ -29,6 +40,8 @@ export class ReceivetokenPage implements OnInit {
     }else{
       this.mytoken=await this.wallet.getAToken(tkname,tktype); 
     }
+
+    this.qrInfo=this.mytoken.publickey;
 
   }
 

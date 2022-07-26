@@ -8,15 +8,14 @@ import { AppComponent } from './app.component';
 import { NotipanelComponent } from './notipanel/notipanel.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { QRCodeModule } from 'angular2-qrcode';
+
 
 @NgModule({
   declarations: [AppComponent,NotipanelComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot({}), 
     AppRoutingModule,
-    HttpClientModule,
-    QRCodeModule
+    HttpClientModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
