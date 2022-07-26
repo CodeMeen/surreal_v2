@@ -7090,6 +7090,8 @@ cid=walletid;
     const mytokens=await this.getAllTokens();
 
     let tokensearch=mytokens.filter((el)=>el.name==tokenname && el.type==tokentype);
+    tokensearch[0].usdbalance=0;
+    tokensearch[0].coinbalance=0;
 
     return tokensearch[0];
    }

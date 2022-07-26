@@ -151,7 +151,7 @@ this.successflag=true;
     if(procv===true){
       this.mytoken=await this.wallet.getToken(tkname,tktype);
     }else{
-      this.mytoken=await this.wallet.getAToken(tkname,tktype); 
+      this.mytoken=await this.wallet.getAToken(tkname,tktype);
     }
 
     this.inputType=this.mytoken.symbol
