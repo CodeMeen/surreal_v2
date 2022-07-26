@@ -24,12 +24,14 @@
         <div class="addressbox" (click)="copyAddr()">{{mytoken.publickey}}</div>
       
       </div>
+<br>
+      <div class="addressbox" (click)="copyAddr()">Send only <b>{{mytoken.name}} ({{mytoken.type}})</b> to this address.<br>Sending any other coins may result in permanent loss.</div>
 
       <div class="threeopt">
 <div class="eopt" (click)="copyAddr()">
   <ion-icon name="copy-outline" class="copybtn"></ion-icon>
 </div>
-<div class="eopttext">copy</div>
+<div class="eopttext">copy address</div>
 
 
       </div>

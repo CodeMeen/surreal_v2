@@ -102,11 +102,8 @@ this.swapFunc(this.valueInput);
 this.noti.notify('error','Invalid Input','Only numbers are allowed');
 this.successflag=false;
 console.log("Not a number")
-    }else if(this.measureValue()==false){
-      this.successflag=false;
-      this.noti.notify('error','Insufficient balance!')
     }else{
-this.successflag=true;
+
       if(this.tokenusd){
 
         if(this.inputType=='USD'){
@@ -129,9 +126,19 @@ this.successflag=true;
         
       
     }
+
+      if(this.measureValue()==false){
+        this.successflag=false;
+        this.noti.notify('error','Insufficient balance!')
+      }else{
+  this.successflag=true;
+      }
+
+    }
+    
+    
     }
 
-}
 
  async pasteAddress(){
 

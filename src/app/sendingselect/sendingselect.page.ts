@@ -14,6 +14,7 @@ export class SendingselectPage implements OnInit {
 
   mytokens:any[]=[];
   alltokens: any[]=[];
+  reducedtokens:any[]=[];
   allchains:any[]=[];
   searchinput:string;
 
@@ -148,6 +149,11 @@ this.selectToken(tokenname,tokentype);
 
     
     this.alltokens=await this.wallets.getAllTokens();
+
+    for (let index = 0; index < 31; index++) {
+      const element = this.alltokens[index];
+      this.reducedtokens.push(element);
+    }
   }
 
  
