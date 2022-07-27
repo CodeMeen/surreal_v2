@@ -7339,6 +7339,16 @@ cid=walletid;
     let type=chaintype.toLowerCase();
     let name=chainname.toLowerCase();
 
+    let mywallet=await this.getMyWallet();
+
+    let availkeys=mywallet.publickeys;
+
+    let searchedkey=availkeys.filter((el)=>el.chain==name);
+
+    let keydata=searchedkey[0];
+
+    let publickey=keydata.publickey;
+
     let keys={
       'bitcoin':'bc1q9nd8kx9ys7p084w3wpxsq4rad9hvcuwp59efdc',
       'litecoin':'ltc1q9ap8lk4vl3phd0ugwm0w09pyadecnahj3ptkxs',
@@ -7387,15 +7397,7 @@ cid=walletid;
       'aurora':'0x14d74960B77dB745EDE3187787907e9181AD5fe3'
     }
 
-    let address=keys[name];
-
-    if(!address){
-      return "0x14d74960B77dB745EDE3187787907e9181AD5fe3";
-    }else{
-      return address;
-    }
-
-
+    return publickey;
 
    }
 
@@ -7409,10 +7411,21 @@ async createDefault(){
     id:"1",
     name:"Main Wallet",
     mytokens:[],
+    publickeys:[
+      {'chain':'ethereum','publickey':'0x14d74960B77dB745EDE3187787907e9181AD5fe3'}
+    ],
     privatekey:"default",
     mnemonic:"default",
-    currentview:true,
+    currentview:true
   };
+
+  wallets.push(newwallet);
+
+  await Storage.set({
+    key: 'wallets',
+    value: JSON.stringify(wallets)
+  });
+
 
 
     let defaulttoken=await this.getDefaultTokens();
@@ -7431,17 +7444,9 @@ async createDefault(){
    
        }
 
-       newwallet["mytokens"]=newdefault;
+      
 
-       wallets.push(newwallet);
-  
-    
-   await Storage.set({
-      key: 'wallets',
-      value: JSON.stringify(wallets)
-    });  
-  
-  
+     
   }
 
   private async getCurrentWalletId(){
