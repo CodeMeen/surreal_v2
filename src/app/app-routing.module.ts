@@ -41,6 +41,14 @@ const routes: Routes = [
     path: 'sendingselect',
     loadChildren: () => import('./sendingselect/sendingselect.module').then( m => m.SendingselectPageModule)
   },
+  {
+    path: 'swaptoken',
+    loadChildren: () => import('./swaptoken/swaptoken.module').then( m => m.SwaptokenPageModule)
+  },
+  {
+    path: 'settings',
+    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
+  },
 ];
 
 @NgModule({

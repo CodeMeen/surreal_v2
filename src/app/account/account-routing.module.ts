@@ -9,7 +9,9 @@ const routes: Routes = [
     component: AccountPage,
     children: [
       {path:'',redirectTo: '/account/wallet', pathMatch:'full'},
-      {path: 'wallet', loadChildren: () => import('../wallet/wallet.module').then( m => m.WalletPageModule)}
+      {path: 'wallet', loadChildren: () => import('../wallet/wallet.module').then( m => m.WalletPageModule)},
+      {path: 'swaptoken', loadChildren: ()=> import('../swaptoken/swaptoken.module').then( m => m.SwaptokenPageModule)},
+      {path: 'settings', loadChildren: ()=> import('../settings/settings.module').then( m => m.SettingsPageModule)}
     ]
   }
 ];

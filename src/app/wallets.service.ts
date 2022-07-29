@@ -7429,25 +7429,18 @@ async createDefault(){
 
 
     let defaulttoken=await this.getDefaultTokens();
-    let newdefault:any[]=[];
 
+    console.log(defaulttoken);
   
       for (let index = 0; index < defaulttoken.length; index++) {
         let currentobj = defaulttoken[index];
-   
-        currentobj["usdbalance"]=0;
-        currentobj["coinbalance"]=0;
-        currentobj["tokens"]="";
-   
-        newdefault.push(currentobj);
-      
-   
+       await this.saveToken(currentobj);
        }
 
-      
-
-     
+       
   }
+
+
 
   private async getCurrentWalletId(){
     let database=await Storage.get({ key: 'wallets' });
