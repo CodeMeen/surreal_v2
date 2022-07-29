@@ -4,7 +4,9 @@
     overflow-x: hidden;
     position: relative;
     width: 100%;
-    background: var(--ion-background-color);
+    background: linear-gradient( to top right, var(--ion-color-primary), var(--ion-color-primary), rgb(154, 78, 174), rgb(154, 78, 174));
+    background-size: 300%;
+    animation: purpanimation 15s linear infinite alternate;
 
 
     .tokentype{
@@ -18,16 +20,25 @@
     .smallline{
         height:3px;
         width:50px;
-        background: var(--ion-color-secondary);
+        background: #fff;
         margin:0px auto;
         margin-bottom: 10px;
     }
     .purpbox {
         background: #fff;
         height: 300px;
-        background-size: 300%;
-        animation: purpanimation 15s linear infinite alternate;
+        background-size: 300%;  
     }
+
+    @keyframes purpanimation {
+        0% {
+            background-position: left;
+        }
+        100% {
+            background-position: right;
+        }
+    }
+
     .purpheader {
         display: grid;
         grid-template-columns: 15% 70% 15%;
@@ -52,7 +63,7 @@
         align-items: center;
     }
     .logo {
-        background-image: url(../../assets/images/surreal_purple.svg);
+        background-image: url(../../assets/images/surreal_white.svg);
         height: 32px;
         width: 32px;
         background-repeat: no-repeat;
@@ -76,16 +87,22 @@
         text-align: center;
         padding:10px 20px;
         letter-spacing: 0.05em;
-        color:#000;
+        color:#fff;
         margin-top:20px;
     }
 
     .smallline{
         height:3px;
         width:50px;
-        background:var(--ion-color-secondary);
+        background:#fff;
         margin:0px auto;
         margin-bottom: 10px;
+    }
+
+    .sahgbox{
+        color:white !important;
+        margin:20px 10px;
+        border-radius:7px;   
     }
 
 }
