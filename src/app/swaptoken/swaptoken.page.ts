@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { WalletsService } from '../wallets.service';
+import { EventsService } from '../events.service';
 
 @Component({
   selector: 'app-swaptoken',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SwaptokenPage implements OnInit {
 
-  constructor() { }
+  youpayvalue=0;
 
-  ngOnInit() {
+  fromtoken:any;
+  totoken:any;
+
+  constructor(public wallet: WalletsService,private events:EventsService) { }
+
+  async syncToken(){
+this.fromtoken=await this.wallet.getMyTokens();
+this.totoken=await this.wallet.getAToken('Dai','ERC20');
+
+console.log(this.fromtoken)
+console.log(this.totoken)
+  }
+
+
+async ngOnInit() {
+await this.syncToken();
   }
 
 }

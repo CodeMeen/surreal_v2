@@ -17,4 +17,9 @@ import { SwaptokenPage } from './swaptoken.page';
   ],
   declarations: [SwaptokenPage]
 })
-export class SwaptokenPageModule {}
+export class SwaptokenPageModule {
+
+
+
+  
+}

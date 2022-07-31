@@ -1,7 +1,7 @@
 import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 import { IonRouterOutlet } from '@ionic/angular';
 import { EventsService } from '../events.service';
-import { RouterService } from '../router.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,14 +11,23 @@ import { RouterService } from '../router.service';
 })
 export class AccountPage implements OnInit {
   
+  panelmode;
 
   
-  constructor(private router: RouterService,private routerOutlet: IonRouterOutlet,private events:EventsService) { }
+  constructor(private router:Router,private routerOutlet: IonRouterOutlet,private events:EventsService) { }
 
  
 
   async ngOnInit() {
     this.routerOutlet.swipeGesture = false;
+
+    if(this.router.url=='/account/swaptoken'){
+this.panelmode='dark';
+    }else{
+this.panelmode='light';
+    }
+
+   
   }
 
   async ionViewDidEnter() {
