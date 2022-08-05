@@ -14,7 +14,7 @@ export class AccountPage implements OnInit {
   panelmode;
 
   
-  constructor(private router:Router,private routerOutlet: IonRouterOutlet,private events:EventsService) { }
+  constructor(private router:Router,private routerOutlet: IonRouterOutlet,public events:EventsService) { }
 
  
 
@@ -32,6 +32,7 @@ this.panelmode='light';
 
   async ionViewDidEnter() {
     this.events.publish('UpdateHome')
+    console.log('Emit..')
     this.routerOutlet.swipeGesture = false;
 }
 

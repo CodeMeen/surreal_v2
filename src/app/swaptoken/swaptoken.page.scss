@@ -122,7 +122,7 @@
 
     .slashings{
         display:grid;
-        grid-template-columns: 70% 20% 10%;
+        grid-template-columns: 55% 30% 15%;
     }
 
     .valueinput{
@@ -139,12 +139,134 @@
     .ximgcont{
         height:50px;
         width:100%;
+        display:flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .tokenimg{
         height:50px;
-        width:100%;
+        width:50px;
         border-radius:50%;
+        margin-right: 10px;
     }
+
+    .tokenname{
+        font-family: mntssemibold;
+    }
+
+    .downbtn{
+        font-family: mntssemibold;
+        height:50px;
+        font-weight: bold;
+        color:#fff;
+        font-size:25px;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .conver{
+       overflow: hidden;
+    }
+
+    .converclass{
+        height:40.5px;
+        padding:5px 20px;
+        display:flex;
+        align-items: center;
+        float: left;
+    }
+
+    .conversign{
+        font-size: 25px;
+    }
+
+    .convertext{
+        font-family:mntsreg;
+    }
+
+    .coinbal{
+        height: 40.5px;
+        padding:5px 20px;
+        display:flex;
+        align-items: center;
+       float:right;
+       font-family: mntsreg;
+    }
+
+    .exd{
+        font-size: 25px;
+    }
+
+    .exchangecirc{
+       display: flex;
+       justify-content: center;
+align-items: center;
+       width:40px;
+        height:40px;
+        border:1px solid #fff;
+        border-radius: 50%;
+        position: relative;
+        margin:10px auto;
+    }
+
+    .exchangecirc::before{
+        content: '';
+    position: absolute;
+    width: 41.5vw;
+    height: 1px;
+    right:40px;
+    display: block;
+    clear: both;
+    background-color: #fff;
+    }
+
+    .exchangecirc::after{
+        content: '';
+    position: absolute;
+    width: 41.5vw;
+    height: 1px;
+    left:40px;
+    display: block;
+    clear: both;
+    background-color: #fff;
+    }
+
+
+
+.buttonbelow{
+    padding:30px 10px;
+}
+
+.whitebtn{
+    color:var(--ion-color-secondary);
+    padding:20px;
+    background:white;
+    border: none;
+    border-radius: 10px;
+width: 100%;
+text-transform: uppercase;
+font-family:mntssemibold;
+letter-spacing: 0.05em;
+}
+
+.faded{
+    opacity:0.5;
+}
+
+::-webkit-input-placeholder { /* Edge */
+    color: #f2f2f2;
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #f2f2f2;
+  }
+  
+  ::placeholder {
+    color: #f2f2f2;
+  }
+
+
 
 }

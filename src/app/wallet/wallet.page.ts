@@ -87,23 +87,22 @@ ionViewWillEnter(){
   this.events.getData().subscribe((data) => {
     if(data=="UpdateHome"){
       this.syncTokens();
-      console.log('Events from ion will enter')
+      console.log('Wallet Page Updated..')
       this.routerOutlet.swipeGesture = false;
     }
 });
     
   }
   
-  async ngOnInit() {
+  ngOnInit() {
 
     this.syncTokens()
-    console.log('Ng on init')
     this.routerOutlet.swipeGesture = false;
     
   }
 
 
-  async ngAfterContentChecked() {
+ ngAfterContentChecked() {
 
     if(this.swiper){
     this.swiper.updateSwiper({});

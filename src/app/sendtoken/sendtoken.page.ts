@@ -16,9 +16,6 @@ import { NotiService } from '../noti.service';
 export class SendtokenPage implements OnInit {
 
   mytoken:any={};
-
-  
-
   tokenusd:any="";
 
   swap:any={

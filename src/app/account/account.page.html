@@ -4,13 +4,13 @@
     </ion-router-outlet>
 
     <div class="downnav" [ngClass]="{'dark':panelmode=='dark','light':panelmode=='light'}">
-       <div routerLink="/account/wallet" class="eachdnav" routerLinkActive="eachdnavactive" (click)="panelmode='light'">
+       <div routerLink="/account/wallet" class="eachdnav" routerLinkActive="eachdnavactive" (click)="panelmode='light';events.publish('UpdateHome');">
             <ion-icon name="wallet" class="eachdnavicon"></ion-icon>
         </div>
-        <div routerLink="/account/swaptoken" class="eachdnav" routerLinkActive="eachdnavactive" (click)="panelmode='dark'">
+        <div routerLink="/account/swaptoken" class="eachdnav" routerLinkActive="eachdnavactive" (click)="panelmode='dark';events.publish('UpdateSwap');">
             <ion-icon name="grid" class="eachdnavicon"></ion-icon>
         </div>
-        <div routerLink="/account/settings" class="eachdnav" routerLinkActive="eachdnavactive" (click)="panelmode='light'">
+        <div routerLink="/account/settings" class="eachdnav" routerLinkActive="eachdnavactive" (click)="panelmode='light';events.publish('UpdateSettings');">
             <ion-icon name="settings" class="eachdnavicon"></ion-icon>
         </div>
     </div>

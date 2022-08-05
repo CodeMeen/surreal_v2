@@ -12,7 +12,7 @@
       <div></div>
     </div>
   
-  <div class="balancetext">Swap Coins</div>
+  <div class="balancetext">Swap Assets</div>
   <div class="smallline"></div>
 
 
@@ -26,31 +26,77 @@
       <div class="youdo"><span>You Pay</span></div>
 
       <div class="slashings">
-       <input class="valueinput" [(ngModel)]="youpayvalue">
+       <input class="valueinput" placeholder="0" (keyup)="swapFunc('fromtoken',fromtokenvalue)"  [(ngModel)]="fromtokenvalue">
 
        <div class="ximgcont">
-        <img class="tokenimg">
+        <img class="tokenimg" src="{{fromtoken.img || fromtoken.logoURI}}">
+        <span class="tokenname">{{fromtoken.symbol}}</span>
        </div>
 
 
+       <div class="downbtn">
+         <ion-icon name="chevron-down-outline"></ion-icon>
+        </div>
+
         
       </div>
 
-      <div>~ <span>$0.00</span></div>
+      <div class="conver">
+        <div class="converclass">
+          <span class="conversign"><ion-icon name="return-down-forward-outline"></ion-icon></span> 
+          <span class="convertext">${{numberize(swap.fromtokenusd)}}</span>
+        </div>
+      
+
+        <div class="coinbal">Balance: {{fromtoken.coinbalance}} {{fromtoken.symbol}}</div>
+      </div>
     
       </div>
 
-      <hr>
+      <div class="exchangecirc">
+        <ion-icon name="swap-vertical-outline" class="exd"></ion-icon>
+      </div>
 
       <div>
-    
-        <div><span>You Receive</span></div>
-        <div></div>
-        
-      </div>
+
+        <div class="youdo"><span>You Receive</span></div>
+  
+        <div class="slashings">
+         <input class="valueinput" placeholder="0"  (keyup)="swapFunc('totoken',totokenvalue)" [(ngModel)]="totokenvalue">
+  
+         <div class="ximgcont">
+          <img class="tokenimg" src="{{totoken.img || totoken.logoURI}}">
+          <span class="tokenname">{{totoken.symbol}}</span>
+         </div>
+  
+  
+         <div class="downbtn">
+           <ion-icon name="chevron-down-outline"></ion-icon>
+          </div>
+  
+          
+        </div>
+  
+        <div class="conver">
+          <div class="converclass">
+            <span class="conversign"><ion-icon name="return-down-forward-outline"></ion-icon></span> 
+            <span class="convertext">${{numberize(swap.totokenusd)}}</span>
+          </div>
+      
+        </div>
+      
+        </div>
+  
+
+      
 
   </div>
 
+</div>
+
+
+<div class="buttonbelow">
+  <button class="whitebtn" [ngClass]="{'faded': fromtokenvalue <= 0 || totokenvalue <= 0 || fromtokenusd <= 0 || totokenusd <= 0 || !fromtoken.name || !totoken.name || successflag==false}">Continue</button>
 </div>
 
 
