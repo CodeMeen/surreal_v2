@@ -8,14 +8,17 @@ import { AppComponent } from './app.component';
 import { NotipanelComponent } from './notipanel/notipanel.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { PopupComponent } from './popup/popup.component';
 
 
 @NgModule({
-  declarations: [AppComponent,NotipanelComponent],
+  declarations: [AppComponent,NotipanelComponent,PopupComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot({}), 
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

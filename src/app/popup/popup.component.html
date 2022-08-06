@@ -1,0 +1,48 @@
+<div class="blackoverl" (click)='popUp.close();' [ngClass]="{'overlshow':popUp.popopened,'lightoverl':popUp.transparent,'opaqueoverl':!popUp.transparent}">
+</div>
+
+<div class="popupdiv popupshadow" #popupdiv [ngClass]="{'popshow':popUp.popopened,'popupmaxheight':popUp.height==='maxi','popupminiheight':popUp.height==='mini'}">
+    <div class="popupdownbtn" (click)='popUp.close();'></div>
+
+    <div *ngIf="popUp.search && popUp.type==='list'">
+        <div popupsearchdiv>
+            <input class="popsearch" [(ngModel)]="searchdata" (keyup)="popUp.searchlist(searchdata)" placeholder="Search..">
+        </div>
+    </div>
+
+    <div *ngIf="popUp.type==='list'" class="popupoptions">
+
+        <div *ngFor="let data of popUp.currentlist;" class="popuplist" (click)="listfunc(popUp.listaction,data)">
+            <div *ngIf='popUp.listimg' class="iconpop" style="background-image: url({{data.imgurl}});"></div>
+            <div class="textopt"> {{data.listname}} </div>
+        </div>
+
+        <div *ngIf="popUp.currentlist.length <= 0" class="notfoundpop">
+            Not Found!
+        </div>
+
+    </div>
+
+    <div *ngIf="popUp.type==='message'" class="popupmessage">
+
+        <div *ngIf="popUp.messageimg" [ngClass]="{'pimg_anim':popUp.messageimg}" style="background-image: url({{popUp.messageimgurl}});" class="popupimg">
+
+        </div>
+
+        <div class="poptitle">
+            {{popUp.messagetitle}}
+        </div>
+
+        <div class="poptext">
+            {{popUp.message}}
+        </div>
+
+        <div class="popaction" *ngIf="popUp.messageactions">
+            <div class="popactionone" (click)="popUp.close()">Cancel</div>
+            <div class="popactiontwo" (click)="messagefunc(popUp.messageaction,true)">{{popUp.messageactionname}}</div>
+        </div>
+
+
+    </div>
+
+</div>

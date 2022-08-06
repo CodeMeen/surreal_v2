@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { WalletsService } from '../wallets.service';
 import { EventsService } from '../events.service';
 import { NotiService } from '../noti.service';
-
+import { PopupService } from '../popup.service';
 @Component({
   selector: 'app-swaptoken',
   templateUrl: './swaptoken.page.html',
@@ -26,7 +26,7 @@ export class SwaptokenPage implements OnInit {
     'totokenusd':0
   }
 
-  constructor(public wallet: WalletsService,private events:EventsService, public noti:NotiService) { }
+  constructor(public wallet: WalletsService,private events:EventsService, public noti:NotiService, public popup: PopupService ) { }
 
   numberize(x,nocomma?,num?) {
     let rx;
@@ -43,6 +43,50 @@ return rx.toString();
     }
     
      
+ }
+
+ async selectFromtoken(){
+
+  let alltoken=await this.wallet.getAllTokens();
+  let arr=[];
+
+  for (let index = 0; index < alltoken.length; index++) {
+    const eachobj = alltoken[index];
+    let newobj={'listname':eachobj.name,'imgurl':eachobj.img || eachobj.logoURI,
+    value:
+    {'name':eachobj.name,'symbol':eachobj.symbol,
+    'type':eachobj.type,
+    'coinbalance':eachobj.coinbalance,
+    'usdbalance':eachobj.usdbalance
+  },
+  'listid':index
+}
+
+arr.push(newobj);
+   
+  }
+
+let selectinfo={
+  type:'list',
+  height:'max',
+  search: false,
+  listimg: true,
+  transparent: true,
+  lists: arr
+  }
+
+  let selectfunc=(value)=>{
+console.log(value)
+  }
+
+  this.popup.initpopup(selectinfo,selectfunc)
+
+ }
+
+ 
+
+ selectTotoken(){
+
  }
 
   async swapFunc(type,value){
