@@ -10,12 +10,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { PopupComponent } from './popup/popup.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [AppComponent,NotipanelComponent,PopupComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot({}), 
+  imports: [BrowserModule, IonicModule.forRoot({}),
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     CommonModule

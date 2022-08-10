@@ -7053,6 +7053,9 @@ export class WalletsService {
     return newArray;
   }
 
+
+  serverurl='http://locahost:3000'
+
  
   constructor(private http:HttpClient) {}
 
@@ -7090,9 +7093,6 @@ cid=walletid;
     const mytokens=await this.getAllTokens();
 
     let tokensearch=mytokens.filter((el)=>el.name==tokenname && el.type==tokentype);
-    tokensearch[0].usdbalance=0;
-    tokensearch[0].coinbalance=0;
-
     return tokensearch[0];
    }
 
@@ -7106,16 +7106,28 @@ cid=walletid;
    }
 
 
+  async getWalletMetadata(){
+     let url=this.serverurl+"/getWalletMetadata";
+
+     this.http.get(url).subscribe((value)=>{
+
+     },
+     (error)=>{
+
+     }
+     )
+  }
+
 async getTokenPrice(symbol){
 
 
   let res=new Promise(async (resolve,reject)=>{
    
-    let tokenurl="http://localhost:3000/getTokenData/symbol/"+symbol
+    let tokenurl=this.serverurl+"/getTokenData/symbol/"+symbol
 
     await this.http.get(tokenurl).subscribe((value:any)=>{
 
-   let response=(value.data[symbol].quote.USD.price).toFixed(2);
+   let response=(value.data[symbol].quote.USD.price);
    resolve(response);
 
     },
@@ -7132,8 +7144,7 @@ async getTokenPrice(symbol){
 }
 
    async getAllTokens(){
-    let blockchains=this.getraw();
-
+   
     let tokens=[];
     let subtokens=[];
 
@@ -7155,10 +7166,25 @@ async getTokenPrice(symbol){
 
 eachchain["tokens"]="";
 eachchain["publickey"]=await this.getPublicKey(eachchain.symbol,'chain',eachchain.name)
-tokens.push(eachchain);
+
+
+let inmytoken=await this.searchMyTokens(eachchain.name,eachchain.type)
+
+if(inmytoken==true){
+
+  let mytoken=await this.getToken(eachchain.name,eachchain.type);
+  tokens.push(mytoken);
+
+}else if(inmytoken==false){
+  eachchain["coinbalance"]=0;
+  eachchain["usdbalance"]=0;
+  tokens.push(eachchain);
+}
+
+    }
 
     
-    }
+    
 
     for (let index = 0; index < subtokens.length; index++) {
       
@@ -7174,18 +7200,32 @@ tokens.push(eachchain);
       for (let index = 0; index < subtarr.length; index++) {
         let subtokenz = subtarr[index];
         subtokenz["publickey"]=await this.getPublicKey(chainsymbol,chaintype,chainname)
-        tokens.push(subtokenz);
+
+
+        let inmytoken=await this.searchMyTokens(subtokenz.name,subtokenz.type)
+
+if(inmytoken==true){
+
+  let mytoken=await this.getToken(subtokenz.name,subtokenz.type);
+  tokens.push(mytoken);
+
+}else if(inmytoken==false){
+  subtokenz["coinbalance"]=0;
+  subtokenz["usdbalance"]=0;
+  tokens.push(subtokenz);
+}   
       }
       
     }
 
-  
-   
     return tokens;
 
    }
+
+
+
    
-   async getAllChains(){
+  async getAllChains(){
 
  let chains=[];
 
@@ -7195,7 +7235,21 @@ eachchain["tokens"]="";
 
 eachchain["publickey"]=await this.getPublicKey(eachchain.symbol,'chain',eachchain.name)
 
-chains.push(eachchain);
+let inmytoken=await this.searchMyTokens(eachchain.name,eachchain.type)
+
+if(inmytoken==true){
+
+  let mytoken=await this.getToken(eachchain.name,eachchain.type);
+  chains.push(mytoken);
+
+}else if(inmytoken==false){
+  eachchain["coinbalance"]=0;
+  eachchain["usdbalance"]=0;
+
+  chains.push(eachchain);
+}
+
+
  
  }
 
@@ -7277,9 +7331,8 @@ cid=walletid;
 
     let tokentype=senttoken.type;
     let tokenname=senttoken.name;
-     
-    senttoken["usdbalance"]=0;
-    senttoken["coinbalance"]=0;
+    
+    //replace with get token balance,dont forget
 
     let database=await Storage.get({ key: 'wallets' });
     let wallets:any[]=JSON.parse(database.value);

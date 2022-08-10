@@ -28,13 +28,13 @@
       <div class="slashings">
        <input class="valueinput" placeholder="0" (keyup)="swapFunc('fromtoken',fromtokenvalue)"  [(ngModel)]="fromtokenvalue">
 
-       <div class="ximgcont" (click)="selectTotoken()">
+       <div class="ximgcont" (click)="selectFromtoken()">
         <img class="tokenimg" src="{{fromtoken.img || fromtoken.logoURI}}">
         <span class="tokenname">{{fromtoken.symbol}}</span>
        </div>
 
 
-       <div class="downbtn" (click)="selectTotoken()">
+       <div class="downbtn" (click)="selectFromtoken()">
          <ion-icon name="chevron-down-outline"></ion-icon>
         </div>
 
@@ -64,13 +64,13 @@
         <div class="slashings">
          <input class="valueinput" placeholder="0"  (keyup)="swapFunc('totoken',totokenvalue)" [(ngModel)]="totokenvalue">
   
-         <div class="ximgcont">
+         <div class="ximgcont" (click)="selectTotoken()">
           <img class="tokenimg" src="{{totoken.img || totoken.logoURI}}">
           <span class="tokenname">{{totoken.symbol}}</span>
          </div>
   
   
-         <div class="downbtn">
+         <div class="downbtn" (click)="selectTotoken()">
            <ion-icon name="chevron-down-outline"></ion-icon>
           </div>
   

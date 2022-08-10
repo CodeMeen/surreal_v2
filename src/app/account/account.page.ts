@@ -32,7 +32,6 @@ this.panelmode='light';
 
   async ionViewDidEnter() {
     this.events.publish('UpdateHome')
-    console.log('Emit..')
     this.routerOutlet.swipeGesture = false;
 }
 

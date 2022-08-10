@@ -46,6 +46,7 @@ return rx.toString();
  }
 
  async selectFromtoken(){
+ 
 
   let alltoken=await this.wallet.getAllTokens();
   let arr=[];
@@ -59,7 +60,8 @@ return rx.toString();
     'coinbalance':eachobj.coinbalance,
     'usdbalance':eachobj.usdbalance
   },
-  'listid':index
+  'listid':index,
+  'searchphrase':eachobj.symbol
 }
 
 arr.push(newobj);
@@ -68,24 +70,87 @@ arr.push(newobj);
 
 let selectinfo={
   type:'list',
-  height:'max',
-  search: false,
+  height:'maxi',
+  search: true,
   listimg: true,
   transparent: true,
   lists: arr
   }
 
-  let selectfunc=(value)=>{
-console.log(value)
+  let selectfunc=async (res)=>{
+let tokenname=res.value.name
+let tokentype=res.value.type
+let tokensymbol=res.value.symbol
+
+this.fromtoken=await this.wallet.getAToken(tokenname,tokentype)
+this.popup.close()
+  
+this.swap={
+  'fromtokenusd':0,
+  'totokenusd':0
+}
+
+await this.syncTokenPrice('fromtoken')
   }
 
   this.popup.initpopup(selectinfo,selectfunc)
 
  }
 
+ resetInput(){
+  this.fromtokenvalue='';
+  this.totokenvalue='';
+ }
+
  
 
- selectTotoken(){
+ async selectTotoken(){
+  let alltoken=await this.wallet.getAllTokens();
+  let arr=[];
+
+  for (let index = 0; index < alltoken.length; index++) {
+    const eachobj = alltoken[index];
+    let newobj={'listname':eachobj.name,'imgurl':eachobj.img || eachobj.logoURI,
+    value:
+    {'name':eachobj.name,'symbol':eachobj.symbol,
+    'type':eachobj.type,
+    'coinbalance':eachobj.coinbalance,
+    'usdbalance':eachobj.usdbalance
+  },
+  'listid':index,
+  'searchphrase':eachobj.symbol
+}
+
+arr.push(newobj);
+   
+  }
+
+let selectinfo={
+  type:'list',
+  height:'maxi',
+  search: true,
+  listimg: true,
+  transparent: true,
+  lists: arr
+  }
+
+  let selectfunc=async (res)=>{
+let tokenname=res.value.name
+let tokentype=res.value.type
+let tokensymbol=res.value.symbol
+
+this.totoken=await this.wallet.getAToken(tokenname,tokentype)
+this.popup.close()
+  
+this.swap={
+  'fromtokenusd':0,
+  'totokenusd':0
+}
+
+await this.syncTokenPrice('totoken')
+  }
+
+  this.popup.initpopup(selectinfo,selectfunc)
 
  }
 
@@ -95,6 +160,8 @@ console.log(value)
       this.successflag=false;
       console.log("Not a number")
           }else{
+           
+
             this.successflag=true;
 
             if(type=='fromtoken'){
@@ -109,7 +176,7 @@ console.log(value)
 
                 if(this.totokenusd > 0){
                   let exctokenval=await (usdAmt / this.totokenusd)
-                  this.totokenvalue=this.numberize(exctokenval,true);
+                  this.totokenvalue=exctokenval;
   
                 }
 
@@ -127,7 +194,7 @@ console.log(value)
 
                 if(this.fromtokenusd > 0){
                   let exctokenval=await (usdAmt / this.fromtokenusd)
-                  this.fromtokenvalue=this.numberize(exctokenval,true);
+                  this.fromtokenvalue=exctokenval;
   
                 }
 
@@ -154,6 +221,9 @@ this.totoken=await this.wallet.getAToken('Dai','ERC20');
         this.fromtokenusd=value;
       await this.wallet.updateToken(this.fromtoken.name,this.fromtoken.type,{'usdprice':this.fromtokenusd});
         console.log(value+" Loaded from market");
+
+
+        this.resetInput();
       })
       .catch(async (error)=>{
   
@@ -166,7 +236,7 @@ this.totoken=await this.wallet.getAToken('Dai','ERC20');
     console.log(this.fromtokenusd+" Loaded from memory");
         }
   
-  
+        this.resetInput()
       })
 
     }else if(type=='totoken'){
@@ -175,6 +245,8 @@ this.totoken=await this.wallet.getAToken('Dai','ERC20');
         this.totokenusd=value;
       await this.wallet.updateToken(this.totoken.name,this.totoken.type,{'usdprice':this.totokenusd});
         console.log(value+" Loaded from market");
+
+        this.resetInput()
       })
       .catch(async (error)=>{
   
@@ -187,6 +259,8 @@ this.totoken=await this.wallet.getAToken('Dai','ERC20');
     console.log(this.totokenusd+" Loaded from memory");
         }
   
+
+        this.resetInput()
   
       })
 

@@ -146,8 +146,6 @@ this.selectToken(tokenname,tokentype);
   async syncTokens(){
     this.mytokens=await this.wallets.getMyTokens();
     this.allchains=await this.wallets.getAllChains();
-
-    
     this.alltokens=await this.wallets.getAllTokens();
 
     for (let index = 0; index < 31; index++) {

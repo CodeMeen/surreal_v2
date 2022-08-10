@@ -29,6 +29,7 @@ height='maxi';
  currentlist;
 
  transparent;
+ searchfunc;
 
 
   constructor( ) { }
@@ -72,7 +73,7 @@ searchlist(data){
   if(data===''){
     this.currentlist=this.lists;
   }else{
-    const newArray = this.lists.filter((el)=>el.listname.toLowerCase().search(data.toLowerCase()) > -1);
+    const newArray = this.lists.filter((el)=>el.listname.toLowerCase().search(data.toLowerCase()) > -1 || el.searchphrase.toLowerCase().search(data.toLowerCase()) > -1 );
     this.currentlist=newArray;
   }
 }
