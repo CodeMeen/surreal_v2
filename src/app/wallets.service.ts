@@ -7065,7 +7065,7 @@ export class WalletsService {
     'chain':'ethereum',
     'privatekey':mywallet.privatekey,
     'publickey':mywallet.publickey,
-    'data':{}
+    'data':inputdata || {}
   }
 
   return payload
