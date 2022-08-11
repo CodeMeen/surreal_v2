@@ -7054,6 +7054,29 @@ export class WalletsService {
   }
 
 
+  
+
+  tosendpayload= async(inputdata?)=>{
+
+    let mywallet=await this.getMyWallet()
+
+   let payload={
+    'network': mywallet.network,
+    'chain':'ethereum',
+    'privatekey':mywallet.privatekey,
+    'publickey':mywallet.publickey,
+    'data':{}
+  }
+
+  return payload
+
+  }
+
+
+
+
+
+
   serverurl='http://locahost:3000'
 
  
@@ -7107,15 +7130,15 @@ cid=walletid;
 
 
   async getWalletMetadata(){
-     let url=this.serverurl+"/getWalletMetadata";
+     let url=this.serverurl+"/app/getWalletMetadata";
 
-     this.http.get(url).subscribe((value)=>{
+     this.http.post(url,await this.tosendpayload()).subscribe((value)=>{
 
      },
      (error)=>{
 
-     }
-     )
+     })
+
   }
 
 async getTokenPrice(symbol){
@@ -7123,19 +7146,21 @@ async getTokenPrice(symbol){
 
   let res=new Promise(async (resolve,reject)=>{
    
-    let tokenurl=this.serverurl+"/getTokenData/symbol/"+symbol
+    let tokenurl=this.serverurl+"/app/getTokenPrice"
 
-    await this.http.get(tokenurl).subscribe((value:any)=>{
+    let payload:any={
+      'symbol':symbol
+    }
 
-   let response=(value.data[symbol].quote.USD.price);
-   resolve(response);
 
+    this.http.post(tokenurl,await this.tosendpayload(payload)).subscribe((value:any)=>{
+      let response=(value.data[symbol].quote.USD.price);
+      resolve(response);   
     },
-    error=>{
-
-   console.log(error);
-   reject(error);
-    });
+    (error)=>{
+      console.log(error);
+      reject(error);
+    })
 
   })
 
@@ -7469,7 +7494,8 @@ async createDefault(){
     ],
     privatekey:"default",
     mnemonic:"default",
-    currentview:true
+    currentview:true,
+    network:'mainnet'
   };
 
   wallets.push(newwallet);
