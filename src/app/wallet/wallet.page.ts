@@ -26,12 +26,33 @@ export class WalletPage implements OnInit,AfterContentChecked {
     };
 
     mywallet:any={};
+    mytokens:any[]=[]
+
+
     numoftk:any;
     totalbalance:any;
 
  currentslide=0;
 
   constructor(private cd: ChangeDetectorRef,private wallet: WalletsService,public router: RouterService,private activatedRoute: ActivatedRoute,private routerOutlet: IonRouterOutlet,private events: EventsService) { }
+
+
+  numberize(x,nocomma?,num?) {
+    let rx;
+    if(num){
+     rx=x.toFixed(num);
+    }else{
+    rx=x.toFixed(2);
+    }
+
+    if(nocomma===true){
+return rx.toString();
+    }else if(nocomma===false || !nocomma){
+      return rx.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    }
+    
+     
+ }
 
   updatecurrindex(event){
     this.currentslide=this.swiper.swiperRef.activeIndex;
@@ -50,7 +71,7 @@ export class WalletPage implements OnInit,AfterContentChecked {
 
   calculatebalance(){
     let total=0;
-    let mytokens=this.mywallet.mytokens;
+    let mytokens=this.mytokens;
 
     for (let index = 0; index < mytokens.length; index++) {
       const eachtoken = mytokens[index];
@@ -64,16 +85,59 @@ export class WalletPage implements OnInit,AfterContentChecked {
       
     }
 
-    this.totalbalance=total;
+    this.totalbalance=this.numberize(total,false,2);
   }
 async goToBack(){
   
 }
+
+async alwaysUpdateView(){
+
+  
+  let newtokens:any=await this.wallet.getMyTokens()
+  let previoustkns:any=this.mytokens;
+
+
+
+  if(newtokens.length==previoustkns.length){
+    for (let index = 0; index < newtokens.length; index++) {
+    
+      const eachnewtkn = newtokens[index]
+      let eachprevioustkn=previoustkns[index]
+
+      if(eachnewtkn.coinbalance==eachprevioustkn.coinbalance && eachnewtkn.usdbalance==eachprevioustkn.usdbalance){
+       
+      }else{
+        this.mytokens[index].coinbalance=eachnewtkn.coinbalance
+        this.mytokens[index].usdbalance=eachnewtkn.usdbalance
+
+        this.calculatebalance()
+      }
+  
+      
+    }
+
+  }
+
+
+
+  setTimeout(async ()=>{
+    await this.alwaysUpdateView()
+   },5000)
+
+  
+
+
+}
+
+
   async syncTokens(){
     try {
 
       let data=await this.wallet.getMyWallet();
       this.mywallet=data;
+      this.mytokens=await this.wallet.getMyTokens()
+
       this.numoftk=this.mywallet.mytokens.length;
 
     } catch (error) {
@@ -84,20 +148,28 @@ async goToBack(){
   }
 
 ionViewWillEnter(){
-  this.events.getData().subscribe((data) => {
+
+  this.events.getData().subscribe(async (data) => {
     if(data=="UpdateHome"){
-      this.syncTokens();
+      await this.syncTokens();
       console.log('Wallet Page Updated..')
       this.routerOutlet.swipeGesture = false;
     }
 });
+
+
     
   }
   
-  ngOnInit() {
+  async ngOnInit() {
 
-    this.syncTokens()
+    
+    await this.syncTokens()
     this.routerOutlet.swipeGesture = false;
+
+    this.alwaysUpdateView()
+
+    
     
   }
 

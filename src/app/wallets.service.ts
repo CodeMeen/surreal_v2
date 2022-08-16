@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@capacitor/storage';
+import { promise } from 'protractor';
 import { HomePageRoutingModule } from './home/home-routing.module';
 
 
@@ -2133,37 +2134,6 @@ export class WalletsService {
             "decimals": 18,
             "logoURI": "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x0000000000095413afC295d19EDeb1Ad7B71c952/logo.png",
             "pairs": []
-          },
-          {
-            "name": "EOS",
-            "img": "../../assets/images/tokens/eos.png",
-            "website": "https://eos.io",
-            "description": "EOS is a cryptocurrency token and blockchain that operates as a smart contract platform for the deployment of decentralized applications and decentralized autonomous corporations.",
-            "explorer": "https://bloks.io/",
-            "research": "https://research.binance.com/en/projects/eos",
-            "symbol": "EOS",
-            "type": "ERC20",
-            "decimals": 4,
-            "status": "active",
-            "tag": "",
-            "links": [
-              {
-                "name": "github",
-                "url": "https://github.com/eosio"
-              },
-              {
-                "name": "twitter",
-                "url": "https://twitter.com/block_one_"
-              },
-              {
-                "name": "reddit",
-                "url": "https://reddit.com/r/EOS"
-              },
-              {
-                "name": "whitepaper",
-                "url": "https://github.com/EOSIO/Documentation/blob/master/TechnicalWhitePaper.md"
-              }
-            ]
           },
           {
             "asset": "c60_t0x00a8b738E453fFd858a7edf03bcCfe20412f0Eb0",
@@ -7054,7 +7024,17 @@ export class WalletsService {
   }
 
 
+  reqheaders=(inputheader?)=>{
+    let newheader=new HttpHeaders({
+      'Content-Type': 'application/json'
+   });
+
+
+   return newheader
+
+  }
   
+  httpopts:any={ headers: this.reqheaders() }
 
   tosendpayload= async(inputdata?)=>{
 
@@ -7062,10 +7042,11 @@ export class WalletsService {
 
    let payload={
     'network': mywallet.network,
-    'chain':'ethereum',
+    'chain':"ethereum",
     'privatekey':mywallet.privatekey,
-    'publickey':mywallet.publickey,
-    'data':inputdata || {}
+    // this is version one, private keys will only be generated from private keys..but use the below for now
+    'publickey':await this.getPublicKey('ethereum'),
+    'data' :inputdata || {}
   }
 
   return payload
@@ -7077,10 +7058,233 @@ export class WalletsService {
 
 
 
-  serverurl='http://locahost:3000'
+  serverurl='http://localhost:3000'
 
  
   constructor(private http:HttpClient) {}
+
+
+//to server
+
+async getTokenMetadata(token){
+ 
+  let payload={
+    'tokens':[token]
+  }
+
+   let url=this.serverurl+"/app/getAllMetadata";
+
+this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe(async (value:any)=>{
+  let arr=value
+
+  for (let index = 0; index < arr.length; index++) {
+
+    const element = arr[index];
+
+    if(element.status==true){
+      
+       await this.updateTokenBalance(element.name,element.symbol,element.balance,element.usdbalance)
+     
+      
+    }else{
+      console.log( (element.contractaddr || element.chain) +' Balances Not Found');
+    }
+
+  
+    
+  }
+
+
+  console.log('Token Metadata Updated')
+   
+
+   },
+   (error)=>{
+    console.log(error)
+   })
+
+}
+
+async getWalletMetadata(){
+  let mytokens=await this.getMyTokens();
+
+  let payload={
+    'tokens':mytokens
+  }
+
+   let url=this.serverurl+"/app/getAllMetadata";
+
+this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe(async (value:any)=>{
+  let arr=value
+
+  for (let index = 0; index < arr.length; index++) {
+
+    const element = arr[index];
+
+    if(element.status==true){
+      
+       await this.updateTokenBalance(element.name,element.symbol,element.balance,element.usdbalance)
+     
+      
+    }else{
+      console.log( (element.contractaddr || element.chain) +' Balances Not Found');
+    }
+
+  
+    
+  }
+
+
+  console.log('Wallet Metadata Updated')
+   
+
+   },
+   (error)=>{
+    console.log(error)
+   })
+
+   
+
+}
+
+
+/* async updateChainBalance(chainname,coinbal,usdbal,walletid?){
+
+  let cid;
+
+  if(!walletid){
+cid=await this.getCurrentWalletId();
+  }else{
+cid=walletid;
+  }
+
+  let database=await Storage.get({ key: 'wallets' });
+  let wallets:any[]=JSON.parse(database.value);
+
+
+  let searchwallet=wallets.filter((el)=>el.id==cid);
+
+  
+  let mywallet=searchwallet[0];
+
+  console.log('Raw Wallet: '+JSON.stringify(mywallet))
+
+let mytokens=mywallet.mytokens;
+
+
+
+let arrtoken=mytokens.filter((el)=>el.name==chainname);
+
+console.log('Function (Update chain balance): '+arrtoken.length)
+
+console.log('Coin Balance: '+coinbal)
+console.log('Usd Balance: '+usdbal)
+
+  if(arrtoken.length <= 0){
+
+  }else{
+
+let thetoken:any=arrtoken[0];
+
+
+thetoken['coinbalance']=coinbal
+thetoken['usdbalance']=usdbal
+
+console.log('Updated Token: '+JSON.stringify(thetoken))
+console.log('Updated Wallet: '+JSON.stringify(wallets))
+
+
+
+await Storage.set({
+key: 'wallets',
+value: JSON.stringify(wallets)
+}); 
+
+
+
+}
+
+}
+
+*/
+
+ async updateTokenBalance(tokenname,tokensymbol,coinbal,usdbal,walletid?){
+  let cid;
+
+  if(!walletid){
+cid=await this.getCurrentWalletId();
+  }else{
+cid=walletid;
+  }
+
+  let database=await Storage.get({ key: 'wallets' });
+  let wallets:any[]=JSON.parse(database.value);
+
+
+  let searchwallet=wallets.filter((el)=>el.id==cid);
+
+  
+  let mywallet=searchwallet[0];
+
+let mytokens=mywallet.mytokens;
+
+let arrtoken=mytokens.filter((el)=>el.name==tokenname && el.symbol==tokensymbol);
+
+// console.log('Function (Update Token balance): '+JSON.stringify(arrtoken[0]))
+
+  if(arrtoken.length <= 0){
+
+  }else{
+
+let thetoken:any=arrtoken[0];
+
+
+thetoken['coinbalance']=coinbal
+thetoken['usdbalance']=usdbal
+
+
+await Storage.set({
+key: 'wallets',
+value: JSON.stringify(wallets)
+}); 
+
+
+
+
+}
+
+
+}
+
+
+
+async getTokenPrice(symbol){
+
+
+let res=new Promise(async (resolve,reject)=>{
+ 
+  let tokenurl=this.serverurl+"/app/getTokenPrice"
+
+  let payload:any={
+    'symbol':(symbol).toUpperCase()
+  }
+
+  this.http.post(tokenurl,await this.tosendpayload(payload),this.httpopts).subscribe((value:any)=>{
+    let response=value.price
+    resolve(response);
+  },
+  (error)=>{
+    console.log(error);
+    reject(error);
+  })
+
+})
+
+return res;
+
+}
+
+//end of to server
 
 
 async getDefaultTokens(){
@@ -7107,10 +7311,25 @@ cid=walletid;
 
     let mywallet=wallets.filter((el)=>el.id==cid);
 
-    return mywallet[0].mytokens;
+    let filteredarr=[]
+    let rawmytokens=mywallet[0].mytokens
+
+    for (let index = 0; index < rawmytokens.length; index++) {
+      const eachtoken = rawmytokens[index];
+
+      if(eachtoken==''){
+
+      }else{
+        filteredarr.push(eachtoken)
+      }
+      
+    }
+
+    return filteredarr;
   
    }
 
+   // you need to re-edit to get token balance on the spot
  
    async getAToken(tokenname,tokentype){
     const mytokens=await this.getAllTokens();
@@ -7129,44 +7348,7 @@ cid=walletid;
    }
 
 
-  async getWalletMetadata(){
-     let url=this.serverurl+"/app/getWalletMetadata";
 
-     this.http.post(url,await this.tosendpayload()).subscribe((value)=>{
-
-     },
-     (error)=>{
-
-     })
-
-  }
-
-async getTokenPrice(symbol){
-
-
-  let res=new Promise(async (resolve,reject)=>{
-   
-    let tokenurl=this.serverurl+"/app/getTokenPrice"
-
-    let payload:any={
-      'symbol':symbol
-    }
-
-
-    this.http.post(tokenurl,await this.tosendpayload(payload)).subscribe((value:any)=>{
-      let response=(value.data[symbol].quote.USD.price);
-      resolve(response);   
-    },
-    (error)=>{
-      console.log(error);
-      reject(error);
-    })
-
-  })
-
-  return res;
-
-}
 
    async getAllTokens(){
    
@@ -7190,7 +7372,7 @@ async getTokenPrice(symbol){
 
 
 eachchain["tokens"]="";
-eachchain["publickey"]=await this.getPublicKey(eachchain.symbol,'chain',eachchain.name)
+eachchain["publickey"]=await this.getPublicKey(eachchain.name)
 
 
 let inmytoken=await this.searchMyTokens(eachchain.name,eachchain.type)
@@ -7224,7 +7406,7 @@ if(inmytoken==true){
 
       for (let index = 0; index < subtarr.length; index++) {
         let subtokenz = subtarr[index];
-        subtokenz["publickey"]=await this.getPublicKey(chainsymbol,chaintype,chainname)
+        subtokenz["publickey"]=await this.getPublicKey(chainname)
 
 
         let inmytoken=await this.searchMyTokens(subtokenz.name,subtokenz.type)
@@ -7258,7 +7440,7 @@ if(inmytoken==true){
    var eachchain = this.getraw()[index];
 eachchain["tokens"]="";
 
-eachchain["publickey"]=await this.getPublicKey(eachchain.symbol,'chain',eachchain.name)
+eachchain["publickey"]=await this.getPublicKey(eachchain.name)
 
 let inmytoken=await this.searchMyTokens(eachchain.name,eachchain.type)
 
@@ -7281,6 +7463,8 @@ if(inmytoken==true){
  return chains;
 
    }
+
+
 
    async updateToken(name,type,update,walletid?){
     let cid;
@@ -7371,10 +7555,14 @@ cid=walletid;
     mywallet.mytokens.push(senttoken);
 
 
+
+
 await Storage.set({
   key: 'wallets',
   value: JSON.stringify(wallets)
 }); 
+
+await this.getTokenMetadata(senttoken)
 
    }
 
@@ -7411,10 +7599,8 @@ cid=walletid;
 
    }
 
-   async getPublicKey(chainsymbol,chaintype,chainname){
+   async getPublicKey(chainname){
 
-    let symbol=chainsymbol.toLowerCase();
-    let type=chaintype.toLowerCase();
     let name=chainname.toLowerCase();
 
     let mywallet=await this.getMyWallet();
@@ -7427,53 +7613,7 @@ cid=walletid;
 
     let publickey=keydata.publickey;
 
-    let keys={
-      'bitcoin':'bc1q9nd8kx9ys7p084w3wpxsq4rad9hvcuwp59efdc',
-      'litecoin':'ltc1q9ap8lk4vl3phd0ugwm0w09pyadecnahj3ptkxs',
-      'dogecoin':'DToMaZ5LZzRpCiACSXTxiwnLQKufbY3dZ3',
-      'dash':'XiKUvYSoiS65CM7a5AptEP3WaUFi3cfkcX',
-      'viacoin':'via1q30pk5qc9nupsc3khqv2swnanrps4nzzm08w4rd',
-      'digibyte':'dgb1qtugv0v43udmaqm4nt9trc8mea8zjdzm5mvts58',
-      'ethereum':'0x14d74960B77dB745EDE3187787907e9181AD5fe3',
-      'cosmos':'cosmos178p4hflyu0p9n9f0s8dhm0mmtgqx3kl8aghrvy',
-      'zcash':'t1cjhN44fXVFwgpyxix7xk6uyEKbRTQmG8K',
-      'xrp':'rEioJzqAhM4vcp7vTq8TkW6BP5jmLmzc4c',
-      'bitcoin cash':'qqqh4pcfs95qjz756dp5mca8zacmdt5gaullmynggh',
-      'stellar':'GBIEMAON3UT5UFGEAWJSN32W5QR4YQ7H4PAOVDID2EJOPMNZFA6K4PAR',
-      'nano':'nano_1ecummr91j3z5tcbaibnbrqpnsentkp7qni3triu45e8hn4si5udkzem1bfw',
-      'ravencoin':'RAnf7mVvxbDRQxTJMAFHw3CehSgzG7UmNq',
-      'tron':'TUV6FaxyJatgNjkn3sGiQCr3M7V1dvqMFa',
-      'algorand':'HLMXKOK6CX4WY2SZ3FUMZQUM5BQW7XGBKJZ52U7POCV7RN4WH3YF3RRWAQ',
-      'iotex':'io10wwgh8q8jsm00p9p9wuyf6me3nx83xjdeda96k',
-      'ziliqa':'zil1jc6sx3xz6ddgrr9ek02qxflw0xg0yyhx5uxp4r',
-      'luna classic':'terra1ehrcdj05vus0m0rycnlvmc4tn34qwyr4xr0g3e',
-      'polkadot':'141qzYUSBNCDB8m19ik7xiYhHzbqrjjxmX3HpsQhXoSeyTQj',
-      'near protocol':'fa89c544ac8a492cecca9a392ef4672d1e917f46d172e5ba5cdb210ef4343940',
-      'aion':'0xa06224cdc254731c4c283238f3ba89f55851d77de0bb4493e4150110f4eca9be',
-      'aeternity':'ak_2ZCUqUox2fYnsWBtN23X3UQqqJ13Rzd1khxtEkMBzieAaZELSR',
-      'kava':'kava16qyv5jqrxg57n3npmz0elmt37e39n36dvpc5gc',
-      'filecoin':'f1f2owqafjj5fgirqrxjbloxhvdu2sbc2w7qj7wzq',
-      'theta':'0x3224d3f0dd907203EF834662916AF99EeA8286bF',
-      'solana':'BPN5jkcL2fryeee73xu8qgdQXkSqNt3tsYhV8cFMx4C',
-      'bnb':'bnb14vcnpczx890mq2xqdvzhf3fgm08zvd3zl0y00v',
-      'vechain':'0xE6375747126550215062b90B4974F65e008dfB40',
-      'callisto network':'0xCD2B710BD9de5bBD8377aa998f8b001900EadD3f',
-      'tomochain':'0xEA3aBA65A42448883A5d9916f3Afc45Ae7439E9B',
-      'thorchain':'thor1y25gue2rygngyljprxurr2h4ph07zzqvr9llna',
-      'polygon':'0x14d74960B77dB745EDE3187787907e9181AD5fe3',
-      'harmony':'one1paq6yl8287r69vfdukv082zaqa58rmkwjyddcl',
-      'ontology':'APuJLYRwpWobXJwWCZVL1ueBvKk61JiQMo',
-      'tezos':'tz1hVNeQur7oTBkhNmgu6odpdftfpVYGnPL2',
-      'gochain':'0x4a04f3667a5bc975a22D3ecA938d523EC01914E4',
-      'flux':'t1SJ74A1ZBY2ywT3UnCsnk5cYKtPSVTxwvB',
-      'wanchain':'0xCe3cAaBeA6377Ca75A66b219f629788BE54D1E6F',
-      'cronos':'0x14d74960B77dB745EDE3187787907e9181AD5fe3',
-      'fantom':'0x14d74960B77dB745EDE3187787907e9181AD5fe3',
-      'avalanche c-chain':'0x14d74960B77dB745EDE3187787907e9181AD5fe3',
-      'arbitrum':'0x14d74960B77dB745EDE3187787907e9181AD5fe3',
-      'smartchain':'0x14d74960B77dB745EDE3187787907e9181AD5fe3',
-      'aurora':'0x14d74960B77dB745EDE3187787907e9181AD5fe3'
-    }
+   
 
     return publickey;
 
@@ -7490,7 +7630,7 @@ async createDefault(){
     name:"Main Wallet",
     mytokens:[],
     publickeys:[
-      {'chain':'ethereum','publickey':'0x14d74960B77dB745EDE3187787907e9181AD5fe3'}
+      {'chain':'ethereum','publickey':'0x6c920A66F8609478BD08cE9ADa2c9bffC1335Ff4'}
     ],
     privatekey:"default",
     mnemonic:"default",
@@ -7518,8 +7658,6 @@ async createDefault(){
 
        
   }
-
-
 
   private async getCurrentWalletId(){
     let database=await Storage.get({ key: 'wallets' });

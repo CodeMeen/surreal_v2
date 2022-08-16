@@ -17,7 +17,7 @@
             <div class="balancemodalbox">
                 <div class="balancemodal">
                     <div class="baltitle">{{mywallet.name}}</div>
-                    <div class="balancetext">${{totalbalance}}.00</div>
+                    <div class="balancetext">${{totalbalance}}</div>
                     <div class="actiontab">
                         <div class="eachaction" [routerLink]="['/sendingselect']">
                             <ion-icon name="push-outline" class="actionicon"></ion-icon>
@@ -50,15 +50,15 @@
 
                         <div class="tokengrid">
 
-                            <ng-container *ngFor="let tok of mywallet.mytokens">
+                            <ng-container *ngFor="let tok of mytokens">
                                 <div class="eachtoken" (click)="router.naviTo(['/showtoken', tok.name,tok.type])" *ngIf="tok !==''">
 
                                     <div class="imgcirc">
                                         <img src="{{tok.img || tok.logoURI}}" class="tokenimg">
                                     </div>
                                     <div class="tokenname">{{tok.name}}</div>
-                                    <div class="tokenabbrev">{{tok.coinbalance}} {{tok.symbol}}</div>
-                                    <div class="usdbalance">${{tok.usdbalance}}</div>
+                                    <div class="tokenabbrev">{{tok.coinbalance | number}} {{tok.symbol}}</div>
+                                    <div class="usdbalance">${{tok.usdbalance | number}}</div>
 
                                 </div>
                             </ng-container>

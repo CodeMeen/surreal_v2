@@ -19,8 +19,8 @@
                 <div class="imgcirc">
                     <img src="{{mytoken.img || mytoken.logoURI}}" class="tokenimg">
                 </div>
-                  <div class="balancetext">{{mytoken.coinbalance}} {{mytoken.symbol}}</div>
-                  <div class="smallbaltext">($ {{mytoken.usdbalance}}.00)</div>
+                  <div class="balancetext">{{mytoken.coinbalance | number}} {{mytoken.symbol}}</div>
+                  <div class="smallbaltext">(${{mytoken.usdbalance | number}})</div>
 
                    
                   <div class="smallline"></div>

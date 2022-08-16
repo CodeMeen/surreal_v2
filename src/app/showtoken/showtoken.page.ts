@@ -18,6 +18,24 @@ export class ShowtokenPage implements OnInit {
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService) { }
 
+  numberize(x,nocomma?,num?) {
+    let rx;
+    if(num){
+     rx=x.toFixed(num);
+    }else{
+    rx=x.toFixed(2);
+    }
+
+    if(nocomma===true){
+return rx.toString();
+    }else if(nocomma==false || !nocomma){
+      return rx.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    }
+    
+     
+ }
+
+
  async ngOnInit() {
     this.routerOutlet.swipeGesture = true;
 const routeParams = this.route.snapshot.paramMap;

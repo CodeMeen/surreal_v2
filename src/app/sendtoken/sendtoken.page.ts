@@ -71,11 +71,11 @@ this.swapFunc(this.valueInput);
 
  measureValue(){
 
-  
+  this.noti.closenoti();
 
   if(this.inputType=='USD'){
     let balance=this.mytoken.usdbalance
-    if(this.valueInput > balance || this.valueInput==0){
+    if(this.valueInput > balance || this.valueInput < 0){
       return false;
     }else{
       return true;
@@ -83,7 +83,7 @@ this.swapFunc(this.valueInput);
   }else if(this.inputType==this.mytoken.symbol){
     let balance=this.mytoken.coinbalance
 
-    if(this.valueInput > balance || this.valueInput==0){
+    if(this.valueInput > balance || this.valueInput < 0){
       return false;
     }else{
       return true;
