@@ -7040,11 +7040,13 @@ export class WalletsService {
 
     let mywallet=await this.getMyWallet()
 
+  
    let payload={
     'network': mywallet.network,
+      // this should be dependent to the token metadata..but use the below for now..
     'chain':"ethereum",
     'privatekey':mywallet.privatekey,
-    // this is version one, private keys will only be generated from private keys..but use the below for now
+    // this is version one, public keys will only be generated from private keys..but use the below for now
     'publickey':await this.getPublicKey('ethereum'),
     'data' :inputdata || {}
   }
@@ -7065,6 +7067,45 @@ export class WalletsService {
 
 
 //to server
+
+async getTxs(token){
+
+  let txs:any[]
+
+  if(token.type=='coin'){
+
+    let url=this.serverurl+"/app/getNativeTxs";
+
+    this.http.post(url,await this.tosendpayload(),this.httpopts).subscribe(async (value:any)=>{
+    txs=value
+    },
+    async (error)=>{
+      console.log(error)
+    txs=[]
+    })
+ 
+  
+  }else{
+
+    let url=this.serverurl+"/app/getTokenTxs";
+
+    let payload:any={
+      'contractaddr':token.address
+    }
+
+    this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe(async (value:any)=>{
+    txs=value
+    },
+    async (error)=>{
+      console.log(error)
+    txs=[]
+    })
+
+  }
+
+return txs
+
+}
 
 async getTokenMetadata(token){
  

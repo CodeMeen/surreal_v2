@@ -1,0 +1,60 @@
+Last 100 transactions eth
+
+https://api.etherscan.io/api
+   ?module=account
+   &action=txlist
+   &address=0xa5975a07f862e965392b1b2ac1e04bf2764813f4
+   &startblock=0
+   &endblock=99999999
+   &page=1
+   &offset=100
+   &sort=desc
+   &apikey=C2MM841C66BQREI5VAQWVWC58Q9Z8XHB48
+
+Last 100 transactions erc-20
+
+https://api.etherscan.io/api
+   ?module=account
+   &action=tokentx
+   &contractaddress=0xdAC17F958D2ee523a2206206994597C13D831ec7
+   &address=0xa5975a07f862e965392b1b2ac1e04bf2764813f4
+   &page=1
+   &offset=100
+   &startblock=0
+   &endblock=99999999
+   &sort=desc
+   &apikey=C2MM841C66BQREI5VAQWVWC58Q9Z8XHB48
+
+
+   Last 100 transactions erc-721 (NFT)
+
+   https://api.etherscan.io/api
+   ?module=account
+   &action=tokennfttx
+   &contractaddress=0x06012c8cf97bead5deae237070f9587f8e7a266d
+   &address=0x6975be450864c02b4613023c2152ee0743572325
+   &page=1
+   &offset=100
+   &startblock=0
+   &endblock=27025780
+   &sort=desc
+   &apikey=C2MM841C66BQREI5VAQWVWC58Q9Z8XHB48
+
+
+
+
+   Last 100 transactions erc-1155 (NFT)
+
+   https://api.etherscan.io/api
+   ?module=account
+   &action=token1155tx
+   &contractaddress=0x76be3b62873462d2142405439777e971754e8e77
+   &address=0x83f564d180b58ad9a02a449105568189ee7de8cb
+   &page=1
+   &offset=100
+   &startblock=0
+   &endblock=99999999
+   &sort=asc
+   &apikey=YourApiKeyToken
+
+  
