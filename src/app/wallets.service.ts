@@ -7630,7 +7630,7 @@ async createDefault(){
     name:"Main Wallet",
     mytokens:[],
     publickeys:[
-      {'chain':'ethereum','publickey':'0x6c920A66F8609478BD08cE9ADa2c9bffC1335Ff4'}
+      {'chain':'ethereum','publickey':'0x00192Fb10dF37c9FB26829eb2CC623cd1BF599E8'}
     ],
     privatekey:"default",
     mnemonic:"default",

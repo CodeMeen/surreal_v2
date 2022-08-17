@@ -1,72 +1,73 @@
 <ion-content>
-  <div class="showtokenview">
+    <div class="showtokenview">
 
-      <div class="purpbox">
-          <div class="purpheader">
-            <div class="goback" (click)="router.goBack()">
-                <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
+        <div class="purpbox">
+            <div class="purpheader">
+                <div class="goback" (click)="router.goBack()">
+                    <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
+                </div>
+                <div class="centerdiv">
+                    <div class="logo"></div>
+                </div>
+                <div></div>
             </div>
-              <div class="centerdiv">
-                  <div class="logo"></div>
-              </div>
-              <div></div>
-          </div>
 
-          <div class="balancemodalbox">
-              <div class="balancemodal">
-                  <div class="tokentype">{{mytoken.name}}
-                      <span style="float:right;">{{mytoken.type}}</span> </div>
-                <div class="imgcirc">
-                    <img src="{{mytoken.img || mytoken.logoURI}}" class="tokenimg">
-                </div>
-                  <div class="balancetext">{{mytoken.coinbalance | number}} {{mytoken.symbol}}</div>
-                  <div class="smallbaltext">(${{mytoken.usdbalance | number}})</div>
+            <div class="balancemodalbox">
+                <div class="balancemodal">
+                    <div class="tokentype">{{mytoken.name}}
+                        <span style="float:right;">{{mytoken.type}}</span> </div>
+                    <div class="imgcirc">
+                        <img src="{{mytoken.img || mytoken.logoURI}}" class="tokenimg">
+                    </div>
+                    <div class="balancetext">{{mytoken.coinbalance}} {{mytoken.symbol}}</div>
+                    <div class="smallbaltext">(${{mytoken.usdbalance | number}})</div>
 
-                   
-                  <div class="smallline"></div>
 
-            
-                
-              </div>
-          </div>
+                    <div class="smallline"></div>
 
-          <div class="outacttab">
-            <div class="actiontab">
-                <div class="eachaction" [routerLink]="['/sendtoken',mytoken.name,mytoken.type]">
-                    <ion-icon name="push-outline" class="actionicon"></ion-icon>
-                    Send
-                </div>
-                <div class="eachaction" [routerLink]="['/receivetoken',mytoken.name,mytoken.type]">
-                    <ion-icon name="download-outline" class="actionicon" ></ion-icon>
-                    Receive
+
+
                 </div>
             </div>
-          </div>
 
-          <div class="tokentype" style="padding:20px;">Transactions
-           </div>  <div class="centerbox">
-            <div class="emptybox">
-                
+            <div class="outacttab">
+                <div class="actiontab">
+                    <div class="eachaction" [routerLink]="['/sendtoken',mytoken.name,mytoken.type]">
+                        <ion-icon name="push-outline" class="actionicon"></ion-icon>
+                        Send
+                    </div>
+                    <div class="eachaction" [routerLink]="['/receivetoken',mytoken.name,mytoken.type]">
+                        <ion-icon name="download-outline" class="actionicon"></ion-icon>
+                        Receive
+                    </div>
+                </div>
             </div>
-            <div class="fadedtext">No transactions yet</div>
+
+            <div class="tokentype" style="padding:20px;">Transactions
+            </div>
+            <div class="centerbox">
+                <div class="emptybox">
+
+                </div>
+                <div class="fadedtext">No transactions yet</div>
+            </div>
+
+
+
+
+
+        </div>
+
+
+        <div class="slidertab">
+
+
+
+
+
         </div>
 
 
 
-      
-
-      </div>
-
-
-      <div class="slidertab">
-
-
-
-
-
-      </div>
-
-    
-
-  </div>
+    </div>
 </ion-content>
