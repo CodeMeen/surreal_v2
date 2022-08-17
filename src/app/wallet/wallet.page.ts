@@ -123,7 +123,7 @@ async alwaysUpdateView(){
 
   setTimeout(async ()=>{
     await this.alwaysUpdateView()
-   },5000)
+   },3000)
 
   
 
