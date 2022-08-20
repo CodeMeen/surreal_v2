@@ -7076,10 +7076,12 @@ async getTxs(token){
 
     let url=this.serverurl+"/app/getNativeTxs";
 
-    this.http.post(url,await this.tosendpayload(),this.httpopts).subscribe(async (value:any)=>{
+    this.http.post(url,await this.tosendpayload(),this.httpopts).subscribe((value:any)=>{
+     
     txs=value
+
     },
-    async (error)=>{
+   (error)=>{
       console.log(error)
     txs=[]
     })
@@ -7093,15 +7095,17 @@ async getTxs(token){
       'contractaddr':token.address
     }
 
-    this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe(async (value:any)=>{
+this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe((value:any)=>{
+     
     txs=value
     },
-    async (error)=>{
+   (error)=>{
       console.log(error)
     txs=[]
     })
 
   }
+
 
 return txs
 

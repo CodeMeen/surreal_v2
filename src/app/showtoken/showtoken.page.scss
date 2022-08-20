@@ -6,6 +6,62 @@
     width: 100%;
     background: var(--ion-background-color);
 
+    .eachtx{
+        display:grid;
+        grid-template-columns: 20% 55% 25%;
+        padding:20px 0px;
+        border-bottom: 1px solid rgba(192, 192, 192, 0.3);
+        font-family: mntsreg;
+    }
+
+    .iconbox{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .detbox{
+        display:grid;
+        grid-template-columns: 1fr ;
+        grid-gap:5px;
+    }
+
+    .icondet{
+        height: 22px;
+        width: 22px;
+
+    }
+
+    .receiving{
+.icondet{
+    color:green;
+   
+}
+
+.txamount{
+    color:var(--ion-color-primary)
+}
+    }
+
+    .sending{
+        .icondet{
+            color:darkred;
+        }
+
+       
+    }
+
+    .det{
+        color: #5d6969;
+        font-size: 13px;
+    }
+
+    .txamount{
+        display:flex;
+        justify-content: left;
+        align-items: center;
+        font-family:mntssemibold;
+    }
 
     .tokentype{
         color:#5d6969;

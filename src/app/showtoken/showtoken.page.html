@@ -15,7 +15,8 @@
             <div class="balancemodalbox">
                 <div class="balancemodal">
                     <div class="tokentype">{{mytoken.name}}
-                        <span style="float:right;">{{mytoken.type}}</span> </div>
+                        <span style="float:right;">{{mytoken.type}}</span>
+                    </div>
                     <div class="imgcirc">
                         <img src="{{mytoken.img || mytoken.logoURI}}" class="tokenimg">
                     </div>
@@ -45,7 +46,60 @@
 
             <div class="tokentype" style="padding:20px;">Transactions
             </div>
-            <div class="centerbox">
+
+
+            <div *ngIf="txs.length >= 1">
+
+                <ng-container *ngFor="let eachtx of txs">
+
+                    <div class="eachtx" [ngClass]="eachtx.type">
+                        <div class="iconbox">
+                            <ion-icon class="icondet" name="arrow-down-outline"></ion-icon>
+                        </div>
+        
+                        <div class="detbox">
+                            <div>Transfer 
+                                 <span class="txtransferin">In</span>
+                                <span class="txtransferout">+</span></div>
+                            <div class="det"><span class="txfrom">From:</span>
+                                <span class="txto">To: </span></div>
+                        </div>
+        
+                        <div class="txamount">
+                            <span class="txplussign">+</span>
+                            <span class="txminussign">+</span>
+                            0.15 ETH
+                        </div>
+        
+        
+                    </div>
+
+                </ng-container>
+
+             
+    
+                <div class="eachtx sending">
+                    <div class="iconbox">
+                        <ion-icon class="icondet" name="arrow-up-outline"></ion-icon>
+                    </div>
+    
+                    <div class="detbox">
+                        <div>Transfer Out</div>
+                        <div class="det">To: 0xdfgjfd...udsfydhf</div>
+                    </div>
+    
+                    <div class="txamount">
+                       -0.15 ETH
+                    </div>
+    
+    
+                </div>
+
+            </div>
+
+  
+
+            <div class="centerbox" *ngIf="txs.length <= 0">
                 <div class="emptybox">
 
                 </div>
