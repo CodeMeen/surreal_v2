@@ -5,77 +5,115 @@
     position: relative;
     width: 100%;
     background: var(--ion-background-color);
-
-    .eachtx{
-        display:grid;
-        grid-template-columns: 20% 55% 25%;
-        padding:20px 0px;
+    .eachtx {
+        display: grid;
+        grid-template-columns: 17% 58% 25%;
+        padding: 20px 0px;
         border-bottom: 1px solid rgba(192, 192, 192, 0.3);
         font-family: mntsreg;
     }
-
-    .iconbox{
-        display:flex;
+    .iconbox {
+        display: flex;
         justify-content: center;
         align-items: center;
     }
-
-    .detbox{
-        display:grid;
-        grid-template-columns: 1fr ;
-        grid-gap:5px;
+    .detbox {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 5px;
     }
-
-    .icondet{
+    .icondet {
         height: 22px;
         width: 22px;
-
     }
-
-    .receiving{
-.icondet{
-    color:green;
-   
-}
-
-.txamount{
-    color:var(--ion-color-primary)
-}
-    }
-
-    .sending{
-        .icondet{
-            color:darkred;
+    .receiving {
+        .icondet {
+            color: green;
         }
-
-       
+        .txamount {
+            color: var(--ion-color-primary)
+        }
     }
-
-    .det{
+    .sending {
+        .icondet {
+            color: darkred;
+        }
+        .downarrow {
+            display: none
+        }
+        .uparrow {
+            display: block;
+        }
+        .txtransferin {
+            display: none
+        }
+        .txtransferout {
+            display: block
+        }
+        .txfrom {
+            display: none;
+        }
+        .txto {
+            display: block;
+        }
+        .txplussign {
+            display: none;
+        }
+        .txminussign {
+            display: block;
+        }
+    }
+    .receiving {
+        .icondet {
+            color: green;
+        }
+        .downarrow {
+            display: block
+        }
+        .uparrow {
+            display: none;
+        }
+        .txtransferin {
+            display: block;
+        }
+        .txtransferout {
+            display: none
+        }
+        .txfrom {
+            display: block;
+        }
+        .txto {
+            display: none;
+        }
+        .txplussign {
+            display: block;
+        }
+        .txminussign {
+            display: none;
+        }
+    }
+    .det {
         color: #5d6969;
         font-size: 13px;
     }
-
-    .txamount{
-        display:flex;
+    .txamount {
+        display: flex;
         justify-content: left;
         align-items: center;
-        font-family:mntssemibold;
+        font-family: mntssemibold;
     }
-
-    .tokentype{
-        color:#5d6969;
+    .tokentype {
+        color: #5d6969;
         font-size: 15px;
-        padding:10px;
+        padding: 10px;
         font-family: mntsreg;
         text-transform: uppercase;
     }
-
-    .smallline{
-        height:3px;
-        width:50px;
+    .smallline {
+        height: 3px;
+        width: 50px;
         background: var(--ion-color-secondary);
-        margin:0px auto;
+        margin: 0px auto;
         margin-bottom: 10px;
     }
     .purpbox {
@@ -89,14 +127,12 @@
         grid-template-columns: 15% 70% 15%;
         padding: 10px 0px;
     }
-
     .goback {
         display: flex;
         justify-content: center;
         align-items: center;
         padding: 20px 10px;
     }
-
     .gobackicon {
         height: 32px;
         width: 32px;
@@ -128,11 +164,9 @@
     .balancemodalbox {
         padding: 0px 20px;
     }
-    
     .baltitle {
         padding: 20px;
         text-align: center;
-        
         font-size: 12px;
         font-family: mntsreg;
         text-transform: uppercase;
@@ -147,36 +181,31 @@
         padding: 15px;
         padding-bottom: 0px;
         letter-spacing: 1px;
-        
     }
-
-    .smallbaltext{
+    .smallbaltext {
         font-size: 15px;
         font-family: mntsreg;
         text-align: center;
         padding: 7px 0px;
         letter-spacing: 1px;
         padding-bottom: 20px;
-        color:#5d6969;
+        color: #5d6969;
     }
     .actiontab {
         display: grid;
         grid-template-columns: 1fr 1fr;
         width: 50%;
         margin: 0px auto;
-        padding:20px 0px;
+        padding: 20px 0px;
         grid-gap: 20px;
-       
     }
-
-    .outacttab{
-       border-bottom: 1px solid rgba(192, 192, 192, 0.3);
+    .outacttab {
+        border-bottom: 1px solid rgba(192, 192, 192, 0.3);
     }
     .eachaction {
         display: flex;
         justify-content: center;
         align-items: center;
-        
         font-size: 12px;
         text-transform: uppercase;
         font-family: mntsreg;
@@ -337,40 +366,25 @@
         color: #fff;
         margin: 0px 10px;
     }
-
-.centerbox{
-margin:100px auto; 
-width:50%;
-display: grid;
-grid-template-columns: 1fr;
-justify-content: center;
-
-
-.emptybox{
-width:120px;
-height:120px;
-margin:0px auto;
-background-repeat: no-repeat;
-background-image:url(../../assets/images/emptybox.svg);
-background-size: contain;
-background-position: center;
-
-}
-
-.fadedtext{
-text-align: center;
-}
-
-
-
-
-}
-
-
-
-
-
-
+    .centerbox {
+        margin: 100px auto;
+        width: 50%;
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-content: center;
+        .emptybox {
+            width: 120px;
+            height: 120px;
+            margin: 0px auto;
+            background-repeat: no-repeat;
+            background-image: url(../../assets/images/emptybox.svg);
+            background-size: contain;
+            background-position: center;
+        }
+        .fadedtext {
+            text-align: center;
+        }
+    }
     /**
 * Swiper 8.2.4
 * Most modern mobile touch slider and framework with hardware accelerated transitions
