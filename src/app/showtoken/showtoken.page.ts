@@ -15,7 +15,7 @@ export class ShowtokenPage implements OnInit {
  tokendetail:any={};
 
  mytoken:any={};
- txs=[]
+ txs:any=[]
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService) { }
 
@@ -47,10 +47,8 @@ let tktype=routeParams.get('type');
 
 this.mytoken=await this.wallet.getToken(tkname,tktype);
 
-let txs=await this.wallet.getTxs(this.mytoken)
 
-console.log(txs)
-
+this.txs=await this.wallet.getTxs(this.mytoken)
 
   }
 

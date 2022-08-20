@@ -7070,9 +7070,9 @@ export class WalletsService {
 
 async getTxs(token){
 
-  let txs=new Promise((resolve, reject) =>{
-
-  })
+  let txs=new Promise(async(resolve, reject) =>{
+ 
+    let result
 
   if(token.type=='coin'){
 
@@ -7080,12 +7080,16 @@ async getTxs(token){
 
     this.http.post(url,await this.tosendpayload(),this.httpopts).subscribe((value:any)=>{
       
-    txs=value
+    result=value
+
+    resolve(result)
 
     },
    (error)=>{
-      console.log(error)
-    txs=[]
+  
+    result=[]
+
+    reject(error)
     })
  
   
@@ -7099,17 +7103,22 @@ async getTxs(token){
 
 this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe((value:any)=>{
    
-    txs=value
+    result=value
+
+    resolve(result)
     },
    (error)=>{
-      console.log(error)
-    txs=[]
+     
+    result=[]
+
+    reject(error)
     })
 
   }
 
-console.log(txs)
-return txs
+  })
+
+  return txs
 
 }
 
