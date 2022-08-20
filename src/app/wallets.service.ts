@@ -7070,14 +7070,16 @@ export class WalletsService {
 
 async getTxs(token){
 
-  let txs:any[]
+  let txs=new Promise((resolve, reject) =>{
+
+  })
 
   if(token.type=='coin'){
 
     let url=this.serverurl+"/app/getNativeTxs";
 
     this.http.post(url,await this.tosendpayload(),this.httpopts).subscribe((value:any)=>{
-     
+      
     txs=value
 
     },
@@ -7096,7 +7098,7 @@ async getTxs(token){
     }
 
 this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe((value:any)=>{
-     
+   
     txs=value
     },
    (error)=>{
@@ -7106,7 +7108,7 @@ this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe((v
 
   }
 
-
+console.log(txs)
 return txs
 
 }

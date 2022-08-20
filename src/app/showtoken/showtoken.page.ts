@@ -47,15 +47,9 @@ let tktype=routeParams.get('type');
 
 this.mytoken=await this.wallet.getToken(tkname,tktype);
 
-await this.wallet.getTxs(this.mytoken).then((value)=>{
+let txs=await this.wallet.getTxs(this.mytoken)
 
-console.log(value)
-},
-(error)=>{
-this.txs=[]
-}
-
-)
+console.log(txs)
 
 
   }
