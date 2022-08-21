@@ -7139,7 +7139,7 @@ this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe(as
 
     if(element.status==true){
       
-       await this.updateTokenBalance(element.name,element.symbol,element.balance,element.usdbalance)
+       await this.updateTokenBalance(element.name,element.symbol,element.balance,element.usdbalance,element.usdprice)
      
       
     }else{
@@ -7179,7 +7179,7 @@ this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe(as
 
     if(element.status==true){
       
-       await this.updateTokenBalance(element.name,element.symbol,element.balance,element.usdbalance)
+       await this.updateTokenBalance(element.name,element.symbol,element.balance,element.usdbalance,element.usdprice)
      
       
     }else{
@@ -7264,7 +7264,7 @@ value: JSON.stringify(wallets)
 
 */
 
- async updateTokenBalance(tokenname,tokensymbol,coinbal,usdbal,walletid?){
+ async updateTokenBalance(tokenname,tokensymbol,coinbal,usdbal,usdprice,walletid?){
   let cid;
 
   if(!walletid){
@@ -7297,6 +7297,8 @@ let thetoken:any=arrtoken[0];
 
 thetoken['coinbalance']=coinbal
 thetoken['usdbalance']=usdbal
+thetoken['usdprice']=usdprice
+
 
 
 await Storage.set({

@@ -7,7 +7,7 @@
     background: var(--ion-background-color);
     .eachtx {
         display: grid;
-        grid-template-columns: 17% 58% 25%;
+        grid-template-columns: 17% 55% 24%;
         padding: 20px 0px;
         border-bottom: 1px solid rgba(192, 192, 192, 0.3);
         font-family: mntsreg;
@@ -98,9 +98,9 @@
     }
     .txamount {
         display: flex;
-        justify-content: left;
-        align-items: center;
+        justify-content: right;
         font-family: mntssemibold;
+        font-size: 13px;
     }
     .tokentype {
         color: #5d6969;

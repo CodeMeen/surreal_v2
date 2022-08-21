@@ -60,12 +60,12 @@
 
                         <div class="detbox">
                             <div><span class="txtransferin">Transfer In</span><span class="txtransferout">Transfer Out</span></div>
-                            <div class="det"><span class="txfrom">From: {{eachtx.from}}</span><span class="txto">To: {{eachtx.to}}</span></div>
+                            <div class="det"><span class="txfrom">From: {{eachtx.shortFrom}}</span><span class="txto">To: {{eachtx.shortTo}}</span></div>
                         </div>
 
                         <div class="txamount">
                             <span class="txplussign">+</span>
-                            <span class="txminussign">-</span> 0.15 &nbsp;<span>{{mytoken.symbol}}</span>
+                            <span class="txminussign">-</span>{{eachtx.tokenvalue}}&nbsp;<span>{{mytoken.symbol}}</span>
                         </div>
 
 
