@@ -34,4 +34,64 @@
         background-size: contain;
         background-position: center;
     }
+    .txbox {
+        background: linear-gradient( to top right, var(--ion-color-primary), var(--ion-color-primary), rgb(154, 78, 174), rgb(154, 78, 174));
+        background-size: 300%;
+        animation: purpanimation 15s linear infinite alternate;
+        padding: 20px;
+        margin: 10px;
+        border-radius: 10px;
+    }
+    @keyframes purpanimation {
+        0% {
+            background-position: left;
+        }
+        100% {
+            background-position: right;
+        }
+    }
+    .eachdet {
+        padding: 20px 0px;
+        color: #fff !important
+    }
+    .detline {
+        margin: 0px;
+        background: #fff
+    }
+    .nother {
+        display: grid;
+        grid-template-columns: 1fr;
+        margin-top: 30px;
+    }
+    .txvalue {
+        font-size: 25px;
+        padding: 5px 20px;
+        font-family: mntssemibold;
+        text-align: center
+    }
+    .swapiconbox {
+        font-size: 15px;
+        padding: 5px 20px;
+        font-family: mntssemibold;
+        text-align: center
+    }
+    .usdval {
+        font-size: 13px;
+        padding: 5px 20px;
+        font-family: mntsreg;
+        text-align: center;
+        padding-top: 0px;
+    }
+    .txbox {
+        font-family: mntsreg !important;
+    }
+    .eachdet {
+        overflow: hidden;
+    }
+    .rspan {
+        float: right;
+    }
+    .lspan {
+        float: left;
+    }
 }
