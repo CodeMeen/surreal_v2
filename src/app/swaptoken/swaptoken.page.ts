@@ -272,7 +272,7 @@ this.totoken=await this.wallet.getAToken('Dai','ERC20');
 
 ionViewWillEnter(){
   
-  this.events.getData().subscribe(async (data) => {
+  /* this.events.getData().subscribe(async (data) => {
     if(data=="UpdateSwap"){
       await this.syncToken().then(async (value)=>{
         await this.syncTokenPrice('fromtoken')
@@ -280,7 +280,7 @@ ionViewWillEnter(){
         console.log('Swap Page Updated..')
       });
     }
-}); 
+}); */
     
   }
 
@@ -289,6 +289,7 @@ ngOnInit() {
 this.syncToken().then(async (value)=>{
   await this.syncTokenPrice('fromtoken')
   await this.syncTokenPrice('totoken')
+  console.log('Swap Page Updated..')
 });
   }
 

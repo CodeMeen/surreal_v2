@@ -20,7 +20,7 @@ export class AccountPage implements OnInit {
   constructor(private router:Router,private routerOutlet: IonRouterOutlet,public events:EventsService,public wallet: WalletsService) { }
 
 
-  async alwaysupdate(message?){
+  async alwaysupdatebalances(message?){
 
     if(message){
       console.log(message)
@@ -28,16 +28,38 @@ export class AccountPage implements OnInit {
    
     
       await this.wallet.getWalletMetadata()
+     
+
+
       setTimeout(async ()=>{
-       await this.alwaysupdate()
+       await this.alwaysupdatebalances()
       },30000)
+      
+ 
     
    
+  }
+
+  async alwaysupdateprices(message?){
+    if(message){
+      console.log(message)
+    }
+
+
+    await this.wallet.getAllPrices()
+
+
+    setTimeout(async ()=>{
+      await this.alwaysupdateprices()
+    },600000)
+
+
   }
  
 
   async ngOnInit() {
-    this.alwaysupdate('first call')
+    this.alwaysupdatebalances('first call:- Update Balance')
+    this.alwaysupdateprices('first call:- Update Prices')
 
     this.routerOutlet.swipeGesture = false;
 

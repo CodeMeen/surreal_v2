@@ -7067,9 +7067,10 @@ export class WalletsService {
 
 
 //to server
+txloader:any=false
 
 async getTxs(token){
-
+this.txloader=true
   let txs=new Promise(async(resolve, reject) =>{
  
     let result
@@ -7079,13 +7080,14 @@ async getTxs(token){
     let url=this.serverurl+"/app/getNativeTxs";
 
     this.http.post(url,await this.tosendpayload(),this.httpopts).subscribe((value:any)=>{
-      
+      this.txloader=false
     result=value
 
     resolve(result)
 
     },
    (error)=>{
+    this.txloader=false
   
     result=[]
 
@@ -7102,12 +7104,15 @@ async getTxs(token){
     }
 
 this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe((value:any)=>{
-   
+  this.txloader=false
+
+
     result=value
 
     resolve(result)
     },
    (error)=>{
+    this.txloader=false
      
     result=[]
 
@@ -7204,6 +7209,89 @@ this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe(as
 }
 
 
+async getAllPrices(){
+  let mytokens=await this.getMyTokens();
+
+  let payload={
+    'tokens':mytokens
+  }
+
+   let url=this.serverurl+"/app/getAllPrices";
+
+this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe(async (value:any)=>{
+  let arr=value
+
+  for (let index = 0; index < arr.length; index++) {
+
+    const element = arr[index];
+
+    if(element.status==true){
+      
+       await this.updateTokenPrice(element.name,element.symbol,element.usdprice)
+     
+      
+    }else{
+     
+    }
+
+  
+    
+  }
+
+
+  console.log('Prices Updated')
+   
+
+   },
+   (error)=>{
+    console.log(error)
+   })
+
+   
+
+}
+
+async updateTokenPrice(tokenname,tokensymbol,usdprice,walletid?){
+ 
+  let cid;
+
+  if(!walletid){
+cid=await this.getCurrentWalletId();
+  }else{
+cid=walletid;
+  }
+
+  let database=await Storage.get({ key: 'wallets' });
+  let wallets:any[]=JSON.parse(database.value);
+
+
+  let searchwallet=wallets.filter((el)=>el.id==cid);
+
+  
+  let mywallet=searchwallet[0];
+
+let mytokens=mywallet.mytokens;
+
+let arrtoken=mytokens.filter((el)=>el.name==tokenname && el.symbol==tokensymbol);
+
+// console.log('Function (Update Token balance): '+JSON.stringify(arrtoken[0]))
+
+  if(arrtoken.length <= 0){
+
+  }else{
+
+let thetoken:any=arrtoken[0];
+
+thetoken['usdprice']=usdprice
+
+
+await Storage.set({
+key: 'wallets',
+value: JSON.stringify(wallets)
+}); 
+
+}
+}
 /* async updateChainBalance(chainname,coinbal,usdbal,walletid?){
 
   let cid;
@@ -7297,7 +7385,11 @@ let thetoken:any=arrtoken[0];
 
 thetoken['coinbalance']=coinbal
 thetoken['usdbalance']=usdbal
-thetoken['usdprice']=usdprice
+
+if(!thetoken.usdprice || thetoken.usdprice==''){
+  thetoken['usdprice']=usdprice
+}
+
 
 
 

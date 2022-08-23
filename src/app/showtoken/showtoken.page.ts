@@ -13,6 +13,7 @@ import { WalletsService } from '../wallets.service';
 export class ShowtokenPage implements OnInit {
 
  tokendetail:any={};
+ txloading:any=false
 
  mytoken:any={};
  txs:any=[]

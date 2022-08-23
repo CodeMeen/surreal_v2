@@ -385,6 +385,30 @@
             text-align: center;
         }
     }
+    .loader {
+        border: 1px solid var(--ion-color-primary);
+        /* Light grey */
+        border-top: 1px solid transparent;
+        /* Blue */
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        animation: spin 0.3s linear infinite;
+    }
+    .loaderbox {
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
     /**
 * Swiper 8.2.4
 * Most modern mobile touch slider and framework with hardware accelerated transitions

@@ -47,12 +47,16 @@
             <div class="tokentype" style="padding:20px;">Transactions
             </div>
 
+            <div class="loaderbox" *ngIf="wallet.txloader==true">
+                <div class="loader"></div>
+            </div>
+
 
             <div *ngIf="txs.length >= 1">
 
                 <ng-container *ngFor="let eachtx of txs">
 
-                    <div class="eachtx" [ngClass]="eachtx.type">
+                    <div class="eachtx" [ngClass]="eachtx.type" (click)="router.naviTo(['/tx', eachtx])">
                         <div class="iconbox">
                             <ion-icon class="icondet downarrow" name="arrow-down-outline"></ion-icon>
                             <ion-icon class="icondet uparrow" name="arrow-up-outline"></ion-icon>
@@ -76,13 +80,16 @@
             </div>
 
 
+            <ng-container *ngIf="wallet.txloader==false">
+                <div class="centerbox" *ngIf="txs.length <= 0">
+                    <div class="emptybox">
 
-            <div class="centerbox" *ngIf="txs.length <= 0">
-                <div class="emptybox">
-
+                    </div>
+                    <div class="fadedtext">No transactions yet</div>
                 </div>
-                <div class="fadedtext">No transactions yet</div>
-            </div>
+            </ng-container>
+
+
 
 
 

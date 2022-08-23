@@ -91,6 +91,7 @@ async goToBack(){
   
 }
 
+
 async alwaysUpdateView(){
 
   
