@@ -20,17 +20,21 @@ export class TxPage implements OnInit {
   refineTx(tx){
   this.refinedTxData=tx
   this.refinedTxData['refinedDate']=this.timeConverter(tx.timeStamp)
-  
+  this.refinedTxData['gasFee']=this.getTxFee(tx.gasUsed,tx.gasPrice)
+
 
   console.log(this.refinedTxData)
 
   }
 
   getTxFee(gasused,gasprice){
-
+  let data=gasused*gasprice
+  let newdat=data/1000000000000000000
+  return newdat
   }
 
   timeConverter(UNIX_timestamp){
+
     var a = new Date(UNIX_timestamp * 1000);
     var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     var year = a.getFullYear();
@@ -47,15 +51,11 @@ export class TxPage implements OnInit {
 
 this.txdata=this.wallet.onviewtx
 
-console.log(this.txdata)
-
 if(!this.txdata.timeStamp){
   this.router.goBack()
 }else{
   this.refineTx(this.txdata)
 }
-
-
 
 
   }
