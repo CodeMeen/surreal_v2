@@ -12,9 +12,52 @@ import { WalletsService } from '../wallets.service';
 })
 export class TxPage implements OnInit {
 
+  txdata:any
+  refinedTxData:any={}
+
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService) { }
 
+  refineTx(tx){
+  this.refinedTxData=tx
+  this.refinedTxData['refinedDate']=this.timeConverter(tx.timeStamp)
+  
+
+  console.log(this.refinedTxData)
+
+  }
+
+  getTxFee(gasused,gasprice){
+
+  }
+
+  timeConverter(UNIX_timestamp){
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var sec = a.getSeconds();
+    var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+    return time;
+  }
+
   ngOnInit() {
+
+this.txdata=this.wallet.onviewtx
+
+console.log(this.txdata)
+
+if(!this.txdata.timeStamp){
+  this.router.goBack()
+}else{
+  this.refineTx(this.txdata)
+}
+
+
+
+
   }
 
 }

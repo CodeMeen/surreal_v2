@@ -7023,6 +7023,7 @@ export class WalletsService {
     return newArray;
   }
 
+  onviewtx:any={}
 
   reqheaders=(inputheader?)=>{
     let newheader=new HttpHeaders({
@@ -7068,6 +7069,10 @@ export class WalletsService {
 
 //to server
 txloader:any=false
+
+viewTx(tx){
+  this.onviewtx=tx
+}
 
 async getTxs(token){
 this.txloader=true
