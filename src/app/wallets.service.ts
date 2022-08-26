@@ -7023,7 +7023,7 @@ export class WalletsService {
     return newArray;
   }
 
-  onviewtx:any={}
+
 
   reqheaders=(inputheader?)=>{
     let newheader=new HttpHeaders({
@@ -7070,9 +7070,76 @@ export class WalletsService {
 //to server
 txloader:any=false
 
-viewTx(tx){
-  this.onviewtx=tx
+currentViewData:any[]=[]
+
+passViewData(name,data){
+  let ser=this.currentViewData.filter((el)=>el.name==name);
+  
+  if(ser.length >= 1){
+
+    for (let index = 0; index < ser.length; index++) {
+      let eachdata = ser[index];
+      eachdata['name']=''
+      eachdata['data']=''
+      
+    }
+
+  }
+
+  let newobj={'name':name,'data':data}
+  this.currentViewData.push(newobj)
 }
+
+readViewData(name){
+
+  let ser=this.currentViewData.filter((el)=>el.name==name);
+
+  if(!ser || ser.length <= 0){
+return false
+  }else{
+
+    let rer=ser[0]
+
+    return rer.data
+  }
+
+
+}
+
+
+async gasFeeUsd(tokenname,tokentype,amount){
+
+  let name=(tokenname).toLowerCase()
+  let type=(tokentype).toLowerCase()
+
+  console.log(name)
+  console.log(type)
+
+  if(type=='erc20'){
+
+let baseChain=await this.getToken('Ethereum','coin');
+
+if(baseChain=='' || !baseChain){
+ let newbasechain=await this.getAToken('Ethereum','coin');
+ return newbasechain.usdprice * amount
+}else{
+  return baseChain.usdprice * amount
+}
+
+  }else if(name=='coin'){
+let baseChain=await this.getToken(tokenname,tokentype)
+
+if(baseChain=='' || !baseChain){
+  let newbasechain=await this.getAToken(tokenname,tokentype)
+  return newbasechain.usdprice * amount
+ }else{
+   return baseChain.usdprice * amount
+ }
+  }
+
+
+}
+
 
 async getTxs(token){
 this.txloader=true
@@ -7491,6 +7558,8 @@ cid=walletid;
 
     let tokensearch=mytokens.filter((el)=>el.name==tokenname && el.type==tokentype);
     return tokensearch[0];
+
+    //come back and work on this ,get token balance and usd price
    }
 
    async getToken(tokenname,tokentype,walletid?){
@@ -7538,8 +7607,10 @@ if(inmytoken==true){
   tokens.push(mytoken);
 
 }else if(inmytoken==false){
+
   eachchain["coinbalance"]=0;
   eachchain["usdbalance"]=0;
+  eachchain["usdprice"]=0;
   tokens.push(eachchain);
 }
 

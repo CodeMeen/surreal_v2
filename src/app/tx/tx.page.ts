@@ -14,13 +14,15 @@ export class TxPage implements OnInit {
 
   txdata:any
   refinedTxData:any={}
+  mytoken:any={}
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService) { }
 
-  refineTx(tx){
+  async refineTx(tx){
   this.refinedTxData=tx
   this.refinedTxData['refinedDate']=this.timeConverter(tx.timeStamp)
   this.refinedTxData['gasFee']=this.getTxFee(tx.gasUsed,tx.gasPrice)
+  this.refinedTxData['gasFeeUsd']=await this.wallet.gasFeeUsd(this.mytoken.name,this.mytoken.type,tx.gasFee)
 
 
   console.log(this.refinedTxData)
@@ -47,14 +49,17 @@ export class TxPage implements OnInit {
     return time;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
 
-this.txdata=this.wallet.onviewtx
+this.mytoken=this.wallet.readViewData('mytoken')
+this.txdata=this.wallet.readViewData('txdata')
 
-if(!this.txdata.timeStamp){
+console.log(this.mytoken)
+
+if(!this.txdata || !this.mytoken){
   this.router.goBack()
 }else{
-  this.refineTx(this.txdata)
+  await this.refineTx(this.txdata)
 }
 
 
