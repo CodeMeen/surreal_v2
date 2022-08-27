@@ -76,7 +76,7 @@
         text-align: center
     }
     .usdval {
-        font-size: 13px;
+        font-size: 15px;
         padding: 5px 20px;
         font-family: mntsreg;
         text-align: center;
@@ -107,5 +107,17 @@
     }
     .statuspending {
         background: orange;
+    }
+
+    .statuscompleted{
+        background: green;
+    }
+
+    .viewblockexp{
+        text-align:center;
+        padding:20px;
+        color:var(--ion-color-secondary);
+        font-size:14px;
+        font-family: mntssemibold;
     }
 }

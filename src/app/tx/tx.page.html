@@ -13,19 +13,19 @@
         </div>
 
         <div class="nother">
-            <div class="txvalue">+0.033 ETH</div>
+            <div class="txvalue"><span *ngIf="refinedTxData.type=='receiving'">+</span><span *ngIf="refinedTxData.type=='sending'">-</span>{{refinedTxData.tokenvalue}} {{mytoken.symbol}}</div>
 
             <div class="swapiconbox">
                 <ion-icon name="swap-vertical-outline" class="exd"></ion-icon>
             </div>
 
-            <div class="usdval">$300.00</div>
+            <div class="usdval">$ {{refinedTxData.tokenvalueusd}}</div>
         </div>
 
         <div class="txbox">
             <div class="eachdet">
                 <span class="lspan">Date</span>
-                <span class="rspan">26 May at 10:36 PM</span>
+                <span class="rspan">{{refinedTxData.refinedDate}}</span>
             </div>
 
             <hr class="detline">
@@ -33,8 +33,11 @@
             <div class="eachdet">
                 <span class="lspan">Status</span>
                 <div class="rspan statussh">
-                    <div class="statuscirc statuspending"></div>
-                    <div>Pending</div>
+                    <div class="statuscirc statuspending" [ngClass]="{'statuspending':refinedTxData.txstatus=='pending','statuscompleted':refinedTxData.txstatus=='completed'}"></div>
+                    <div>
+                        <span *ngIf="refinedTxData.txstatus=='pending'">Pending</span>
+                        <span *ngIf="refinedTxData.txstatus=='completed'">Completed</span>
+                    </div>
                 </div>
 
             </div>
@@ -42,14 +45,25 @@
             <hr class="detline">
 
             <div class="eachdet">
-                <span class="lspan">Recipient</span>
-                <span class="rspan">0x1037...Fcd5</span>
+
+                <span *ngIf="refinedTxData.type=='receiving'">
+                    <span class="lspan">Sender</span>
+                <span class="rspan">{{refinedTxData.shortFrom}}</span>
+            </span>
+                        
+                <span *ngIf="refinedTxData.type=='sending'">
+                    <span class="lspan">Recipient</span>
+                <span class="rspan">{{refinedTxData.shortTo}}</span>
+                </span>
+
+
+               
             </div>
             <hr class="detline">
 
             <div class="eachdet">
                 <span class="lspan">Network Fee</span>
-                <span class="rspan">0.0035 ETH ($0.23)</span>
+                <span class="rspan">{{refinedTxData.gasFee}} ETH (${{refinedTxData.gasFeeUsd}})</span>
             </div>
 
 
@@ -57,13 +71,7 @@
         </div>
 
 
-
-
-
-
-
-
-
+        <div class="viewblockexp">View on block explorer</div>
 
 
 

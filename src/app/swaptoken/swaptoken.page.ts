@@ -81,9 +81,17 @@ let selectinfo={
 let tokenname=res.value.name
 let tokentype=res.value.type
 let tokensymbol=res.value.symbol
+let searchh=await this.wallet.searchMyTokens(tokenname,tokentype)
 
-this.fromtoken=await this.wallet.getAToken(tokenname,tokentype)
-this.popup.close()
+if(searchh==true){
+  this.fromtoken=await this.wallet.getToken(tokenname,tokentype) 
+  this.popup.close()
+}else{
+  this.popup.close()
+  this.fromtoken=await this.wallet.getAToken(tokenname,tokentype)
+}
+
+
   
 this.swap={
   'fromtokenusd':0,
@@ -139,8 +147,15 @@ let tokenname=res.value.name
 let tokentype=res.value.type
 let tokensymbol=res.value.symbol
 
-this.totoken=await this.wallet.getAToken(tokenname,tokentype)
-this.popup.close()
+let searchh=await this.wallet.searchMyTokens(tokenname,tokentype)
+
+if(searchh==true){
+  this.totoken=await this.wallet.getToken(tokenname,tokentype) 
+  this.popup.close()
+}else{
+  this.popup.close()
+  this.totoken=await this.wallet.getAToken(tokenname,tokentype)
+}
   
 this.swap={
   'fromtokenusd':0,

@@ -18,11 +18,40 @@ export class TxPage implements OnInit {
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService) { }
 
+  async reducenumber(num, fixed) {
+
+    let string = await num.toString()
+
+    if (!fixed) {
+
+        if (string.length <= 11) {
+            return string
+        } else {
+            let trimmedString = await string.slice(0, 11);
+            return trimmedString
+        }
+
+    } else {
+        if (string.length <= fixed) {
+            return string
+        } else {
+            let trimmedString = await string.slice(0, fixed);
+            return trimmedString
+        }
+    }
+
+}
   async refineTx(tx){
   this.refinedTxData=tx
   this.refinedTxData['refinedDate']=this.timeConverter(tx.timeStamp)
-  this.refinedTxData['gasFee']=this.getTxFee(tx.gasUsed,tx.gasPrice)
-  this.refinedTxData['gasFeeUsd']=await this.wallet.gasFeeUsd(this.mytoken.name,this.mytoken.type,tx.gasFee)
+  let gasFee=this.getTxFee(tx.gasUsed,tx.gasPrice)
+  this.refinedTxData['gasFee']=await this.reducenumber(gasFee,7);
+
+let gasFeeusd=await this.wallet.gasFeeUsd(this.mytoken.name,this.mytoken.type,tx.gasFee)
+  this.refinedTxData['gasFeeUsd']=await this.reducenumber(gasFeeusd,5);
+
+  let tokenvalueusd=await (tx.tokenvalue * this.mytoken.usdprice)
+  this.refinedTxData['tokenvalueusd']=await this.reducenumber(tokenvalueusd,11)
 
 
   console.log(this.refinedTxData)

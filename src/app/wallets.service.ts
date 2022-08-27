@@ -7112,9 +7112,6 @@ async gasFeeUsd(tokenname,tokentype,amount){
   let name=(tokenname).toLowerCase()
   let type=(tokentype).toLowerCase()
 
-  console.log(name)
-  console.log(type)
-
   if(type=='erc20'){
 
 let baseChain=await this.getToken('Ethereum','coin');
@@ -7126,15 +7123,21 @@ if(baseChain=='' || !baseChain){
   return baseChain.usdprice * amount
 }
 
-  }else if(name=='coin'){
+  }else if(type=='coin'){
 let baseChain=await this.getToken(tokenname,tokentype)
+
 
 if(baseChain=='' || !baseChain){
   let newbasechain=await this.getAToken(tokenname,tokentype)
+
   return newbasechain.usdprice * amount
+
+  
  }else{
-   return baseChain.usdprice * amount
+  return baseChain.usdprice * amount
+
  }
+
   }
 
 
@@ -7199,7 +7202,7 @@ this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe((v
 
 }
 
-async getTokenMetadata(token){
+async getTokenMetadata(token,returntype?){
  
   let payload={
     'tokens':[token]
@@ -7207,34 +7210,53 @@ async getTokenMetadata(token){
 
    let url=this.serverurl+"/app/getAllMetadata";
 
-this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe(async (value:any)=>{
-  let arr=value
+   if(!returntype){
 
-  for (let index = 0; index < arr.length; index++) {
-
-    const element = arr[index];
-
-    if(element.status==true){
-      
-       await this.updateTokenBalance(element.name,element.symbol,element.balance,element.usdbalance,element.usdprice)
-     
-      
-    }else{
-      console.log( (element.contractaddr || element.chain) +' Balances Not Found');
-    }
-
-  
+    this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe(async (value:any)=>{
+      let arr=value
     
-  }
+    
+        for (let index = 0; index < arr.length; index++) {
+    
+          const element = arr[index];
+      
+          if(element.status==true){
+              await this.updateTokenBalance(element.name,element.symbol,element.balance,element.usdbalance,element.usdprice)     
+          }else{
+            console.log( (element.contractaddr || element.chain) +' Balances Not Found');
+          }
+          
+        }
+    
+        console.log('Token Metadata Updated')
+      
+       
+       },
+       (error)=>{
+        console.log(error)
+       })
 
 
-  console.log('Token Metadata Updated')
-   
+   }else if(returntype==true){
 
-   },
-   (error)=>{
-    console.log(error)
-   })
+     let res=new Promise(async (resolve,reject)=>{
+
+      this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe(async (value:any)=>{
+        let arr=value
+
+        resolve(arr)
+      },
+      async (error)=>{
+       reject({})
+      })
+
+     })
+
+     return res
+
+   }
+
+
 
 }
 
@@ -7551,13 +7573,26 @@ cid=walletid;
   
    }
 
-   // you need to re-edit to get token balance on the spot
+   
  
    async getAToken(tokenname,tokentype){
     const mytokens=await this.getAllTokens();
 
     let tokensearch=mytokens.filter((el)=>el.name==tokenname && el.type==tokentype);
-    return tokensearch[0];
+    let thetoken=tokensearch[0];
+
+    let rawupdate=await this.getTokenMetadata(thetoken,true)
+    let update=rawupdate[0]
+
+    thetoken['usdbalance']=update.usdbalance
+    thetoken['coinbalance']=update.balance
+    thetoken['usdprice']=update.usdprice
+   
+console.log(thetoken)
+
+
+return thetoken
+
 
     //come back and work on this ,get token balance and usd price
    }
