@@ -72,6 +72,7 @@ this.swapFunc(this.valueInput);
  measureValue(){
 
   this.noti.closenoti();
+  
 
   if(this.inputType=='USD'){
     let balance=this.mytoken.usdbalance

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@capacitor/storage';
 import { promise } from 'protractor';
 import { HomePageRoutingModule } from './home/home-routing.module';
+import { LoaderService } from './loader.service'
 
 
 @Injectable({
@@ -7064,7 +7065,7 @@ export class WalletsService {
   serverurl='http://localhost:3000'
 
  
-  constructor(private http:HttpClient) {}
+  constructor(private http:HttpClient, public loader: LoaderService) {}
 
 
 //to server
@@ -7141,6 +7142,10 @@ if(baseChain=='' || !baseChain){
   }
 
 
+}
+
+async getNfts(){
+  
 }
 
 
@@ -7573,28 +7578,66 @@ cid=walletid;
   
    }
 
-   
- 
-   async getAToken(tokenname,tokentype){
+   async getATokenOffline(tokenname,tokentype){
+
     const mytokens=await this.getAllTokens();
 
     let tokensearch=mytokens.filter((el)=>el.name==tokenname && el.type==tokentype);
     let thetoken=tokensearch[0];
 
-    let rawupdate=await this.getTokenMetadata(thetoken,true)
-    let update=rawupdate[0]
+    return thetoken
 
-    thetoken['usdbalance']=update.usdbalance
-    thetoken['coinbalance']=update.balance
-    thetoken['usdprice']=update.usdprice
+   }
+
    
-console.log(thetoken)
+ 
+   async getAToken(tokenname,tokentype,offline?){
+    const mytokens=await this.getAllTokens();
+
+    let tokensearch=mytokens.filter((el)=>el.name==tokenname && el.type==tokentype);
+    let thetoken=tokensearch[0];
+    let response:any
 
 
-return thetoken
+  
+    if(offline==true){
+      response=thetoken  
+    }else if(!offline || offline==false || offline==''){
+      this.loader.start()
+      await this.getTokenMetadata(thetoken,true).then((data)=>{
+        this.loader.end()
+       let rawupdate=data
+  
+       let update=rawupdate[0]
+  
+      thetoken['usdbalance']=update.usdbalance
+      thetoken['coinbalance']=update.balance
+      thetoken['usdprice']=update.usdprice
+    
+  
+      response=thetoken
+  
+      
+  
+      },
+      (error)=>{
+        this.loader.end()
+        response={}
+      })
 
+      let tokenusdbal=Number(response.usdbalance)
+      let tokencoinbal=Number(response.coinbalance)
+      let tokenusdprice=Number(response.usdprice)
+  
+      response.coinbalance=tokencoinbal
+      response.usdbalance=tokenusdbal
+      response.usdprice=tokenusdprice
+    }
 
-    //come back and work on this ,get token balance and usd price
+   console.log(response)
+  
+    return response
+
    }
 
    async getToken(tokenname,tokentype,walletid?){
@@ -7602,6 +7645,13 @@ return thetoken
     const mytokens=await this.getMyTokens();
 
     let tokensearch=mytokens.filter((el)=>el.name==tokenname && el.type==tokentype);
+    let tokenusdbal=Number(tokensearch[0].usdbalance)
+    let tokencoinbal=Number(tokensearch[0].coinbalance)
+    let tokenusdprice=Number(tokensearch[0].usdprice)
+
+    tokensearch[0].coinbalance=tokencoinbal
+    tokensearch[0].usdbalance=tokenusdbal
+    tokensearch[0].usdprice=tokenusdprice
 
     return tokensearch[0];
    }
@@ -7890,8 +7940,9 @@ async createDefault(){
     id:"1",
     name:"Main Wallet",
     mytokens:[],
+    mynfts:[],
     publickeys:[
-      {'chain':'ethereum','publickey':'0x00192Fb10dF37c9FB26829eb2CC623cd1BF599E8'}
+      {'chain':'ethereum','publickey':'0x4c1cd907ceaA5919CF7982679FcE88c58E423dcb'}
     ],
     privatekey:"default",
     mnemonic:"default",

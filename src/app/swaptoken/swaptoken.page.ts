@@ -105,6 +105,24 @@ await this.syncTokenPrice('fromtoken')
 
  }
 
+ measureFromValue(){
+
+  this.noti.closenoti();
+  
+    let balance=Number(this.fromtoken.coinbalance)
+    let inputvalue=Number(this.fromtokenvalue)
+   
+
+
+    if(inputvalue > balance || inputvalue < 0){
+      return false;
+    }else{
+      return true;
+    }
+
+
+}
+
  resetInput(){
   this.fromtokenvalue='';
   this.totokenvalue='';
@@ -220,6 +238,16 @@ await this.syncTokenPrice('totoken')
             }
 
 
+            if(this.measureFromValue()==false){
+              this.successflag=false;
+              this.noti.notify('error','Insufficient balance!')
+            }else{
+        this.successflag=true;
+            }
+      
+
+
+
           }
   }
 
@@ -301,6 +329,7 @@ ionViewWillEnter(){
 
 
 ngOnInit() {
+  
 this.syncToken().then(async (value)=>{
   await this.syncTokenPrice('fromtoken')
   await this.syncTokenPrice('totoken')
