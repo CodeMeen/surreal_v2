@@ -27,6 +27,7 @@ export class WalletPage implements OnInit,AfterContentChecked {
 
     mywallet:any={};
     mytokens:any[]=[]
+    mynfts:any[]=[]
 
 
     numoftk:any;
@@ -138,6 +139,7 @@ async alwaysUpdateView(){
       let data=await this.wallet.getMyWallet();
       this.mywallet=data;
       this.mytokens=await this.wallet.getMyTokens()
+      this.mynfts
 
       this.numoftk=this.mywallet.mytokens.length;
 

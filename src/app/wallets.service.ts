@@ -7144,8 +7144,51 @@ if(baseChain=='' || !baseChain){
 
 }
 
+async loadMyNfts(walletid?){
+  let cid;
+
+  if(!walletid){
+cid=await this.getCurrentWalletId();
+  }else{
+cid=walletid;
+  }
+
+  let database=await Storage.get({ key: 'wallets' });
+  let wallets=JSON.parse(database.value);
+
+
+  let mywallet=wallets.filter((el)=>el.id==cid);
+
+  let filteredarr=[]
+  let rawmynfts=mywallet[0].mynfts 
+
+  for (let index = 0; index < rawmynfts.length; index++) {
+    const eachraw = rawmynfts[index];
+
+    
+    
+  }
+
+
+
+
+}
+
 async getNfts(){
-  
+  let url=this.serverurl+"/app/getAllNfts";
+
+  this.http.post(url,await this.tosendpayload(),this.httpopts).subscribe(async (value:any)=>{
+   let nfts=value
+
+  await this.updateNft(nfts)
+
+  },
+  (error)=>{
+
+    console.log(error)
+
+  })
+
 }
 
 
@@ -7264,6 +7307,10 @@ async getTokenMetadata(token,returntype?){
 
 
 }
+async getAllNft(){
+
+}
+
 
 async getWalletMetadata(){
   let mytokens=await this.getMyTokens();
@@ -7505,6 +7552,31 @@ value: JSON.stringify(wallets)
 
 }
 
+
+async updateNft(nfts,walletid?){
+  let cid;
+
+  if(!walletid){
+cid=await this.getCurrentWalletId();
+  }else{
+cid=walletid;
+  }
+
+  let database=await Storage.get({ key: 'wallets' });
+  let wallets:any[]=JSON.parse(database.value);
+
+
+  let searchwallet=wallets.filter((el)=>el.id==cid);
+
+  
+  let mywallet=searchwallet[0];
+  mywallet["mynfts"]=nfts;
+
+  await Storage.set({
+    key: 'wallets',
+    value: JSON.stringify(wallets)
+    }); 
+}
 
 
 async getTokenPrice(symbol){

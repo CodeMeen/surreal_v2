@@ -40,6 +40,21 @@ export class AccountPage implements OnInit {
    
   }
 
+  async alwaysupdatenfts(message?){
+    if(message){
+      console.log(message)
+    }
+   
+    
+      await this.wallet.getNfts()
+     
+
+
+      setTimeout(async ()=>{
+       await this.alwaysupdatenfts()
+      },600000)
+  }
+
   async alwaysupdateprices(message?){
     if(message){
       console.log(message)
@@ -60,6 +75,7 @@ export class AccountPage implements OnInit {
   async ngOnInit() {
     this.alwaysupdatebalances('first call:- Update Balance')
     this.alwaysupdateprices('first call:- Update Prices')
+    this.alwaysupdatenfts('first call:- Update Nfts')
 
     this.routerOutlet.swipeGesture = false;
 
