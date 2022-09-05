@@ -76,13 +76,48 @@
                 <ng-template swiperSlide>
                     <div>
 
+                        <div class="fadedtext">My Nfts</div>
+
+                        <div class="tokengrid" *ngIf="mynfts.length >= 1 ">
+
+                            <ng-container *ngFor="let nft of mynfts">
+                                <div class="eachnft">
+                                    <div class="nftimgbox" [ngClass]="{'nftskeletonloading':nft.image_status=='raw','compressed':nft.image_status=='compressed','nftimgerror':nft.image_status=='error'}">
+                                        <img class="nftimg" src="{{nft.compressed_img}}">
+
+                                        <div class="nftmetadata">
+
+                                            <div class="downdata">
+                                                <div class="nftname">{{nft.name}} ({{nft.nfts.length}})</div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
 
 
-                        <div class="centerbox">
-                            <div class="emptybox">
+                                    <!-- <div class="nftname">{{nft.name}}</div>
+                                    <div class="nftpieces">
+                                        <div class="piecestext">
+                                            {{(nft.nfts).length}}
+                                        </div>
+                                    </div>
+
+                                    --->
+                                </div>
+                            </ng-container>
+
+
+
+                        </div>
+
+
+
+                        <div class="centerbox" *ngIf="mynfts.length <= 0 ">
+                            <div class="emptybox ">
 
                             </div>
-                            <div class="fadedtext">EMPTY</div>
+                            <div class="fadedtext ">EMPTY</div>
                         </div>
 
 

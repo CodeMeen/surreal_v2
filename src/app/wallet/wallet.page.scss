@@ -186,6 +186,33 @@
             font-family: mntssemibold;
             font-size: 15px;
         }
+        .eachnft {
+            box-shadow: 0px 4px 19px -9px rgba(0, 0, 0, 0.15);
+            -webkit-box-shadow: 0px 4px 19px -9px rgba(0, 0, 0, 0.15);
+            -moz-box-shadow: 0px 4px 19px -9px rgba(0, 0, 0, 0.15);
+            background: #fff;
+            border-radius: 10px;
+        }
+        .imgcirc {
+            height: 40px;
+            width: 40px;
+            margin: 10px auto;
+        }
+        .nftname {
+            padding: 2px 0px;
+            font-family: mntssemibold;
+            font-size: 13px;
+            color: white
+        }
+        .piecestext {
+            font-family: mntssemibold;
+            font-size: 15px;
+            font-weight: bold;
+            color: #000;
+            border-radius: 20px;
+            text-align: align;
+            padding: 7px 20px;
+        }
         .usdbalance {
             color: #5d6969;
             font-size: 11px;
@@ -215,47 +242,72 @@
         .slidertab {
             margin-bottom: 100px;
         }
-      
         .addorremove {
             height: 28px;
             width: 28px;
             color: #fff;
             margin: 0px 10px;
         }
-
-.centerbox{
-    margin:100px auto; 
-    width:50%;
-    display: grid;
-    grid-template-columns: 1fr;
-justify-content: center;
-
-
-.emptybox{
-    width:120px;
-    height:120px;
-    margin:0px auto;
-    background-repeat: no-repeat;
-    background-image:url(../../assets/images/emptybox.svg);
- background-size: contain;
- background-position: center;
-
-}
-
-.fadedtext{
-    text-align: center;
-}
-
-
-
-
-}
-
-
-
-
-
-
+        .centerbox {
+            margin: 100px auto;
+            width: 50%;
+            display: grid;
+            grid-template-columns: 1fr;
+            justify-content: center;
+            .emptybox {
+                width: 120px;
+                height: 120px;
+                margin: 0px auto;
+                background-repeat: no-repeat;
+                background-image: url(../../assets/images/emptybox.svg);
+                background-size: contain;
+                background-position: center;
+            }
+            .fadedtext {
+                text-align: center;
+            }
+        }
+        .nftimgbox {
+            height: 200px;
+            border-radius: 10px;
+            position: relative;
+        }
+        .nftimg {
+            height: 200px;
+            border-radius: 10px;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+            position: absolute;
+        }
+        .nftmetadata {
+            height: 200px;
+            border-radius: 10px;
+            width: 100%;
+            z-index: 1;
+            position: absolute;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5))
+        }
+        .downdata {
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+            padding: 10px;
+        }
+        .nftskeletonloading {
+            animation: skeleton-loading 1s linear infinite alternate;
+            .nftimg {
+                display: none;
+            }
+        }
+        @keyframes skeleton-loading {
+            0% {
+                background-color: hsl(200, 20%, 85%);
+            }
+            100% {
+                background-color: hsl(200, 20%, 95%);
+            }
+        }
         /**
  * Swiper 8.2.4
  * Most modern mobile touch slider and framework with hardware accelerated transitions

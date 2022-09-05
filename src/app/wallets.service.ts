@@ -7145,6 +7145,7 @@ if(baseChain=='' || !baseChain){
 }
 
 async loadMyNfts(walletid?){
+   
   let cid;
 
   if(!walletid){
@@ -7163,15 +7164,46 @@ cid=walletid;
   let rawmynfts=mywallet[0].mynfts 
 
   for (let index = 0; index < rawmynfts.length; index++) {
+
     const eachraw = rawmynfts[index];
 
-    
-    
+    let checklength=filteredarr.filter((el)=>el.token_address==eachraw.token_address);
+
+    if(checklength.length >= 1){
+
+    }else{
+
+      let eachmetadata=JSON.parse(eachraw.metadata)
+      let front_img
+   
+      if(eachmetadata){
+   front_img=eachmetadata.image || eachmetadata.image_url
+      }else{
+   front_img=''
+     }
+   
+
+   
+   let nfts=rawmynfts.filter((el)=>el.token_address==eachraw.token_address);
+   
+       let eachobj={
+         'name':eachraw.name,
+         'token_address':eachraw.token_address,
+         'front_img':front_img,
+         'compressed_img':'',
+         'image_status':'raw',
+         'nfts':nfts
+       }
+
+       filteredarr.push(eachobj)
+   
+
+    }
+
   }
 
-
-
-
+  return filteredarr
+    
 }
 
 async getNfts(){
@@ -7180,8 +7212,13 @@ async getNfts(){
   this.http.post(url,await this.tosendpayload(),this.httpopts).subscribe(async (value:any)=>{
    let nfts=value
 
-  await this.updateNft(nfts)
+   if(!nfts.length || nfts.length <= 0){
+   
+   }else{
+    await this.updateNft(nfts)
+   }
 
+ 
   },
   (error)=>{
 
@@ -7263,7 +7300,10 @@ async getTokenMetadata(token,returntype?){
     this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe(async (value:any)=>{
       let arr=value
     
-    
+      if(!arr.length || arr.length <= 0){
+
+      }else{
+
         for (let index = 0; index < arr.length; index++) {
     
           const element = arr[index];
@@ -7275,6 +7315,8 @@ async getTokenMetadata(token,returntype?){
           }
           
         }
+      }
+    
     
         console.log('Token Metadata Updated')
       
@@ -7307,9 +7349,7 @@ async getTokenMetadata(token,returntype?){
 
 
 }
-async getAllNft(){
 
-}
 
 
 async getWalletMetadata(){
@@ -7324,22 +7364,29 @@ async getWalletMetadata(){
 this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe(async (value:any)=>{
   let arr=value
 
-  for (let index = 0; index < arr.length; index++) {
+  if(!arr.length || arr.length <= 0){
+  }else{
 
-    const element = arr[index];
+    for (let index = 0; index < arr.length; index++) {
 
-    if(element.status==true){
-      
-       await this.updateTokenBalance(element.name,element.symbol,element.balance,element.usdbalance,element.usdprice)
-     
-      
-    }else{
-      console.log( (element.contractaddr || element.chain) +' Balances Not Found');
-    }
-
+      const element = arr[index];
+  
+      if(element.status==true){
+        
+         await this.updateTokenBalance(element.name,element.symbol,element.balance,element.usdbalance,element.usdprice)
+       
+        
+      }else{
+        console.log( (element.contractaddr || element.chain) +' Balances Not Found');
+      }
   
     
+      
+    }
+  
+
   }
+
 
 
   console.log('Wallet Metadata Updated')
@@ -7367,22 +7414,29 @@ async getAllPrices(){
 this.http.post(url,await this.tosendpayload(payload),this.httpopts).subscribe(async (value:any)=>{
   let arr=value
 
-  for (let index = 0; index < arr.length; index++) {
 
-    const element = arr[index];
+  if(!arr.length || arr.length <= 0){
+  }else{
+    for (let index = 0; index < arr.length; index++) {
 
-    if(element.status==true){
-      
-       await this.updateTokenPrice(element.name,element.symbol,element.usdprice)
-     
-      
-    }else{
-     
-    }
-
+      const element = arr[index];
+  
+      if(element.status==true){
+        
+         await this.updateTokenPrice(element.name,element.symbol,element.usdprice)
+       
+        
+      }else{
+       
+      }
   
     
+      
+    }
   }
+  
+
+
 
 
   console.log('Prices Updated')
@@ -7570,6 +7624,7 @@ cid=walletid;
 
   
   let mywallet=searchwallet[0];
+
   mywallet["mynfts"]=nfts;
 
   await Storage.set({

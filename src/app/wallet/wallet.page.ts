@@ -7,6 +7,8 @@ import { Storage } from '@capacitor/storage';
 import { WalletsService } from '../wallets.service';
 import { IonRouterOutlet } from '@ionic/angular';
 import { EventsService } from '../events.service';
+import {NgxImageCompressService} from "ngx-image-compress";
+import { HttpClient,HttpHeaders  } from '@angular/common/http';
 
 SwiperCore.use([Pagination]);
 
@@ -35,7 +37,8 @@ export class WalletPage implements OnInit,AfterContentChecked {
 
  currentslide=0;
 
-  constructor(private cd: ChangeDetectorRef,private wallet: WalletsService,public router: RouterService,private activatedRoute: ActivatedRoute,private routerOutlet: IonRouterOutlet,private events: EventsService) { }
+  constructor(private cd: ChangeDetectorRef,private wallet: WalletsService,public router: RouterService,private activatedRoute: ActivatedRoute,
+    private routerOutlet: IonRouterOutlet,private events: EventsService,private imageCompressor: NgxImageCompressService,private http:HttpClient ) { }
 
 
   numberize(x,nocomma?,num?) {
@@ -77,7 +80,7 @@ return rx.toString();
     for (let index = 0; index < mytokens.length; index++) {
       const eachtoken = mytokens[index];
 
-      if(!eachtoken){
+      if(!eachtoken || eachtoken==''){
 
       }else{
         total =total + parseInt(eachtoken.usdbalance);
@@ -93,6 +96,32 @@ async goToBack(){
 }
 
 
+async updateTokenViewBalance(){
+  let newtokens:any=await this.wallet.getMyTokens()
+  let previoustkns:any=this.mytokens;
+
+  if(newtokens.length==previoustkns.length){
+
+  for (let index = 0; index < newtokens.length; index++) {
+    
+    const eachnewtkn = newtokens[index]
+    let eachprevioustkn=previoustkns[index]
+
+    if(eachnewtkn.coinbalance==eachprevioustkn.coinbalance && eachnewtkn.usdbalance==eachprevioustkn.usdbalance){
+     
+    }else{
+      this.mytokens[index].coinbalance=eachnewtkn.coinbalance
+      this.mytokens[index].usdbalance=eachnewtkn.usdbalance   
+    }
+
+  }
+  
+  this.calculatebalance()
+
+  }
+
+}
+
 async alwaysUpdateView(){
 
   
@@ -102,22 +131,28 @@ async alwaysUpdateView(){
 
 
   if(newtokens.length==previoustkns.length){
-    for (let index = 0; index < newtokens.length; index++) {
     
-      const eachnewtkn = newtokens[index]
-      let eachprevioustkn=previoustkns[index]
-
-      if(eachnewtkn.coinbalance==eachprevioustkn.coinbalance && eachnewtkn.usdbalance==eachprevioustkn.usdbalance){
-       
-      }else{
-        this.mytokens[index].coinbalance=eachnewtkn.coinbalance
-        this.mytokens[index].usdbalance=eachnewtkn.usdbalance
-
-        this.calculatebalance()
-      }
   
-      
-    }
+
+      this.updateTokenViewBalance()
+    
+
+  }else if(newtokens.length > previoustkns.length) {
+
+
+      for (let index = previoustkns.length; index < newtokens.length; index++) {
+        this.mytokens.push(newtokens[index]);
+      }
+
+      this.updateTokenViewBalance()
+    
+
+  }else if(newtokens.length < previoustkns.length){
+    
+
+    this.mytokens=newtokens
+
+    this.updateTokenViewBalance()
 
   }
 
@@ -125,21 +160,82 @@ async alwaysUpdateView(){
 
   setTimeout(async ()=>{
     await this.alwaysUpdateView()
-   },3000)
+   },2000)
 
   
 
 
 }
 
+imgResultBeforeCompression: string = "";
+imgResultAfterCompression: string = "";
 
-  async syncTokens(){
+async compressImg(){
+
+
+    this.imageCompressor.uploadFile().then(({image, orientation})=>{
+
+      this.imgResultBeforeCompression = image;
+      console.log("Size in bytes of the uploaded image was:", this.imageCompressor.byteCount(image));
+
+      this.imageCompressor
+        .compressFile(image, orientation, 50, 50) // 50% ratio, 50% quality
+        .then(
+          (compressedImage) => {
+            this.imgResultAfterCompression = compressedImage;
+            console.log("Size in bytes after compression is now:", this.imageCompressor.byteCount(compressedImage));
+          }
+        );
+
+    })
+
+
+
+ 
+
+}
+
+
+async loadNftImgs(){
+  let nfts=this.mynfts
+
+  for (let index = 0; index < nfts.length; index++) {
+    let nftindex=index
+    let eachnft = nfts[index];
+    let imgUrl=eachnft.front_img
+
+
+    let resp=new Promise((resolve, reject) => {
+     
+      this.http.get(imgUrl).subscribe((data)=>{
+resolve(data)
+      },
+      (error)=>{
+reject(error)
+      })
+
+
+    })
+
+   resp.then((data)=>{
+
+   },
+   (error)=>{
+
+   })
+   
+  }
+
+
+}
+
+  async getView(){
     try {
 
       let data=await this.wallet.getMyWallet();
       this.mywallet=data;
       this.mytokens=await this.wallet.getMyTokens()
-      this.mynfts
+      this.mynfts=await this.wallet.loadMyNfts()
 
       this.numoftk=this.mywallet.mytokens.length;
 
@@ -150,12 +246,11 @@ async alwaysUpdateView(){
     this.calculatebalance();
   }
 
-ionViewWillEnter(){
+ /* ionViewWillEnter(){
 
   this.events.getData().subscribe(async (data) => {
     if(data=="UpdateHome"){
       await this.syncTokens();
-      console.log('Wallet Page Updated..')
       this.routerOutlet.swipeGesture = false;
     }
 });
@@ -163,17 +258,20 @@ ionViewWillEnter(){
 
     
   }
+
+  */
   
   async ngOnInit() {
 
-   
-    await this.syncTokens()
     this.routerOutlet.swipeGesture = false;
 
-    this.alwaysUpdateView()
+    await this.getView().then(() => {
+      console.log('Wallet Page Updated..')
+      this.alwaysUpdateView()
 
-    
-    
+this.loadNftImgs()
+    })
+     
   }
 
 
