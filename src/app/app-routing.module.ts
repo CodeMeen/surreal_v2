@@ -53,6 +53,10 @@ const routes: Routes = [
     path: 'tx',
     loadChildren: () => import('./tx/tx.module').then( m => m.TxPageModule)
   },
+  {
+    path: 'viewnft/:nftaddr',
+    loadChildren: () => import('./viewnft/viewnft.module').then( m => m.ViewnftPageModule)
+  },
 ];
 
 @NgModule({

@@ -1,0 +1,50 @@
+<ion-content>
+
+    <div class="viewnftview">
+
+        <div class="purpheader">
+            <div class="goback" (click)="router.goBack()">
+                <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
+            </div>
+            <div class="centerdiv">
+                <div class="logo"></div>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="nftname">
+
+        </div>
+
+        <div class="cardplace">
+
+            <swiper [config]="config" #swiper (slideChange)="updatecurrindex($event)">
+
+                <ng-template *ngFor="let nft of nfts;" swiperSlide>
+
+
+
+                    <div class="eachnft" [ngClass]="{'nftskeletonloading':nft.media_status=='unloaded','nftloaded':nft.media_status=='loaded','nftimgerror':nft.media_status=='error'}">
+
+                        <img class="nftimg" *ngIf="nft.media_type=='image'" src="{{nft.loaded_media}}">
+
+                        <video class="nftvideo" *ngIf="nft.media_type=='video'" autoplay="autoplay" loop>
+                          <source src="{{nft.loaded_media}}" type="video/mp4">
+                      </video>
+
+                        <div class="nfterror">
+                            <ion-icon name="cloud-offline" class="cloud-offline"></ion-icon>
+                        </div>
+                    </div>
+
+
+
+
+                </ng-template>
+            </swiper>
+
+        </div>
+
+    </div>
+
+</ion-content>

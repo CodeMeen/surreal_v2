@@ -81,9 +81,17 @@
                         <div class="tokengrid" *ngIf="mynfts.length >= 1 ">
 
                             <ng-container *ngFor="let nft of mynfts">
-                                <div class="eachnft">
-                                    <div class="nftimgbox" [ngClass]="{'nftskeletonloading':nft.image_status=='raw','compressed':nft.image_status=='compressed','nftimgerror':nft.image_status=='error'}">
-                                        <img class="nftimg" src="{{nft.compressed_img}}">
+                                <div class="eachnft" (click)="router.naviTo(['/viewnft',nft.token_address])">
+                                    <div class="nftimgbox" [ngClass]="{'nftskeletonloading':nft.media_status=='unloaded','nftloaded':nft.media_status=='loaded','nftimgerror':nft.media_status=='error'}">
+                                        <img class="nftimg" *ngIf="nft.media_type=='image'" src="{{nft.loaded_media}}">
+
+                                        <video class="nftvideo" *ngIf="nft.media_type=='video'" autoplay="autoplay" loop>
+                                            <source src="{{nft.loaded_media}}" type="video/mp4">
+                                        </video>
+
+                                        <div class="nfterror">
+                                            <ion-icon name="cloud-offline" class="cloud-offline"></ion-icon>
+                                        </div>
 
                                         <div class="nftmetadata">
 

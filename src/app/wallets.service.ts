@@ -7144,6 +7144,49 @@ if(baseChain=='' || !baseChain){
 
 }
 
+async loadNft(tokenaddr,walletid?){
+     
+  let cid;
+
+  if(!walletid){
+cid=await this.getCurrentWalletId();
+  }else{
+cid=walletid;
+  }
+
+  let database=await Storage.get({ key: 'wallets' });
+  let wallets=JSON.parse(database.value);
+
+
+  let mywallet=wallets.filter((el)=>el.id==cid);
+
+  let rawmynfts=mywallet[0].mynfts 
+
+  let resp=rawmynfts.filter((el)=>el.token_address==tokenaddr);
+
+  for (let index = 0; index < resp.length; index++) {
+    const eachnft = resp[index];
+
+    let eachmetadata=JSON.parse(eachnft.metadata)
+    let front_img
+   
+      if(eachmetadata){
+   front_img=eachmetadata.image || eachmetadata.image_url
+      }else{
+   front_img=''
+     }
+   
+    eachnft['raw_media']=front_img
+    eachnft['loaded_media']=''
+    eachnft['media_status']='unloaded'
+    eachnft['media_type']=''
+    
+  }
+
+  return resp
+
+}
+
 async loadMyNfts(walletid?){
    
   let cid;
@@ -7184,15 +7227,41 @@ cid=walletid;
    
 
    
-   let nfts=rawmynfts.filter((el)=>el.token_address==eachraw.token_address);
+   let subnfts=rawmynfts.filter((el)=>el.token_address==eachraw.token_address);
+
+   for (let index = 0; index < subnfts.length; index++) {
+    const eachsubnft = subnfts[index];
+
+    let eachsubmetadata=JSON.parse(eachsubnft.metadata)
+    let subfront_img
+   
+      if(eachsubmetadata){
+   subfront_img=eachsubmetadata.image || eachsubmetadata.image_url
+      }else{
+   subfront_img=''
+     }
+   
+    eachsubnft['raw_media']=subfront_img
+    eachsubnft['loaded_media']=''
+    eachsubnft['media_status']='unloaded'
+    eachsubnft['media_type']=''
+
+    
+   }
    
        let eachobj={
          'name':eachraw.name,
          'token_address':eachraw.token_address,
-         'front_img':front_img,
-         'compressed_img':'',
-         'image_status':'raw',
-         'nfts':nfts
+
+
+
+         'media_type':'',
+         'raw_media':front_img,
+         'loaded_media':'',
+         'media_status':'unloaded',
+  
+ 
+         'nfts':subnfts
        }
 
        filteredarr.push(eachobj)
@@ -7704,6 +7773,7 @@ cid=walletid;
     return filteredarr;
   
    }
+
 
    async getATokenOffline(tokenname,tokentype){
 
