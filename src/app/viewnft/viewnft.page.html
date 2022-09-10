@@ -46,16 +46,17 @@
 
         <div class="txbox">
             <div class="eachdet">
-                <span class="lspan">Date</span>
-                <span class="rspan"></span>
+                <span class="lspan">Name</span>
+                <span class="rspan">{{currentMetadata.name}}</span>
             </div>
+
 
             <hr class="detline">
 
             <div class="eachdet">
-                <span class="lspan">Status</span>
+                <span class="lspan">Token Id</span>
                 <div class="rspan statussh">
-
+                  {{currentNft.token_id}}
                 </div>
 
             </div>
@@ -63,26 +64,36 @@
             <hr class="detline">
 
             <div class="eachdet">
-
-                <span>
-                  <span class="lspan">Sender</span>
-                <span class="rspan"></span>
-                </span>
-
-
-
+                <span class="lspan">Token Address</span>
+                <div class="rspan statussh">
+                  {{currentNft.token_address}}
+                </div>
 
             </div>
+
             <hr class="detline">
 
+
             <div class="eachdet">
-                <span class="lspan">Network Fee</span>
-                <span class="rspan"></span>
+
+    
+                  <span class="lspan">Type</span>
+                <div class="rspan">{{currentNft.contract_type}}</div>
+                
+
+
+
+
             </div>
+            
 
 
 
         </div>
+
+        <div class="buttonbelow">
+            <button class="whitebtn">Send Nft</button>
+          </div>
 
     </div>
 

@@ -1,4 +1,4 @@
-import { AfterContentChecked, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RouterService } from '../router.service';
 import { WalletsService } from '../wallets.service';
@@ -36,15 +36,18 @@ export class ViewnftPage implements AfterContentChecked,OnInit{
 
   currentNftIndex:any 
   currentNft:any={}
+  currentMetadata:any={}
   
 
-  constructor(public router:RouterService,private route: ActivatedRoute,public wallet:WalletsService, private http: HttpClient,private routerOutlet: IonRouterOutlet) { }
+  constructor(public router:RouterService,private route: ActivatedRoute,public wallet:WalletsService, private http: HttpClient,private routerOutlet: IonRouterOutlet,private cd: ChangeDetectorRef,) { }
 
   updatecurrindex(event){
     this.currentNftIndex = this.swiper.swiperRef.activeIndex;
     this.currentNft=this.nfts[this.currentNftIndex];
+    this.currentMetadata=JSON.parse(this.currentNft.metadata)
 
-    console.log(JSON.parse(this.currentNft.metadata));
+    console.log(this.currentMetadata);
+    this.cd.detectChanges();
   }
 
   async loadNftImgs() {
@@ -73,7 +76,7 @@ export class ViewnftPage implements AfterContentChecked,OnInit{
           
             if( (blobdata.type == 'image/png' || blobdata.type == 'image/gif' ||  blobdata.type == 'image/jpeg' || blobdata.type == 'video/mp4') && blobdata.size <= 15000000 ){
 
-              console.log(blobdata)
+              
            
 
               let gendata=new Promise((resolve,reject)=>{
@@ -135,13 +138,16 @@ export class ViewnftPage implements AfterContentChecked,OnInit{
 await this.wallet.loadNft(nftaddr).then((data)=>{
 this.nfts=data
 this.currentNft=this.nfts[0]
+this.currentMetadata=JSON.parse(this.currentNft.metadata)
+
+console.log(this.currentMetadata)
+
 this.loadNftImgs()
 },
 (error)=>{
 
 })
 
-console.log(this.nfts)
     
   }
 
