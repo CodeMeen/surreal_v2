@@ -34,8 +34,8 @@ export class ViewnftPage implements AfterContentChecked,OnInit{
 
   nfts:any[]=[]
 
-  currentNftIndex:any =0
-  currentNft:any=this.nfts[0]
+  currentNftIndex:any 
+  currentNft:any={}
   
 
   constructor(public router:RouterService,private route: ActivatedRoute,public wallet:WalletsService, private http: HttpClient,private routerOutlet: IonRouterOutlet) { }
@@ -44,7 +44,7 @@ export class ViewnftPage implements AfterContentChecked,OnInit{
     this.currentNftIndex = this.swiper.swiperRef.activeIndex;
     this.currentNft=this.nfts[this.currentNftIndex];
 
-    console.log(this.currentNft);
+    console.log(JSON.parse(this.currentNft.metadata));
   }
 
   async loadNftImgs() {
@@ -134,6 +134,7 @@ export class ViewnftPage implements AfterContentChecked,OnInit{
 
 await this.wallet.loadNft(nftaddr).then((data)=>{
 this.nfts=data
+this.currentNft=this.nfts[0]
 this.loadNftImgs()
 },
 (error)=>{
