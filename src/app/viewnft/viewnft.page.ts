@@ -41,10 +41,28 @@ export class ViewnftPage implements AfterContentChecked,OnInit{
 
   constructor(public router:RouterService,private route: ActivatedRoute,public wallet:WalletsService, private http: HttpClient,private routerOutlet: IonRouterOutlet,private cd: ChangeDetectorRef,) { }
 
+  shortAddr(string) {
+
+    let firstpart = string.slice(0, 7)
+    let lastpart = string.slice(-7)
+
+    let newstring = firstpart + '...' + lastpart
+
+    return newstring
+
+}
+
   updatecurrindex(event){
     this.currentNftIndex = this.swiper.swiperRef.activeIndex;
     this.currentNft=this.nfts[this.currentNftIndex];
+    this.currentNft['shortAddress']=this.shortAddr(this.currentNft.token_address)
     this.currentMetadata=JSON.parse(this.currentNft.metadata)
+
+
+if(!this.currentMetadata.name || this.currentMetadata.name==''){
+  this.currentMetadata['name']=this.currentNft.name
+  }
+  
 
     console.log(this.currentMetadata);
     this.cd.detectChanges();
@@ -136,9 +154,15 @@ export class ViewnftPage implements AfterContentChecked,OnInit{
     let nftaddr=routeParams.get('nftaddr');
 
 await this.wallet.loadNft(nftaddr).then((data)=>{
+
 this.nfts=data
 this.currentNft=this.nfts[0]
+this.currentNft['shortAddress']=this.shortAddr(this.currentNft.token_address)
 this.currentMetadata=JSON.parse(this.currentNft.metadata)
+
+if(!this.currentMetadata.name || this.currentMetadata.name==''){
+this.currentMetadata['name']=this.currentNft.name
+}
 
 console.log(this.currentMetadata)
 

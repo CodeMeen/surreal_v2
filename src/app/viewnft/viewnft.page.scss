@@ -73,6 +73,7 @@
         object-position: center;
         position: absolute;
         display: none;
+        background:white;
     }
     .nftmetadata {
         height: 250px;
@@ -107,7 +108,7 @@
     .cloud-offline {
         height: 50px;
         width: 50px;
-        color: #c0c0c0;
+        color: var(--ion-color-secondary);
     }
     @keyframes skeleton-loading {
         0% {
@@ -210,6 +211,15 @@
     text-transform: uppercase;
     font-family:mntssemibold;
     letter-spacing: 0.05em;
+    }
+
+    .viewblockexp{
+        text-align:center;
+        padding:0px;
+        margin: 10px 0px;
+        color:white;
+        font-size:14px;
+        font-family: mntssemibold;
     }
     /**
  * Swiper 8.2.4

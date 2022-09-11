@@ -66,7 +66,7 @@
             <div class="eachdet">
                 <span class="lspan">Token Address</span>
                 <div class="rspan statussh">
-                  {{currentNft.token_address}}
+                  {{currentNft.shortAddress}}
                 </div>
 
             </div>
@@ -91,9 +91,43 @@
 
         </div>
 
+        <div class="viewblockexp">See More On Opensea</div>
+
         <div class="buttonbelow">
             <button class="whitebtn">Send Nft</button>
           </div>
+
+
+    
+        
+        <div class="popupdiv popupshadow" #popupdiv [ngClass]="{'popshow':popUp.popopened,'popupmaxheight':popUp.height==='maxi','popupminiheight':popUp.height==='mini'}">
+            <div class="popupdownbtn" (click)='popUp.close();'></div>
+        
+        
+        
+            <div *ngIf="popUp.type==='message'" class="popupmessage">
+        
+                <div *ngIf="popUp.messageimg" [ngClass]="{'pimg_anim':popUp.messageimg}" style="background-image: url({{popUp.messageimgurl}});" class="popupimg">
+        
+                </div>
+        
+                <div class="poptitle">
+                    {{popUp.messagetitle}}
+                </div>
+        
+                <div class="poptext">
+                    {{popUp.message}}
+                </div>
+        
+                <div class="popaction" *ngIf="popUp.messageactions">
+                    <div class="popactionone" (click)="popUp.close()">Cancel</div>
+                    <div class="popactiontwo" (click)="messagefunc(popUp.messageaction,true)">{{popUp.messageactionname}}</div>
+                </div>
+        
+        
+            </div>
+        
+        </div>
 
     </div>
 
