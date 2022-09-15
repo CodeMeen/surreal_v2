@@ -1,0 +1,90 @@
+<ion-content>
+
+    <div class="confirmtxview">
+
+        <div class="purpheader">
+            <div class="goback" (click)="router.goBack()">
+                <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
+            </div>
+            <div class="centerdiv">
+                <div class="logo"></div>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="nother">
+            <div class="txvalue"><span>-</span>{{refinedTxData.amount}} {{refinedTxData.token.symbol}}</div>
+
+            <div class="swapiconbox">
+                <ion-icon name="swap-vertical-outline" class="exd"></ion-icon>
+            </div>
+
+            <div class="usdval">$ {{refinedTxData.amountUsd}}</div>
+        </div>
+
+        <div class="txbox">
+            <div class="eachdet">
+                <span class="lspan">Asset</span>
+                <span class="rspan">{{refinedTxData.token.name}}({{refinedTxData.token.symbol}})</span>
+            </div>
+
+            <hr class="detline">
+
+            <div class="eachdet">
+                <span class="lspan">From</span>
+                <div class="rspan statussh">
+
+                    <div>
+                        <span>{{refinedTxData.shortFrom}}</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <hr class="detline">
+
+            <div class="eachdet">
+
+
+                <span class="lspan">To</span>
+                <span class="rspan">{{refinedTxData.shortTo}}</span>
+
+
+
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+        <div class="txbox">
+
+
+            <div class="eachdet">
+                <span class="lspan">Network Fee</span>
+                <span class="rspan">{{refinedTxData.networkFee}} ETH (${{refinedTxData.networkFeeUsd}})</span>
+            </div>
+            <hr class="detline">
+            <div class="eachdet">
+                <span class="lspan">Max Total</span>
+                <span class="rspan"></span>
+            </div>
+
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+</ion-content>

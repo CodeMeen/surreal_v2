@@ -1,197 +1,224 @@
-import { Component, OnInit, ViewEncapsulation,ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { IonRouterOutlet } from '@ionic/angular';
-import { RouterService } from '../router.service';
-import { WalletsService } from '../wallets.service';
-import { Clipboard } from '@capacitor/clipboard';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { NotiService } from '../noti.service';
-
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  ChangeDetectorRef,
+} from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { IonRouterOutlet } from "@ionic/angular";
+import { RouterService } from "../router.service";
+import { WalletsService } from "../wallets.service";
+import { Clipboard } from "@capacitor/clipboard";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { NotiService } from "../noti.service";
+import { LoaderService } from "../loader.service";
 @Component({
-  selector: 'app-sendtoken',
-  templateUrl: './sendtoken.page.html',
-  styleUrls: ['./sendtoken.page.scss'],
-  encapsulation:ViewEncapsulation.None
+  selector: "app-sendtoken",
+  templateUrl: "./sendtoken.page.html",
+  styleUrls: ["./sendtoken.page.scss"],
+  encapsulation: ViewEncapsulation.None,
 })
 export class SendtokenPage implements OnInit {
+  mytoken: any = {};
+  tokenusd: any = "";
 
-  mytoken:any={};
-  tokenusd:any="";
-
-  swap:any={
-    'swapFrom':'',
-    'returnAmt':0
+  swap: any = {
+    swapFrom: "",
+    returnAmt: 0,
   };
 
-
-  valueInput:any="";
+  valueInput: any = "";
   inputType;
- 
-  recipientaddr:any="";
-  successflag=false;
 
-  constructor(private http: HttpClient,private route: ActivatedRoute,public router:RouterService,private wallet:WalletsService,public noti:NotiService,private cd:ChangeDetectorRef) { }
-  
-max(){
-  if(this.inputType==this.mytoken.symbol){
-    this.valueInput=this.mytoken.coinbalance
-    this.swapFunc(this.valueInput)
-  }else if(this.inputType=='USD'){
-    this.valueInput=this.mytoken.usdbalance
-    this.swapFunc(this.valueInput)
+  recipientaddr: any = "";
+  successflag = false;
+
+  newTxData: any = {};
+
+  constructor(
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    public router: RouterService,
+    private wallet: WalletsService,
+    public noti: NotiService,
+    private cd: ChangeDetectorRef,
+    public loader: LoaderService
+  ) {}
+
+  max() {
+    if (this.inputType == this.mytoken.symbol) {
+      this.valueInput = this.mytoken.coinbalance;
+      this.swapFunc(this.valueInput);
+    } else if (this.inputType == "USD") {
+      this.valueInput = this.mytoken.usdbalance;
+      this.swapFunc(this.valueInput);
+    }
   }
 
+  numberize(x, num?) {
+    let rx;
+    if (num) {
+      rx = x.toFixed(num);
+    } else {
+      rx = x.toFixed(2);
+    }
 
-}
-
- numberize(x,num?) {
-   let rx;
-   if(num){
-    rx=x.toFixed(num);
-   }else{
-   rx=x.toFixed(2);
-   }
-   
     return rx.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-}
+  }
 
-
-async switchType(){
-
-if(this.inputType==this.mytoken.symbol){
-this.inputType='USD'
-this.valueInput=0;
-this.swapFunc(this.valueInput);
-}else if(this.inputType=='USD'){
-this.inputType=this.mytoken.symbol
-this.valueInput=0;
-this.swapFunc(this.valueInput);
-}
-}
-
- measureValue(){
-
-  this.noti.closenoti();
-  
-
-  if(this.inputType=='USD'){
-    let balance=this.mytoken.usdbalance
-    if(this.valueInput > balance || this.valueInput < 0){
-      return false;
-    }else{
-      return true;
-    }
-  }else if(this.inputType==this.mytoken.symbol){
-    let balance=this.mytoken.coinbalance
-
-    if(this.valueInput > balance || this.valueInput < 0){
-      return false;
-    }else{
-      return true;
+  async switchType() {
+    if (this.inputType == this.mytoken.symbol) {
+      this.inputType = "USD";
+      this.valueInput = 0;
+      this.swapFunc(this.valueInput);
+    } else if (this.inputType == "USD") {
+      this.inputType = this.mytoken.symbol;
+      this.valueInput = 0;
+      this.swapFunc(this.valueInput);
     }
   }
 
+  measureValue() {
+    this.noti.closenoti();
 
-}
+    if (this.inputType == "USD") {
+      let balance = this.mytoken.usdbalance;
+      if (this.valueInput > balance || this.valueInput < 0) {
+        return false;
+      } else {
+        return true;
+      }
+    } else if (this.inputType == this.mytoken.symbol) {
+      let balance = this.mytoken.coinbalance;
 
-  async swapFunc(value){
+      if (this.valueInput > balance || this.valueInput < 0) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
 
-    if(isNaN(value)){
-this.noti.notify('error','Invalid Input','Only numbers are allowed');
-this.successflag=false;
-console.log("Not a number")
-    }else{
+  async swapFunc(value) {
+    if (isNaN(value)) {
+      this.noti.notify("error", "Invalid Input", "Only numbers are allowed");
+      this.successflag = false;
+      console.log("Not a number");
+    } else {
+      if (this.tokenusd) {
+        if (this.inputType == "USD") {
+          let usdAmt = await (value / this.tokenusd);
 
-      if(this.tokenusd){
+          this.swap.swapFrom = this.inputType;
+          this.swap.returnAmt = usdAmt;
+        } else if (this.inputType == this.mytoken.symbol) {
+          let coinAmt = await (value * this.tokenusd);
 
-        if(this.inputType=='USD'){
-        
-          let usdAmt=await (value / this.tokenusd);
-  
-          this.swap.swapFrom=this.inputType
-          this.swap.returnAmt=usdAmt
-  
-        }else if(this.inputType==this.mytoken.symbol){
-          
-            let coinAmt=await ( value*this.tokenusd );
-    
-            this.swap.swapFrom=this.inputType
-            this.swap.returnAmt=coinAmt
-  
-            
-  
+          this.swap.swapFrom = this.inputType;
+          this.swap.returnAmt = coinAmt;
         }
-        
-      
-    }
-
-      if(this.measureValue()==false){
-        this.successflag=false;
-        this.noti.notify('error','Insufficient balance!')
-      }else{
-  this.successflag=true;
       }
 
+      if (this.measureValue() == false) {
+        this.successflag = false;
+        this.noti.notify("error", "Insufficient balance!");
+      } else {
+        this.successflag = true;
+      }
     }
-    
-    
-    }
-
-
- async pasteAddress(){
-
-  const { type, value } = await Clipboard.read();
-
-  this.recipientaddr=value;
-
-
   }
 
-  async syncToken(){
+  async swapToCoinValue(value) {
+    if (this.inputType == "USD") {
+      let usdAmt = await (value / this.tokenusd);
+
+      return usdAmt;
+    } else if (this.inputType == this.mytoken.symbol) {
+      return value;
+    }
+  }
+
+  async pasteAddress() {
+    const { type, value } = await Clipboard.read();
+
+    this.recipientaddr = value;
+  }
+
+  async syncToken() {
     const routeParams = this.route.snapshot.paramMap;
-    let tkname=routeParams.get('name');
-    let tktype=routeParams.get('type');
-  let procv=await this.wallet.searchMyTokens(tkname,tktype)
- 
-    if(procv===true){
-      this.mytoken=await this.wallet.getToken(tkname,tktype);
-    }else{
-      this.mytoken=await this.wallet.getAToken(tkname,tktype);
+    let tkname = routeParams.get("name");
+    let tktype = routeParams.get("type");
+    let procv = await this.wallet.searchMyTokens(tkname, tktype);
+
+    if (procv === true) {
+      this.mytoken = await this.wallet.getToken(tkname, tktype);
+    } else {
+      this.mytoken = await this.wallet.getAToken(tkname, tktype);
     }
 
-    this.inputType=this.mytoken.symbol
+    this.inputType = this.mytoken.symbol;
   }
 
-  async syncTokenPrice(){
+  async syncTokenPrice() {
+    await this.wallet
+      .getTokenPrice(this.mytoken.symbol)
+      .then(async (value) => {
+        this.tokenusd = value;
+        await this.wallet.updateToken(this.mytoken.name, this.mytoken.type, {
+          usdprice: this.tokenusd,
+        });
+        console.log(value + " Loaded from market");
+      })
+      .catch(async (error) => {
+        let prt: any = this.mytoken.usdprice;
 
-    await this.wallet.getTokenPrice(this.mytoken.symbol).then(async (value)=>{
-      this.tokenusd=value;
-    await this.wallet.updateToken(this.mytoken.name,this.mytoken.type,{'usdprice':this.tokenusd});
-      console.log(value+" Loaded from market");
-    })
-    .catch(async (error)=>{
-
-      let prt:any=this.mytoken.usdprice
-
-      if(!prt){
-this.noti.notify('error',"Couldn't load resources","Check internet connection!");
-      }else{
-  this.tokenusd=prt;
-  console.log(this.tokenusd+" Loaded from memory");
-      }
-
-
-    })
+        if (!prt) {
+          this.noti.notify(
+            "error",
+            "Couldn't load resources",
+            "Check internet connection!"
+          );
+        } else {
+          this.tokenusd = prt;
+          console.log(this.tokenusd + " Loaded from memory");
+        }
+      });
   }
 
+  async startTx() {
+    if (
+      this.tokenusd == "" ||
+      this.valueInput == "" ||
+      this.recipientaddr == "" ||
+      this.successflag == false
+    ) {
+    } else {
+      this.newTxData["amount"] = await this.swapToCoinValue(this.valueInput);
+      this.newTxData["to"] = this.recipientaddr;
+      this.newTxData["token"] = this.mytoken;
 
+      await this.wallet.getTxMetadata(this.newTxData).then((resp)=>{
+
+        this.wallet.passViewData('confirmTxdata',resp)
+        this.router.naviTo(['/confirmtx'])
+
+    
+      },
+      (error)=>{
+console.log(error)
+
+if(error.reason=='recipient_invalid_address'){
+  this.noti.notify('error','Invalid Recipient Address','The recipient address you entered is not valid')
+}
+      })
+
+     
+    }
+  }
 
   async ngOnInit() {
-   
-await this.syncToken().then(async (value)=>{
-  await this.syncTokenPrice();
-})
-
+    await this.syncToken().then(async (value) => {
+      await this.syncTokenPrice();
+    });
   }
-
 }

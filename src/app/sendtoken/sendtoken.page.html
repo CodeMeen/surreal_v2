@@ -1,73 +1,73 @@
 <ion-content>
 
-  <div class="sendtokenview">
+    <div class="sendtokenview">
 
-    <div class="purpheader">
-      <div class="goback" (click)="router.goBack()">
-        <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
-      </div>
-      <div class="centerdiv">
-        <div class="logo"></div>
-      </div>
-      <div></div>
-    </div>
-
-  
-
-  <div class="balancetext">Send {{mytoken.symbol}} <span style="text-transform: uppercase;" *ngIf="mytoken.type!='coin'">({{mytoken.type}})</span></div>
-  <div class="smallline"></div>
-
-  <div class="fullbox balbox">
-   <span class="left">Balance</span>
-   <span class="right">{{mytoken.coinbalance}} {{mytoken.symbol}}</span>
-  </div>
-
-  <div class="fullbox">
-
-    <div class="inputbox">
-      <input class="input" [(ngModel)]="recipientaddr" type="text" required>
-      <span class="floating-label">Recipient Address</span>
-      <div class="choosy" style="grid-template-columns: 1fr !important;">
-        <div class="eachhalf" (click)="pasteAddress()">Paste</div>
-       
-      </div>
-    </div>
-
-    <hr class="sepline">
-  
-    <div class="inputbox">
-      <input class="input" [(ngModel)]="valueInput" (keyup)="swapFunc(valueInput)" style="width:68% !important" type="text" required>
-      <span class="floating-label">{{inputType}} Amount</span>
-      <div class="choosy"  style="width:30% !important;margin-right:5px;">
-        <div class="eachhalf" (click)="max()">max</div>
-        <div class="eachhalf" (click)="switchType()">
-          <span *ngIf="inputType==mytoken.symbol">USD</span>
-          <span *ngIf="inputType=='USD'">{{mytoken.symbol}}</span>    
+        <div class="purpheader">
+            <div class="goback" (click)="router.goBack()">
+                <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
+            </div>
+            <div class="centerdiv">
+                <div class="logo"></div>
+            </div>
+            <div></div>
         </div>
-      </div>
+
+
+
+        <div class="balancetext">Send {{mytoken.symbol}} <span style="text-transform: uppercase;" *ngIf="mytoken.type!='coin'">({{mytoken.type}})</span></div>
+        <div class="smallline"></div>
+
+        <div class="fullbox balbox">
+            <span class="left">Balance</span>
+            <span class="right">{{mytoken.coinbalance}} {{mytoken.symbol}}</span>
+        </div>
+
+        <div class="fullbox">
+
+            <div class="inputbox">
+                <input class="input" [(ngModel)]="recipientaddr" type="text" required>
+                <span class="floating-label">Recipient Address</span>
+                <div class="choosy" style="grid-template-columns: 1fr !important;">
+                    <div class="eachhalf" (click)="pasteAddress()">Paste</div>
+
+                </div>
+            </div>
+
+            <hr class="sepline">
+
+            <div class="inputbox">
+                <input class="input" [(ngModel)]="valueInput" (keyup)="swapFunc(valueInput)" style="width:68% !important" type="text" required>
+                <span class="floating-label">{{inputType}} Amount</span>
+                <div class="choosy" style="width:30% !important;margin-right:5px;">
+                    <div class="eachhalf" (click)="max()">max</div>
+                    <div class="eachhalf" (click)="switchType()">
+                        <span *ngIf="inputType==mytoken.symbol">USD</span>
+                        <span *ngIf="inputType=='USD'">{{mytoken.symbol}}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="valuebox" *ngIf="swap">
+            <div class="swpicon">
+                <ion-icon name="swap-vertical-outline"></ion-icon>
+            </div>
+
+            <div class="swptext" *ngIf="inputType==mytoken.symbol">${{numberize(swap.returnAmt)}}</div>
+            <div class="swptext" *ngIf="inputType=='USD'">{{numberize(swap.returnAmt,3)}}<span> {{mytoken.symbol}}</span></div>
+
+        </div>
+
+        <div class="buttonbelow" [ngClass]="{'faded':tokenusd=='' || valueInput=='' || recipientaddr=='' || successflag==false}">
+            <button class="whitebtn" (click)="startTx()">Continue</button>
+        </div>
+
+
     </div>
 
-  </div>
-
-  <div class="valuebox" *ngIf="swap">
-    <div class="swpicon">
-      <ion-icon name="swap-vertical-outline"></ion-icon>
-    </div>
-   
-  <div class="swptext" *ngIf="inputType==mytoken.symbol">${{numberize(swap.returnAmt)}}</div>
-  <div class="swptext" *ngIf="inputType=='USD'">{{numberize(swap.returnAmt,3)}}<span> {{mytoken.symbol}}</span></div>
-  
-  </div>
-
-  <div class="buttonbelow" [ngClass]="{'faded':tokenusd=='' || valueInput=='' || recipientaddr=='' || successflag==false}">
-    <button class="whitebtn">Continue</button>
-  </div>
 
 
-  </div>
 
-
- 
-  
 
 </ion-content>

@@ -7297,6 +7297,32 @@ async getNfts(){
 
 }
 
+async getTxMetadata(data){
+this.loader.start()
+
+let tx=new Promise(async (resolve,reject)=>{
+
+  let url=this.serverurl+"/app/getTxMetadata";
+
+  this.http.post(url,await this.tosendpayload(data),this.httpopts).subscribe(async (value:any)=>{
+    this.loader.end()
+    if(value.status == true){
+      resolve(value)
+    }else{
+reject(value)
+    }
+   
+  },
+  (error)=>{
+    this.loader.end()
+    reject(error)
+  })
+
+})
+
+return tx
+
+}
 
 async getTxs(token){
 this.txloader=true

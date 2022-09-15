@@ -57,6 +57,10 @@ const routes: Routes = [
     path: 'viewnft/:nftaddr',
     loadChildren: () => import('./viewnft/viewnft.module').then( m => m.ViewnftPageModule)
   },
+  {
+    path: 'confirmtx',
+    loadChildren: () => import('./confirmtx/confirmtx.module').then( m => m.ConfirmtxPageModule)
+  },
 ];
 
 @NgModule({

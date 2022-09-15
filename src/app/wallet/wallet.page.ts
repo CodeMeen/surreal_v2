@@ -201,7 +201,6 @@ export class WalletPage implements OnInit, AfterContentChecked {
           
             if( (blobdata.type == 'image/png' || blobdata.type == 'image/gif' ||  blobdata.type == 'image/jpeg' || blobdata.type == 'video/mp4') && blobdata.size <= 15000000 ){
 
-              console.log(blobdata)
            
 
               let gendata=new Promise((resolve,reject)=>{

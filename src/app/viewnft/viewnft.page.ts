@@ -37,9 +37,52 @@ export class ViewnftPage implements AfterContentChecked,OnInit{
   currentNftIndex:any 
   currentNft:any={}
   currentMetadata:any={}
+  popUp:any={
+    'popopened':false,
+    'height':'maxi',
+    'messagetitle':'Send NFT',
+    'message':'See NFT details and enter recipient address below',
+    'imageurl':''
+  }
+
+  nftToSend:any={}
+
+  NftSendingData:any={
+    'recipient':''
+  }
   
 
   constructor(public router:RouterService,private route: ActivatedRoute,public wallet:WalletsService, private http: HttpClient,private routerOutlet: IonRouterOutlet,private cd: ChangeDetectorRef,) { }
+
+
+  closePop(){
+this.popUp={
+  'popopened':false,
+  'height':true,
+  'messagetitle':'',
+  'message':'',
+  'imageurl':''
+}
+  }
+
+  sendCurrentNft(){
+
+    let messagetitle='Send NFT'
+    let message='See NFT details and enter recipient address below'
+
+    this.popUp={
+      'popopened':true,
+      'height':'maxi',
+      'messagetitle':messagetitle,
+      'message':message,
+      'imageurl':this.currentNft.loaded_media
+    }
+
+    
+     
+    this.nftToSend=this.currentNft
+
+  }
 
   shortAddr(string) {
 
