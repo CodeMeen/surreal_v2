@@ -4,7 +4,7 @@ import { Storage } from '@capacitor/storage';
 import { promise } from 'protractor';
 import { HomePageRoutingModule } from './home/home-routing.module';
 import { LoaderService } from './loader.service'
-
+import { NotiService } from "./noti.service";
 
 @Injectable({
   providedIn: 'root'
@@ -7065,7 +7065,7 @@ export class WalletsService {
   serverurl='http://localhost:3000'
 
  
-  constructor(private http:HttpClient, public loader: LoaderService) {}
+  constructor(private http:HttpClient, public loader: LoaderService,public noti: NotiService) {}
 
 
 //to server
@@ -7309,12 +7309,30 @@ let tx=new Promise(async (resolve,reject)=>{
     if(value.status == true){
       resolve(value)
     }else{
+
+      if(value.reason=='recipient_invalid_address'){
+        this.noti.notify('error','Invalid Recipient Address','The recipient address you entered is not valid')
+      }else{
+        
+      }
+
+
+
 reject(value)
     }
    
   },
   (error)=>{
+
     this.loader.end()
+    
+     
+console.log(error)
+
+
+
+this.noti.notify('error','An Error Happened',"Couldn't connect to the internet")
+
     reject(error)
   })
 

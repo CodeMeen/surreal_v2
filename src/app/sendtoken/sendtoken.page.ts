@@ -203,13 +203,6 @@ export class SendtokenPage implements OnInit {
         this.router.naviTo(['/confirmtx'])
 
     
-      },
-      (error)=>{
-console.log(error)
-
-if(error.reason=='recipient_invalid_address'){
-  this.noti.notify('error','Invalid Recipient Address','The recipient address you entered is not valid')
-}
       })
 
      
