@@ -55,7 +55,7 @@
 
             <ng-container *ngFor="let eachtx of txs">
 
-                <div class="eachtx" [ngClass]="eachtx.type" (click)="wallet.passViewData('txdata',eachtx);wallet.passViewData('mytoken',mytoken);router.naviTo(['/tx'])">
+                <div class="eachtx" [ngClass]="eachtx.type" (click)="showTx(eachtx)">
                     <div class="iconbox">
                         <ion-icon class="icondet downarrow" name="arrow-down-outline"></ion-icon>
                         <ion-icon class="icondet uparrow" name="arrow-up-outline"></ion-icon>

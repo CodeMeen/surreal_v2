@@ -199,8 +199,11 @@ export class SendtokenPage implements OnInit {
 
       await this.wallet.getTxMetadata(this.newTxData).then((resp)=>{
 
-        this.wallet.passViewData('confirmTxdata',resp)
-        this.router.naviTo(['/confirmtx'])
+        this.wallet.passViewData('confirmTxdata',resp).then(()=>{
+          this.router.naviTo(['/confirmtx'])
+        })
+
+       
 
     
       })

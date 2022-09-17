@@ -37,6 +37,16 @@ return rx.toString();
      
  }
 
+ async showTx(tx){
+  await this.wallet.passViewData('txdata',tx).then(()=>{
+    this.wallet.passViewData('mytoken',this.mytoken).then(()=>{
+      this.router.naviTo(['/tx'])
+    })
+  })
+  
+  
+ }
+
 
  async ngOnInit() {
     this.routerOutlet.swipeGesture = true;

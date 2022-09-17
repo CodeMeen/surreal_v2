@@ -35,12 +35,27 @@
         background-position: center;
     }
     .txbox {
-        background: linear-gradient( to top right, var(--ion-color-primary), var(--ion-color-primary), rgb(154, 78, 174), rgb(154, 78, 174));
+        background: var(--ion-color-primary);
         background-size: 300%;
         animation: purpanimation 15s linear infinite alternate;
         padding: 0px 20px;
         margin: 10px;
         border-radius: 10px;
+    }
+    .balancetext {
+        font-size: 17px;
+        font-family: mntssemibold;
+        text-align: center;
+        padding: 10px 20px;
+        letter-spacing: 1px;
+        color: var(--ion-color-primary);
+    }
+    .smallline {
+        height: 3px;
+        width: 50px;
+        background: var(--ion-color-primary);
+        margin: 0px auto;
+        margin-bottom: 10px;
     }
     @keyframes purpanimation {
         0% {

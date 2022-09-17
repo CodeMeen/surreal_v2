@@ -12,8 +12,9 @@ import { WalletsService } from '../wallets.service';
 })
 export class ConfirmtxPage implements OnInit {
 
-  txdata:any
-  refinedTxData:any={}
+  refinedTxData:any={
+    'token':{}
+  }
 
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService) { }
@@ -42,13 +43,15 @@ export class ConfirmtxPage implements OnInit {
     }
 
 }
+
+
   async refineTx(tx){
   this.refinedTxData=tx
  
   this.refinedTxData['networkFee']=await this.reducenumber(tx.networkFee,7);
 
 
-  let amountUsd=await (tx.amount * tx.token.usdprice)
+  let amountUsd=(tx.amount * tx.token.usdprice)
   this.refinedTxData['amountUsd']=await this.reducenumber(amountUsd,7)
 
 
@@ -63,13 +66,17 @@ export class ConfirmtxPage implements OnInit {
 
  async ngOnInit() {
 
-    this.txdata=this.wallet.readViewData('confirmTxdata')
+  
+    await this.wallet.readViewData('confirmTxdata').then((data)=>{
 
-if(!this.txdata ){
-  this.router.goBack()
-}else{
-  await this.refineTx(this.txdata)
-}
+      if(!data ){
+        this.router.goBack()
+      }else{
+        this.refineTx(data)
+      }
+
+    })
+
   }
 
 

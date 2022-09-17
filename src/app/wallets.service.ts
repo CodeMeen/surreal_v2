@@ -4,7 +4,8 @@ import { Storage } from '@capacitor/storage';
 import { promise } from 'protractor';
 import { HomePageRoutingModule } from './home/home-routing.module';
 import { LoaderService } from './loader.service'
-import { NotiService } from "./noti.service";
+import {NotiService} from './noti.service'
+
 
 @Injectable({
   providedIn: 'root'
@@ -7073,7 +7074,9 @@ txloader:any=false
 
 currentViewData:any[]=[]
 
-passViewData(name,data){
+async passViewData(name,data,walletid?){
+  let newCurrentData:any[]=[]
+
   let ser=this.currentViewData.filter((el)=>el.name==name);
   
   if(ser.length >= 1){
@@ -7089,11 +7092,89 @@ passViewData(name,data){
 
   let newobj={'name':name,'data':data}
   this.currentViewData.push(newobj)
+
+  for (let index = 0; index < this.currentViewData.length; index++) {
+    const element = this.currentViewData[index];
+
+    if(element.name=='' || element.data==''){
+
+    }else{
+      newCurrentData.push(element);
+    }
+    
+  }
+
+  this.currentViewData=newCurrentData;
+
+
+  let cid;
+
+    if(!walletid){
+cid=await this.getCurrentWalletId();
+    }else{
+cid=walletid;
+    }
+
+
+    let database=await Storage.get({ key: 'wallets' });
+    let wallets:any[]=JSON.parse(database.value);
+
+
+    let searchwallet=wallets.filter((el)=>el.id==cid);
+
+    
+    let mywallet=searchwallet[0];
+
+    mywallet.currentViewData=newCurrentData
+
+
+
+
+await Storage.set({
+  key: 'wallets',
+  value: JSON.stringify(wallets)
+}); 
+
+
+
+
+
 }
 
-readViewData(name){
+async getCurrentViewData(walletid?){
 
-  let ser=this.currentViewData.filter((el)=>el.name==name);
+  let cid;
+
+  if(!walletid){
+cid=await this.getCurrentWalletId();
+  }else{
+cid=walletid;
+  }
+
+  let database=await Storage.get({ key: 'wallets' });
+  let wallets=JSON.parse(database.value);
+
+
+  let mywallet=wallets.filter((el)=>el.id==cid);
+
+  let currentViewData:any[]=mywallet[0].currentViewData
+
+  if(!currentViewData){
+    return [];
+  }else{
+    return currentViewData
+  }
+
+}
+
+
+async readViewData(name){
+  
+
+ let cx= await this.getCurrentViewData().then((data)=>{
+    let currentViewData=data
+
+    let ser=currentViewData.filter((el)=>el.name==name);
 
   if(!ser || ser.length <= 0){
 return false
@@ -7104,6 +7185,17 @@ return false
     return rer.data
   }
 
+
+  },
+  ()=>{
+    return false
+  }
+  
+  )
+
+  return cx
+
+  
 
 }
 
@@ -7308,31 +7400,21 @@ let tx=new Promise(async (resolve,reject)=>{
     this.loader.end()
     if(value.status == true){
       resolve(value)
-    }else{
-
+    }else{    
+      
       if(value.reason=='recipient_invalid_address'){
-        this.noti.notify('error','Invalid Recipient Address','The recipient address you entered is not valid')
+        this.noti.notify('error','Invalid Recipient Address',"The address you entered is invalid")
       }else{
-        
+        this.noti.notify('error','An error occurred')
       }
-
-
 
 reject(value)
     }
    
   },
   (error)=>{
-
     this.loader.end()
-    
-     
-console.log(error)
-
-
-
-this.noti.notify('error','An Error Happened',"Couldn't connect to the internet")
-
+    this.noti.notify('error','An error occurred',"Couldn't connect to the internet")
     reject(error)
   })
 

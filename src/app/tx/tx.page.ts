@@ -80,8 +80,8 @@ let gasFeeusd=await this.wallet.gasFeeUsd(this.mytoken.name,this.mytoken.type,tx
 
   async ngOnInit() {
 
-this.mytoken=this.wallet.readViewData('mytoken')
-this.txdata=this.wallet.readViewData('txdata')
+this.mytoken=await this.wallet.readViewData('mytoken')
+this.txdata=await this.wallet.readViewData('txdata')
 
 console.log(this.mytoken)
 

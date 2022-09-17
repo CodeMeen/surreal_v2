@@ -29,9 +29,11 @@ export class HomePage implements AfterContentChecked,OnInit{
 
   }
 
-  getStarted(){
-    this.wallet.createDefault();
-    this.router.naviTo(['/account']);
+  async getStarted(){
+    await this.wallet.createDefault().then(()=>{
+      this.router.naviTo(['/account']);
+    })
+   
   }
 
   ngAfterContentChecked() {
