@@ -260,7 +260,7 @@ this.totoken=await this.wallet.getAToken('Dai','ERC20');
 
     if(type=="fromtoken"){
 
-      await this.wallet.getTokenPrice(this.fromtoken.symbol).then(async (value: number)=>{
+      await this.wallet.getTokenPrice(this.fromtoken.symbol,this.fromtoken).then(async (value: number)=>{
         this.fromtokenusd=value;
       await this.wallet.updateToken(this.fromtoken.name,this.fromtoken.type,{'usdprice':this.fromtokenusd});
         console.log(value+" Loaded from market");
@@ -284,7 +284,7 @@ this.totoken=await this.wallet.getAToken('Dai','ERC20');
 
     }else if(type=='totoken'){
 
-      await this.wallet.getTokenPrice(this.totoken.symbol).then(async (value: number)=>{
+      await this.wallet.getTokenPrice(this.totoken.symbol,this.totoken).then(async (value: number)=>{
         this.totokenusd=value;
       await this.wallet.updateToken(this.totoken.name,this.totoken.type,{'usdprice':this.totokenusd});
         console.log(value+" Loaded from market");

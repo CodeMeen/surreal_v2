@@ -7236,6 +7236,41 @@ if(baseChain=='' || !baseChain){
 
 }
 
+async tokenBaseChain(tokenname,tokentype){
+
+  let name=(tokenname).toLowerCase()
+  let type=(tokentype).toLowerCase()
+
+  if(type=='erc20'){
+
+let baseChain=await this.getToken('Ethereum','coin');
+
+if(baseChain=='' || !baseChain){
+ let newbasechain=await this.getAToken('Ethereum','coin',true);
+ return newbasechain
+}else{
+  return baseChain
+}
+
+  }else if(type=='coin'){
+let baseChain=await this.getToken(tokenname,tokentype)
+
+
+if(baseChain=='' || !baseChain){
+  let newbasechain=await this.getAToken(tokenname,tokentype,true)
+
+  return newbasechain
+
+  
+ }else{
+  return baseChain
+
+ }
+
+  }
+
+}
+
 async loadNft(tokenaddr,walletid?){
      
   let cid;
@@ -7829,29 +7864,37 @@ cid=walletid;
 }
 
 
-async getTokenPrice(symbol){
+async getTokenPrice(symbol,token?){
 
+  let searchd=await this.searchMyTokens(token.name,token.type)
 
-let res=new Promise(async (resolve,reject)=>{
+  if(searchd==true){
+   let newtoken=await this.getToken(token.name,token.type)
+   return newtoken.usdprice
+  }else{
+    let res=new Promise(async (resolve,reject)=>{
  
-  let tokenurl=this.serverurl+"/app/getTokenPrice"
-
-  let payload:any={
-    'symbol':(symbol).toUpperCase()
+      let tokenurl=this.serverurl+"/app/getTokenPrice"
+    
+      let payload:any={
+        'symbol':(symbol).toUpperCase()
+      }
+    
+      this.http.post(tokenurl,await this.tosendpayload(payload),this.httpopts).subscribe((value:any)=>{
+        let response=value.price
+        resolve(response);
+      },
+      (error)=>{
+        console.log(error);
+        reject(error);
+      })
+    
+    })
+    
+    return res;
   }
 
-  this.http.post(tokenurl,await this.tosendpayload(payload),this.httpopts).subscribe((value:any)=>{
-    let response=value.price
-    resolve(response);
-  },
-  (error)=>{
-    console.log(error);
-    reject(error);
-  })
 
-})
-
-return res;
 
 }
 

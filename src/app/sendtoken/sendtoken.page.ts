@@ -161,7 +161,7 @@ export class SendtokenPage implements OnInit {
 
   async syncTokenPrice() {
     await this.wallet
-      .getTokenPrice(this.mytoken.symbol)
+      .getTokenPrice(this.mytoken.symbol,this.mytoken)
       .then(async (value) => {
         this.tokenusd = value;
         await this.wallet.updateToken(this.mytoken.name, this.mytoken.type, {
