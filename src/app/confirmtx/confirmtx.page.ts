@@ -53,6 +53,12 @@ export class ConfirmtxPage implements OnInit {
 
 async confirmTx(){
 
+  if(this.refinedTxData.eligibility.status==true){
+
+  }else{
+    this.router.naviTo(['/receivetoken',this.refinedTxData.baseChain.name,this.refinedTxData.baseChain.type])
+  }
+
 }
 
   async refineTx(tx){

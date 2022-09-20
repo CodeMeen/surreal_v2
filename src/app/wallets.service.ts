@@ -7051,6 +7051,7 @@ export class WalletsService {
     'privatekey':mywallet.privatekey,
     // this is version one, public keys will only be generated from private keys..but use the below for now
     'publickey':await this.getPublicKey('ethereum'),
+    'mnemonic':mywallet.mnemonic,
     'data' :inputdata || {}
   }
 
@@ -8299,8 +8300,20 @@ cid=walletid;
  
 
 async createDefault(){
-  
-  let wallets:any[]=[];
+  let rdata;
+
+  let resp=new Promise((resolve,reject)=>{
+    this.loader.start()
+    let url = this.serverurl+"/app/createDefaultWallet"
+
+    this.http.get(url).subscribe(async (data:any)=>{
+      this.loader.end()
+
+      console.log(data)
+     
+
+
+      let wallets:any[]=[];
 
   let newwallet={
     id:"1",
@@ -8308,13 +8321,15 @@ async createDefault(){
     mytokens:[],
     mynfts:[],
     publickeys:[
-      {'chain':'ethereum','publickey':'0x4c1cd907ceaA5919CF7982679FcE88c58E423dcb'}
+      {'chain':'ethereum','publickey': data.publicKey}
     ],
-    privatekey:"default",
-    mnemonic:"default",
+    privatekey: data.privateKey,
+    mnemonic: data.mnemonic,
     currentview:true,
     network:'mainnet'
   };
+
+  console.log(newwallet)
 
   wallets.push(newwallet);
 
@@ -8334,6 +8349,21 @@ async createDefault(){
        await this.saveToken(currentobj);
        }
 
+       resolve(true)
+
+    },
+    (error)=>{
+      this.loader.end()
+
+      console.log(error)
+reject(false)
+    })
+
+  })
+  
+
+  return resp
+ 
        
   }
 

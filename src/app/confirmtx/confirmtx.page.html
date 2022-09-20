@@ -87,6 +87,8 @@
                 You don't have enough {{refinedTxData.baseChain.name}} ({{refinedTxData.baseChain.symbol}}) to cover network fees
             </div>
             <button class="whitebtn" (click)="confirmTx()">
+
+
                 <span *ngIf="refinedTxData.eligibility.status==false && refinedTxData.eligibility.reason=='low_network_fees'">Top Up {{refinedTxData.baseChain.name}} ({{refinedTxData.baseChain.symbol}}) </span>
                 <span *ngIf="refinedTxData.eligibility.status==true">Confirm</span>
                
