@@ -1,9 +1,121 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>settings</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+    <div class="settingsview">
 
+        <div class="purpheader">
+            <div class="goback" (click)="router.goBack()">
+
+            </div>
+            <div class="centerdiv">
+                <div class="logo"></div>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="walletbox">
+
+
+            <div class="balancemodalbox">
+
+                <div class="balancemodal">
+                    <div class="baltitle">Ethereum Wallet</div>
+                    <div class="balancetext">{{ currentwallet.name }}</div>
+                    <div class="waltype">{{currentwallet.network}}</div>
+                </div>
+
+                <div class="allwall">View All Wallets (6)</div>
+
+            </div>
+
+        </div>
+
+        <div class="optionbox">
+            <div class="eachoption">
+                <div class="opticon">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                </div>
+                <div class="opttext">Security</div>
+
+                <div class="optnext">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+            </div>
+
+            <div class="eachoption" (click)="selectNetwork()">
+                <div class="opticon">
+                    <ion-icon name="git-network"></ion-icon>
+                </div>
+                <div class="opttext">Select Network</div>
+
+                <div class="optnext">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+            </div>
+
+            <div class="eachoption">
+                <div class="opticon">
+                    <ion-icon name="notifications-circle-outline"></ion-icon>
+                </div>
+                <div class="opttext">Push Notifications</div>
+
+                <div class="optnext">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+            </div>
+
+            <div class="eachoption">
+                <div class="opticon">
+                    <ion-icon name="nuclear-outline"></ion-icon>
+                </div>
+                <div class="opttext">Clear browser cache</div>
+
+                <div class="optnext">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+            </div>
+
+
+
+        </div>
+        <br>
+        <div class="optionbox">
+
+            <div class="eachoption">
+                <div class="opticon">
+                    <ion-icon name="heart"></ion-icon>
+                </div>
+                <div class="opttext">About</div>
+
+                <div class="optnext">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </div>
+            </div>
+
+
+            <div class="eachoption">
+                <div class="opticon">
+                    <ion-icon name="logo-twitter"></ion-icon>
+                </div>
+                <div class="opttext">Twitter</div>
+
+                <div class="optnext">
+
+                </div>
+            </div>
+
+            <div class="eachoption">
+                <div class="opticon">
+                    <ion-icon name="paper-plane"></ion-icon>
+                </div>
+                <div class="opttext">Telegram</div>
+
+
+            </div>
+
+
+
+
+        </div>
+
+
+    </div>
 </ion-content>

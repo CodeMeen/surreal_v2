@@ -8207,6 +8207,10 @@ return true
 
   }
 
+  async saveNetwork(network,walletid?){
+
+  }
+
    async saveToken(senttoken,walletid?){
     let cid;
 

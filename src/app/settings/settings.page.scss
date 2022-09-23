@@ -1,0 +1,143 @@
+        .settingsview {
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            position: relative;
+            width: 100%;
+            background: var(--ion-background-color);
+            .purpbox {
+                background: #fff;
+                height: 300px;
+                background-size: 300%;
+                animation: purpanimation 15s linear infinite alternate;
+            }
+            .purpheader {
+                display: grid;
+                grid-template-columns: 15% 70% 15%;
+                padding: 10px 0px;
+            }
+            .goback {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px 10px;
+            }
+            .gobackicon {
+                height: 32px;
+                width: 32px;
+                color: var(--ion-color-secondary);
+            }
+            .centerdiv {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .logo {
+                background-image: url(../../assets/images/surreal_purple.svg);
+                height: 32px;
+                width: 32px;
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: center;
+            }
+            .noti {
+                height: 23px;
+                width: 23px;
+                color: white;
+            }
+            .noticont {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .balancemodalbox {
+                padding: 0px 20px;
+            }
+            .baltitle {
+                padding: 10px;
+                padding-bottom: 0px;
+                font-size: 11px;
+                font-family: mntssemibold;
+                font-weight: bold;
+                text-align: center;
+                opacity: 0.5;
+                text-transform: uppercase;
+                color: white;
+            }
+            .balancetext {
+                font-size: 16px;
+                font-family: mntssemibold;
+                padding: 13px;
+                color: white;
+                text-align: center;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .titletext {
+                font-size: 14px;
+                font-family: mntssemibold;
+                padding: 10px;
+            }
+            .balancemodal {
+                background: var(--ion-color-secondary);
+                border-radius: 10px;
+            }
+            .waltype {
+                padding: 10px;
+                padding-top: 0px;
+                font-size: 10px;
+                font-family: mntssemibold;
+                font-weight: bold;
+                text-align: center;
+                opacity: 0.4;
+                text-transform: uppercase;
+                color: white;
+            }
+            .allwall {
+                background: rgba(154, 78, 174, 0.3);
+                margin: 10px 0px;
+                border-radius: 10px;
+                text-align: center;
+                font-size: 11px;
+                font-family: mntssemibold;
+                padding: 10px 0px;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+            }
+            .optionbox {
+                padding: 0px 10px;
+                margin: 30px 0px;
+            }
+            .eachoption {
+                padding: 15px 10px;
+                margin: 10px 0px;
+                display: grid;
+                grid-template-columns: 15% 75% 10%;
+                border-radius: 10px;
+                box-shadow: 0px 4px 19px -9px rgba(0, 0, 0, 0.15);
+                -webkit-box-shadow: 0px 4px 19px -9px rgba(0, 0, 0, 0.15);
+                -moz-box-shadow: 0px 4px 19px -9px rgba(0, 0, 0, 0.15);
+            }
+            .opticon {
+                font-size: 25px;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .opttext {
+                display: flex;
+                align-items: center;
+                font-family: mntssemibold;
+                font-size: 13px;
+            }
+            .optnext {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: var(--ion-color-secondary);
+                font-size: 20px;
+                font-weight: bold;
+                font-family: mntssemibold;
+            }
+        }
