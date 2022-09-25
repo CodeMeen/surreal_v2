@@ -36,6 +36,7 @@ export class WalletPage implements OnInit, AfterContentChecked {
   mywallet: any = {};
   mytokens: any[] = [];
   mynfts: any[] = [];
+  network:any;
 
   numoftk: any;
   totalbalance: any;
@@ -140,6 +141,19 @@ export class WalletPage implements OnInit, AfterContentChecked {
 
       this.updateTokenViewBalance();
     }
+     
+    let currentNetwork=this.mywallet.network;
+
+    let loadNetwork=await this.wallet.getCurrentNetworkName()
+
+    if(currentNetwork!=loadNetwork) {
+      let data = await this.wallet.getMyWallet();
+      this.mywallet = data;
+      this.mytokens = await this.wallet.getMyTokens();
+      this.numoftk = this.mywallet.mytokens.length;
+    }
+
+
 
 
     let newNfts:any = await this.wallet.loadMyNfts()
@@ -274,13 +288,15 @@ export class WalletPage implements OnInit, AfterContentChecked {
 
   */
 
+
   async ngOnInit() {
     this.routerOutlet.swipeGesture = false;
 
     await this.getView().then(async () => {
       console.log("Wallet Page Updated..");
       this.alwaysUpdateView();
-     this.loadNftImgs()
+     this.loadNftImgs();
+     
     });
   }
 

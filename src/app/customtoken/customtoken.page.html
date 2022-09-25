@@ -1,0 +1,68 @@
+<ion-content>
+
+    <div class="customtokenview">
+
+        <div class="purpheader">
+            <div class="goback" (click)="router.goBack()">
+                <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
+            </div>
+            <div class="centerdiv">
+                <div class="logo"></div>
+            </div>
+            <div></div>
+        </div>
+
+
+
+        <div class="balancetext">Add Custom Token</div>
+        <div class="smallline"></div>
+
+        <div class="fullbox balbox">
+            <span class="left">Select Network</span>
+            <span class="right"></span>
+        </div>
+
+        <div class="fullbox">
+
+            <div class="inputbox">
+                <input class="input" [(ngModel)]="resdata.address" type="text" required>
+                <span class="floating-label">Contract Address</span>
+                <div class="choosy" style="grid-template-columns: 1fr !important;">
+                    <div class="eachhalf" (click)="pasteAddress()">Paste</div>
+
+                </div>
+            </div>
+
+            <hr class="sepline">
+
+            <div class="inputbox">
+                <input class="input" [(ngModel)]="resdata.name" type="text" required>
+                <span class="floating-label">Name</span>
+            </div>
+            <hr class="sepline">
+            <div class="inputbox">
+                <input class="input" [(ngModel)]="resdata.symbol" type="text" required>
+                <span class="floating-label">Symbol</span>
+            </div>
+            <hr class="sepline">
+            <div class="inputbox">
+                <input class="input" [(ngModel)]="resdata.decimals" type="text" required>
+                <span class="floating-label">Decimals</span>
+            </div>
+
+        </div>
+
+
+
+        <div class="buttonbelow" [ngClass]="{'faded': successflag==false}">
+            <button class="whitebtn" (click)="saveToken()">Save</button>
+        </div>
+
+
+    </div>
+
+
+
+
+
+</ion-content>

@@ -61,6 +61,10 @@ const routes: Routes = [
     path: 'confirmtx',
     loadChildren: () => import('./confirmtx/confirmtx.module').then( m => m.ConfirmtxPageModule)
   },
+  {
+    path: 'customtoken',
+    loadChildren: () => import('./customtoken/customtoken.module').then( m => m.CustomtokenPageModule)
+  },
 ];
 
 @NgModule({

@@ -12,6 +12,12 @@
 
         <div class="addtokenbody" *ngIf="!searching">
 
+            <div class="xaxa">
+                <div class="allwall" (click)="router.naviTo(['/customtoken'])">Add Custom Token</div>
+            </div>
+
+
+
             <div class="fadedtext">My Tokens ({{mytokens.length}})</div>
 
             <div class="tokentab">
@@ -64,7 +70,7 @@
                 </ng-container>
 
 
-              
+
             </div>
 
 

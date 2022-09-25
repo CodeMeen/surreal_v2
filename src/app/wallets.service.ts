@@ -7783,6 +7783,50 @@ value: JSON.stringify(wallets)
 
 */
 
+async getCurrentNetworkName(walletid?) {
+  let cid;
+
+  if(!walletid){
+cid=await this.getCurrentWalletId();
+  }else{
+cid=walletid;
+  }
+
+  let database=await Storage.get({ key: 'wallets' });
+  let wallets:any[]=JSON.parse(database.value);
+
+
+  let searchwallet=wallets.filter((el)=>el.id==cid);
+
+  
+  let mywallet=searchwallet[0];
+
+  return mywallet.network
+}
+
+async getCurrentNetworkNumber(walletid?){
+  let cid;
+
+  if(!walletid){
+cid=await this.getCurrentWalletId();
+  }else{
+cid=walletid;
+  }
+
+  let database=await Storage.get({ key: 'wallets' });
+  let wallets:any[]=JSON.parse(database.value);
+
+
+  let searchwallet=wallets.filter((el)=>el.id==cid);
+
+  
+  let mywallet=searchwallet[0];
+
+  let networkname=mywallet.network
+
+  return this.getNetworkNumber(networkname)
+}
+
  async updateTokenBalance(tokenname,tokensymbol,coinbal,usdbal,usdprice,walletid?){
   let cid;
 
@@ -7911,6 +7955,48 @@ async getDefaultTokens(){
   return newArr;
   }
 
+  getNetworkNumber(networkname){
+
+    switch (networkname) {
+      case 'mainnet':
+        return 1
+        break;
+
+        case 'goerli':
+        return 5
+        break;
+
+        case 'kovan':
+        return 42
+        break;
+    
+      default:
+        return 1
+        break;
+    }
+
+  }
+
+  getNetworkName(networknumber){
+switch (networknumber) {
+    case 1:
+    return 'mainnet'
+    break;
+
+    case 5:
+      return 'goerli'
+      break;
+
+      case 42:
+        return 'kovan'
+        break;
+
+  default:
+    return 'mainnet'
+    break;
+}
+  }
+
   async getMyTokens(walletid?){
     let cid;
 
@@ -7928,6 +8014,7 @@ cid=walletid;
 
     let filteredarr=[]
     let rawmytokens=mywallet[0].mytokens
+   
 
     for (let index = 0; index < rawmytokens.length; index++) {
       const eachtoken = rawmytokens[index];
@@ -7935,10 +8022,43 @@ cid=walletid;
       if(eachtoken==''){
 
       }else{
+
         filteredarr.push(eachtoken)
       }
       
     }
+
+    let walletNetwork=await this.getCurrentNetworkName()
+    let restoken=[]
+
+    for (let index = 0; index < filteredarr.length; index++) {
+      const eachtoken = filteredarr[index];
+
+      if(eachtoken.type!='coin'){
+
+        if(walletNetwork=='mainnet'){
+          restoken.push(eachtoken);
+        }else{
+
+          if(eachtoken.network==walletNetwork){
+            restoken.push(eachtoken);
+          }
+          
+
+       
+        }
+
+
+        
+      }else{
+restoken.push(eachtoken);
+      }
+      
+    }
+
+    return restoken;
+
+    
 
     return filteredarr;
   
@@ -8103,7 +8223,29 @@ if(inmytoken==true){
       
     }
 
-    return tokens;
+    let walletNetwork=await this.getCurrentNetworkName()
+    let restoken=[]
+
+    for (let index = 0; index < tokens.length; index++) {
+      const eachtoken = tokens[index];
+
+      if(eachtoken.type!='coin'){
+
+        if(walletNetwork=='mainnet'){
+          restoken.push(eachtoken);
+        }else{
+
+        }
+
+
+        
+      }else{
+restoken.push(eachtoken);
+      }
+      
+    }
+
+    return restoken;
 
    }
 
@@ -8208,7 +8350,33 @@ return true
   }
 
   async saveNetwork(network,walletid?){
+    let cid;
 
+    if(!walletid){
+cid=await this.getCurrentWalletId();
+    }else{
+cid=walletid;
+    }
+
+    let database=await Storage.get({ key: 'wallets' });
+    let wallets:any[]=JSON.parse(database.value);
+
+
+    let searchwallet=wallets.filter((el)=>el.id==cid);
+
+    
+    let mywallet=searchwallet[0];
+
+    mywallet['network']=network
+
+    
+    await Storage.set({
+      key: 'wallets',
+      value: JSON.stringify(wallets)
+    }); 
+
+   
+   await this.getWalletMetadata()
   }
 
    async saveToken(senttoken,walletid?){

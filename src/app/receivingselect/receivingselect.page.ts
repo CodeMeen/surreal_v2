@@ -150,10 +150,19 @@ this.selectToken(tokenname,tokentype);
     
     this.alltokens=await this.wallets.getAllTokens();
 
-    for (let index = 0; index < 31; index++) {
-      const element = this.alltokens[index];
-      this.reducedtokens.push(element);
+    if(this.alltokens.length >= 31){
+      for (let index = 0; index < 31; index++) {
+        const element = this.alltokens[index];
+        this.reducedtokens.push(element);
+      }
+    }else{
+      for (let index = 0; index < this.alltokens.length; index++) {
+        const element = this.alltokens[index];
+        this.reducedtokens.push(element);
+      }
     }
+
+    
   }
 
  

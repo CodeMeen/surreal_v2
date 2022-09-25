@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IonRouterOutlet } from '@ionic/angular';
+import { LoaderService } from '../loader.service';
+import { NotiService } from '../noti.service';
 import { PopupService } from '../popup.service';
 import { RouterService } from '../router.service';
 import { WalletsService } from '../wallets.service';
@@ -16,23 +18,24 @@ export class SettingsPage implements OnInit {
 
  currentwallet:any={}
 
-  constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService) { }
+  constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
+    ,public loader: LoaderService) { }
 
  async selectNetwork(){
-    let arr=[{'listname':'Mainnet','imgurl':'',
+    let arr=[{'listname':'Ethereum Mainnet','imgurl':'',
     value:'mainnet',
     'listid':1,
     'searchphrase':'mainnet'
 },
-{'listname':'Kovan','imgurl':'',
+{'listname':'Kovan Test Network','imgurl':'',
     value:'kovan',
   'listid':2,
   'searchphrase':'kovan'
 },
-{'listname':'Ethereum Gorli','imgurl':'',
-    value:'gorli',
+{'listname':'Goerli Test Network','imgurl':'',
+    value:'goerli',
   'listid':3,
-  'searchphrase':'gorli'
+  'searchphrase':'goerli'
 }
 ]
 
@@ -50,8 +53,13 @@ export class SettingsPage implements OnInit {
         this.popup.close()
         let value=res.value
 
-
-    console.log(value)
+  await this.wallet.saveNetwork(value).then(()=>{
+   
+    this.updatePage().then(()=>{
+      
+    })
+    this.noti.notify('success','Updated!')
+  })
   
       }
 
