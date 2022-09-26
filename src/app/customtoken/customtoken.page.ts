@@ -23,6 +23,8 @@ export class CustomtokenPage implements OnInit {
   resdata:any={}
   successflag=false;
 
+  newtoken:any={}
+
   constructor( private http: HttpClient,
     private route: ActivatedRoute,
     public router: RouterService,
@@ -34,12 +36,59 @@ export class CustomtokenPage implements OnInit {
 
     async pasteAddress() {
       const { type, value } = await Clipboard.read();
-  
-      this.resdata.address = value;
+
+      this.resdata.address = value.trim();
+
+      this.loadMetadata()
     }
 
     async saveToken(){
-      
+      if(this.successflag==true){
+        await this.wallet.saveToken(this.newtoken).then(() => {
+          this.noti.notify('success','Token Added!')
+          this.router.naviTo(['/account'])
+        })
+      }
+     
+    }
+
+    async loadMetadata() {
+      await this.wallet.getErc20Metadata(this.resdata.address).then(async (value:any)=>{
+        if(value && value[0].name!=''){
+
+          let valr=value[0]
+
+
+          this.newtoken=valr
+
+          this.newtoken['type']='ERC20'
+
+         
+          this.newtoken["coinbalance"]=0;
+         this.newtoken["usdbalance"]=0;
+          this.newtoken["usdprice"]=0;
+
+          this.newtoken["logoURI"]=valr.logo;
+          this.newtoken["network"]=await this.wallet.getCurrentNetworkName();
+          this.newtoken['chainId']=await this.wallet.getCurrentNetworkNumber();
+          this.newtoken['publicKey']=await this.wallet.getPublicKey('ethereum');
+
+          this.resdata.name=this.newtoken.name
+          this.resdata.symbol=this.newtoken.symbol
+          this.resdata.decimals=this.newtoken.decimals
+
+         
+
+          console.log(this.newtoken)
+          this.successflag=true
+        }else{
+          this.resdata.name=''
+          this.resdata.symbol=''
+          this.resdata.decimals=''
+          this.successflag=false
+        }
+       
+      })
     }
 
   ngOnInit() {

@@ -7425,6 +7425,35 @@ async getNfts(){
 
 }
 
+async getErc20Metadata(address){
+  let data={
+    'contract_address':address
+  }
+
+  this.loader.start()
+
+  let resp=new Promise(async (resolve,reject)=>{
+
+    let url=this.serverurl+"/app/getErc20Metadata";
+  
+    this.http.post(url,await this.tosendpayload(data),this.httpopts).subscribe(async (value:any)=>{
+      
+      this.loader.end()
+     
+        resolve(value)
+     
+    },
+    (error)=>{
+      this.loader.end()
+      this.noti.notify('error','An error occurred',"Couldn't connect to the internet")
+      reject(error)
+    })
+  
+  })
+
+return resp
+}
+
 async getTxMetadata(data){
 this.loader.start()
 
@@ -8390,7 +8419,13 @@ cid=walletid;
 
     let tokentype=senttoken.type;
     let tokenname=senttoken.name;
-    
+
+    let searched=await this.searchMyTokens(tokenname,tokentype)
+
+    if(searched==true){
+
+    }else{
+ 
     //replace with get token balance,dont forget
 
     let database=await Storage.get({ key: 'wallets' });
@@ -8413,6 +8448,8 @@ await Storage.set({
 }); 
 
 await this.getTokenMetadata(senttoken)
+    }
+   
 
    }
 

@@ -17,15 +17,10 @@
         <div class="balancetext">Add Custom Token</div>
         <div class="smallline"></div>
 
-        <div class="fullbox balbox">
-            <span class="left">Select Network</span>
-            <span class="right"></span>
-        </div>
-
         <div class="fullbox">
 
             <div class="inputbox">
-                <input class="input" [(ngModel)]="resdata.address" type="text" required>
+                <input class="input" [(ngModel)]="resdata.address" (change)="loadMetadata()" type="text" required>
                 <span class="floating-label">Contract Address</span>
                 <div class="choosy" style="grid-template-columns: 1fr !important;">
                     <div class="eachhalf" (click)="pasteAddress()">Paste</div>
