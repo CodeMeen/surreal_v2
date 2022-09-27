@@ -69,12 +69,12 @@
 
             <div class="eachdet">
                 <span class="lspan">Network Fee</span>
-                <span class="rspan">{{refinedTxData.networkFee}} ETH (${{refinedTxData.networkFeeUsd}})</span>
+                <span class="rspan">{{refinedTxData.networkFee}} {{refinedTxData.baseChain.symbol}} (${{refinedTxData.networkFeeUsd}})</span>
             </div>
             <hr class="detline">
             <div class="eachdet">
                 <span class="lspan">Max Total</span>
-                <span class="rspan">{{refinedTxData.maxTotal}} ETH (${{refinedTxData.maxTotalUsd}})</span>
+                <span class="rspan">{{refinedTxData.maxTotal}} {{refinedTxData.token.symbol}} (${{refinedTxData.maxTotalUsd}})</span>
             </div>
 
         </div>
@@ -84,7 +84,7 @@
 
         <div class="buttonbelow">
             <div class="erroreligibility" *ngIf="refinedTxData.eligibility.reason=='low_network_fees'">
-                You don't have enough {{refinedTxData.baseChain.name}} ({{refinedTxData.baseChain.symbol}}) to cover network fees
+                You don't have enough {{refinedTxData.baseChain.name}} ({{refinedTxData.baseChain.symbol}}) to cover <b>{{refinedTxData.networkFee}} {{refinedTxData.baseChain.symbol}}</b> (${{refinedTxData.networkFeeUsd}}) network fees
             </div>
             <button class="whitebtn" (click)="confirmTx()">
 

@@ -55,6 +55,11 @@ async confirmTx(){
 
   if(this.refinedTxData.eligibility.status==true){
 
+    await this.wallet.sendTx(this.refinedTxData).then((value:any)=>{
+      console.log(value)
+
+    })
+
   }else{
     this.router.naviTo(['/receivetoken',this.refinedTxData.baseChain.name,this.refinedTxData.baseChain.type])
   }
@@ -78,7 +83,8 @@ async confirmTx(){
 
   this.refinedTxData['maxTotal']=await this.reducenumber(tx.maxTotal,9)
 
-  let maxtotalvalueusd=await this.wallet.gasFeeUsd(tx.token.name,tx.token.type,tx.maxTotal)
+
+  let maxtotalvalueusd=tx.maxTotal * tx.token.usdprice
   this.refinedTxData['maxTotalUsd']=await this.reducenumber(maxtotalvalueusd,7)
 
   this.refinedTxData['baseChain']=await this.wallet.tokenBaseChain(tx.token.name,tx.token.type)

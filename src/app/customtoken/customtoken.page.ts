@@ -69,7 +69,14 @@ export class CustomtokenPage implements OnInit {
           this.newtoken["usdprice"]=0;
 
           this.newtoken["logoURI"]=valr.logo;
-          this.newtoken["network"]=await this.wallet.getCurrentNetworkName();
+
+          let networkname=await this.wallet.getCurrentNetworkName();
+
+          if(networkname != 'mainnet'){
+            this.newtoken["network"]=networkname;
+          }
+
+         
           this.newtoken['chainId']=await this.wallet.getCurrentNetworkNumber();
           this.newtoken['publicKey']=await this.wallet.getPublicKey('ethereum');
 
