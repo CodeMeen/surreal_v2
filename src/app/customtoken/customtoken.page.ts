@@ -78,7 +78,7 @@ export class CustomtokenPage implements OnInit {
 
          
           this.newtoken['chainId']=await this.wallet.getCurrentNetworkNumber();
-          this.newtoken['publicKey']=await this.wallet.getPublicKey('ethereum');
+          this.newtoken['publickey']=await this.wallet.getPublicKey('ethereum');
 
           this.resdata.name=this.newtoken.name
           this.resdata.symbol=this.newtoken.symbol

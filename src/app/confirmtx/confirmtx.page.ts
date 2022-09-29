@@ -55,8 +55,17 @@ async confirmTx(){
 
   if(this.refinedTxData.eligibility.status==true){
 
-    await this.wallet.sendTx(this.refinedTxData).then((value:any)=>{
-      console.log(value)
+    await this.wallet.sendTx(this.refinedTxData).then(async (value:any)=>{
+      let pendingTx=value.result
+    
+     await this.wallet.passViewData('txdata',pendingTx).then(()=>{
+
+      this.wallet.passViewData('mytoken',this.refinedTxData.token).then(()=>{
+        this.router.naviTo(['/tx'])
+      })
+
+       
+      })
 
     })
 

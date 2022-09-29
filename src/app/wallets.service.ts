@@ -7944,40 +7944,16 @@ export class WalletsService {
           .subscribe(async (value:any)=>{
 
             this.loader.end();
-            console.log(value)
-            
-
+      
             if(value.status == true){
-              let newtx={
-                "blockNumber": "",
-                "timeStamp": "",
-                "hash": "",
-                "nonce": "",
-                "blockHash": "",
-                "transactionIndex": "",
-                "from": "",
-                "to": "",
-                "value": "",
-                "gas": "",
-                "gasPrice": "",
-                "isError": "",
-                "txreceipt_status": "",
-                "input": "0x",
-                "contractAddress": "",
-                "cumulativeGasUsed": "",
-                "gasUsed": "",
-                "confirmations": "",
-                "methodId": "0x",
-                "functionName": "",
-                "type": "",
-                "tokenvalue": "",
-                "shortTo": "",
-                "shortFrom": "",
-                "txstatus": "completed"
-              }
-
-              resolve(newtx)
+            resolve(value)
             }else{
+
+              this.noti.notify(
+                "error",
+                "An error occurred"
+              );
+
               reject(value)
             }
            
@@ -8010,8 +7986,18 @@ export class WalletsService {
           .post(url, await this.tosendpayload(txdata), this.httpopts)
           .subscribe(async (value:any)=>{
             this.loader.end();
-  console.log(value)
-  resolve(value)
+  
+            if(value.status == true){
+              resolve(value)
+              }else{
+  
+                this.noti.notify(
+                  "error",
+                  "An error occurred"
+                );
+  
+                reject(value)
+              }
           },
           (error) => {
             this.loader.end();

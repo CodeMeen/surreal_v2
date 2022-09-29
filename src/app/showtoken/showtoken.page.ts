@@ -20,6 +20,25 @@ export class ShowtokenPage implements OnInit {
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService) { }
 
+ /*  async alwaysUpdateView() {
+    console.log('update show token');
+  
+    this.routerOutlet.swipeGesture = true;
+    const routeParams = this.route.snapshot.paramMap;
+    
+    
+    let tkname=routeParams.get('name');
+    let tktype=routeParams.get('type');
+    
+    this.mytoken=await this.wallet.getToken(tkname,tktype);
+
+    setTimeout(async () => {
+      await this.alwaysUpdateView();
+    }, 2000);
+  }
+
+  */
+
   numberize(x,nocomma?,num?) {
     let rx;
     if(num){
@@ -60,6 +79,8 @@ this.mytoken=await this.wallet.getToken(tkname,tktype);
 
 
 this.txs=await this.wallet.getTxs(this.mytoken)
+
+// this.alwaysUpdateView();
 
   }
 
