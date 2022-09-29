@@ -7973,7 +7973,7 @@ export class WalletsService {
                 "tokenvalue": "",
                 "shortTo": "",
                 "shortFrom": "",
-                "txstatus": ""
+                "txstatus": "completed"
               }
 
               resolve(newtx)
