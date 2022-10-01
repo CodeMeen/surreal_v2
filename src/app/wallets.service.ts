@@ -8823,7 +8823,7 @@ value: JSON.stringify(wallets)
         const element = sorted[index];
         const name = element[0];
         const value = element[1];
-        thetoken[name] = value;
+        thetoken[name] = value
       }
 
       await Storage.set({
@@ -8985,6 +8985,7 @@ value: JSON.stringify(wallets)
             mnemonic: data.mnemonic,
             currentview: true,
             network: "mainnet",
+            pendingTxs:[]
           };
 
           console.log(newwallet);
