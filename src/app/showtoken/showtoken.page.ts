@@ -17,6 +17,7 @@ export class ShowtokenPage implements OnInit {
 
  mytoken:any={};
  txs:any=[]
+ pendingTxs:any=[];
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService) { }
 
@@ -78,7 +79,27 @@ let tktype=routeParams.get('type');
 this.mytoken=await this.wallet.getToken(tkname,tktype);
 
 
-this.txs=await this.wallet.getTxs(this.mytoken)
+
+this.pendingTxs=this.mytoken.pendingTxs
+
+await this.wallet.getTxs(this.mytoken).then((value:any)=>{
+  this.txs=value
+
+  for (let index = 0; index < this.pendingTxs.length; index++) {
+    const eachPendingTx = this.pendingTxs[index];
+
+    let searchPending=value.filter((el) => el.hash == eachPendingTx.hash );
+
+    console.log(searchPending)
+    
+  }
+
+  
+
+
+
+
+})
 
 // this.alwaysUpdateView();
 

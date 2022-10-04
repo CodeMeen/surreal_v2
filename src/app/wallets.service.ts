@@ -8065,6 +8065,8 @@ export class WalletsService {
     return tx;
   }
 
+
+
   async getTxs(token) {
     this.txloader = true;
     let txs = new Promise(async (resolve, reject) => {
@@ -8791,6 +8793,94 @@ value: JSON.stringify(wallets)
     }
 
     return chains;
+  }
+
+  async addPendingTx(name, type,tx,walletid?){
+    let cid;
+
+    if (!walletid) {
+      cid = await this.getCurrentWalletId();
+    } else {
+      cid = walletid;
+    }
+
+    let database = await Storage.get({ key: "wallets" });
+    let wallets: any[] = JSON.parse(database.value);
+
+    let searchwallet = wallets.filter((el) => el.id == cid);
+
+    let mywallet = searchwallet[0];
+
+    let mytokens = mywallet.mytokens;
+
+    let arrtoken = mytokens.filter((el) => el.name == name && el.type == type);
+    let thetoken=arrtoken[0]
+
+    if (!thetoken.pendingTxs){
+
+      let newarr=[]
+
+      newarr.push(tx)
+
+      thetoken['pendingTxs']=newarr
+
+    }else{
+
+      let newarr=thetoken.pendingTxs
+
+      newarr.push(tx)
+
+      thetoken['pendingTxs']=newarr
+
+    }
+
+
+    await Storage.set({
+      key: "wallets",
+      value: JSON.stringify(wallets),
+    });
+    
+  }
+
+  async removePendingTx(tokenname,tokentype,hash,walletid?){
+    let cid;
+
+    if (!walletid) {
+      cid = await this.getCurrentWalletId();
+    } else {
+      cid = walletid;
+    }
+
+    let database = await Storage.get({ key: "wallets" });
+    let wallets: any[] = JSON.parse(database.value);
+
+    let searchwallet = wallets.filter((el) => el.id == cid);
+
+    let mywallet = searchwallet[0];
+
+    let mytokens = mywallet.mytokens;
+
+    let arrtoken = mytokens.filter((el) => el.name == tokenname && el.type == tokentype);
+    let thetoken=arrtoken[0]
+    let pendingTxs=thetoken.pendingTxs
+
+   for (let index = 0; index < pendingTxs.length; index++) {
+    const eachpending = pendingTxs[index];
+
+    if(eachpending.hash == hash){
+      eachpending[index]=''
+    }
+    
+   }
+
+   await Storage.set({
+    key: "wallets",
+    value: JSON.stringify(wallets),
+  });
+
+
+
+
   }
 
   async updateToken(name, type, update, walletid?) {

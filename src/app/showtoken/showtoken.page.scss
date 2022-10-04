@@ -5,6 +5,9 @@
     position: relative;
     width: 100%;
     background: var(--ion-background-color);
+    .pendingicon {
+        color: orange !important;
+    }
     .eachtx {
         display: grid;
         grid-template-columns: 17% 55% 24%;

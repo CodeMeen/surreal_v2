@@ -60,11 +60,10 @@ async confirmTx(){
     
      await this.wallet.passViewData('txdata',pendingTx).then(()=>{
       
-      let data=['pendingTxs',pendingTx]
-
-      this.wallet.updateToken()
+    
 
       this.wallet.passViewData('mytoken',this.refinedTxData.token).then(()=>{
+        this.wallet.addPendingTx(this.refinedTxData.token.name,this.refinedTxData.token.type,pendingTx)
         this.router.naviTo(['/tx'])
       })
 
