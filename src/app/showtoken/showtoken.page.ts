@@ -79,19 +79,18 @@ let tktype=routeParams.get('type');
 this.mytoken=await this.wallet.getToken(tkname,tktype);
 this.pendingTxs=this.mytoken.pendingTxs
 
-await this.wallet.getTxs(this.mytoken).then((value:any)=>{
+await this.wallet.getTxs(this.mytoken).then(async (value:any)=>{
   this.txs=value
 
   for (let index = 0; index < this.pendingTxs.length; index++) {
     const eachPendingTx = this.pendingTxs[index];
 
-    let searchPending=value.filter((el) => el.hash == eachPendingTx.hash);
+    let searchPending=await value.filter((el) => el.hash == eachPendingTx.hash);
 
 
     for (let index = 0; index < searchPending.length; index++) {
-      const eachpend = searchPending[index];
-      
-      this.wallet.removePendingTx(this.mytoken.name,this.mytoken.type,eachpend.hash)
+      const eachpend = searchPending[index];   
+     // await this.wallet.removePendingTx(this.mytoken.name,this.mytoken.type,eachpend.hash)
       
     }
 

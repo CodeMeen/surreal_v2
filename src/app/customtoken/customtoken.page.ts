@@ -67,6 +67,7 @@ export class CustomtokenPage implements OnInit {
           this.newtoken["coinbalance"]=0;
          this.newtoken["usdbalance"]=0;
           this.newtoken["usdprice"]=0;
+          this.newtoken['pendingTxs']=[]
 
           this.newtoken["logoURI"]=valr.logo;
 

@@ -8707,6 +8707,7 @@ value: JSON.stringify(wallets)
       }
 
       eachchain["tokens"] = "";
+
       eachchain["publickey"] = await this.getPublicKey(eachchain.name);
 
       let inmytoken = await this.searchMyTokens(eachchain.name, eachchain.type);
@@ -8756,6 +8757,7 @@ value: JSON.stringify(wallets)
 
     for (let index = 0; index < tokens.length; index++) {
       const eachtoken = tokens[index];
+      eachtoken['pendingTxs']=[]
 
       if (eachtoken.type != "coin") {
         if (walletNetwork == "mainnet") {
@@ -8868,19 +8870,28 @@ value: JSON.stringify(wallets)
 
    
 
-   for (let index = 0; index < pendingTxs.length; index++) {
+    for(let index = 0; index < pendingTxs.length; index++) {
     const eachpending = pendingTxs[index];
 
       if(eachpending.hash == hash){
         pendingTxs[index]=''
+        console.log('Removed :' +hash)
        }
    
    }
 
    for (let index = 0; index < pendingTxs.length; index++) {
     const eachcc = pendingTxs[index];
+
+    if(eachcc==''){
+console.log("Did this even work?")
+    }else{
+      newtxs.push(eachcc)
+    }
     
    }
+
+   thetoken.pendingTxs=newtxs
 
    await Storage.set({
     key: "wallets",
