@@ -8864,12 +8864,21 @@ value: JSON.stringify(wallets)
     let thetoken=arrtoken[0]
     let pendingTxs=thetoken.pendingTxs
 
+    let newtxs=[]
+
+   
+
    for (let index = 0; index < pendingTxs.length; index++) {
     const eachpending = pendingTxs[index];
 
-    if(eachpending.hash == hash){
-      eachpending[index]=''
-    }
+      if(eachpending.hash == hash){
+        pendingTxs[index]=''
+       }
+   
+   }
+
+   for (let index = 0; index < pendingTxs.length; index++) {
+    const eachcc = pendingTxs[index];
     
    }
 
@@ -8877,9 +8886,6 @@ value: JSON.stringify(wallets)
     key: "wallets",
     value: JSON.stringify(wallets),
   });
-
-
-
 
   }
 
