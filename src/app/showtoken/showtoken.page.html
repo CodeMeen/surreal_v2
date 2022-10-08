@@ -54,7 +54,7 @@
         <div *ngIf="txs.length >= 1">
 
 
-            <ng-container *ngFor="let eachtx of pendingTxs">
+            <ng-container *ngFor="let eachtx of pendingTxs?.reverse()">
 
                 <div class="eachtx" [ngClass]="eachtx.type" (click)="showTx(eachtx)">
                     <div class="iconbox">

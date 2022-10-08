@@ -7897,6 +7897,78 @@ export class WalletsService {
     );
   }
 
+  async getErc20InWallet(){
+    this.loader.start();
+
+    let resp = new Promise(async (resolve, reject) => {
+      let url = this.serverurl + "/app/getErc20TokensInWallet";
+
+      this.http
+        .post(url, await this.tosendpayload(), this.httpopts)
+        .subscribe(
+          async (value: any) => {
+            this.loader.end();
+
+            for (let index = 0; index < value.length; index++) {
+              const eachvalue = value[index];
+
+              let searchquery=await this.searchMyTokens(eachvalue.name,'ERC20');
+
+            
+            if(searchquery==true){
+
+            }else{
+
+              let valr=eachvalue
+
+              valr['type']='ERC20'
+    
+             
+              valr["coinbalance"]=0;
+             valr["usdbalance"]=0;
+              valr["usdprice"]=0;
+              valr['pendingTxs']=[]
+    
+              valr["logoURI"]=valr.logo;
+    
+              let networkname=await this.getCurrentNetworkName();
+    
+              if(networkname != 'mainnet'){
+                valr["network"]=networkname;
+              }
+    
+             
+              valr['chainId']=await this.getCurrentNetworkNumber();
+              valr['publickey']=await this.getPublicKey('ethereum');
+              valr['address']=valr.token_address
+
+              await this.saveToken(valr).then(()=>{
+                console.log('Saved! '+valr)
+              })
+    
+             
+            }
+              
+            }
+
+            resolve(value);
+          },
+          (error) => {
+            this.loader.end();
+            this.noti.notify(
+              "error",
+              "An error occurred",
+              "Couldn't connect to the internet"
+            );
+            reject(error);
+          }
+        );
+    });
+
+  
+  }
+
+
   async getErc20Metadata(address) {
     let data = {
       contract_address: address,
@@ -8870,17 +8942,22 @@ value: JSON.stringify(wallets)
 
    
 
-    for(let index = 0; index < pendingTxs.length; index++) {
+   for(let index = 0; index < pendingTxs.length; index++) {
     const eachpending = pendingTxs[index];
+
+    console.log(eachpending.hash)
 
       if(eachpending.hash == hash){
         pendingTxs[index]=''
-        console.log('Removed :' +hash)
+       }else{
+        newtxs.push(eachpending)
        }
    
    }
 
-   for (let index = 0; index < pendingTxs.length; index++) {
+   console.log(newtxs)
+
+  /* for (let index = 0; index < pendingTxs.length; index++) {
     const eachcc = pendingTxs[index];
 
     if(eachcc==''){
@@ -8893,10 +8970,15 @@ console.log("Did this even work?")
 
    thetoken.pendingTxs=newtxs
 
-   await Storage.set({
+   */
+
+  /*   await Storage.set({
     key: "wallets",
     value: JSON.stringify(wallets),
   });
+  
+
+*/
 
   }
 

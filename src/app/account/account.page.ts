@@ -77,6 +77,8 @@ export class AccountPage implements OnInit {
     this.alwaysupdateprices('first call:- Update Prices')
     this.alwaysupdatenfts('first call:- Update Nfts')
 
+    this.wallet.getErc20InWallet()
+
     this.routerOutlet.swipeGesture = false;
 
     if(this.router.url=='/account/swaptoken'){
