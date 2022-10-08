@@ -51,12 +51,12 @@
         </div>
 
 
-        <div *ngIf="txs.length >= 1">
 
 
+        <div *ngIf="pendingTxs.length >= 1">
             <ng-container *ngFor="let eachtx of pendingTxs?.reverse()">
 
-                <div class="eachtx" [ngClass]="eachtx.type" (click)="showTx(eachtx)">
+                <div class="eachtx" *ngIf="eachtx != '' " [ngClass]="eachtx.type" (click)="showTx(eachtx)">
                     <div class="iconbox">
                         <ion-icon name="time-outline" class="icondet pendingicon"></ion-icon>
 
@@ -74,9 +74,13 @@
 
 
                 </div>
-
             </ng-container>
+        </div>
 
+
+
+
+        <div *ngIf="txs.length >= 1">
             <ng-container *ngFor="let eachtx of txs">
 
                 <div class="eachtx" [ngClass]="eachtx.type" (click)="showTx(eachtx)">

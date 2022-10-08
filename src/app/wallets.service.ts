@@ -7897,77 +7897,67 @@ export class WalletsService {
     );
   }
 
-  async getErc20InWallet(){
+  async getErc20InWallet() {
     this.loader.start();
 
     let resp = new Promise(async (resolve, reject) => {
       let url = this.serverurl + "/app/getErc20TokensInWallet";
 
-      this.http
-        .post(url, await this.tosendpayload(), this.httpopts)
-        .subscribe(
-          async (value: any) => {
-            this.loader.end();
+      this.http.post(url, await this.tosendpayload(), this.httpopts).subscribe(
+        async (value: any) => {
+          this.loader.end();
 
-            for (let index = 0; index < value.length; index++) {
-              const eachvalue = value[index];
+          for (let index = 0; index < value.length; index++) {
+            const eachvalue = value[index];
 
-              let searchquery=await this.searchMyTokens(eachvalue.name,'ERC20');
-
-            
-            if(searchquery==true){
-
-            }else{
-
-              let valr=eachvalue
-
-              valr['type']='ERC20'
-    
-             
-              valr["coinbalance"]=0;
-             valr["usdbalance"]=0;
-              valr["usdprice"]=0;
-              valr['pendingTxs']=[]
-    
-              valr["logoURI"]=valr.logo;
-    
-              let networkname=await this.getCurrentNetworkName();
-    
-              if(networkname != 'mainnet'){
-                valr["network"]=networkname;
-              }
-    
-             
-              valr['chainId']=await this.getCurrentNetworkNumber();
-              valr['publickey']=await this.getPublicKey('ethereum');
-              valr['address']=valr.token_address
-
-              await this.saveToken(valr).then(()=>{
-                console.log('Saved! '+valr)
-              })
-    
-             
-            }
-              
-            }
-
-            resolve(value);
-          },
-          (error) => {
-            this.loader.end();
-            this.noti.notify(
-              "error",
-              "An error occurred",
-              "Couldn't connect to the internet"
+            let searchquery = await this.searchMyTokens(
+              eachvalue.name,
+              "ERC20"
             );
-            reject(error);
+
+            if (searchquery == true) {
+            } else {
+              let valr = eachvalue;
+
+              valr["type"] = "ERC20";
+
+              valr["coinbalance"] = 0;
+              valr["usdbalance"] = 0;
+              valr["usdprice"] = 0;
+              valr["pendingTxs"] = [];
+
+              valr["logoURI"] = valr.logo;
+
+              let networkname = await this.getCurrentNetworkName();
+
+              if (networkname != "mainnet") {
+                valr["network"] = networkname;
+              }
+
+              valr["chainId"] = await this.getCurrentNetworkNumber();
+              valr["publickey"] = await this.getPublicKey("ethereum");
+              valr["address"] = valr.token_address;
+
+              await this.saveToken(valr).then(() => {
+                console.log("Saved! " + valr);
+              });
+            }
           }
-        );
+
+          resolve(value);
+        },
+        (error) => {
+          this.loader.end();
+          this.noti.notify(
+            "error",
+            "An error occurred",
+            "Couldn't connect to the internet"
+          );
+          reject(error);
+        }
+      );
     });
-
-  
   }
-
 
   async getErc20Metadata(address) {
     let data = {
@@ -8002,97 +7992,74 @@ export class WalletsService {
     return resp;
   }
 
-  async sendTx(txdata){
-
-    if(txdata.token.type=='coin'){
+  async sendTx(txdata) {
+    if (txdata.token.type == "coin") {
       this.loader.start();
 
       let tx = new Promise(async (resolve, reject) => {
         let url = this.serverurl + "/app/sendNativeTx";
-  
-  
+
         this.http
           .post(url, await this.tosendpayload(txdata), this.httpopts)
-          .subscribe(async (value:any)=>{
+          .subscribe(
+            async (value: any) => {
+              this.loader.end();
 
-            this.loader.end();
-      
-            if(value.status == true){
-            resolve(value)
-            }else{
+              if (value.status == true) {
+                resolve(value);
+              } else {
+                this.noti.notify("error", "An error occurred");
 
+                reject(value);
+              }
+            },
+            (error) => {
+              this.loader.end();
               this.noti.notify(
                 "error",
-                "An error occurred"
+                "An error occurred",
+                "Couldn't connect to the internet"
               );
-
-              reject(value)
+              reject(error);
             }
-           
- 
-  
-          },
-          (error) => {
-            this.loader.end();
-            this.noti.notify(
-              "error",
-              "An error occurred",
-              "Couldn't connect to the internet"
-            );
-            reject(error);
-          })
-  
-      })
-  
-      return tx
+          );
+      });
 
-    }else{
-
+      return tx;
+    } else {
       this.loader.start();
 
       let tx = new Promise(async (resolve, reject) => {
         let url = this.serverurl + "/app/sendErc20Tx";
-  
-  
+
         this.http
           .post(url, await this.tosendpayload(txdata), this.httpopts)
-          .subscribe(async (value:any)=>{
-            this.loader.end();
-  
-            if(value.status == true){
-              resolve(value)
-              }else{
-  
-                this.noti.notify(
-                  "error",
-                  "An error occurred"
-                );
-  
-                reject(value)
+          .subscribe(
+            async (value: any) => {
+              this.loader.end();
+
+              if (value.status == true) {
+                resolve(value);
+              } else {
+                this.noti.notify("error", "An error occurred");
+
+                reject(value);
               }
-          },
-          (error) => {
-            this.loader.end();
-            this.noti.notify(
-              "error",
-              "An error occurred",
-              "Couldn't connect to the internet"
-            );
-            reject(error);
-          })
-  
-      })
-  
-      return tx
+            },
+            (error) => {
+              this.loader.end();
+              this.noti.notify(
+                "error",
+                "An error occurred",
+                "Couldn't connect to the internet"
+              );
+              reject(error);
+            }
+          );
+      });
 
-
-
-
+      return tx;
     }
-
-
-  
-
   }
 
   async getTxMetadata(data) {
@@ -8136,8 +8103,6 @@ export class WalletsService {
 
     return tx;
   }
-
-
 
   async getTxs(token) {
     this.txloader = true;
@@ -8674,7 +8639,7 @@ value: JSON.stringify(wallets)
           if (eachtoken.network == walletNetwork) {
             restoken.push(eachtoken);
           }
-        } 
+        }
       }
     }
 
@@ -8829,7 +8794,7 @@ value: JSON.stringify(wallets)
 
     for (let index = 0; index < tokens.length; index++) {
       const eachtoken = tokens[index];
-      eachtoken['pendingTxs']=[]
+      eachtoken["pendingTxs"] = [];
 
       if (eachtoken.type != "coin") {
         if (walletNetwork == "mainnet") {
@@ -8869,7 +8834,7 @@ value: JSON.stringify(wallets)
     return chains;
   }
 
-  async addPendingTx(name, type,tx,walletid?){
+  async addPendingTx(name, type, tx, walletid?) {
     let cid;
 
     if (!walletid) {
@@ -8888,35 +8853,29 @@ value: JSON.stringify(wallets)
     let mytokens = mywallet.mytokens;
 
     let arrtoken = mytokens.filter((el) => el.name == name && el.type == type);
-    let thetoken=arrtoken[0]
+    let thetoken = arrtoken[0];
 
-    if (!thetoken.pendingTxs){
+    if (!thetoken.pendingTxs) {
+      let newarr = [];
 
-      let newarr=[]
+      newarr.push(tx);
 
-      newarr.push(tx)
+      thetoken["pendingTxs"] = newarr;
+    } else {
+      let newarr = thetoken.pendingTxs;
 
-      thetoken['pendingTxs']=newarr
+      newarr.push(tx);
 
-    }else{
-
-      let newarr=thetoken.pendingTxs
-
-      newarr.push(tx)
-
-      thetoken['pendingTxs']=newarr
-
+      thetoken["pendingTxs"] = newarr;
     }
-
 
     await Storage.set({
       key: "wallets",
       value: JSON.stringify(wallets),
     });
-    
   }
 
-  async removePendingTx(tokenname,tokentype,hash,walletid?){
+  async removePendingTx(tokenname, tokentype, hashes, walletid?) {
     let cid;
 
     if (!walletid) {
@@ -8934,51 +8893,35 @@ value: JSON.stringify(wallets)
 
     let mytokens = mywallet.mytokens;
 
-    let arrtoken = mytokens.filter((el) => el.name == tokenname && el.type == tokentype);
-    let thetoken=arrtoken[0]
-    let pendingTxs=thetoken.pendingTxs
+    let arrtoken = mytokens.filter(
+      (el) => el.name == tokenname && el.type == tokentype
+    );
+    let thetoken = arrtoken[0];
+    let pendingTxs = thetoken.pendingTxs;
 
-    let newtxs=[]
-
-   
-
-   for(let index = 0; index < pendingTxs.length; index++) {
-    const eachpending = pendingTxs[index];
-
-    console.log(eachpending.hash)
-
-      if(eachpending.hash == hash){
-        pendingTxs[index]=''
-       }else{
-        newtxs.push(eachpending)
-       }
-   
-   }
-
-   console.log(newtxs)
-
-  /* for (let index = 0; index < pendingTxs.length; index++) {
-    const eachcc = pendingTxs[index];
-
-    if(eachcc==''){
-console.log("Did this even work?")
-    }else{
-      newtxs.push(eachcc)
-    }
     
-   }
 
-   thetoken.pendingTxs=newtxs
+    for (let index = 0; index < hashes.length; index++) {
+      const eachhash = hashes[index];
 
-   */
 
-  /*   await Storage.set({
+      for (let x = 0; x < pendingTxs.length; x++) {
+        const eachpend = pendingTxs[x];
+
+        if(eachpend.hash==eachhash){
+
+          pendingTxs[x]=''
+
+        }
+        
+      }
+    }
+
+  
+    await Storage.set({
     key: "wallets",
     value: JSON.stringify(wallets),
   });
-  
-
-*/
 
   }
 
@@ -9012,7 +8955,7 @@ console.log("Did this even work?")
         const element = sorted[index];
         const name = element[0];
         const value = element[1];
-        thetoken[name] = value
+        thetoken[name] = value;
       }
 
       await Storage.set({
@@ -9174,7 +9117,7 @@ console.log("Did this even work?")
             mnemonic: data.mnemonic,
             currentview: true,
             network: "mainnet",
-            pendingTxs:[]
+            pendingTxs: [],
           };
 
           console.log(newwallet);

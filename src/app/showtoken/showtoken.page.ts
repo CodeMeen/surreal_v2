@@ -89,13 +89,15 @@ await this.wallet.getTxs(this.mytoken).then(async (value:any)=>{
     let searchPending=await value.filter((el) => el.hash == eachPendingTx.hash);
     let eachpend=searchPending[0]
 
-    hashToRemove.push(eachpend.hash)
+  
 
-   // await this.wallet.removePendingTx(this.mytoken.name,this.mytoken.type,eachpend.hash)
-    
+    if(eachpend) {
+      hashToRemove.push(eachpend.hash)
+    }
+
   }
 
-  console.log(hashToRemove)
+  await this.wallet.removePendingTx(this.mytoken.name,this.mytoken.type,hashToRemove)
 
 
 
