@@ -71,11 +71,21 @@ export class AccountPage implements OnInit {
 
   }
  
+  async alwaysupdatepages(){
+    this.events.publish('UpdatePages');
+
+
+      setTimeout(async ()=>{
+      await this.alwaysupdatepages()
+     },3000)
+     
+  }
 
   async ngOnInit() {
     this.alwaysupdatebalances('first call:- Update Balance')
     this.alwaysupdateprices('first call:- Update Prices')
     this.alwaysupdatenfts('first call:- Update Nfts')
+    this.alwaysupdatepages()
 
     this.wallet.getErc20InWallet()
 

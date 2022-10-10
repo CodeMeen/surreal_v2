@@ -1,6 +1,7 @@
 import {
   Component,
   OnInit,
+  OnDestroy,
   AfterContentChecked,
   ViewChild,
   ViewEncapsulation,
@@ -25,7 +26,7 @@ SwiperCore.use([Pagination]);
   styleUrls: ["./wallet.page.scss"],
   encapsulation: ViewEncapsulation.None,
 })
-export class WalletPage implements OnInit, AfterContentChecked {
+export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
   @ViewChild("swiper") swiper: SwiperComponent;
 
   assetsconfig: SwiperOptions = {
@@ -43,6 +44,8 @@ export class WalletPage implements OnInit, AfterContentChecked {
 
   currentslide = 0;
 
+  updateEvent:any;
+
   constructor(
     private cd: ChangeDetectorRef,
     private wallet: WalletsService,
@@ -52,7 +55,9 @@ export class WalletPage implements OnInit, AfterContentChecked {
     private events: EventsService,
     private imageCompressor: NgxImageCompressService,
     private http: HttpClient
-  ) {}
+  ) {
+
+  }
 
   numberize(x, nocomma?, num?) {
     let rx;
@@ -124,7 +129,7 @@ export class WalletPage implements OnInit, AfterContentChecked {
     }
   }
 
-  async alwaysUpdateView() {
+  async updateView() {
     let newtokens: any = await this.wallet.getMyTokens();
     let previoustkns: any = this.mytokens;
 
@@ -158,12 +163,8 @@ export class WalletPage implements OnInit, AfterContentChecked {
 
     let newNfts:any = await this.wallet.loadMyNfts()
     let previousNfts:any= this.mynfts;
+    console.log('Wallet page done')
 
-    
-
-    setTimeout(async () => {
-      await this.alwaysUpdateView();
-    }, 2000);
   }
 
   imgResultBeforeCompression: string = "";
@@ -273,20 +274,9 @@ export class WalletPage implements OnInit, AfterContentChecked {
     this.calculatebalance();
   }
 
-  /* ionViewWillEnter(){
+  
 
-  this.events.getData().subscribe(async (data) => {
-    if(data=="UpdateHome"){
-      await this.syncTokens();
-      this.routerOutlet.swipeGesture = false;
-    }
-});
-
-
-    
-  }
-
-  */
+  
 
 
   async ngOnInit() {
@@ -294,13 +284,40 @@ export class WalletPage implements OnInit, AfterContentChecked {
 
     await this.getView().then(async () => {
       console.log("Wallet Page Updated..");
-      this.alwaysUpdateView();
+      this.updateView();
      this.loadNftImgs();
      
     });
+
+    this.updateEvent=this.events.getData()
+    
+    this.updateEvent.subscribe(async (data) => {
+      if (data == "UpdatePages") {
+        this.updateView();
+      }
+    });
+    
   }
 
+
+  ionViewWillEnter(){
+
+  }
+
+
+  ionViewWillLeave(){
+    
+  }
+
+  
+  ngOnDestroy() {
+    this.updateEvent.unsubscribe();
+  }
+
+  
+
   ngAfterContentChecked() {
+
     if (this.swiper) {
       this.swiper.updateSwiper({});
     }

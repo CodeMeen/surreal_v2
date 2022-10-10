@@ -6,16 +6,26 @@ import {Subject} from 'rxjs';
 })
 export class EventsService {
 
+  tags=[]
+
   constructor() { }
+
 
 
   private messagedata= new Subject<any>();
 
   publish(data: any) {
-      this.messagedata.next(data);
+
+    if(this.messagedata.isStopped==true){
+this.messagedata=new Subject<any>();
+this.messagedata.next(data);
+    }else{
+this.messagedata.next(data);
+    }
+   console.log(this.messagedata)
   }
 
-  getData(): Subject<any> {
+  getData(tag?): Subject<any> {
       return this.messagedata;
   }
 
