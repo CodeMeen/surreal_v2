@@ -22,7 +22,7 @@ this.messagedata.next(data);
     }else{
 this.messagedata.next(data);
     }
-   console.log(this.messagedata)
+   
   }
 
   getData(tag?): Subject<any> {

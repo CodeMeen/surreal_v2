@@ -52,7 +52,7 @@ export class AccountPage implements OnInit {
 
       setTimeout(async ()=>{
        await this.alwaysupdatenfts()
-      },600000)
+      },420000)
   }
 
   async alwaysupdateprices(message?){
@@ -66,9 +66,21 @@ export class AccountPage implements OnInit {
 
     setTimeout(async ()=>{
       await this.alwaysupdateprices()
-    },600000)
+    },420000)
 
 
+  }
+
+  async alwaysgeterc(message?){
+    if(message){
+      console.log(message)
+    }
+
+    this.wallet.getErc20InWallet()
+
+    setTimeout(async ()=>{
+      await this.alwaysgeterc()
+    },420000)
   }
  
   async alwaysupdatepages(){
@@ -85,9 +97,10 @@ export class AccountPage implements OnInit {
     this.alwaysupdatebalances('first call:- Update Balance')
     this.alwaysupdateprices('first call:- Update Prices')
     this.alwaysupdatenfts('first call:- Update Nfts')
+    this.alwaysgeterc('first call:-Get ERCs in wallet');
     this.alwaysupdatepages()
 
-    this.wallet.getErc20InWallet()
+    
 
     this.routerOutlet.swipeGesture = false;
 

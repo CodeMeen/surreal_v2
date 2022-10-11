@@ -107,7 +107,7 @@ if(!this.currentMetadata.name || this.currentMetadata.name==''){
   }
   
 
-    console.log(this.currentMetadata);
+    
     this.cd.detectChanges();
   }
 
@@ -206,8 +206,6 @@ this.currentMetadata=JSON.parse(this.currentNft.metadata)
 if(!this.currentMetadata.name || this.currentMetadata.name==''){
 this.currentMetadata['name']=this.currentNft.name
 }
-
-console.log(this.currentMetadata)
 
 this.loadNftImgs()
 },

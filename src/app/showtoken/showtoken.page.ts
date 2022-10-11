@@ -98,6 +98,10 @@ export class ShowtokenPage implements OnInit {
       );
     });
 
+   
+  }
+
+  ionViewWillEnter(){
     this.updateEvent=this.events.getData()
     
     this.updateEvent.subscribe(async (data) => {
@@ -107,10 +111,13 @@ export class ShowtokenPage implements OnInit {
     });
   }
 
-ngOnDestroy() {
-  this.updateEvent.unsubscribe();
-}
+
   ionViewWillLeave(){
+    this.updateEvent.unsubscribe();
+  }
+
+
+  ngOnDestroy() {
   
   }
 }

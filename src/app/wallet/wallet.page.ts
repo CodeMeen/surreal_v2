@@ -46,6 +46,7 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
 
   updateEvent:any;
 
+
   constructor(
     private cd: ChangeDetectorRef,
     private wallet: WalletsService,
@@ -130,6 +131,8 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
   }
 
   async updateView() {
+
+    // update tokens
     let newtokens: any = await this.wallet.getMyTokens();
     let previoustkns: any = this.mytokens;
 
@@ -147,6 +150,11 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
       this.updateTokenViewBalance();
     }
      
+
+    // end 
+
+    // Incase wallet network changes this happens
+
     let currentNetwork=this.mywallet.network;
 
     let loadNetwork=await this.wallet.getCurrentNetworkName()
@@ -156,13 +164,18 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
       this.mywallet = data;
       this.mytokens = await this.wallet.getMyTokens();
       this.numoftk = this.mywallet.mytokens.length;
+
+      await this.wallet.loadMyNfts().then((value) => {
+        this.mynfts =value
+        this.loadNftImgs()
+      })
     }
 
 
+    // end
 
 
-    let newNfts:any = await this.wallet.loadMyNfts()
-    let previousNfts:any= this.mynfts;
+   
     console.log('Wallet page done')
 
   }
@@ -276,7 +289,19 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
 
   
 
-  
+  async updateNfts(){
+     
+  setTimeout(async ()=>{
+
+    await this.wallet.loadMyNfts().then((value) => {
+      this.mynfts =value
+      this.loadNftImgs()
+    })
+
+      await this.updateNfts()
+     },600000)
+    
+  }
 
 
   async ngOnInit() {
@@ -286,9 +311,14 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
       console.log("Wallet Page Updated..");
       this.updateView();
      this.loadNftImgs();
-     
     });
 
+ 
+    
+  }
+
+
+  ionViewWillEnter(){
     this.updateEvent=this.events.getData()
     
     this.updateEvent.subscribe(async (data) => {
@@ -296,22 +326,16 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
         this.updateView();
       }
     });
-    
-  }
-
-
-  ionViewWillEnter(){
-
   }
 
 
   ionViewWillLeave(){
-    
+    this.updateEvent.unsubscribe();
   }
 
-  
+
   ngOnDestroy() {
-    this.updateEvent.unsubscribe();
+  
   }
 
   

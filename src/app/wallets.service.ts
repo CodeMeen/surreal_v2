@@ -7898,15 +7898,14 @@ export class WalletsService {
   }
 
   async getErc20InWallet() {
-    this.loader.start();
+   
 
     let resp = new Promise(async (resolve, reject) => {
       let url = this.serverurl + "/app/getErc20TokensInWallet";
 
       this.http.post(url, await this.tosendpayload(), this.httpopts).subscribe(
         async (value: any) => {
-          this.loader.end();
-
+        
           for (let index = 0; index < value.length; index++) {
             const eachvalue = value[index];
 
@@ -7947,12 +7946,7 @@ export class WalletsService {
           resolve(value);
         },
         (error) => {
-          this.loader.end();
-          this.noti.notify(
-            "error",
-            "An error occurred",
-            "Couldn't connect to the internet"
-          );
+         console.log(error)
           reject(error);
         }
       );
