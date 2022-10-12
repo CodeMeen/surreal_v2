@@ -36,9 +36,16 @@ export class ShowtokenPage implements OnInit {
     let tkname = routeParams.get("name");
     let tktype = routeParams.get("type");
 
+
+    let previousbalance=this.mytoken.coinbalance
+   
+
     this.mytoken = await this.wallet.getToken(tkname, tktype);
 
+
+
     console.log("update show token");
+    
   }
 
   numberize(x, nocomma?, num?) {
