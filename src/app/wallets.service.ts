@@ -7803,6 +7803,52 @@ export class WalletsService {
     return resp;
   }
 
+  async getRawNfts(walletid?){
+    let cid;
+
+    if (!walletid) {
+      cid = await this.getCurrentWalletId();
+    } else {
+      cid = walletid;
+    }
+
+    let database = await Storage.get({ key: "wallets" });
+    let wallets = JSON.parse(database.value);
+
+    let mywallet = wallets.filter((el) => el.id == cid);
+
+    let rawmynfts = mywallet[0].mynfts;
+
+
+    return rawmynfts
+  }
+
+
+  async reloadFunc(){
+    this.loader.start()
+
+    
+    let resp=new Promise((resolve, reject) => {
+     
+      this.getErc20InWallet().then(async ()=>{
+
+        await this.getWalletMetadata().then(async ()=>{
+          await this.getNfts()
+          await this.getAllPrices()
+
+
+       this.loader.end()
+          resolve(true)
+        });
+       
+ 
+      })
+    })
+
+    return resp
+  }
+
+
   async loadMyNfts(walletid?) {
     let cid;
 
@@ -7886,8 +7932,7 @@ export class WalletsService {
       async (value: any) => {
         let nfts = value;
 
-        if (!nfts.length || nfts.length <= 0) {
-        } else {
+      if(Array.isArray(nfts)){
           await this.updateNft(nfts);
         }
       },

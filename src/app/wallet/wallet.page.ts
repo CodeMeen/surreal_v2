@@ -17,6 +17,7 @@ import { IonRouterOutlet } from "@ionic/angular";
 import { EventsService } from "../events.service";
 import { NgxImageCompressService } from "ngx-image-compress";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { LoaderService } from "../loader.service";
 
 SwiperCore.use([Pagination]);
 
@@ -45,6 +46,7 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
   currentslide = 0;
 
   updateEvent:any;
+  rawnfts:any
 
 
   constructor(
@@ -55,7 +57,8 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
     private routerOutlet: IonRouterOutlet,
     private events: EventsService,
     private imageCompressor: NgxImageCompressService,
-    private http: HttpClient
+    private http: HttpClient,
+    public loader: LoaderService
   ) {
 
   }
@@ -153,6 +156,10 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
 
     // end 
 
+    //Update nfts
+await this.updateNfts()
+    //
+
     // Incase wallet network changes this happens
 
     let currentNetwork=this.mywallet.network;
@@ -160,6 +167,7 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
     let loadNetwork=await this.wallet.getCurrentNetworkName()
 
     if(currentNetwork!=loadNetwork) {
+    
       let data = await this.wallet.getMyWallet();
       this.mywallet = data;
       this.mytokens = await this.wallet.getMyTokens();
@@ -179,6 +187,7 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
     console.log('Wallet page done')
 
   }
+
 
   imgResultBeforeCompression: string = "";
   imgResultAfterCompression: string = "";
@@ -278,6 +287,7 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
       this.mywallet = data;
       this.mytokens = await this.wallet.getMyTokens();
       this.mynfts = await this.wallet.loadMyNfts();
+      this.rawnfts=await this.wallet.getRawNfts();
 
       this.numoftk = this.mywallet.mytokens.length;
     } catch (error) {
@@ -290,17 +300,16 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
   
 
   async updateNfts(){
-     
-  setTimeout(async ()=>{
 
-    await this.wallet.loadMyNfts().then((value) => {
-      this.mynfts =value
-      this.loadNftImgs()
-    })
+    let currentNfts=await this.wallet.getRawNfts();
+    let previousNfts=this.rawnfts
 
-      await this.updateNfts()
-     },600000)
+    if(currentNfts.length != previousNfts.length){
+      this.mynfts = await this.wallet.loadMyNfts();
+      this.rawnfts=await this.wallet.getRawNfts();
     
+    }
+  
   }
 
 
@@ -311,14 +320,12 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
       console.log("Wallet Page Updated..");
       this.updateView();
      this.loadNftImgs();
-    });
-
- 
+    }); 
     
   }
 
 
-  ionViewWillEnter(){
+  ionViewDidEnter(){
     this.updateEvent=this.events.getData()
     
     this.updateEvent.subscribe(async (data) => {

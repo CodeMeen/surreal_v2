@@ -53,12 +53,10 @@ export class SettingsPage implements OnInit {
         this.popup.close()
         let value=res.value
 
-  await this.wallet.saveNetwork(value).then(()=>{
+  await this.wallet.saveNetwork(value).then(async ()=>{
+   await this.wallet.reloadFunc()
+    this.updatePage()
    
-    this.updatePage().then(()=>{
-      
-    })
-    this.noti.notify('success','Updated!')
   })
   
       }

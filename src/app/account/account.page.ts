@@ -17,7 +17,7 @@ export class AccountPage implements OnInit {
 
 
   
-  constructor(private router:Router,private routerOutlet: IonRouterOutlet,public events:EventsService,public wallet: WalletsService) { }
+  constructor(public router:Router,private routerOutlet: IonRouterOutlet,public events:EventsService,public wallet: WalletsService) { }
 
 
   async alwaysupdatebalances(message?){
@@ -103,8 +103,9 @@ export class AccountPage implements OnInit {
     
 
     this.routerOutlet.swipeGesture = false;
+    let currenturl=this.router.url
 
-    if(this.router.url=='/account/swaptoken'){
+    if(currenturl.search('/account/menujunc') > -1){
 this.panelmode='dark';
     }else{
 this.panelmode='light';
@@ -115,8 +116,7 @@ this.panelmode='light';
   }
 
   async ionViewDidEnter() {
-
-    this.events.publish('UpdateHome')
+    
     this.routerOutlet.swipeGesture = false;
 }
 

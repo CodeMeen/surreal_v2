@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Injectable, NgZone } from '@angular/core';
 import { NavController } from '@ionic/angular';
 
@@ -9,7 +9,7 @@ import { NavController } from '@ionic/angular';
 })
 export class RouterService {
 
-  constructor(private navCtrl: NavController,private zone: NgZone ,private router: Router) { }
+  constructor(private navCtrl: NavController,private zone: NgZone ,private router: Router,public route: ActivatedRoute) { }
 
 naviTo(array){
   this.zone.run(()=>{
