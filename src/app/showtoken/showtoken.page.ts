@@ -38,6 +38,12 @@ export class ShowtokenPage implements OnInit {
 
 
     let previousbalance=this.mytoken.coinbalance
+    let newtoken=await this.wallet.getToken(tkname, tktype);
+    let currentbalance=newtoken.coinbalance
+
+    if(previousbalance != currentbalance) {
+      
+    }
    
 
     this.mytoken = await this.wallet.getToken(tkname, tktype);

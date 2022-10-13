@@ -307,7 +307,7 @@ await this.updateNfts()
     if(currentNfts.length != previousNfts.length){
       this.mynfts = await this.wallet.loadMyNfts();
       this.rawnfts=await this.wallet.getRawNfts();
-    
+      this.loadNftImgs()
     }
   
   }
