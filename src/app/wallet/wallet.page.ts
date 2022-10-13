@@ -45,9 +45,10 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
 
   currentslide = 0;
 
-  updateEvent:any;
+  
   rawnfts:any
 
+  reloading=true;
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -318,14 +319,29 @@ await this.updateNfts()
 
     await this.getView().then(async () => {
       console.log("Wallet Page Updated..");
-      this.updateView();
+     
      this.loadNftImgs();
+
+     this.reloadFunc();
     }); 
     
   }
 
+  async reloadFunc(){
 
-  ionViewDidEnter(){
+    this.updateView();
+
+    if(this.reloading==true) {
+      setTimeout(async () =>{
+        this.reloadFunc();
+      },2000)
+    }
+
+  
+  }
+
+
+  /*ionViewDidEnter(){
     this.updateEvent=this.events.getData()
     
     this.updateEvent.subscribe(async (data) => {
@@ -335,14 +351,16 @@ await this.updateNfts()
     });
   }
 
+  */
 
-  ionViewWillLeave(){
+
+  /*ionViewWillLeave(){
     this.updateEvent.unsubscribe();
   }
-
+*/
 
   ngOnDestroy() {
-  
+  this.reloading=false
   }
 
   

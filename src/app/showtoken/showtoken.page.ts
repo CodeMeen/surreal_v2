@@ -81,7 +81,7 @@ await this.wallet.getTxs(this.mytoken).then(async (value: any) => {
      
     }
    
-    console.log("update show token");
+    console.log("Show Token Done");
     
   }
 
@@ -176,6 +176,7 @@ await this.wallet.getTxs(this.mytoken).then(async (value: any) => {
 */
 
   ngOnDestroy() {
+    this.reloading=false
   console.log("Left ShowToken")
   }
 }
