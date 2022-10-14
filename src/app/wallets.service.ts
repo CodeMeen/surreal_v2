@@ -9181,7 +9181,7 @@ value: JSON.stringify(wallets)
         },
         (error) => {
           this.loader.end();
-
+           this.noti.notify('error','An error occured!','Check your network')
           console.log(error);
           reject(false);
         }
