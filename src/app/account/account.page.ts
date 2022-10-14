@@ -83,7 +83,7 @@ export class AccountPage implements OnInit {
     },420000)
   }
  
-  async alwaysupdatepages(){
+  /* async alwaysupdatepages(){
     this.events.publish('UpdatePages');
 
 
@@ -93,12 +93,14 @@ export class AccountPage implements OnInit {
      
   }
 
+  */
+
   async ngOnInit() {
     this.alwaysupdatebalances('first call:- Update Balance')
     this.alwaysupdateprices('first call:- Update Prices')
     this.alwaysupdatenfts('first call:- Update Nfts')
     this.alwaysgeterc('first call:-Get ERCs in wallet');
-    this.alwaysupdatepages()
+    //this.alwaysupdatepages()
 
     
 

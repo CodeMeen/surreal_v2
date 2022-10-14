@@ -42,13 +42,14 @@ export class ShowtokenPage implements OnInit {
 
     let previousbalance=this.mytoken.coinbalance
     let newtoken=await this.wallet.getToken(tkname, tktype);
+    this.pendingTxs = newtoken.pendingTxs;
     let currentbalance=newtoken.coinbalance
 
     if(previousbalance != currentbalance) {
 await this.wallet.getToken(tkname, tktype).then(async (value:any)=>{
 
 this.mytoken=value
-this.pendingTxs = this.mytoken.pendingTxs;
+
 
 await this.wallet.getTxs(this.mytoken).then(async (value: any) => {
   this.txs = value;
@@ -80,8 +81,6 @@ await this.wallet.getTxs(this.mytoken).then(async (value: any) => {
     }else{
      
     }
-   
-    console.log("Show Token Done");
     
   }
 
@@ -106,6 +105,19 @@ await this.wallet.getTxs(this.mytoken).then(async (value: any) => {
         this.router.naviTo(["/tx"]);
       });
     });
+  }
+
+  async reloadFunc(){
+
+    this.updateView();
+
+    if(this.reloading==true) {
+      setTimeout(async () =>{
+        this.reloadFunc();
+      },3000)
+    }
+
+  
   }
 
   async ngOnInit() {
@@ -142,41 +154,26 @@ await this.wallet.getTxs(this.mytoken).then(async (value: any) => {
       );
     });
 
+  }
+
+
+
+  ionViewWillEnter(){
+    console.log('Entering Show Token..')
+    this.reloading=true
     this.reloadFunc()
-
   }
 
-  async reloadFunc(){
 
-    this.updateView();
-
-    if(this.reloading==true) {
-      setTimeout(async () =>{
-        this.reloadFunc();
-      },3000)
-    }
-
-  
+  ionViewWillLeave(){
+    console.log('Leaving Show Token..')
+    this.reloading=false
   }
 
-  /*ionViewWillEnter(){
-    this.updateEvent=this.events.getData()
-    
-    this.updateEvent.subscribe(async (data) => {
-      if (data == "UpdatePages") {
-        
-      }
-    });
-  }
-*/
-
-  /*ionViewWillLeave(){
-    this.updateEvent.unsubscribe();
-  }
-*/
 
   ngOnDestroy() {
-    this.reloading=false
+  this.reloading=false
   console.log("Left ShowToken")
   }
+
 }

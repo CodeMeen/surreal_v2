@@ -8298,7 +8298,7 @@ export class WalletsService {
             }
           }
 
-          console.log("Wallet Metadata Updated");
+        
         },
         (error) => {
           console.log(error);

@@ -183,10 +183,6 @@ await this.updateNfts()
 
     // end
 
-
-   
-    console.log('Wallet page done')
-
   }
 
 
