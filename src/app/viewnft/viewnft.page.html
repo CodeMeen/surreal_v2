@@ -55,7 +55,7 @@
 
             <div class="eachdet">
                 <span class="lspan">Token Id</span>
-                <div class="rspan statussh">
+                <div class="rspan statussh" (click)="copyStr(currentNft.token_id)">
                     {{currentNft.token_id}}
                 </div>
 
@@ -65,7 +65,7 @@
 
             <div class="eachdet">
                 <span class="lspan">Token Address</span>
-                <div class="rspan statussh">
+                <div class="rspan statussh" (click)="copyStr(currentNft.token_address)">
                     {{currentNft.shortAddress}}
                 </div>
 
@@ -91,7 +91,7 @@
 
         </div>
 
-        <div class="viewblockexp">See More On Opensea</div>
+        <div class="viewblockexp" (click)="goToOpensea(currentNft.token_address,currentNft.token_id)">See More On Opensea</div>
 
         <div class="buttonbelow">
             <button class="whitebtn" (click)="sendCurrentNft()">Send Nft</button>

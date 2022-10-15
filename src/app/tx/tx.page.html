@@ -48,12 +48,12 @@
 
                 <span *ngIf="refinedTxData.type=='receiving'">
                     <span class="lspan">Sender</span>
-                <span class="rspan">{{refinedTxData.shortFrom}}</span>
+                <span class="rspan" (click)="copyStr(refinedTxData.from)">{{refinedTxData.shortFrom}}</span>
                 </span>
 
                 <span *ngIf="refinedTxData.type=='sending'">
                     <span class="lspan">Recipient</span>
-                <span class="rspan">{{refinedTxData.shortTo}}</span>
+                <span class="rspan" (click)="copyStr(refinedTxData.to)">{{refinedTxData.shortTo}}</span>
                 </span>
 
 
@@ -71,7 +71,7 @@
         </div>
 
 
-        <div class="viewblockexp">View on block explorer</div>
+        <div class="viewblockexp" (click)="goToExplorer(refinedTxData.hash)">View on block explorer</div>
 
 
 
