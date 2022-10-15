@@ -43,14 +43,14 @@
         background-position: center;
     }
     .cardplace {
-        height: 300px;
+        height: 250px;
     }
     .eachnft {
         width: 100%;
-        height: 300px;
+        height: 250px;
     }
     .nftimg {
-        height: 300px;
+        height: 250px;
         border-radius: 10px;
         width: 100%;
         object-fit: cover;
@@ -58,7 +58,7 @@
         position: absolute;
     }
     .nftvideo {
-        height: 300px;
+        height: 250px;
         border-radius: 10px;
         width: 100%;
         position: absolute;
@@ -66,7 +66,7 @@
         object-fit: cover;
     }
     .nfterror {
-        height: 300px;
+        height: 250px;
         border-radius: 10px;
         width: 100%;
         object-fit: cover;
@@ -147,6 +147,18 @@
         height: auto;
         margin: 20px;
         padding: 20px;
+    }
+
+    .tesbox{
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(2.1px);
+        -webkit-backdrop-filter: blur(2.1px);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        height: auto;
+        margin: 20px;
+        padding:0px 20px;
     }
     @keyframes purpanimation {
         0% {
@@ -448,7 +460,7 @@
         padding: 0;
         /* Fix of Webkit flickering */
         z-index: 1;
-        width: 270px;
+        width: 230px;
     }
     .swiper-vertical>.swiper-wrapper {
         flex-direction: column;
