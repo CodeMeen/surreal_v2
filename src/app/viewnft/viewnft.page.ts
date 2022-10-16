@@ -40,6 +40,8 @@ export class ViewnftPage implements AfterContentChecked, OnInit {
     },
   };
 
+  reloading=true;
+
   nfts: any[] = [];
 
   currentNftIndex: any;
@@ -68,6 +70,10 @@ export class ViewnftPage implements AfterContentChecked, OnInit {
     private cd: ChangeDetectorRef,
     public noti: NotiService
   ) {}
+
+  async updateView() {
+    console.log('Updating View Nfts')
+  }
 
   async copyStr(text) {
     await Clipboard.write({
@@ -238,6 +244,19 @@ console.log(value)
     await Browser.open({ url: mapurl });
   }
 
+  async reloadFunc(){
+
+    this.updateView();
+
+    if(this.reloading==true) {
+      setTimeout(async () =>{
+        this.reloadFunc();
+      },3000)
+    }
+
+  
+  }
+
   ngAfterContentChecked() {
     if (this.swiper) {
       this.swiper.updateSwiper({});
@@ -267,4 +286,26 @@ console.log(value)
       (error) => {}
     );
   }
+
+
+  ionViewWillEnter(){
+    console.log('Entering View Nfts..')
+    this.reloading=true
+    this.reloadFunc()
+  }
+
+
+  ionViewWillLeave(){
+    console.log('Leaving View Nfts..')
+    this.reloading=false
+  }
+
+
+  ngOnDestroy() {
+  this.reloading=false
+  console.log("Left View Nfts")
+  }
+
+
+
 }
