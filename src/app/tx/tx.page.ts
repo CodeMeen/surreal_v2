@@ -25,6 +25,14 @@ export class TxPage implements OnInit {
     public wallet: WalletsService, 
     public noti: NotiService
   ) {}
+  async copyStr(text) {
+    await Clipboard.write({
+      string: text,
+    });
+
+    this.noti.notify("success", "Copied!");
+  }
+
 
   async reducenumber(num, fixed) {
     let string = await num.toString();
