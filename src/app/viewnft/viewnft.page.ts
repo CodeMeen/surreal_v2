@@ -100,6 +100,39 @@ export class ViewnftPage implements AfterContentChecked, OnInit {
     };
 
     this.nftToSend = this.currentNft;
+
+  }
+
+  async confirmSend(){
+
+    let recipient=this.NftSendingData.recipient
+
+    if(!recipient || recipient==''){
+this.noti.notify('error','Empty Recipient!')
+    }else{
+
+      console.log(this.nftToSend)
+      let txdata={
+       'token':this.nftToSend,
+       'to': this.NftSendingData.recipient,
+       'from': await this.wallet.getPublicKey('ethereum')
+      }
+  
+      console.log(txdata)
+
+
+      if(this.nftToSend.contract_type=='ERC721'){
+
+await this.wallet.sendErc721Tx(txdata).then((value:any)=>{
+console.log(value)
+})
+
+      }else{
+
+      }
+
+    }
+  
   }
 
   shortAddr(string) {
