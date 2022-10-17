@@ -131,9 +131,12 @@ this.noti.notify('error','Empty Recipient!')
 
 await this.wallet.sendErc721Tx(txdata).then((value:any)=>{
 console.log(value)
+
+
+
 })
 
-      }else{
+      }else if(this.nftToSend.contract_type=='ERC1155'){
 
       }
 

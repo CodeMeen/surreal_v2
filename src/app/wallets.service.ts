@@ -8046,7 +8046,51 @@ export class WalletsService {
             if (value.status == true) {
               resolve(value);
             } else {
-              this.noti.notify("error", "An error occurred");
+              if(value.reason.code=='UNPREDICTABLE_GAS_LIMIT'){
+                this.noti.notify("error", "Insufficient Gas");
+              }else{
+                this.noti.notify("error", "An error occurred");
+              }
+
+              reject(value);
+            }
+          },
+          (error) => {
+            this.loader.end();
+            this.noti.notify(
+              "error",
+              "An error occurred",
+              "Couldn't connect to the internet"
+            );
+            reject(error);
+          }
+        );
+    });
+
+    return tx;
+  }
+
+  async sendErc1155Tx(txdata){
+    this.loader.start();
+
+    let tx = new Promise(async (resolve, reject) => {
+      let url = this.serverurl + "/app/sendErc1155Tx";
+
+      this.http
+        .post(url, await this.tosendpayload(txdata), this.httpopts)
+        .subscribe(
+          async (value: any) => {
+            this.loader.end();
+
+            if (value.status == true) {
+              resolve(value);
+            } else {
+              if(value.reason.code=='UNPREDICTABLE_GAS_LIMIT'){
+                this.noti.notify("error", "Insufficient Gas");
+              }else{
+                this.noti.notify("error", "An error occurred");
+              }
+             
 
               reject(value);
             }
