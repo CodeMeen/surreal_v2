@@ -8278,6 +8278,41 @@ export class WalletsService {
     return txs;
   }
 
+  async getNftTxs(token_contract){
+    this.txloader = true;
+
+    let payload={
+     'contractaddr':token_contract
+    }
+
+    let txs = new Promise(async (resolve, reject) => {
+      let result;
+      
+        let url = this.serverurl + "/app/nftTxs";
+
+        this.http
+          .post(url, await this.tosendpayload(payload), this.httpopts)
+          .subscribe(
+            (value: any) => {
+              this.txloader = false;
+              result = value;
+
+              resolve(result);
+            },
+            (error) => {
+              this.txloader = false;
+
+              result = [];
+
+              reject(error);
+            }
+          );
+   })
+  
+   return txs
+
+}
+
   async getTokenMetadata(token, returntype?) {
     let payload = {
       tokens: [token],

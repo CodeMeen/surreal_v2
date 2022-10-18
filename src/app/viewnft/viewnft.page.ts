@@ -83,6 +83,14 @@ export class ViewnftPage implements AfterContentChecked, OnInit {
     this.noti.notify("success", "Copied!");
   }
 
+
+  async pasteReceipient(){
+    const { type, value } = await Clipboard.read();
+
+   this.NftSendingData.recipient=value
+  }
+
+
   closePop() {
     this.popUp = {
       popopened: false,
@@ -130,14 +138,22 @@ this.noti.notify('error','Empty Recipient!')
       if(this.nftToSend.contract_type=='ERC721'){
 
 await this.wallet.sendErc721Tx(txdata).then((value:any)=>{
-console.log(value)
+if(value.status==true){
+  this.noti.notify('success','Transaction Submitted','Confirmation is pending');
+  this.popUp.popopened=false
+}
 
 
 
 })
 
       }else if(this.nftToSend.contract_type=='ERC1155'){
-
+        await this.wallet.sendErc1155Tx(txdata).then((value:any)=>{
+          if(value.status==true){
+            this.noti.notify('success','Transaction Submitted','Confirmation is pending');
+            this.popUp.popopened=false
+          }
+          })
       }
 
     }
@@ -293,7 +309,7 @@ console.log(value)
 
   ionViewWillEnter(){
     console.log('Entering View Nfts..')
-    this.reloading=true
+    this.reloading=false
     this.reloadFunc()
   }
 

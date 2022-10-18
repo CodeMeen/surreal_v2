@@ -65,6 +65,10 @@ const routes: Routes = [
     path: 'customtoken',
     loadChildren: () => import('./customtoken/customtoken.module').then( m => m.CustomtokenPageModule)
   },
+  {
+    path: 'nft-txs',
+    loadChildren: () => import('./nft-txs/nft-txs.module').then( m => m.NftTxsPageModule)
+  },
 ];
 
 @NgModule({
