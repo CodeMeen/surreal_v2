@@ -8287,7 +8287,7 @@ export class WalletsService {
 
     let txs = new Promise(async (resolve, reject) => {
       let result;
-      
+
         let url = this.serverurl + "/app/nftTxs";
 
         this.http
@@ -8296,7 +8296,6 @@ export class WalletsService {
             (value: any) => {
               this.txloader = false;
               result = value;
-
               resolve(result);
             },
             (error) => {
