@@ -44,7 +44,7 @@ export class ViewnftPage implements AfterContentChecked, OnInit {
 
   nfts: any[] = [];
 
-  currentNftIndex: any;
+  currentNftIndex: any=0;
   currentNft: any = {};
   currentMetadata: any = {};
   popUp: any = {
@@ -72,7 +72,38 @@ export class ViewnftPage implements AfterContentChecked, OnInit {
   ) {}
 
   async updateView() {
-    console.log('Updating View Nfts')
+    const routeParams = this.route.snapshot.paramMap;
+    let nftaddr = routeParams.get("nftaddr");
+
+    await this.wallet.loadNft(nftaddr).then(
+      (data) => {
+       
+
+        if(data.length != this.nfts.length){
+        this.nfts = data;
+
+        console.log(this.nfts)
+
+        this.currentNft = this.nfts[this.currentNftIndex];
+
+        this.currentNft["shortAddress"] = this.shortAddr(
+          this.currentNft.token_address
+        );
+        this.currentMetadata = JSON.parse(this.currentNft.metadata);
+
+        if (!this.currentMetadata.name || this.currentMetadata.name == "") {
+          this.currentMetadata["name"] = this.currentNft.name;
+        }
+
+        this.loadNftImgs();
+
+        }
+
+      },
+      (error) => {}
+    );
+
+  
   }
 
   async copyStr(text) {
@@ -141,6 +172,7 @@ await this.wallet.sendErc721Tx(txdata).then((value:any)=>{
 if(value.status==true){
   this.noti.notify('success','Transaction Submitted','Confirmation is pending');
   this.popUp.popopened=false
+  this.wallet.getNfts()
 }
 
 
@@ -304,12 +336,14 @@ if(value.status==true){
       },
       (error) => {}
     );
+    this.wallet.getNfts()
   }
 
 
   ionViewWillEnter(){
     console.log('Entering View Nfts..')
-    this.reloading=false
+    this.reloading=true
+    this.wallet.getNfts()
     this.reloadFunc()
   }
 

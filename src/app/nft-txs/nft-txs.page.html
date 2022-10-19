@@ -1,0 +1,73 @@
+<ion-content>
+  <div class="nfttxsview">
+
+      <div class="purpheader">
+          <div class="goback" (click)="router.goBack()">
+              <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
+          </div>
+          <div class="centerdiv">
+              <div class="logo"></div>
+          </div>
+          <div></div>
+      </div>
+
+      <div class="balancemodalbox">
+        <div class="balancemodal">
+          
+           
+            <div class="balancetext" style="font-size: 18px;">{{nftname}}</div>
+            <div class="smallbaltext" *ngIf="wallet.txloader==true">...</div>
+            <div class="smallbaltext" *ngIf="wallet.txloader==false">{{txs.length}} Transfers</div>
+
+
+            <div class="smallline"></div>
+<br>
+
+
+        </div>
+    </div>
+
+
+      <div class="tokentype" style="padding:20px;">Transactions
+      </div>
+
+      <div class="loaderbox" *ngIf="wallet.txloader==true">
+          <div class="loader"></div>
+      </div>
+
+      <div *ngIf="txs.length >= 1">
+        <ng-container *ngFor="let eachtx of txs">
+
+            <div class="eachtx" [ngClass]="eachtx.type" >
+                <div class="iconbox">
+                    <ion-icon class="icondet downarrow" name="arrow-down-outline"></ion-icon>
+                    <ion-icon class="icondet uparrow" name="arrow-up-outline"></ion-icon>
+                </div>
+
+                <div class="detbox">
+                    <div><b><span class="txtransferin">Transfer In</span><span class="txtransferout">Transfer Out</span></b></div>
+                    <div><span style="font-size: 13px;">#{{eachtx.token_id}}</span></div>
+                    <div class="det"><span class="txfrom">From: {{eachtx.shortFrom}}</span><span class="txto">To: {{eachtx.shortTo}}</span></div>
+                   
+                </div>
+
+                <div class="tximgbox">
+                  <img class="nfttximg" src='{{eachtx.img_url}}'>
+                </div>
+
+
+            </div>
+
+        </ng-container>
+
+    </div>
+
+
+    <ng-container *ngIf="wallet.txloader==false">
+        <div class="centerbox" *ngIf="txs.length <= 0">
+            <div class="emptybox">
+
+            </div>
+            <div class="fadedtext">No transactions yet</div>
+        </div>
+    </ng-container>

@@ -1,4 +1,4 @@
-.showtokenview {
+.nfttxsview {
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
@@ -7,6 +7,19 @@
     background: var(--ion-background-color);
     .pendingicon {
         color: orange !important;
+    }
+
+    .tximgbox{
+        height: 55px;
+        width:100%;
+        border-radius: 7px;
+        display: flex;
+     justify-content: right;
+
+    }
+
+    .nfttximg{
+        border-radius: 7px;
     }
     .eachtx {
         display: grid;

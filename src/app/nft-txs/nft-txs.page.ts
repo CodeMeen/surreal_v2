@@ -9,10 +9,12 @@ import { WalletsService } from "../wallets.service";
   selector: 'app-nft-txs',
   templateUrl: './nft-txs.page.html',
   styleUrls: ['./nft-txs.page.scss'],
+  encapsulation:ViewEncapsulation.None
 })
 export class NftTxsPage implements OnInit {
 
   txs: any = [];
+  nftname:any;
 
   constructor(  public router: RouterService,
     public wallet: WalletsService,
@@ -23,6 +25,7 @@ export class NftTxsPage implements OnInit {
     const routeParams = this.route.snapshot.paramMap;
 
     let contractaddr = routeParams.get("contractaddr");
+    this.nftname = routeParams.get("name");
 
     this.txs=await this.wallet.getNftTxs(contractaddr)
     

@@ -52,7 +52,7 @@ export class AccountPage implements OnInit {
 
       setTimeout(async ()=>{
        await this.alwaysupdatenfts()
-      },420000)
+      },240000)
   }
 
   async alwaysupdateprices(message?){

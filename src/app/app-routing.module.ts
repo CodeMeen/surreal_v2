@@ -66,7 +66,7 @@ const routes: Routes = [
     loadChildren: () => import('./customtoken/customtoken.module').then( m => m.CustomtokenPageModule)
   },
   {
-    path: 'nft-txs/:contractaddr',
+    path: 'nft-txs/:contractaddr/:name',
     loadChildren: () => import('./nft-txs/nft-txs.module').then( m => m.NftTxsPageModule)
   },
 ];
