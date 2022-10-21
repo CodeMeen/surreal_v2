@@ -25,17 +25,20 @@ export class SettingsPage implements OnInit {
     let arr=[{'listname':'Ethereum Mainnet','imgurl':'',
     value:'mainnet',
     'listid':1,
-    'searchphrase':'mainnet'
+    'searchphrase':'mainnet',
+    'selected':await this.wallet.getCheckSelected('mainnet')
 },
 {'listname':'Kovan Test Network','imgurl':'',
     value:'kovan',
   'listid':2,
-  'searchphrase':'kovan'
+  'searchphrase':'kovan',
+  'selected':await this.wallet.getCheckSelected('kovan')
 },
 {'listname':'Goerli Test Network','imgurl':'',
     value:'goerli',
   'listid':3,
-  'searchphrase':'goerli'
+  'searchphrase':'goerli',
+  'selected':await this.wallet.getCheckSelected('goerli')
 }
 ]
 
@@ -45,7 +48,8 @@ export class SettingsPage implements OnInit {
       search: false,
       listimg: false,
       transparent: true,
-      lists: arr
+      lists: arr,
+      selectedValues:true
       }
 
 

@@ -7764,6 +7764,29 @@ export class WalletsService {
     }
   }
 
+  async getCheckSelected(inputnetwork,walletid?){
+    let cid;
+
+    if (!walletid) {
+      cid = await this.getCurrentWalletId();
+    } else {
+      cid = walletid;
+    }
+
+    let database = await Storage.get({ key: "wallets" });
+    let wallets = JSON.parse(database.value);
+
+    let mywallet = wallets.filter((el) => el.id == cid);
+
+    let network=mywallet.network
+
+    if(inputnetwork == network){
+      return true
+    }else{
+      return false
+    }
+  }
+
   async loadNft(tokenaddr, walletid?) {
     let cid;
 
