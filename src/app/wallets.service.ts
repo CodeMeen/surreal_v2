@@ -7778,7 +7778,7 @@ export class WalletsService {
 
     let mywallet = wallets.filter((el) => el.id == cid);
 
-    let network=mywallet.network
+    let network=mywallet[0].network
 
     if(inputnetwork == network){
       return true

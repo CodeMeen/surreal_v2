@@ -30,6 +30,7 @@ height='maxi';
 
  transparent;
  searchfunc;
+ selectedValues=false
 
 
   constructor( ) { }
@@ -45,8 +46,11 @@ if(arr.type==='list'){
 this.search=arr.search;
 this.listimg=arr.listimg;
 this.lists=arr.lists;
+
+
 this.listaction=func;
 this.listactionparam=funcparam;
+this.selectedValues=arr.selectedValues
 
 }else if(arr.type==='message'){
 this.message=arr.message;

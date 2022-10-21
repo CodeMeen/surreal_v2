@@ -13,6 +13,10 @@
     <div *ngIf="popUp.type==='list'" class="popupoptions">
 
         <div *ngFor="let data of popUp.currentlist;" class="popuplist" (click)="listfunc(popUp.listaction,data)">
+            <div class="selectBox" >
+                <div class="eachselect" *ngIf="data.selected==true"></div>
+            </div>
+          
             <div *ngIf='popUp.listimg' class="iconpop" style="background-image: url({{data.imgurl}});"></div>
             <div class="textopt"> {{data.listname}} </div>
         </div>
