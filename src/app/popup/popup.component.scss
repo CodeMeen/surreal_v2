@@ -96,12 +96,19 @@
   .textopt{
     margin:10px;
     font-family: mntssemibold !important;
+    width:70%;
   }
   
   .popupoptions{
     margin-bottom:0px;
     overflow-y: auto;
     height:100%;
+  }
+
+  .xach{
+    font-family: mntsreg !important;
+    font-size:11px;
+    color:#5d6969
   }
   
   .popupoptions .popuplist:last-child{
@@ -165,7 +172,7 @@
     color:white;
     font-size:16px;
     font-family: mntssemibold !important;
-    background:#007fff;
+    background:var(--ion-color-secondary);
   text-align:center;
   border-radius: 50px;
   cursor:pointer;

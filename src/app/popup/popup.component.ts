@@ -22,6 +22,10 @@ paramfunc(data);
 paramfunc(action);
   };
 
+  runnAction(func,action?){
+    func(action);
+  }
+
   closepop(){
     this.popUp.close();
   }

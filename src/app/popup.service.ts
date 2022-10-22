@@ -31,11 +31,20 @@ height='maxi';
  transparent;
  searchfunc;
  selectedValues=false
+ otherName=false
+ outfunction=false
+ outActionName:any
+
+ outsideAction:any
+
+ settingsFunc:any
+ settingsflag=false
+
 
 
   constructor( ) { }
 
-  initpopup(arr,func?,funcparam?){
+  initpopup(arr,func?,funcparam?,outsideaction?,settingsfunc?){
 
 this.type=arr.type;
 this.height=arr.height;
@@ -50,7 +59,16 @@ this.lists=arr.lists;
 
 this.listaction=func;
 this.listactionparam=funcparam;
-this.selectedValues=arr.selectedValues
+
+if(arr.selectedValues){
+  this.selectedValues=arr.selectedValues 
+}
+
+if(arr.otherName){
+  this.otherName=arr.otherName
+}
+
+
 
 }else if(arr.type==='message'){
 this.message=arr.message;
@@ -68,8 +86,23 @@ this.messageactions=arr.messageactions;
 
 }
 
+
+if(outsideaction){
+  this.outsideAction=outsideaction
+  this.outActionName=arr.outactionname
+  this.outfunction=true
+}
+
+if(settingsfunc){
+this.settingsflag=true
+this.settingsFunc=settingsfunc
+}
+
 this.currentlist=this.lists;
 this.popopened=true;
+
+
+
 
 }
 

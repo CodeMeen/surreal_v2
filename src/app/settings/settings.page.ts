@@ -17,9 +17,68 @@ import { WalletsService } from '../wallets.service';
 export class SettingsPage implements OnInit {
 
  currentwallet:any={}
+ noofwallets:any
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
     ,public loader: LoaderService) { }
+
+async selectWallet(){
+let arr=[]
+
+let allWallet=await this.wallet.getAllWallet()
+
+allWallet.forEach( async el=> {
+  let eachdata= {'listname':el.name,'imgurl':'',
+  value:el.id,
+  'listid':el.id,
+  'searchphrase':'Wallet',
+  'selected':el.currentview,
+  'othername': await this.wallet.getWalletPublicKey('ethereum',el.id)
+}
+
+
+arr.push(eachdata)
+
+});
+
+let walletsInfo={
+  type:'list',
+  height:'maxi',
+  search: false,
+  listimg: false,
+  transparent: true,
+  lists: arr,
+  selectedValues:true,
+  otherName:true,
+  outactionname:'Add Wallet'
+  }
+
+  let selectfunc=async (res)=>{
+    this.popup.close()
+    let value=res.value
+
+await this.wallet.selectWallet(value).then(async ()=>{
+await this.wallet.reloadFunc()
+this.updatePage()
+
+})
+
+  }
+
+  let outsideaction=async (res)=>{
+    console.log(res)
+  }
+
+  let settingsaction=async (res)=>{
+console.log(res)
+  }
+
+  this.popup.initpopup(walletsInfo,selectfunc,'',outsideaction,settingsaction)
+
+
+
+}
+
 
  async selectNetwork(){
     let arr=[{'listname':'Ethereum Mainnet','imgurl':'',
@@ -49,7 +108,9 @@ export class SettingsPage implements OnInit {
       listimg: false,
       transparent: true,
       lists: arr,
-      selectedValues:true
+      selectedValues:true,
+     
+      
       }
 
 
@@ -70,6 +131,10 @@ export class SettingsPage implements OnInit {
 
 
   async updatePage(){
+    let allwallets=await this.wallet.getAllWallet()
+
+    this.noofwallets=allwallets.length
+
     await this.wallet.getMyWallet().then((data)=>{
       this.currentwallet=data
           })

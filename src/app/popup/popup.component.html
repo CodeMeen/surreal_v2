@@ -18,7 +18,15 @@
             </div>
           
             <div *ngIf='popUp.listimg' class="iconpop" style="background-image: url({{data.imgurl}});"></div>
-            <div class="textopt"> {{data.listname}} </div>
+            <div class="textopt"> {{data.listname}} 
+                <br>
+                <span class="xach">{{data.othername}}</span>
+            </div>
+
+            <div *ngIf="popUp.settingsflag==true" (click)="runnAction(popUp.settingsFunc,data.value)">
+                <ion-icon name="settings-outline"></ion-icon>
+            </div>
+           
         </div>
 
         <div *ngIf="popUp.currentlist.length <= 0" class="notfoundpop">
@@ -48,5 +56,13 @@
 
 
     </div>
+
+    
+        <div class="popaction" *ngIf="popUp.outfunction==true" style="margin:10px;">
+            <div class="popactionone" (click)="popUp.close()">Close</div>
+            <div class="popactiontwo" (click)="runnAction(popUp.outsideAction)">{{popUp.outActionName}}</div>
+        </div>
+   
+   
 
 </div>

@@ -9179,7 +9179,24 @@ value: JSON.stringify(wallets)
 
     await this.getWalletMetadata();
   }
+async selectWallet(walletid){
+  let allWallets=await this.getAllWallet()
 
+
+  allWallets.forEach(async el=>{
+    if(el.id != walletid){
+      el.currentview=false
+    }else{
+      el.currentview=true
+    }
+  })
+
+  await Storage.set({
+    key: "wallets",
+    value: JSON.stringify(allWallets),
+  });
+  
+}
   async saveToken(senttoken, walletid?) {
     let cid;
 
@@ -9250,6 +9267,22 @@ value: JSON.stringify(wallets)
       value: JSON.stringify(wallets),
     });
   }
+async getWalletPublicKey(chainname,walletid){
+  let name = chainname.toLowerCase();
+
+  let mywallet = await this.getMyWallet(walletid);
+
+  let availkeys = mywallet.publickeys;
+
+  let searchedkey = availkeys.filter((el) => el.chain == name);
+
+  let keydata = searchedkey[0];
+
+  let publickey = keydata.publickey;
+
+  return publickey;
+}
+
 
   async getPublicKey(chainname) {
     let name = chainname.toLowerCase();
