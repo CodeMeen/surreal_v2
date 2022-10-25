@@ -23,10 +23,11 @@
                 <span class="xach">{{data.othername}}</span>
             </div>
 
-            <div *ngIf="popUp.settingsflag==true" (click)="runnAction(popUp.settingsFunc,data.value)">
-                <ion-icon name="settings-outline"></ion-icon>
+            <div *ngIf="popUp.settingsflag==true" class="popsettings" (click)="runnAction(popUp.settingsFunc,data.value)">
+                <ion-icon name="settings-outline" class="popicon"></ion-icon>
             </div>
            
+
         </div>
 
         <div *ngIf="popUp.currentlist.length <= 0" class="notfoundpop">

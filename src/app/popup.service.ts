@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { settings } from 'cluster';
 
 @Injectable({
   providedIn: 'root'
@@ -96,12 +97,12 @@ if(outsideaction){
 if(settingsfunc){
 this.settingsflag=true
 this.settingsFunc=settingsfunc
+}else{
+  this.settingsflag=false
 }
 
 this.currentlist=this.lists;
 this.popopened=true;
-
-
 
 
 }
