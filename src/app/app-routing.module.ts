@@ -69,6 +69,14 @@ const routes: Routes = [
     path: 'nft-txs/:contractaddr/:name',
     loadChildren: () => import('./nft-txs/nft-txs.module').then( m => m.NftTxsPageModule)
   },
+  {
+    path: 'add-wallet',
+    loadChildren: () => import('./add-wallet/add-wallet.module').then( m => m.AddWalletPageModule)
+  },
+  {
+    path: 'wallet-settings',
+    loadChildren: () => import('./wallet-settings/wallet-settings.module').then( m => m.WalletSettingsPageModule)
+  },
 ];
 
 @NgModule({

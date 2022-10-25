@@ -66,7 +66,8 @@ this.updatePage()
   }
 
   let outsideaction=async (res)=>{
-    console.log(res)
+    this.popup.close()
+    this.router.naviTo(['/add-wallet'])
   }
 
   let settingsaction=async (res)=>{

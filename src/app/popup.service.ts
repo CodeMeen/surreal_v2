@@ -92,6 +92,8 @@ if(outsideaction){
   this.outsideAction=outsideaction
   this.outActionName=arr.outactionname
   this.outfunction=true
+}else{
+  this.outfunction=false
 }
 
 if(settingsfunc){
