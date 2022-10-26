@@ -16,8 +16,17 @@ import { WalletsService } from '../wallets.service';
 })
 export class FromMnemonicPage implements OnInit {
 
+  importData={
+    walletname:'Main Wallet Two',
+    phrase:''
+  }
+
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
     ,public loader: LoaderService) { }
+
+    async import(){
+
+    }
 
   ngOnInit() {
   }

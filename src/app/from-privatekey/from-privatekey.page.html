@@ -1,9 +1,51 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>fromPrivatekey</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <div class="fromprivatekeyview">
+  
+    <div class="purpheader">
+      <div class="goback" (click)="router.goBack()">
+          <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
+      </div>
+      <div class="centerdiv">
+          <div class="logo"></div>
+      </div>
+      <div></div>
+  </div>
 
+  <div class="balancemodalbox">
+    <div class="balancemodal">
+      
+       
+        <div class="balancetext" style="font-size: 14px;">Enter Private Key</div>
+   
+        <div class="smallline"></div>
+<br>
+    </div>
+    </div>
+
+    <div class="fullbox">
+
+      <div class="inputbox">
+        <input class="input" [(ngModel)]="importData.walletname" type="text" required>
+        <span class="floating-label">Name</span>
+    </div>
+
+    <hr class="sepline">
+      
+      <textarea class="textarea" [(ngModel)]="importData.pk" placeholder="Enter Private Key"></textarea>
+     
+      </div>
+
+    
+      <div class="typically">Typically 64 alphanumeric characters</div>
+
+
+      <div class="buttonbelow" [ngClass]="{'faded': importData.pk == ''}">
+        <button class="whitebtn" (click)="import()">Import</button>
+      </div>
+
+
+
+
+
+</div>
 </ion-content>

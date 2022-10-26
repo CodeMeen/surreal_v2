@@ -1,9 +1,47 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>newWallet</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <div class="newwalletview">
+  
+    <div class="purpheader">
+      <div class="goback" (click)="router.goBack()">
+          <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
+      </div>
+      <div class="centerdiv">
+          <div class="logo"></div>
+      </div>
+      <div></div>
+  </div>
 
+  <div class="balancemodalbox">
+    <div class="balancemodal">
+      
+       
+        <div class="balancetext" style="font-size: 14px;">Create New Wallet</div>
+   
+        <div class="smallline"></div>
+<br>
+    </div>
+    </div>
+
+    <div class="fullbox">
+
+      <div class="inputbox">
+        <input class="input" [(ngModel)]="importData.walletname" type="text" required>
+        <span class="floating-label">Name</span>
+    </div>
+     
+      </div>
+
+    
+      <div class="typically">Enter wallet name</div>
+
+
+      <div class="buttonbelow" [ngClass]="{'faded': importData.walletname == ''}">
+        <button class="whitebtn" (click)="confirm()">Confirm</button>
+      </div>
+
+
+
+
+
+</div>
 </ion-content>

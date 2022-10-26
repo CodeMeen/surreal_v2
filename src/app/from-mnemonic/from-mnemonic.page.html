@@ -16,23 +16,38 @@
       
        
         <div class="balancetext" style="font-size: 14px;">Enter Mnemonic Phrase</div>
-    <br>
+   
         <div class="smallline"></div>
 <br>
     </div>
-    <br>
-    <textarea class="enterphrase">
+    </div>
 
-    </textarea>
+
+
+    <div class="fullbox">
+
+      <div class="inputbox">
+        <input class="input" [(ngModel)]="importData.walletname" type="text" required>
+        <span class="floating-label">Name</span>
+    </div>
+
+    <hr class="sepline">
+      
+      <textarea class="textarea" [(ngModel)]="importData.phrase" placeholder="Enter Secret Phrase"></textarea>
+     
+      </div>
+
+    
+      <div class="typically">Typically 12 (sometimes 24) words separated by single spaces</div>
+
+
+      <div class="buttonbelow" [ngClass]="{'faded': importData.phrase == ''}">
+        <button class="whitebtn" (click)="import()">Import</button>
+      </div>
+
+
+
+
+
 </div>
-
-
-
-
-
-
-
-  
-  
-  </div>
 </ion-content>
