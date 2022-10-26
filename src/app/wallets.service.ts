@@ -9315,29 +9315,31 @@ async getWalletPublicKey(chainname,walletid){
 
           let wallets: any[] = [];
 
-          let newwallet = {
-            id: "1",
-            name: "Main Wallet",
-            mytokens: [],
-            mynfts: [],
-            publickeys: [{ chain: "ethereum", publickey: data.publicKey }],
-            privatekey: data.privateKey,
-            mnemonic: data.mnemonic,
-            currentview: true,
-            network: "mainnet",
-            pendingTxs: [],
-          };
+          if(data.mnemonic){
+ 
+            let newwallet = {
+              id: "1",
+              name: "Main Wallet",
+              mytokens: [],
+              mynfts: [],
+              publickeys: [{ chain: "ethereum", publickey: data.publicKey }],
+              privatekey: data.privateKey,
+              mnemonic: data.mnemonic,
+              currentview: true,
+              network: "mainnet",
+              pendingTxs: [],
+            };
 
-          console.log(newwallet);
+            console.log(newwallet);
 
-          wallets.push(newwallet);
+            wallets.push(newwallet);
+  
+            await Storage.set({
+              key: "wallets",
+              value: JSON.stringify(wallets),
+            });
 
-          await Storage.set({
-            key: "wallets",
-            value: JSON.stringify(wallets),
-          });
-
-          let defaulttoken = await this.getDefaultTokens();
+            let defaulttoken = await this.getDefaultTokens();
 
           console.log(defaulttoken);
 
@@ -9347,10 +9349,17 @@ async getWalletPublicKey(chainname,walletid){
           }
 
           resolve(true);
+
+          }else{
+            this.loader.end();
+            this.noti.notify('error','An error occured!','Try again later')
+            reject(false);
+          }
+  
         },
         (error) => {
           this.loader.end();
-           this.noti.notify('error','An error occured!','Check your network')
+          this.noti.notify('error','An error occured!','Check your network')
           console.log(error);
           reject(false);
         }
