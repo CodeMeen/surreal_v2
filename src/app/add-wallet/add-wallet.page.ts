@@ -20,8 +20,49 @@ export class AddWalletPage implements OnInit {
 
     step:any
 
+    async importWallet(){
+
+      let arr=[ {'listname':'Import from Mnemonic','imgurl':'',
+      value:'mnemonic',
+      'listid':'1',
+      'searchphrase':'mnemonic'
+    },
+    {'listname':'Import from Private Key','imgurl':'',
+    value:'privatekey',
+    'listid':'2',
+    'searchphrase':'privatekey'
+  }]
+
+      let tyInfo={
+        type:'list',
+        height:'mini',
+        search: false,
+        listimg: false,
+        transparent: true,
+        lists: arr,
+        selectedValues:false,
+        otherName:false,
+        }
+      
+        let selectfunc=async (res)=>{
+          this.popup.close()
+          let value=res.value
+          console.log(value)
+
+          if(value=='mnemonic'){
+          this.router.naviTo(['/from-mnemonic'])
+          }else if(value=='privatekey'){
+          this.router.naviTo(['/from-privatekey'])
+          }
+  
+        }
+
+       
+        this.popup.initpopup(tyInfo,selectfunc)
+    }
+
   ngOnInit() {
-    this.routerOutlet.swipeGesture = true;
+
   }
 
 

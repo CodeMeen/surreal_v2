@@ -77,6 +77,18 @@ const routes: Routes = [
     path: 'wallet-settings',
     loadChildren: () => import('./wallet-settings/wallet-settings.module').then( m => m.WalletSettingsPageModule)
   },
+  {
+    path: 'from-mnemonic',
+    loadChildren: () => import('./from-mnemonic/from-mnemonic.module').then( m => m.FromMnemonicPageModule)
+  },
+  {
+    path: 'from-privatekey',
+    loadChildren: () => import('./from-privatekey/from-privatekey.module').then( m => m.FromPrivatekeyPageModule)
+  },
+  {
+    path: 'new-wallet',
+    loadChildren: () => import('./new-wallet/new-wallet.module').then( m => m.NewWalletPageModule)
+  },
 ];
 
 @NgModule({
