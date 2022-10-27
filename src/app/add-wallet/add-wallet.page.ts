@@ -47,7 +47,7 @@ export class AddWalletPage implements OnInit {
         let selectfunc=async (res)=>{
           this.popup.close()
           let value=res.value
-          console.log(value)
+          
 
           if(value=='mnemonic'){
           this.router.naviTo(['/from-mnemonic'])

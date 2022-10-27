@@ -33,7 +33,7 @@
 
     <hr class="sepline">
       
-      <textarea class="textarea" [(ngModel)]="importData.phrase" placeholder="Enter Secret Phrase"></textarea>
+      <textarea class="textarea" [(ngModel)]="importData.phrase" (keyup)="oninput()" placeholder="Enter Secret Phrase"></textarea>
      
       </div>
 
@@ -41,7 +41,7 @@
       <div class="typically">Typically 12 (sometimes 24) words separated by single spaces</div>
 
 
-      <div class="buttonbelow" [ngClass]="{'faded': importData.phrase == ''}">
+      <div class="buttonbelow" [ngClass]="{'faded': inputflag == false}">
         <button class="whitebtn" (click)="import()">Import</button>
       </div>
 

@@ -15,11 +15,13 @@ import { WalletsService } from '../wallets.service';
   encapsulation:ViewEncapsulation.None
 })
 export class FromMnemonicPage implements OnInit {
-
+   
   importData={
-    walletname:'Main Wallet Two',
+    walletname:'',
     phrase:''
   }
+
+  inputflag=false
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
     ,public loader: LoaderService) { }
@@ -28,7 +30,33 @@ export class FromMnemonicPage implements OnInit {
 
     }
 
-  ngOnInit() {
+    async oninput(){
+      let str=this.importData.phrase
+
+      let lenghtostr=str.split(' ').length;
+
+      if(lenghtostr < 3){
+this.inputflag=false
+      }else{
+this.inputflag=true
+      }
+
+    }
+
+
+
+    async setWalletName(){
+    
+      await this.wallet.newWalletId().then((value)=>{
+        let newName=`Wallet ${value}`
+        this.importData.walletname=newName
+      })
+    }
+
+  async ngOnInit() {
+
+    await this.setWalletName()
+
   }
 
 }

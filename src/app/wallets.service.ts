@@ -9413,10 +9413,49 @@ async getWalletPublicKey(chainname,walletid){
     return mywallet[0];
   }
 
+
   async getAllWallet() {
     let database = await Storage.get({ key: "wallets" });
     let wallets: any[] = JSON.parse(database.value);
 
     return wallets;
   }
+
+  
+
+  async newWalletId(){
+    let database = await Storage.get({ key: "wallets" });
+    let wallets: any[] = JSON.parse(database.value);
+
+    let lastWallet=wallets.splice(-1);
+
+
+    let lastid=Number(lastWallet[0].id)
+    let newId=lastid+1
+
+    return newId
+
+  }
+
+
+  async importMnemonicWallet(){
+    
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
