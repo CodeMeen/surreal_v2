@@ -33,7 +33,7 @@
         <div *ngIf="popUp.currentlist.length <= 0" class="notfoundpop">
             Not Found!
         </div>
-
+        <div class="actionspace"  *ngIf="popUp.outfunction==true || popUp.messageactions"></div>
     </div>
 
     <div *ngIf="popUp.type==='message'" class="popupmessage">
@@ -55,14 +55,16 @@
             <div class="popactiontwo" (click)="messagefunc(popUp.messageaction,true)">{{popUp.messageactionname}}</div>
         </div>
 
-
+        <div class="actionspace"  *ngIf="popUp.outfunction==true || popUp.messageactions"></div>
     </div>
 
     
-        <div class="popaction" *ngIf="popUp.outfunction==true" style="margin:10px;">
+        <div class="popaction" *ngIf="popUp.outfunction==true">
             <div class="popactionone" (click)="popUp.close()">Close</div>
             <div class="popactiontwo" (click)="runnAction(popUp.outsideAction)">{{popUp.outActionName}}</div>
         </div>
+
+   
    
    
 

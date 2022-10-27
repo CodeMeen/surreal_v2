@@ -149,11 +149,11 @@
     grid-template-columns: 1fr 1fr;
     grid-gap:20px;
     position:absolute;
-    bottom:12px;
+    bottom:0px;
     left:0;
     right:0;
-    margin-bottom:12px;
-  
+    padding:20px 10px;
+    background:#fff;
   }
   
   .popactionone{
@@ -227,4 +227,9 @@
     height: 18px;
     width:18px;
     
+   }
+
+   .actionspace{
+    height: 150px;
+    width:100%;
    }

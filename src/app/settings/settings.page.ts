@@ -19,6 +19,8 @@ export class SettingsPage implements OnInit {
  currentwallet:any={}
  noofwallets:any
 
+ reloading=true;
+
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
     ,public loader: LoaderService) { }
 
@@ -140,6 +142,39 @@ console.log(res)
       this.currentwallet=data
           })
   }
+
+
+  async reloadFunc(){
+
+    this.updatePage();
+
+    if(this.reloading==true) {
+      setTimeout(async () =>{
+        this.reloadFunc();
+      },3000)
+    }
+
+  
+  }
+
+  ionViewWillEnter(){
+    console.log('Entering Settings..')
+    this.reloading=true
+    this.reloadFunc()
+  }
+
+
+  ionViewWillLeave(){
+    console.log('Leaving Settings..')
+    this.reloading=false
+  }
+
+
+  ngOnDestroy() {
+  this.reloading=false
+  console.log("Left Settings..")
+  }
+
 
   async ngOnInit() {
    await this.updatePage()

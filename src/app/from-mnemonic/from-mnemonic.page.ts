@@ -26,10 +26,6 @@ export class FromMnemonicPage implements OnInit {
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
     ,public loader: LoaderService) { }
 
-    async import(){
-
-    }
-
     async oninput(){
       let str=this.importData.phrase
 
@@ -39,6 +35,20 @@ export class FromMnemonicPage implements OnInit {
 this.inputflag=false
       }else{
 this.inputflag=true
+      }
+
+    }
+
+    async confirmImport(){
+    
+      if(this.inputflag==true){
+        await this.wallet.importMnemonicWallet(this.importData).then((data)=>{
+      if(data==true){
+        this.wallet.reloadFunc()
+        this.router.naviTo(['/account/settings'])
+        this.noti.notify('success','Wallet Imported Succesfully');
+      }
+        })
       }
 
     }

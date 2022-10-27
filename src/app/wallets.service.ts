@@ -7603,6 +7603,8 @@ export class WalletsService {
     return payload;
   };
 
+
+
   serverurl = "http://localhost:3000";
 
   constructor(
@@ -9369,6 +9371,81 @@ async getWalletPublicKey(chainname,walletid){
     return resp;
   }
 
+
+  async importMnemonicWallet(importdata){
+    let resp = new Promise((resolve, reject) => {
+      this.loader.start();
+      let url = this.serverurl + "/app/getMnemonicMetadata";
+
+    let payload = {
+      network: 'mainnet',
+      chain: "ethereum",
+      data: {"phrase":importdata.phrase},
+    };
+
+    this.http.post(url,payload, this.httpopts).subscribe(
+        async (data: any) => {
+          this.loader.end()
+          
+
+          if(data.status==false && data.error=='invalid_mnemonic'){
+            this.noti.notify('error','Invalid Mnemonic Phrase');
+            reject('Invalid Mnemonic');
+          }else{
+
+            let database = await Storage.get({ key: "wallets" });
+            let wallets = JSON.parse(database.value);
+
+            wallets.forEach(el => {
+              el.currentview=false
+            });
+
+            let newwallet = {
+              id: await this.newWalletId(),
+              name: importdata.walletname,
+              mytokens: [],
+              mynfts: [],
+              publickeys: [{ chain: "ethereum", publickey: data.publicKey }],
+              privatekey: data.privateKey,
+              mnemonic: data.mnemonic,
+              currentview: true,
+              network: "mainnet",
+              pendingTxs: [],
+            };
+
+            wallets.push(newwallet)
+
+            await Storage.set({
+              key: "wallets",
+              value: JSON.stringify(wallets),
+            });
+
+            let defaulttoken = await this.getDefaultTokens();
+
+            console.log(defaulttoken);
+  
+            for (let index = 0; index < defaulttoken.length; index++) {
+              let currentobj = defaulttoken[index];
+              await this.saveToken(currentobj);
+            }
+  
+            resolve(true)
+          }
+        
+        },
+        (error) => {
+          this.loader.end();
+          this.noti.notify('error','An error occured!','Check your network')
+          console.log(error);
+          reject(false);
+        }
+        )
+
+    })
+
+    return resp
+  }
+
   private async getCurrentWalletId() {
     let database = await Storage.get({ key: "wallets" });
     let wallets = JSON.parse(database.value);
@@ -9438,9 +9515,7 @@ async getWalletPublicKey(chainname,walletid){
   }
 
 
-  async importMnemonicWallet(){
-    
-  }
+
 
 
 
