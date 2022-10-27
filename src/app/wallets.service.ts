@@ -9372,6 +9372,82 @@ async getWalletPublicKey(chainname,walletid){
   }
 
 
+  async importPrivatekeyWallet(importdata){
+
+    let resp = new Promise((resolve, reject) => {
+      this.loader.start();
+      let url = this.serverurl + "/app/getPrivatekeyMetadata";
+
+    let payload = {
+      network: 'mainnet',
+      chain: "ethereum",
+      data: {"privatekey":importdata.pk},
+    };
+
+    this.http.post(url,payload, this.httpopts).subscribe(
+        async (data: any) => {
+          this.loader.end()
+          
+
+          if(data.status==false && data.error=='invalid_privatekey'){
+            this.noti.notify('error','Invalid Private Key');
+            reject('Invalid Private Key');
+          }else{
+
+            let database = await Storage.get({ key: "wallets" });
+            let wallets = JSON.parse(database.value);
+
+            wallets.forEach(el => {
+              el.currentview=false
+            });
+
+            let newwallet = {
+              id: await this.newWalletId(),
+              name: importdata.walletname,
+              mytokens: [],
+              mynfts: [],
+              publickeys: [{ chain: "ethereum", publickey: data.publicKey }],
+              privatekey: data.privateKey,
+              mnemonic: data.mnemonic,
+              currentview: true,
+              network: "mainnet",
+              pendingTxs: [],
+            };
+
+            wallets.push(newwallet)
+
+            await Storage.set({
+              key: "wallets",
+              value: JSON.stringify(wallets),
+            });
+
+            let defaulttoken = await this.getDefaultTokens();
+
+            console.log(defaulttoken);
+  
+            for (let index = 0; index < defaulttoken.length; index++) {
+              let currentobj = defaulttoken[index];
+              await this.saveToken(currentobj);
+            }
+  
+            resolve(true)
+          }
+        
+        },
+        (error) => {
+          this.loader.end();
+          this.noti.notify('error','An error occured!','Check your network')
+          console.log(error);
+          reject(false);
+        }
+        )
+
+    })
+
+    return resp
+    
+  }
+
   async importMnemonicWallet(importdata){
     let resp = new Promise((resolve, reject) => {
       this.loader.start();

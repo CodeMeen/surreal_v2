@@ -20,14 +20,56 @@ export class FromPrivatekeyPage implements OnInit {
     pk:''
   }
 
+  inputflag=false
+
+
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
     ,public loader: LoaderService) { }
 
-    async import(){
+
+    async oninput(){
+      let str=this.importData.pk
+
+      let lenghtostr=str.length;
+
+      if(lenghtostr < 64){
+this.inputflag=false
+      }else{
+this.inputflag=true
+      }
 
     }
 
-  ngOnInit() {
+
+    async confirmImport(){
+    
+      if(this.inputflag==true){
+        await this.wallet.importPrivatekeyWallet(this.importData).then((data)=>{
+      if(data==true){
+        this.wallet.reloadFunc()
+       this.router.naviTo(['/account/settings'])
+      this.noti.notify('success','Wallet Imported Succesfully');
+        
+      }
+        })
+      }
+
+    }
+
+   
+
+    async setWalletName(){
+    
+      await this.wallet.newWalletId().then((value)=>{
+        let newName=`Wallet ${value}`
+        this.importData.walletname=newName
+      })
+    }
+
+
+
+  async ngOnInit() {
+    await this.setWalletName()
   }
 
 }

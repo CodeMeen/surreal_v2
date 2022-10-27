@@ -31,7 +31,7 @@
 
     <hr class="sepline">
       
-      <textarea class="textarea" [(ngModel)]="importData.pk" placeholder="Enter Private Key"></textarea>
+      <textarea class="textarea" [(ngModel)]="importData.pk" (keyup)="oninput()" placeholder="Enter Private Key"></textarea>
      
       </div>
 
@@ -39,8 +39,8 @@
       <div class="typically">Typically 64 alphanumeric characters</div>
 
 
-      <div class="buttonbelow" [ngClass]="{'faded': importData.pk == ''}">
-        <button class="whitebtn" (click)="import()">Import</button>
+      <div class="buttonbelow" [ngClass]="{'faded': inputflag == false}">
+        <button class="whitebtn" (click)="confirmImport()">Import</button>
       </div>
 
 
