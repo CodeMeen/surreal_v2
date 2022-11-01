@@ -16,10 +16,11 @@ import { WalletsService } from '../wallets.service';
 export class NewWalletPage implements OnInit {
 
 
-  importData={
-    walletname:'Main Wallet Two',
-    phrase:''
+  createData={
+    walletname:'',
   }
+
+
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
     ,public loader: LoaderService) { }
@@ -27,11 +28,33 @@ export class NewWalletPage implements OnInit {
 
 
 
-  async confirm(){
+  async confirmImport(){
+    
+      if(this.createData.walletname != ''){
+        await this.wallet.createNewWallet(this.createData).then((data:any)=>{
+      if(data.status==true){
+        this.wallet.reloadFunc()
+        this.router.naviTo([`/backupwallet/${data.walletid}`])
+        this.noti.notify('success','Wallet Created Succesfully','Backup your wallet to continue');
+      }
+        })
+      }
 
+    }
+
+
+  async setWalletName(){
+    
+    await this.wallet.newWalletId().then((value)=>{
+      let newName=`Wallet ${value}`
+      this.createData.walletname=newName
+    })
   }
 
-  ngOnInit() {
-  }
+async ngOnInit() {
+
+  await this.setWalletName()
+
+}
 
 }

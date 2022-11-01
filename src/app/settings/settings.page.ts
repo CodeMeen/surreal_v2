@@ -151,7 +151,7 @@ console.log(res)
     if(this.reloading==true) {
       setTimeout(async () =>{
         this.reloadFunc();
-      },3000)
+      },2000)
     }
 
   

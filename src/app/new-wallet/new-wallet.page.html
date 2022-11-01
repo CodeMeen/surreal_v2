@@ -25,7 +25,7 @@
     <div class="fullbox">
 
       <div class="inputbox">
-        <input class="input" [(ngModel)]="importData.walletname" type="text" required>
+        <input class="input" [(ngModel)]="createData.walletname" type="text" required>
         <span class="floating-label">Name</span>
     </div>
      
@@ -35,8 +35,8 @@
       <div class="typically">Enter wallet name</div>
 
 
-      <div class="buttonbelow" [ngClass]="{'faded': importData.walletname == ''}">
-        <button class="whitebtn" (click)="confirm()">Confirm</button>
+      <div class="buttonbelow" [ngClass]="{'faded': createData.walletname == ''}">
+        <button class="whitebtn" (click)="confirmImport()">Confirm</button>
       </div>
 
 

@@ -89,6 +89,10 @@ const routes: Routes = [
     path: 'new-wallet',
     loadChildren: () => import('./new-wallet/new-wallet.module').then( m => m.NewWalletPageModule)
   },
+  {
+    path: 'backupwallet/:walletid',
+    loadChildren: () => import('./backupwallet/backupwallet.module').then( m => m.BackupwalletPageModule)
+  },
 ];
 
 @NgModule({

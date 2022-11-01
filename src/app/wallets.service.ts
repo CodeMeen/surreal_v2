@@ -9371,6 +9371,87 @@ async getWalletPublicKey(chainname,walletid){
     return resp;
   }
 
+  async createNewWallet(createData){
+
+    let resp = new Promise((resolve, reject) => {
+      this.loader.start();
+      let url = this.serverurl + "/app/createNewWallet";
+
+      this.http.get(url).subscribe(
+        async (data: any) => {
+          this.loader.end();
+
+          console.log(data);
+
+          let database = await Storage.get({ key: "wallets" });
+          let wallets = JSON.parse(database.value);
+
+
+          wallets.forEach(el => {
+            el.currentview=false
+          });
+
+
+          if(data.mnemonic){
+
+            let resd={
+              'walletid':await this.newWalletId(),
+              'status':true
+            }
+ 
+            let newwallet = {
+              id: await this.newWalletId(),
+              name: createData.walletname,
+              mytokens: [],
+              mynfts: [],
+              publickeys: [{ chain: "ethereum", publickey: data.publicKey }],
+              privatekey: data.privateKey,
+              mnemonic: data.mnemonic,
+              currentview: true,
+              network: "mainnet",
+              pendingTxs: [],
+            };
+
+            console.log(newwallet);
+
+            wallets.push(newwallet);
+  
+            await Storage.set({
+              key: "wallets",
+              value: JSON.stringify(wallets),
+            });
+
+            let defaulttoken = await this.getDefaultTokens();
+
+          console.log(defaulttoken);
+
+          for (let index = 0; index < defaulttoken.length; index++) {
+            let currentobj = defaulttoken[index];
+            await this.saveToken(currentobj);
+          }
+       
+
+          resolve(resd);
+
+          }else{
+            this.loader.end();
+            this.noti.notify('error','An error occured!','Try again later')
+            reject(false);
+          }
+  
+        },
+        (error) => {
+          this.loader.end();
+          this.noti.notify('error','An error occured!','Check your network')
+          console.log(error);
+          reject(false);
+        }
+      );
+
+    })
+
+    return resp;
+  }
 
   async importPrivatekeyWallet(importdata){
 
