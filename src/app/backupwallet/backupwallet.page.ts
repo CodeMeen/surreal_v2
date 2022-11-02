@@ -14,10 +14,13 @@ import { WalletsService } from '../wallets.service';
 })
 export class BackupwalletPage implements OnInit {
 
+  walletMnemonic:any;
+
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
     ,public loader: LoaderService) { }
 
   ngOnInit() {
+
   }
 
 }

@@ -9371,6 +9371,13 @@ async getWalletPublicKey(chainname,walletid){
     return resp;
   }
 
+  async getWalletMnemonic(walletid?){
+
+    let mywallet = await this.getMyWallet(walletid);
+
+    return mywallet.mnemonic
+  }
+
   async createNewWallet(createData){
 
     let resp = new Promise((resolve, reject) => {
