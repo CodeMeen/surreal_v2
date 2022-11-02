@@ -15,12 +15,29 @@ import { WalletsService } from '../wallets.service';
 export class BackupwalletPage implements OnInit {
 
   walletMnemonic:any;
+  wordsArray:any;
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
     ,public loader: LoaderService) { }
 
-  ngOnInit() {
 
-  }
+    async startfunc(){
+      const routeParams = this.route.snapshot.paramMap;
+
+      let walletid = routeParams.get("walletid");
+  
+      if(!walletid){
+  this.router.naviTo(['/account']);
+      }else{
+        this.walletMnemonic=await this.wallet.getWalletMnemonic(walletid)
+        let words = this.walletMnemonic.split(" ");
+        this.wordsArray=words
+      }
+    }
+    
+
+  async ngOnInit() {
+  await this.startfunc();
+}
 
 }
