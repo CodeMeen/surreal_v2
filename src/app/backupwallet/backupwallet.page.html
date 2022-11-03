@@ -18,20 +18,44 @@
         <div class="balancetext" style="font-size: 14px;">Back-Up Your Wallet</div>
    
         <div class="smallline"></div>
-<br>
+
     </div>
     </div>
 
-
+    <div class="textup">
+      Write down or copy these words <b>( your secret phrase )</b> in the right order and save them somewhere safe
+           </div>
     <div class="wordsbox">
       <ng-container *ngFor="let eachword of wordsArray;let indexOfelement=index;">
         <div class="eachword"><div>{{indexOfelement+1}}</div><div>{{eachword}}</div></div>
       </ng-container>
      </div>
 
-     <div>
-      
-     </div>
+     <div class="threeopt">
+      <div class="eopt" (click)="copyPhrase()">
+        <ion-icon name="copy-outline" class="copybtn"></ion-icon>
+      </div>
+      <div class="eopttext">copy</div>
+      </div>
+
+
+      <div class="rednote">
+        <div class="note">NOTE</div>
+        <ul class="nforv">
+          <li>If i lose my secret phrase,my funds will be lost forever</li>
+          <li>If i expose or share my secret phrase to anybody,my funds can get stolen</li>
+          <li>It is my full responsibility to keep my secret phrase secure</li>
+        </ul>
+      </div>
+
+      <br><br>
+      <br><br>
+      <br><br>
+
+      <div class="buttonbelow">
+        <button class="whitebtn">Continue</button>
+    </div>
+
 
     </div>
     </ion-content>

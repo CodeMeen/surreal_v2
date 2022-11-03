@@ -262,6 +262,101 @@ letter-spacing: 0.05em;
 margin-right: 10px;
 }
 
+.textup{
+    padding:10px 20px;
+    font-family: mntsreg;
+    font-size: 14px;
+    color:white;
+    margin:20px 0px;
+    margin-top:0px;
+    text-align: center;
+}
+.threeopt{
+    display:grid;
+    grid-template-columns: 1fr;
+    width:40%;
+    margin:30px auto;
+    margin-bottom: 20px;
+}
+
+.eopt{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.eopttext{
+  font-size:13px;
+  letter-spacing: 0.05em;
+  text-align:center;
+  color:white;
+  text-transform: uppercase;
+  padding:10px;
+  font-family: mntssemibold;
+  transition: 0.5s;
+}
+
+.copybtn{
+    color:#fff;
+    font-size: 40px;
+    transition: 0.5s;
+}
+
+.threeopt:hover{
+    .eopttext{
+        opacity: 0.5;
+    }
+
+    .copybtn{
+        opacity: 0.5;
+    }
+}
+.rednote{
+    padding:10px 15px; 
+    background: rgb(250, 127, 127);
+        border-radius: 7px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(2.1px);
+        -webkit-backdrop-filter: blur(2.1px);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        font-size: 13px;
+        color:darkred;
+       font-family: mntsreg;
+       margin: 20px 10px;
+}
+
+.note{
+    text-align: center;
+    font-family: mntssemibold;
+}
+
+.nforv{
+    padding:0px 20px;
+}
+
+.nforv li{
+   margin:7px 0px;
+}
+
+.buttonbelow{
+    position: fixed;
+    bottom: 0;
+    right:0;
+    left:0;
+    padding:20px;
+}
+
+.whitebtn{
+    color:var(--ion-color-secondary);
+    padding:20px;
+    background:white;
+    border: none;
+    border-radius: 10px;
+width: 100%;
+text-transform: uppercase;
+font-family:mntssemibold;
+letter-spacing: 0.05em;
+}
 }
 
 

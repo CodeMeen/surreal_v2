@@ -1,0 +1,56 @@
+<ion-content>
+  <div class="verifyphraseview">
+  
+    <div class="purpheader">
+      <div class="goback" (click)="router.goBack()">
+          <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
+      </div>
+      <div class="centerdiv">
+          <div class="logo"></div>
+      </div>
+      <div></div>
+  </div>
+
+  <div class="balancemodalbox">
+    <div class="balancemodal">
+      
+       
+        <div class="balancetext" style="font-size: 14px;">Verify Secret Phrase</div>
+   
+        <div class="smallline"></div>
+
+    </div>
+    </div>
+
+    <div class="textup">
+     Tap the words to put them next to each other in tthe correct order
+    </div>
+
+    <div class="inputbox">
+
+    </div>
+
+    <div class="wordsbox">
+      <ng-container *ngFor="let eachword of shuffledWords;">
+        <div class="eachword"><div>{{eachword}}</div></div>
+      </ng-container>
+     </div>
+
+  
+
+      <br><br>
+      <br><br>
+      <br><br>
+
+      <div class="buttonbelow">
+        <button class="whitebtn">Continue</button>
+    </div>
+
+
+    </div>
+    </ion-content>
+
+
+
+
+    

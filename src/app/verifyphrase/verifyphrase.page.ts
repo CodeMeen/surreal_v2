@@ -8,22 +8,20 @@ import { RouterService } from '../router.service';
 import { WalletsService } from '../wallets.service';
 import { Clipboard } from '@capacitor/clipboard';
 
-
 @Component({
-  selector: 'app-backupwallet',
-  templateUrl: './backupwallet.page.html',
-  styleUrls: ['./backupwallet.page.scss'],
+  selector: 'app-verifyphrase',
+  templateUrl: './verifyphrase.page.html',
+  styleUrls: ['./verifyphrase.page.scss'],
   encapsulation:ViewEncapsulation.None
 })
-
-export class BackupwalletPage implements OnInit {
-
-  walletMnemonic:any;
+export class VerifyphrasePage implements OnInit {
+  shuffledWords:any
+  walletMnemonic:any
   wordsArray:any;
+
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
     ,public loader: LoaderService) { }
-
 
     async startfunc(){
       const routeParams = this.route.snapshot.paramMap;
@@ -39,17 +37,8 @@ export class BackupwalletPage implements OnInit {
       }
     }
 
-    async copyPhrase(){
-      await Clipboard.write({
-        string: this.walletMnemonic
-      });
-  
-      this.noti.notify('success','Copied!');
-    }
-    
-
   async ngOnInit() {
-  await this.startfunc();
-}
+    await this.startfunc()
+  }
 
 }
