@@ -31,8 +31,8 @@
     </div>
 
     <div class="wordsbox">
-      <ng-container *ngFor="let eachword of shuffledWords;">
-        <div class="eachword"><div>{{eachword}}</div></div>
+      <ng-container *ngFor="let obj of shuffledWords;">
+        <div class="eachword"><div>{{obj.word}}</div></div>
       </ng-container>
      </div>
 

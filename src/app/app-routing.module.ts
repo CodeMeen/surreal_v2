@@ -94,7 +94,7 @@ const routes: Routes = [
     loadChildren: () => import('./backupwallet/backupwallet.module').then( m => m.BackupwalletPageModule)
   },
   {
-    path: 'verifyphrase',
+    path: 'verifyphrase/:walletid',
     loadChildren: () => import('./verifyphrase/verifyphrase.module').then( m => m.VerifyphrasePageModule)
   },
 ];

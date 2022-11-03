@@ -237,11 +237,11 @@ letter-spacing: 0.05em;
 }
 
 .wordsbox{
-    display:grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap:20px 10px;
+    display:flex;
     margin:10px 20px;
     justify-content: center;
+    flex-wrap: wrap;
+  
 }
 
 .eachword{
@@ -256,6 +256,7 @@ letter-spacing: 0.05em;
         color:white;
         display:flex;
        font-family: mntsreg;
+       margin:2.5px 2.5px
 }
 
 .eachword div{
@@ -356,6 +357,11 @@ width: 100%;
 text-transform: uppercase;
 font-family:mntssemibold;
 letter-spacing: 0.05em;
+}
+
+.inputbox{
+    height:200px;
+    margin-bottom: 10px;
 }
 }
 

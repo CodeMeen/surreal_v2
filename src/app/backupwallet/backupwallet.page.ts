@@ -20,6 +20,7 @@ export class BackupwalletPage implements OnInit {
 
   walletMnemonic:any;
   wordsArray:any;
+  walletId:any;
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
     ,public loader: LoaderService) { }
@@ -29,6 +30,7 @@ export class BackupwalletPage implements OnInit {
       const routeParams = this.route.snapshot.paramMap;
 
       let walletid = routeParams.get("walletid");
+      this.walletId=walletid
   
       if(!walletid){
   this.router.naviTo(['/account']);
