@@ -27,12 +27,14 @@
     </div>
 
     <div class="inputbox">
-
+      <ng-container *ngFor="let obj of selectedWords;let indexOfelement=index;">
+        <div class="eachwordtwo"><div>{{indexOfelement+1}}</div><div>{{obj.word}}</div></div>
+      </ng-container>
     </div>
 
     <div class="wordsbox">
       <ng-container *ngFor="let obj of shuffledWords;">
-        <div class="eachword"><div>{{obj.word}}</div></div>
+        <div class="eachword" #{{obj.index}} (click)="selectWord(obj,this)"><div>{{obj.word}}</div></div>
       </ng-container>
      </div>
 

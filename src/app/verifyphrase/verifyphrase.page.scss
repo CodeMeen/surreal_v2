@@ -259,10 +259,29 @@ letter-spacing: 0.05em;
        margin:2.5px 2.5px
 }
 
+.eachwordtwo{
+    padding:7px 12px; 
+    background: rgba(255, 255, 255, 0.2);
+        border-radius: 7px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(2.1px);
+        -webkit-backdrop-filter: blur(2.1px);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        color:white;
+        display:flex;
+       font-family: mntsreg;
+       font-size: 12px;
+       margin:2.5px 2.5px;
+}
+
 .eachword div{
 margin-right: 10px;
 }
 
+.eachwordtwo div{
+    margin-right: 10px;
+    }
+    
 .textup{
     padding:10px 20px;
     font-family: mntsreg;
@@ -360,9 +379,19 @@ letter-spacing: 0.05em;
 }
 
 .inputbox{
-    height:200px;
+    
     margin-bottom: 10px;
+    border:2px dashed rgba(192,192,192);
+    margin:15px 20px;
+    margin-bottom: 25px;
+    border-radius:10px;
+    padding:10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
+
+
 }
 
 
