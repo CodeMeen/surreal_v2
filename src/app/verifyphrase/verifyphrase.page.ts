@@ -80,7 +80,10 @@ let shuffledwords=this.shuffledWords
 let selectedword=obj.word
 let selectedid=obj.index
 
-let originalobj=this.wordsArray
+
+
+
+/* let originalobj=this.wordsArray
 
 let searchoriginal=originalobj.filter((data)=>{
   return data.word==selectedword
@@ -91,7 +94,7 @@ let originalid=searchoriginal[0].index
 if(selectedid == originalid){
   console.log('Matches!')
 }
-
+ */
 
 
     }
