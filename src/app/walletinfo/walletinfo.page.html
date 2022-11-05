@@ -1,0 +1,61 @@
+<ion-content>
+  <div class="walletinfoview">
+  
+    <div class="purpheader">
+      <div class="goback" (click)="router.goBack()">
+          <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
+      </div>
+      <div class="centerdiv">
+          <div class="logo"></div>
+      </div>
+      <div></div>
+  </div>
+
+  <div class="balancemodalbox">
+    <div class="balancemodal">
+      
+       
+        <div class="balancetext" style="font-size: 15px;">Wallet Info</div>
+    <br>
+        <div class="smallline"></div>
+<br>
+    </div>
+</div>
+
+<div class="optionbox">
+
+
+  <div class="eachoption">
+    <div class="opticon">
+      <ion-icon name="code-download-outline"></ion-icon>
+    </div>
+    <div class="opttext">Import Wallet</div>
+
+    <div class="optnext">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+    </div>
+</div>
+
+
+  <div class="eachoption" (click)="router.naviTo(['/new-wallet'])">
+      <div class="opticon">
+        <ion-icon name="duplicate-outline"></ion-icon>
+      </div>
+      <div class="opttext">Create New Wallet</div>
+
+      <div class="optnext">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+  </div>
+
+
+</div>
+
+
+
+
+
+  
+  
+  </div>
+</ion-content>

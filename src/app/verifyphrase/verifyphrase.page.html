@@ -23,18 +23,18 @@
     </div>
 
     <div class="textup">
-     Tap the words to put them next to each other in tthe correct order
+     Tap the words to put them next to each other in the correct order
     </div>
 
     <div class="inputbox">
       <ng-container *ngFor="let obj of selectedWords;let indexOfelement=index;">
-        <div class="eachwordtwo"><div>{{indexOfelement+1}}</div><div>{{obj.word}}</div></div>
+        <div class="eachwordtwo" [ngClass]="{'rightselect':obj.correctselect==true,'wrongselect':obj.correctselect==false}"><div>{{indexOfelement+1}}</div><div>{{obj.word}}</div><div class="cxlo" (click)="removeWord(obj)">x</div></div>
       </ng-container>
     </div>
 
     <div class="wordsbox">
       <ng-container *ngFor="let obj of shuffledWords;">
-        <div class="eachword" #{{obj.index}} (click)="selectWord(obj,this)"><div>{{obj.word}}</div></div>
+        <div class="eachword" [ngClass]="{'selectedword':obj.alreadyselected==true}" (click)="selectWord(obj)"><div>{{obj.word}}</div></div>
       </ng-container>
      </div>
 
@@ -45,7 +45,7 @@
       <br><br>
 
       <div class="buttonbelow">
-        <button class="whitebtn">Continue</button>
+        <button class="whitebtn" [ngClass]="{'faded':completeflag==false}" (click)="doneverify()">Continue</button>
     </div>
 
 

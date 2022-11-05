@@ -281,6 +281,11 @@ margin-right: 10px;
 .eachwordtwo div{
     margin-right: 10px;
     }
+
+    .cxlo{
+        margin-left:6px !important;
+        margin-right: 0px !important;
+    }
     
 .textup{
     padding:10px 20px;
@@ -378,8 +383,7 @@ font-family:mntssemibold;
 letter-spacing: 0.05em;
 }
 
-.inputbox{
-    
+.inputbox{    
     margin-bottom: 10px;
     border:2px dashed rgba(192,192,192);
     margin:15px 20px;
@@ -389,6 +393,20 @@ letter-spacing: 0.05em;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.selectedword{
+    border:2px dashed rgba(192,192,192);
+    background: transparent;
+    color:transparent;
+}
+
+.wrongselect{
+    border:0.7px solid red;
+}
+
+.rightselect{
+    border:1px solid green;
 }
 
 

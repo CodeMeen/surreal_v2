@@ -22,6 +22,8 @@ export class VerifyphrasePage implements OnInit {
 
   selectedWords:any[]=[]
 
+  completeflag:any=false
+
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
     ,public loader: LoaderService,private elemref:ElementRef) { }
@@ -48,6 +50,10 @@ export class VerifyphrasePage implements OnInit {
 
 
        this.shuffledWords=await this.shuffleArray(this.wordsArray)
+
+       this.shuffledWords.forEach(el => {
+        el.alreadyselected=false
+       });
   
       }
     }
@@ -70,34 +76,140 @@ export class VerifyphrasePage implements OnInit {
       return array;
     }
 
-    async selectWord(obj,event){
+    async selectWord(obj){
+    
+      let arrsearch=this.selectedWords.filter((el)=>{
+       return el.word==obj.word && el.index==obj.index
+      })
 
-this.selectedWords.push(obj)
+      if(arrsearch.length >= 1){
+
+      }else{
+        
+        this.selectedWords.push(obj)
 
 
-let shuffledwords=this.shuffledWords
+        let shuffledwords=this.shuffledWords
+        
+        let originalword=obj.word
+        let originalposition=obj.index
+        
+        let selectedposition=this.selectedWords.findIndex((el)=>{
+          return el.index==originalposition && el.word==originalword
+        })
+        
+        if(selectedposition == originalposition){
+        this.selectedWords[selectedposition].correctselect=true
+        }else{
+        this.selectedWords[selectedposition].correctselect=false
+        this.noti.notify('error','Incorrect input');
+        }
 
-let selectedword=obj.word
-let selectedid=obj.index
+        this.selectedWords[selectedposition].alreadyselected=true
+        
+      
+
+        let shuffledposition=this.shuffledWords.findIndex((el)=>{
+          return el.index==obj.index && el.word==obj.word
+        })
+
+        this.shuffledWords[shuffledposition].alreadyselected=true
+
+      
+
+      }
 
 
+     if(this.selectedWords.length == this.wordsArray.length ){
+
+      let arrsearch=this.selectedWords.filter((el)=>{
+        return el.correctselect==false
+      })
+
+      if(arrsearch.length >= 1){
+        this.completeflag=false
+      }else{
+        this.completeflag=true
+      }
 
 
-/* let originalobj=this.wordsArray
+     }else{
+      this.completeflag=false
+     }
 
-let searchoriginal=originalobj.filter((data)=>{
-  return data.word==selectedword
-})
-
-let originalid=searchoriginal[0].index
-
-if(selectedid == originalid){
-  console.log('Matches!')
-}
- */
 
 
     }
+
+    async removeWord(obj){
+
+      let arrsearch=this.selectedWords.filter((el)=>{
+        return el.word==obj.word && el.index==obj.index
+       })
+ 
+       if(arrsearch.length >= 1){
+
+        let shuffledposition=this.shuffledWords.findIndex((el)=>{
+          return el.index==obj.index && el.word==obj.word
+        })
+
+        this.shuffledWords[shuffledposition].alreadyselected=false
+
+
+        let selectedposition=this.selectedWords.findIndex((el)=>{
+          return el.index==obj.index && el.word==obj.word
+        })
+
+
+        this.selectedWords[selectedposition]=null
+
+
+
+        let filtered = this.selectedWords.filter(function (el) {
+          return el != null
+        });
+
+        console.log(filtered)
+
+
+        this.selectedWords=filtered
+
+        let startposition=selectedposition
+
+        for (let index = startposition; index < this.selectedWords.length; index++) {
+          let selwords = this.selectedWords[index];
+
+          selwords.correctselect=false;
+        
+        }
+
+       }
+
+       if(this.selectedWords.length == this.wordsArray.length ){
+
+        let arrsearch=this.selectedWords.filter((el)=>{
+          return el.correctselect==false
+        })
+  
+        if(arrsearch.length >= 1){
+          this.completeflag=false
+        }else{
+          this.completeflag=true
+        }
+  
+  
+       }else{
+        this.completeflag=false
+       }
+
+  }
+
+  async doneverify(){
+    if(this.completeflag ==true){
+this.router.naviTo(['/account']);
+this.noti.notify('success','Wallet has been backed up successfully!')
+    }
+  }
 
   async ngOnInit() {
     await this.startfunc()

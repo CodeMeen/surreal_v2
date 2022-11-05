@@ -97,6 +97,10 @@ const routes: Routes = [
     path: 'verifyphrase/:walletid',
     loadChildren: () => import('./verifyphrase/verifyphrase.module').then( m => m.VerifyphrasePageModule)
   },
+  {
+    path: 'walletinfo/:walletid',
+    loadChildren: () => import('./walletinfo/walletinfo.module').then( m => m.WalletinfoPageModule)
+  },
 ];
 
 @NgModule({
