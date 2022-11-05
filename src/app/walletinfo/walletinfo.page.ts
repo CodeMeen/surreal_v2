@@ -29,7 +29,8 @@ export class WalletinfoPage implements OnInit {
       this.thewallet=this.wallet.getMyWallet(walletid)
     }
 
-  ngOnInit() {
+  async ngOnInit() {
+await this.startfunc()
   }
 
 
