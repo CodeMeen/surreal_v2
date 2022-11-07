@@ -12,13 +12,13 @@
 
     <div *ngIf="popUp.type==='list'" class="popupoptions">
 
-        <div *ngFor="let data of popUp.currentlist;" class="popuplist" (click)="listfunc(popUp.listaction,data)">
-            <div class="selectBox" >
+        <div *ngFor="let data of popUp.currentlist;" class="popuplist" >
+            <div class="selectBox" (click)="listfunc(popUp.listaction,data)">
                 <div class="eachselect" *ngIf="data.selected==true"></div>
             </div>
           
-            <div *ngIf='popUp.listimg' class="iconpop" style="background-image: url({{data.imgurl}});"></div>
-            <div class="textopt"> {{data.listname}} 
+            <div *ngIf='popUp.listimg' class="iconpop" style="background-image: url({{data.imgurl}});" (click)="listfunc(popUp.listaction,data)"></div>
+            <div class="textopt" (click)="listfunc(popUp.listaction,data)"> {{data.listname}} 
                 <br>
                 <span class="xach">{{data.othername}}</span>
             </div>

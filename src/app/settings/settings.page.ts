@@ -73,7 +73,8 @@ this.updatePage()
   }
 
   let settingsaction=async (res)=>{
-console.log(res)
+    this.popup.close()
+this.router.naviTo(['/walletinfo',res])
   }
 
   this.popup.initpopup(walletsInfo,selectfunc,'',outsideaction,settingsaction)

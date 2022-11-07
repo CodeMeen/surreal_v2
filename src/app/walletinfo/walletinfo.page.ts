@@ -17,6 +17,9 @@ import { WalletsService } from '../wallets.service';
 export class WalletinfoPage implements OnInit {
 
   thewallet:any;
+  createData:any={ 
+    'walletname':''
+  }
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
     ,public loader: LoaderService) { }
@@ -26,7 +29,10 @@ export class WalletinfoPage implements OnInit {
       const routeParams = this.route.snapshot.paramMap;
       let walletid = routeParams.get("walletid");
 
-      this.thewallet=this.wallet.getMyWallet(walletid)
+      this.thewallet=await this.wallet.getMyWallet(walletid)
+
+
+      this.createData.walletname=this.thewallet.name
     }
 
   async ngOnInit() {

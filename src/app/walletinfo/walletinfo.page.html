@@ -22,37 +22,52 @@
     </div>
 </div>
 
+<div class="fullbox">
+
+  <div class="inputbox">
+    <input class="input" [(ngModel)]="createData.walletname" type="text" required>
+    <span class="floating-label">Edit Name</span>
+</div>
+ 
+  </div>
+
 <div class="optionbox">
 
 
-  <div class="eachoption">
-    <div class="opticon">
-      <ion-icon name="code-download-outline"></ion-icon>
-    </div>
-    <div class="opttext">Import Wallet</div>
+  <div class="eachoption opttwo">
+   
+    <div class="opttext">Wallet Type</div>
 
-    <div class="optnext">
+    <div class="nemonicname">Mnemonic</div>
+</div>
+
+
+  <div class="eachoption optone">
+     
+      <div class="opttext">Export Mnemonic Phrase</div>
+
+      <div class="optnext totheright">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+  </div>
+
+  <div class="eachoption optone">
+     
+    <div class="opttext">Backup Wallet</div>
+
+    <div class="optnext totheright">
         <ion-icon name="chevron-forward-outline"></ion-icon>
     </div>
 </div>
 
 
-  <div class="eachoption" (click)="router.naviTo(['/new-wallet'])">
-      <div class="opticon">
-        <ion-icon name="duplicate-outline"></ion-icon>
-      </div>
-      <div class="opttext">Create New Wallet</div>
-
-      <div class="optnext">
-          <ion-icon name="chevron-forward-outline"></ion-icon>
-      </div>
-  </div>
-
-
 </div>
 
 
 
+<div class="buttonbelow">
+  <button class="whitebtn" (click)="deleteNotify()">Delete Wallet</button>
+</div>
 
 
   
