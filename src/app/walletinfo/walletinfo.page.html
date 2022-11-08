@@ -42,7 +42,7 @@
 </div>
 
 
-  <div class="eachoption optone" *ngIf="info.walletType=='Mnemonic'">
+  <div class="eachoption optone" *ngIf="info.walletType=='Mnemonic'" (click)="router.naviTo(['/exportwallet',info.walletid])">
      
       <div class="opttext">Export Mnemonic Phrase</div>
 
@@ -51,7 +51,7 @@
       </div>
   </div>
 
-  <div class="eachoption optone" *ngIf="info.walletType=='Private Key'">
+  <div class="eachoption optone" *ngIf="info.walletType=='Private Key'" (click)="router.naviTo(['/exportwallet',info.walletid])">
      
     <div class="opttext">Export Private Key</div>
 

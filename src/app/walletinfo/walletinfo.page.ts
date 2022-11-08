@@ -22,7 +22,8 @@ export class WalletinfoPage implements OnInit {
   }
 
   info:any={
-    'walletType':''
+    'walletType':'',
+    'walletid':''
   }
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
@@ -32,6 +33,8 @@ export class WalletinfoPage implements OnInit {
     async startfunc(){
       const routeParams = this.route.snapshot.paramMap;
       let walletid = routeParams.get("walletid");
+
+      this.info.walletid=walletid
 
       this.thewallet=await this.wallet.getMyWallet(walletid)
 

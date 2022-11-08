@@ -65,7 +65,7 @@
 
     .fullbox{
         background: rgba(255, 255, 255, 0.2);
-        border-radius: 16px;
+        border-radius: 10px;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(2.1px);
         -webkit-backdrop-filter: blur(2.1px);
@@ -73,6 +73,10 @@
         height: auto;
         margin:20px 20px;
         margin-bottom: 0px;
+        color:white;
+        font-size: 13px;
+        font-family: mntsreg;
+        padding:20px;
     }
 
     .inputbox{

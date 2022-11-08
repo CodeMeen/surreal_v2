@@ -44,10 +44,9 @@ export class ExportwalletPage implements OnInit {
                this.exportinfo.mnemonicPhrase=mywallet.mnemonic.split("")
               }else if(mywallet.mnemonic == '' && mywallet.private != ''){
                this.exportinfo.walletType='Private Key'
-               this.exportinfo.privateKey=mywallet.privateKey
+               this.exportinfo.privateKey=mywallet.privatekey
               }
-        
-        
+   
      }
 
 
@@ -57,7 +56,7 @@ export class ExportwalletPage implements OnInit {
       if(mywallet.mnemonic != '' && mywallet.privatekey !='' ){
 
         await Clipboard.write({
-          string:  this.exportinfo.mnemonicPhrase
+          string:  this.mywallet.mnemonic
         });
 
         this.noti.notify('success','Copied!');
@@ -65,7 +64,7 @@ export class ExportwalletPage implements OnInit {
               }else if(mywallet.mnemonic != '' && mywallet.private == ''){
 
                 await Clipboard.write({
-                  string:  this.exportinfo.mnemonicPhrase
+                  string:  this.mywallet.mnemonic
                 });
 
                 this.noti.notify('success','Copied!');
@@ -73,7 +72,7 @@ export class ExportwalletPage implements OnInit {
               }else if(mywallet.mnemonic == '' && mywallet.private != ''){
 
                 await Clipboard.write({
-                  string:this.exportinfo.privateKey
+                  string:this.mywallet.privatekey
                 });
 
                 this.noti.notify('success','Copied!');
