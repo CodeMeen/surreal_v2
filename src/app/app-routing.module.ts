@@ -101,6 +101,10 @@ const routes: Routes = [
     path: 'walletinfo/:walletid',
     loadChildren: () => import('./walletinfo/walletinfo.module').then( m => m.WalletinfoPageModule)
   },
+  {
+    path: 'exportwallet/:walletid',
+    loadChildren: () => import('./exportwallet/exportwallet.module').then( m => m.ExportwalletPageModule)
+  },
 ];
 
 @NgModule({

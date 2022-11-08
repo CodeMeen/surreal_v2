@@ -1,0 +1,65 @@
+<ion-content>
+  <div class="backupview">
+  
+    <div class="purpheader">
+      <div class="goback" (click)="router.goBack()">
+          <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
+      </div>
+      <div class="centerdiv">
+          <div class="logo"></div>
+      </div>
+      <div></div>
+  </div>
+
+  <div class="balancemodalbox">
+    <div class="balancemodal">
+      
+       
+        <div class="balancetext" style="font-size: 14px;">Export {{exportinfo.walletType}} </div>
+   
+        <div class="smallline"></div>
+
+    </div>
+    </div>
+
+    <div class="textup">
+      Write down or copy the <b>{{exportinfo.walletType}}</b> below in the right order and save them somewhere safe
+           </div>
+
+    <div class="wordsbox" *ngIf="exportinfo.walletType=='Mnemonic'">
+      <ng-container *ngFor="let eachword of exportinfo.mnemonicPhrase;let indexOfelement=index;">
+        <div class="eachword"><div>{{indexOfelement+1}}</div><div>{{eachword}}</div></div>
+      </ng-container>
+     </div>
+
+     <div class="threeopt">
+      <div class="eopt" (click)="copyKey()">
+        <ion-icon name="copy-outline" class="copybtn"></ion-icon>
+      </div>
+      <div class="eopttext">copy</div>
+      </div>
+
+
+      <div class="rednote">
+        <div class="note">NOTE</div>
+        <ul class="nforv">
+          <li>If i lose my secret phrase,my funds will be lost forever</li>
+          <li>If i expose or share my secret phrase to anybody,my funds can get stolen</li>
+          <li>It is my full responsibility to keep my secret phrase secure</li>
+        </ul>
+      </div>
+
+      <br><br>
+      <br><br>
+      <br><br>
+
+  
+
+
+    </div>
+    </ion-content>
+
+
+
+
+    

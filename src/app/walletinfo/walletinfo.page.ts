@@ -21,6 +21,10 @@ export class WalletinfoPage implements OnInit {
     'walletname':''
   }
 
+  info:any={
+    'walletType':''
+  }
+
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
     ,public loader: LoaderService) { }
 
@@ -33,6 +37,16 @@ export class WalletinfoPage implements OnInit {
 
 
       this.createData.walletname=this.thewallet.name
+
+      if(this.thewallet.mnemonic != '' && this.thewallet.privatekey !='' ){
+this.info.walletType='Mnemonic'
+      }else if(this.thewallet.mnemonic != '' && this.thewallet.private == ''){
+        this.info.walletType='Mnemonic'
+      }else if(this.thewallet.mnemonic == '' && this.thewallet.private != ''){
+        this.info.walletType='Private Key'
+      }
+
+
     }
 
   async ngOnInit() {

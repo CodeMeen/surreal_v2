@@ -38,11 +38,11 @@
    
     <div class="opttext">Wallet Type</div>
 
-    <div class="nemonicname">Mnemonic</div>
+    <div class="nemonicname">{{info.walletType}}</div>
 </div>
 
 
-  <div class="eachoption optone">
+  <div class="eachoption optone" *ngIf="info.walletType=='Mnemonic'">
      
       <div class="opttext">Export Mnemonic Phrase</div>
 
@@ -51,14 +51,15 @@
       </div>
   </div>
 
-  <div class="eachoption optone">
+  <div class="eachoption optone" *ngIf="info.walletType=='Private Key'">
      
-    <div class="opttext">Backup Wallet</div>
+    <div class="opttext">Export Private Key</div>
 
     <div class="optnext totheright">
         <ion-icon name="chevron-forward-outline"></ion-icon>
     </div>
 </div>
+
 
 
 </div>
