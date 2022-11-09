@@ -9679,6 +9679,44 @@ async getWalletPublicKey(chainname,walletid){
   }
 
 
+  async removeWallet(walletid){
+    let index=walletid-1
+
+    let allwallets=await this.getAllWallet()
+
+    allwallets[index]=null
+
+    let filtered = allwallets.filter(function (el) {
+      return el != null
+    });
+
+    let returnedviews=filtered.filter((el)=>{
+      el.currentview==true
+    })
+
+    if(returnedviews.length < 1){
+
+      let lastwallet=filtered.slice(-1)[0];
+     
+
+      lastwallet.currentview=true
+
+    }
+
+
+    await Storage.set({
+      key: "wallets",
+      value: JSON.stringify(filtered),
+    });
+  
+
+    this.noti.notify('success','Wallet Removed!')
+
+
+
+  }
+
+
 
 
 

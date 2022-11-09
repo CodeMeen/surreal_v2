@@ -52,6 +52,28 @@ this.info.walletType='Mnemonic'
 
     }
 
+    async deletePop(walletid){
+      const signupmessage = {
+        type: 'message',
+        height: 'maxi',
+        transparent: true,
+        message: 'This wallet will be removed,Make sure this wallet is backed up before proceeding,you will lose access to your funds if wallet is not backed up',
+        messagetitle: 'Remove Wallet',
+        messageimg: true,
+        messageimgurl: '../../assets/images/removewallet.png',
+        messageactions: true,
+        actionname: 'Remove'
+      };
+
+     let confirmfunc= ()=>{
+    this.popup.close()
+ this.wallet.removeWallet(walletid)
+ this.router.naviTo(['/account','settings'])
+     }
+
+      this.popup.initpopup(signupmessage, confirmfunc);
+    }
+
   async ngOnInit() {
 await this.startfunc()
   }

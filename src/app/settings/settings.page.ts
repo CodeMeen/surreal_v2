@@ -113,8 +113,6 @@ this.router.naviTo(['/walletinfo',res])
       transparent: true,
       lists: arr,
       selectedValues:true,
-     
-      
       }
 
 
