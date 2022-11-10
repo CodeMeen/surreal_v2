@@ -156,6 +156,35 @@ this.router.naviTo(['/walletinfo',res])
   
   }
 
+  async securityOpts(){
+    let arr=[{'listname':'Transaction Signature','imgurl':'',
+    value:'signature',
+    'listid':1,
+    'switch':false
+},
+{'listname':'App Lock','imgurl':'',
+    value:'lock',
+  'listid':2,
+  'switch':false
+  
+}
+]
+
+
+    let securityopts={
+      type:'list',
+      height:'maxi',
+      title:'Allow authentication for',
+      search: false,
+      listimg: false,
+      transparent: true,
+      lists: arr,
+     switch:true
+      }
+
+
+  }
+
   ionViewWillEnter(){
     console.log('Entering Settings..')
     this.reloading=true
