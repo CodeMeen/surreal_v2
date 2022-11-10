@@ -85,6 +85,8 @@ this.messageactions=arr.messageactions;
 }
 
 
+}else if(arr.type=='selectlist'){
+  
 }
 
 
