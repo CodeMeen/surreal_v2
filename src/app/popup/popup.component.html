@@ -30,13 +30,11 @@
                 <ion-icon name="settings-outline" class="popicon"></ion-icon>
             </div>
 
-            <div class="toggler" *ngIf="popUp.listswitch==true" [ngClass]="{'toggleractive':data.switch}" >
+            <div class="toggler" *ngIf="popUp.listswitch==true"  (click)="listfunc(popUp.listaction,data)" [ngClass]="{'toggleractive':data.switch}" >
                 <div class="outerswitch">
                     <div class="innercircle"></div>
                 </div>
             </div>
-
-           
 
         </div>
 

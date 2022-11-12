@@ -9332,6 +9332,16 @@ async getWalletPublicKey(chainname,walletid){
               pendingTxs: [],
             };
 
+            let appsettings={
+            auth:{
+             signature:false,
+             lock:false
+            },
+
+            appId:''
+
+            }
+
             console.log(newwallet);
 
             wallets.push(newwallet);

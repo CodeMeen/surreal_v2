@@ -184,7 +184,7 @@ this.router.naviTo(['/walletinfo',res])
 
       let selectfunc=async (res)=>{
       
-        let value=res.value
+      console.log(res)
   
       }
 
