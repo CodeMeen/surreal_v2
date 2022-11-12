@@ -234,3 +234,45 @@
     height: 150px;
     width:100%;
    }
+
+   .listtitle{
+    font-size: 16px;
+    font-weight:bold;
+    color:#000;
+    font-family: mntssemibold;
+    margin:10px 20px;
+   }
+
+   .toggler {
+    display: flex;
+    align-items: center
+}
+
+.outerswitch {
+  width: 48px;
+  border-radius: 20px;
+  background: #c0c0c0;
+  position: relative;
+  padding: 0px;
+  height: 23px;
+}
+.innercircle {
+  width: 17px;
+  height: 17px;
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  left: 3px;
+  top: 3px;
+}
+
+.toggleractive {
+    .outerswitch {
+        background: darkgreen !important;
+    }
+    .innercircle {
+        left: 27px !important;
+    }
+
+
+}

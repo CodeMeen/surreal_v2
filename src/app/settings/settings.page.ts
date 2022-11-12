@@ -182,6 +182,13 @@ this.router.naviTo(['/walletinfo',res])
      switch:true
       }
 
+      let selectfunc=async (res)=>{
+      
+        let value=res.value
+  
+      }
+
+      this.popup.initpopup(securityopts,selectfunc)
 
   }
 

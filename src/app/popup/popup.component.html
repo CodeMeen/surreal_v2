@@ -12,7 +12,10 @@
 
     <div *ngIf="popUp.type==='list'" class="popupoptions">
 
+        <div class="listtitle">{{popUp.listtitle}}</div>
+
         <div *ngFor="let data of popUp.currentlist;" class="popuplist" >
+
             <div class="selectBox" (click)="listfunc(popUp.listaction,data)">
                 <div class="eachselect" *ngIf="data.selected==true"></div>
             </div>
@@ -26,6 +29,13 @@
             <div *ngIf="popUp.settingsflag==true" class="popsettings" (click)="runnAction(popUp.settingsFunc,data.value)">
                 <ion-icon name="settings-outline" class="popicon"></ion-icon>
             </div>
+
+            <div class="toggler" *ngIf="popUp.listswitch==true" [ngClass]="{'toggleractive':data.switch}" >
+                <div class="outerswitch">
+                    <div class="innercircle"></div>
+                </div>
+            </div>
+
            
 
         </div>

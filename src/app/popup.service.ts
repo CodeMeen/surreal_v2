@@ -13,8 +13,9 @@ export class PopupService {
   lists;
   listresponse?;
   listaction;
+  listtitle;
   listactionparam;
-
+  listswitch=false;
   message;
  messagetitle;
  messageimg=false;
@@ -69,6 +70,18 @@ if(arr.otherName){
   this.otherName=arr.otherName
 }
 
+if(arr.title){
+  this.listtitle=arr.title
+}else{
+  this.listtitle=''
+}
+
+if(arr.switch==true){
+this.listswitch=true;
+}else{
+this.listswitch=false;
+}
+
 
 
 }else if(arr.type==='message'){
@@ -86,7 +99,7 @@ this.messageactions=arr.messageactions;
 
 
 }else if(arr.type=='selectlist'){
-  
+
 }
 
 
