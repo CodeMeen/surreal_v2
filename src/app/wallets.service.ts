@@ -9239,6 +9239,20 @@ async selectWallet(walletid){
     }
   }
 
+  async getAppSettings(){
+    let settings = await Storage.get({ key: "appsettings" });
+    return settings
+  }
+
+
+  async saveAppSettings(settings){
+    await Storage.set({
+      key: "appsettings",
+      value: JSON.stringify(settings),
+    });
+
+  }
+
   async unsaveToken(tokenname, tokentype, walletid?) {
     let cid;
 
@@ -9302,6 +9316,12 @@ async getWalletPublicKey(chainname,walletid){
     return publickey;
   }
 
+  async randToken(){
+    let fi=Math.random().toString(36).substr(2);
+    let fu=Math.random().toString(36).substr(2);
+    return fi+fu
+  }
+
   async createDefault() {
     let rdata;
 
@@ -9338,7 +9358,12 @@ async getWalletPublicKey(chainname,walletid){
              lock:false
             },
 
-            appId:''
+            notification:{
+              transaction:true,
+              others:true
+            },
+
+            appId: await this.randToken()
 
             }
 
@@ -9350,6 +9375,13 @@ async getWalletPublicKey(chainname,walletid){
               key: "wallets",
               value: JSON.stringify(wallets),
             });
+
+
+            await Storage.set({
+              key: "appsettings",
+              value: JSON.stringify(appsettings),
+            });
+
 
             let defaulttoken = await this.getDefaultTokens();
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IonRouterOutlet } from '@ionic/angular';
+import { raw } from 'express';
 import { LoaderService } from '../loader.service';
 import { NotiService } from '../noti.service';
 import { PopupService } from '../popup.service';
@@ -156,6 +157,10 @@ this.router.naviTo(['/walletinfo',res])
   
   }
 
+  async clearCache(){
+this.noti.notify('success','Browser Cache Cleared!');
+  }
+
   async securityOpts(){
     let arr=[{'listname':'Transaction Signature','imgurl':'',
     value:'signature',
@@ -170,6 +175,13 @@ this.router.naviTo(['/walletinfo',res])
 }
 ]
 
+let database:any=await this.wallet.getAppSettings();
+
+let rawsettings=JSON.parse(database.value)
+
+arr[0].switch=rawsettings.auth.signature
+arr[1].switch=rawsettings.auth.lock
+
 
     let securityopts={
       type:'list',
@@ -183,14 +195,90 @@ this.router.naviTo(['/walletinfo',res])
       }
 
       let selectfunc=async (res)=>{
-      
-      console.log(res)
-  
+      let newswitch
+
+      if(res.switch==true){
+newswitch=false
+      }else if(res.switch==false){
+newswitch=true
+      }
+   
+
+      if(res.value=='signature'){
+rawsettings.auth.signature=newswitch
+arr[0].switch=newswitch
+      }else if(res.value=='lock'){
+rawsettings.auth.lock=newswitch
+arr[1].switch=newswitch
+      }
+
+    await this.wallet.saveAppSettings(rawsettings)
+
       }
 
       this.popup.initpopup(securityopts,selectfunc)
 
   }
+
+  async notifyOpts(){
+    let arr=[{'listname':'Transaction','imgurl':'',
+    value:'transaction',
+    'listid':1,
+    'switch':false
+},
+{'listname':'Others','imgurl':'',
+    value:'others',
+  'listid':2,
+  'switch':false
+  
+}
+]
+
+let database:any=await this.wallet.getAppSettings();
+
+let rawsettings=JSON.parse(database.value)
+
+arr[0].switch=rawsettings.notification.transaction
+arr[1].switch=rawsettings.notification.others
+
+
+    let notiopts={
+      type:'list',
+      height:'maxi',
+      title:'Allow Notification for',
+      search: false,
+      listimg: false,
+      transparent: true,
+      lists: arr,
+     switch:true
+      }
+
+      let selectfunc=async (res)=>{
+      let newswitch
+
+      if(res.switch==true){
+newswitch=false
+      }else if(res.switch==false){
+newswitch=true
+      }
+   
+
+      if(res.value=='transaction'){
+rawsettings.notification.transaction=newswitch
+arr[0].switch=newswitch
+      }else if(res.value=='others'){
+rawsettings.notification.others=newswitch
+arr[1].switch=newswitch
+      }
+
+    await this.wallet.saveAppSettings(rawsettings)
+
+      }
+
+      this.popup.initpopup(notiopts,selectfunc)
+
+  }
+
 
   ionViewWillEnter(){
     console.log('Entering Settings..')
