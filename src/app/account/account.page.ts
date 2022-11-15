@@ -107,8 +107,8 @@ export class AccountPage implements OnInit {
     this.routerOutlet.swipeGesture = false;
     let currenturl=this.router.url
 
-    if(currenturl.search('/account/swaptoken') > -1){
-this.panelmode='dark';
+    if(currenturl.search('/account/menu') > -1){
+this.panelmode='light';
     }else{
 this.panelmode='light';
     }

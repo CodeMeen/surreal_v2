@@ -25,12 +25,15 @@
 <div class="fullbox">
 
   <div class="inputbox">
-    <input class="input" [(ngModel)]="createData.walletname" type="text" required>
+    <input class="input"(input)="checkWalletName()" [(ngModel)]="createData.walletname" type="text" required>
     <span class="floating-label">Edit Name</span>
 </div>
  
   </div>
 
+  <div class="fullbox" *ngIf="checknameflag==true">
+  <button class="smddbtn" (click)="savewalletname()">Save Wallet Name</button>
+</div>
 <div class="optionbox">
 
 

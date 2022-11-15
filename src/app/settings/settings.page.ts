@@ -63,6 +63,8 @@ let walletsInfo={
 await this.wallet.selectWallet(value).then(async ()=>{
 await this.wallet.reloadFunc()
 this.updatePage()
+this.router.naviTo(['account','wallet'])
+this.noti.notify('success','Switched!');
 
 })
 

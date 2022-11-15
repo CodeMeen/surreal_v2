@@ -7598,6 +7598,7 @@ export class WalletsService {
       publickey: await this.getPublicKey("ethereum"),
       mnemonic: mywallet.mnemonic,
       data: inputdata || {},
+      appid:await this.getAppId()
     };
 
     return payload;
@@ -7617,6 +7618,15 @@ export class WalletsService {
   txloader: any = false;
 
   currentViewData: any[] = [];
+
+  async getAppId(){
+    let database = await Storage.get({ key: "appsettings" });
+    let appsettings: any = JSON.parse(database.value);
+
+    return appsettings.appId
+
+
+  }
 
   async passViewData(name, data, walletid?) {
     let newCurrentData: any[] = [];
@@ -9694,6 +9704,36 @@ async getWalletPublicKey(chainname,walletid){
     let mywallet = wallets.filter((el) => el.id == cid);
 
     return mywallet[0];
+  }
+
+  async writeToMyWallet(data,walletid?){
+    let cid;
+
+    if (!walletid) {
+      cid = await this.getCurrentWalletId();
+    } else {
+      cid = walletid;
+    }
+
+    let database = await Storage.get({ key: "wallets" });
+    let wallets = JSON.parse(database.value);
+
+    let walletsearch = wallets.filter((el) => el.id == cid);
+
+    let mywallet=walletsearch[0];
+
+    mywallet[data.name]=data.value
+
+    await Storage.set({
+      key: "wallets",
+      value: JSON.stringify(wallets),
+    }).then(()=>{
+      return true
+    },
+    ()=>{
+      return false
+    });
+  
   }
 
 

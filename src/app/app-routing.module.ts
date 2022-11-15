@@ -105,6 +105,10 @@ const routes: Routes = [
     path: 'exportwallet/:walletid',
     loadChildren: () => import('./exportwallet/exportwallet.module').then( m => m.ExportwalletPageModule)
   },
+  {
+    path: 'menu',
+    loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule)
+  },
 ];
 
 @NgModule({

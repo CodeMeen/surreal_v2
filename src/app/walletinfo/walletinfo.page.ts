@@ -26,6 +26,8 @@ export class WalletinfoPage implements OnInit {
     'walletid':''
   }
 
+  checknameflag=false;
+
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
     ,public loader: LoaderService) { }
 
@@ -72,6 +74,37 @@ this.info.walletType='Mnemonic'
      }
 
       this.popup.initpopup(signupmessage, confirmfunc);
+    }
+
+
+    async checkWalletName(){
+     
+      
+      let normalname=this.thewallet.name
+    
+      let inputname=this.createData.walletname
+
+      if(inputname != normalname){
+this.checknameflag=true
+      }else{
+this.checknameflag=false
+      }
+      
+    }
+
+    async savewalletname(){
+      const routeParams = this.route.snapshot.paramMap;
+      let walletid = routeParams.get("walletid");
+
+      let data={
+        name:'name',
+        value:this.createData.walletname
+      }
+
+this.wallet.writeToMyWallet(data,walletid)
+
+this.noti.notify('success','Saved!')
+
     }
 
   async ngOnInit() {
