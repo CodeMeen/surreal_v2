@@ -18,8 +18,8 @@ import { FormGroupName } from '@angular/forms';
 export class MenuPage implements OnInit {
 
   airdrop={
-    'status':'',
-    'data':''
+    'data':'',
+    'can_start':''
   }
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
@@ -35,16 +35,15 @@ export class MenuPage implements OnInit {
   }
 
   async startFunc(){
-    let airdrop;
+    let airdrop, appsettings;
 
     airdrop=await this.wallet.getAirdrop();
+    appsettings=await this.wallet.getAppSettings();
 
-    if(!airdrop || airdrop=='' || airdrop==null){
-      this.airdrop.status='not_available'
-    }else{
-     this.airdrop.status=airdrop.status
-      this.airdrop.data=airdrop
-    }
+    this.airdrop.can_start=appsettings.airdrop_can_start
+    
+
+   
   }
 
 }
