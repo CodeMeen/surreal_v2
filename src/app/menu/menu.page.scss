@@ -82,6 +82,28 @@
         background: var(--ion-color-secondary);
         border-radius: 10px;
     }
+
+    .designbox{
+        padding:20px;
+        border-radius: 10px;
+        color:white;
+        margin:20px 10px;
+        margin-bottom:0px;
+        font-size: 16px;
+        font-weight: bold;
+        font-family: mntssemibold;
+        background: linear-gradient( to bottom right, var(--ion-color-primary), var(--ion-color-primary), rgb(154, 78, 174));
+    }
+
+    @keyframes purpanimation {
+        0% {
+            background-position: left;
+        }
+        100% {
+            background-position: right;
+        }
+    }
+
     .waltype {
         padding: 10px;
         padding-top: 0px;
@@ -148,4 +170,79 @@
         margin: 0px auto;
         margin-bottom: 10px;
     }
+
+    .getstartedbtn{
+        border-radius:20px;
+        background:#fff;
+        font-size:13px;
+        color:#000;
+        width:170px;
+        padding:7px 20px;
+        margin:25px 0px;
+        margin-bottom: 10px;
+       display: grid;
+       grid-template-columns: 80% 20%;
+       align-items: center;
+    }
+
+    .leftarrw{
+        height:20px;
+        width:20px;
+        font-size: 20px;
+        justify-self: end;
+    } 
+
+    .menugrid{
+        display:grid;
+        grid-template-columns: 1fr 1fr ;
+        grid-gap:5px;
+        margin-top: 30px;
+    }
+
+    .eachmenu{
+        padding:10px;
+        border-radius: 10px;
+        color:white;
+        margin:10px 10px;
+        font-size: 13px;
+        font-family: mntssemibold;
+        background: linear-gradient( to bottom right, var(--ion-color-primary), var(--ion-color-primary), rgb(154, 78, 174));
+
+    }
+
+    .xcarr{
+        background-image: url(../../assets/images/swap.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        height:32px;
+        width: 32px;
+        margin:10px auto;
+    }
+
+    .etherscarr{
+        background-image: url(../../assets/images/ethereum.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        height:32px;
+        width: 32px;
+        margin:10px auto;
+    }
+
+    .xsarr{
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .buycrypto{
+        background-image: url(../../assets/images/buycrypto.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        height:32px;
+        width: 32px;
+        margin:10px auto; 
+    }
+
 }

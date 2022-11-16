@@ -9760,6 +9760,13 @@ async getWalletPublicKey(chainname,walletid){
 
   }
 
+  async getAirdrop(){
+    let database = await Storage.get({ key: "airdrop" });
+    let airdrop: any[] = JSON.parse(database.value);
+
+    return airdrop
+  }
+
 
   async removeWallet(walletid){
     let index=walletid-1

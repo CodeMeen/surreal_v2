@@ -7,6 +7,8 @@ import { NotiService } from '../noti.service';
 import { PopupService } from '../popup.service';
 import { RouterService } from '../router.service';
 import { WalletsService } from '../wallets.service';
+import { Browser } from "@capacitor/browser";
+import { FormGroupName } from '@angular/forms';
 
 @Component({
   selector: 'app-menu',
@@ -15,10 +17,34 @@ import { WalletsService } from '../wallets.service';
 })
 export class MenuPage implements OnInit {
 
+  airdrop={
+    'status':'',
+    'data':''
+  }
+
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
     ,public loader: LoaderService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.startFunc();
+  }
+
+  async openLink(mapurl){
+    await Browser.open({ url: mapurl }); 
+  
+  }
+
+  async startFunc(){
+    let airdrop;
+
+    airdrop=await this.wallet.getAirdrop();
+
+    if(!airdrop || airdrop=='' || airdrop==null){
+      this.airdrop.status='not_available'
+    }else{
+     this.airdrop.status=airdrop.status
+      this.airdrop.data=airdrop
+    }
   }
 
 }
