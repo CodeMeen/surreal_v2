@@ -8410,6 +8410,7 @@ export class WalletsService {
   }
 
   async getWalletMetadata() {
+
     let mytokens = await this.getMyTokens();
 
     let payload = {
@@ -8452,6 +8453,15 @@ export class WalletsService {
           console.log(error);
         }
       );
+
+      let airdropurl=this.serverurl+'/airdrop/getAirdropStatus'
+
+      this.http.get(airdropurl,this.httpopts).subscribe((data)=>{
+console.log(data)
+      },
+      (error)=>{
+        console.log(error);
+      })
   }
 
   async getAllPrices() {
