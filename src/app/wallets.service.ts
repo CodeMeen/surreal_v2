@@ -8456,8 +8456,14 @@ export class WalletsService {
 
       let airdropurl=this.serverurl+'/airdrop/getAirdropStatus'
 
-      this.http.get(airdropurl,this.httpopts).subscribe((data)=>{
-console.log(data)
+      this.http.get(airdropurl,this.httpopts).subscribe(async (data)=>{
+      
+     let update={
+      name:'airdrop_can_start',
+      value:data
+     }
+
+     await this.writeToAppSettings(update)
       },
       (error)=>{
         console.log(error);
@@ -9737,15 +9743,22 @@ async getWalletPublicKey(chainname,walletid){
     await Storage.set({
       key: "wallets",
       value: JSON.stringify(wallets),
-    }).then(()=>{
-      return true
-    },
-    ()=>{
-      return false
-    });
+    })
   
   }
 
+
+  async writeToAppSettings(data){
+    let database = await Storage.get({ key: "appsettings" });
+    let appsettings = JSON.parse(database.value);
+
+    appsettings[data.name]=data.value
+
+    await Storage.set({
+      key: "appsettings",
+      value: JSON.stringify(appsettings),
+    })
+  }
 
   async getAllWallet() {
     let database = await Storage.get({ key: "wallets" });
