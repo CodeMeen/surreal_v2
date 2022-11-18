@@ -177,9 +177,9 @@ this.noti.notify('success','Browser Cache Cleared!');
 }
 ]
 
-let database:any=await this.wallet.getAppSettings();
+let rawsettings:any=await this.wallet.getAppSettings();
 
-let rawsettings=JSON.parse(database.value)
+
 
 arr[0].switch=rawsettings.auth.signature
 arr[1].switch=rawsettings.auth.lock
@@ -236,9 +236,9 @@ arr[1].switch=newswitch
 }
 ]
 
-let database:any=await this.wallet.getAppSettings();
+let rawsettings:any=await this.wallet.getAppSettings();
 
-let rawsettings=JSON.parse(database.value)
+
 
 arr[0].switch=rawsettings.notification.transaction
 arr[1].switch=rawsettings.notification.others

@@ -17,14 +17,18 @@
                 <div class="smallline"></div>
 
 
-                <div class="designbox">
-                 <div>Earn From Surreal Wallet Giveaway/ Airdrop</div> 
+                <ng-container *ngIf="airdrop.can_start==true">
+                  <div class="designbox">
+                    <div>Earn From Surreal Wallet Giveaway/ Airdrop</div> 
+   
+                    <div class="getstartedbtn">
+                     <div class="getstartedtext">Get Started</div> <div class="leftarrw"><ion-icon name="chevron-forward-outline"></ion-icon></div>
+                    </div>
+   
+                   </div>
+                </ng-container>
 
-                 <div class="getstartedbtn">
-                  <div class="getstartedtext">Get Started</div> <div class="leftarrw"><ion-icon name="chevron-forward-outline"></ion-icon></div>
-                 </div>
-
-                </div>
+            
 
                 <div class="menugrid">
                   <div class="eachmenu" (click)="router.naviTo(['/swaptoken'])">

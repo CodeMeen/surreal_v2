@@ -9266,7 +9266,9 @@ async selectWallet(walletid){
   }
 
   async getAppSettings(){
-    let settings = await Storage.get({ key: "appsettings" });
+    let database = await Storage.get({ key: "appsettings" });
+    let settings: any[] = JSON.parse(database.value);
+
     return settings
   }
 

@@ -19,7 +19,7 @@ export class MenuPage implements OnInit {
 
   airdrop={
     'data':'',
-    'can_start':''
+    'can_start':false
   }
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
@@ -41,9 +41,13 @@ export class MenuPage implements OnInit {
     appsettings=await this.wallet.getAppSettings();
 
     this.airdrop.can_start=appsettings.airdrop_can_start
-    
 
-   
+
+    this.airdrop.data=airdrop
+
+    console.log(this.airdrop)
+
+
   }
 
 }
