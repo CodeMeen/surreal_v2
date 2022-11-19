@@ -13,7 +13,7 @@ import { RouterService } from "../router.service";
 })
 export class AirdropstartPage implements OnInit {
 
-  constructor() { }
+  constructor(public wallet: WalletsService,private events:EventsService, public noti:NotiService, public popup: PopupService,public router: RouterService ) { }
 
   ngOnInit() {
   }
