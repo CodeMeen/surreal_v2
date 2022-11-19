@@ -109,6 +109,10 @@ const routes: Routes = [
     path: 'menu',
     loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule)
   },
+  {
+    path: 'airdropstart',
+    loadChildren: () => import('./airdropstart/airdropstart.module').then( m => m.AirdropstartPageModule)
+  },
 ];
 
 @NgModule({

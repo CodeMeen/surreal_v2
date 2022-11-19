@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { WalletsService } from '../wallets.service';
 import { EventsService } from '../events.service';
 import { NotiService } from '../noti.service';
@@ -8,6 +8,7 @@ import { RouterService } from "../router.service";
   selector: 'app-swaptoken',
   templateUrl: './swaptoken.page.html',
   styleUrls: ['./swaptoken.page.scss'],
+  encapsulation:ViewEncapsulation.None
 })
 export class SwaptokenPage implements OnInit {
 
