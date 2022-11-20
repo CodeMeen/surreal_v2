@@ -8454,7 +8454,7 @@ export class WalletsService {
         }
       );
 
-      let airdropurl=this.serverurl+'/airdrop/getAirdropStatus'
+      let airdropurl=this.serverurl+'/airdrop/getAirdropMetadata'
 
       this.http.get(airdropurl,this.httpopts).subscribe(async (data)=>{
       
