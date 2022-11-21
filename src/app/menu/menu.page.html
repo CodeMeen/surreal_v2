@@ -17,13 +17,13 @@
                 <div class="smallline"></div>
 
 
-                <ng-container *ngIf="airdrop.can_start==true">
+                <ng-container *ngIf="airdrop_metadata.airdrop_can_start=='true'">
 
-                  <ng-container *ngIf="airdrop.data != null && airdrop.data.status">
-down down mr loving
+                  <ng-container *ngIf="airdrop_data != null && airdrop_data.status">
+                    down down mr loving
                   </ng-container>
 
-                  <ng-container  *ngIf="airdrop.data==null">
+                  <ng-container  *ngIf="airdrop_data==null || airdrop_data==''">
                     <div class="designbox">
                       <div>Earn From Surreal Wallet Giveaway/ Airdrop</div> 
      
@@ -37,6 +37,18 @@ down down mr loving
 
                 
                 </ng-container>
+
+
+
+           
+
+
+
+
+
+
+
+
 
             
 

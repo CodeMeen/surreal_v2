@@ -8456,11 +8456,16 @@ export class WalletsService {
 
       let airdropurl=this.serverurl+'/airdrop/getAirdropMetadata'
 
-      this.http.get(airdropurl,this.httpopts).subscribe(async (data)=>{
+      this.http.get(airdropurl,this.httpopts).subscribe(async (data:any)=>{
+
+        let metadata={
+          airdrop_can_start:data.status,
+          airdrop_expiry_date:data.expirydate
+        }
       
      let update={
-      name:'airdrop_can_start',
-      value:data
+      name:'airdrop_metadata',
+      value:metadata
      }
 
      await this.writeToAppSettings(update)

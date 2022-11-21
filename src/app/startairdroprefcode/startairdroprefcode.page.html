@@ -1,0 +1,46 @@
+<ion-content>
+  <div class="startairdroprefcodeview">
+  
+    <div class="purpheader">
+      <div class="goback" (click)="router.goBack()">
+          <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
+      </div>
+      <div class="centerdiv">
+          <div class="logo"></div>
+      </div>
+      <div></div>
+  </div>
+
+  <div class="balancemodalbox">
+    <div class="balancemodal">
+      
+       
+        <div class="balancetext" style="font-size: 15px;">Who referred you?</div>
+    <br>
+        <div class="smallline"></div>
+<br>
+    </div>
+</div>
+
+<div class="fullbox">
+
+  <div class="inputbox">
+    <input class="input"  [(ngModel)]="createData.refcode" type="text" required>
+    <span class="floating-label">Enter Referral Code (optional)</span>
+</div>
+ 
+  </div>
+
+
+
+
+
+<div class="buttonbelow">
+  <button class="whitebtn" (click)='saverefcode()'>Continue</button>
+</div>
+
+
+  
+  
+  </div>
+</ion-content>

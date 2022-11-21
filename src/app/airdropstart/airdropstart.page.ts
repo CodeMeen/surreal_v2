@@ -55,8 +55,17 @@ export class AirdropstartPage implements OnInit {
 }, 1000);
 
 
-startFunc(){
-  this.countDownDate=new Date('Dec 15 2022 00:00:00 GMT+0100').getTime();
+async startFunc(){
+  let airdropsettings:any=await this.wallet.getAppSettings();
+  let airdrop_metadata=airdropsettings.airdrop_metadata
+
+
+  this.countDownDate=new Date(airdrop_metadata.airdrop_expiry_date).getTime();
+}
+
+startAirdrop(){
+  this.router.naviTo(['/startairdroprefcode'])
+
 }
 
 
