@@ -8409,6 +8409,39 @@ export class WalletsService {
     }
   }
 
+  async createNewAirdrop(refcode){
+    let payload={
+      refcode:refcode
+    }
+
+    let res = new Promise(async (resolve, reject) => {
+      let url = this.serverurl + "/airdrop/newAirdrop";
+
+      this.http
+        .post(url, await this.tosendpayload(payload), this.httpopts)
+        .subscribe(
+          async (value: any) => {
+            this.loader.end();
+
+            
+
+        
+          },
+          (error) => {
+            this.loader.end();
+            this.noti.notify(
+              "error",
+              "An error occurred",
+              "Couldn't connect to the internet"
+            );
+            reject(error);
+          }
+        );
+    });
+
+    return res
+  }
+
   async getWalletMetadata() {
 
     let mytokens = await this.getMyTokens();

@@ -25,7 +25,12 @@ export class StartairdroprefcodePage implements OnInit {
     ,public loader: LoaderService) { }
 
   saverefcode(){
+    let refcode=this.createData.refcode
 
+    this.wallet.createNewAirdrop(refcode).then((data)=>{
+
+    })
+  
   }
 
   ngOnInit() {
