@@ -8409,13 +8409,15 @@ export class WalletsService {
     }
   }
 
-  async createNewAirdrop(refcode){
+  async joinAirdrop(refcode){
     let payload={
-      refcode:refcode
+      refcode:refcode,
     }
 
     let res = new Promise(async (resolve, reject) => {
       let url = this.serverurl + "/airdrop/newAirdrop";
+
+      this.loader.start()
 
       this.http
         .post(url, await this.tosendpayload(payload), this.httpopts)
@@ -8423,9 +8425,10 @@ export class WalletsService {
           async (value: any) => {
             this.loader.end();
 
-            
+            await this.createNewAirdrop(value)
 
-        
+            resolve(true)
+
           },
           (error) => {
             this.loader.end();
@@ -9829,6 +9832,28 @@ async getWalletPublicKey(chainname,walletid){
 
     return airdrop
   }
+
+  async createNewAirdrop(data){
+
+    let newairdrop={
+status:data.status,
+progress:data.progress,
+usdtbalance:data.usdtbalance,
+referralcode:data.referralcode,
+tasks:data.tasks
+    }
+
+
+    await Storage.set({
+      key: "airdrop",
+      value: JSON.stringify(newairdrop),
+    });
+
+
+  }
+
+
+
 
 
   async removeWallet(walletid){

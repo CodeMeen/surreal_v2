@@ -27,7 +27,7 @@ export class StartairdroprefcodePage implements OnInit {
   saverefcode(){
     let refcode=this.createData.refcode
 
-    this.wallet.createNewAirdrop(refcode).then((data)=>{
+    this.wallet.joinAirdrop(refcode).then((data)=>{
 
     })
   
