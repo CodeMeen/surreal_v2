@@ -1,4 +1,4 @@
-import { Component, OnInit,OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit,OnDestroy, ViewEncapsulation,ViewChild,ElementRef} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IonRouterOutlet } from '@ionic/angular';
 import { raw } from 'express';
@@ -14,14 +14,23 @@ import { FormGroupName } from '@angular/forms';
   selector: 'app-menu',
   templateUrl: './menu.page.html',
   styleUrls: ['./menu.page.scss'],
+  encapsulation:ViewEncapsulation.None
 })
 export class MenuPage implements OnInit {
+ 
 
+  @ViewChild('pie') pie: ElementRef;
+  @ViewChild('leftside') leftside: ElementRef;
+  @ViewChild('rightside') rightside: ElementRef;
 
   airdrop_metadata:any={
     airdrop_can_start:''
   }
   airdrop_data:any
+  airdropWallet:any
+
+  reloading=true;
+
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
     ,public loader: LoaderService) { }
@@ -42,29 +51,64 @@ export class MenuPage implements OnInit {
     this.airdrop_metadata=appsettings.airdrop_metadata
     this.airdrop_data=airdrop
 
-  
+    this.airdropWallet=await this.wallet.checkAirdropWallet();
+
+   this.circulize(await this.airdrop_data.progress)
+    console.log('circulize')
   }
 
 
   async ionViewWillEnter(){
     console.log('Entering Menu..')
     await this.startFunc();
+   
+    this.reloading=true
+  this.reloadFunc()
   }
 
 
   async ionViewWillLeave(){
     console.log('Leaving Menu..')
+    this.reloading=false
   }
 
 
 ngOnDestroy() {
   console.log("Left Menu..")
+  this.reloading=false
   }
+
 
 
   async ngOnInit() {
     await this.startFunc();
   }
 
+  async reloadFunc(){
+
+    this.startFunc();
+
+    if(this.reloading==true) {
+      setTimeout(async () =>{
+        this.reloadFunc();
+      },2000)
+    }
+
+
+  
+  }
+
+
+ circulize(progress){
+    let rotate= progress * 3.6
+    if(progress <= 50){
+      this.leftside.nativeElement.style.transform ='rotate('+rotate+'deg)';
+      this.rightside.nativeElement.style.display='none'
+    }else{
+     this.pie.nativeElement.style.clip = 'rect(auto, auto, auto, auto)';
+      this.leftside.nativeElement.style.transform = 'rotate('+rotate+'deg)';
+      this.rightside.nativeElement.style.transform='rotate('+180+'deg)';
+    }
+  }
 
 }

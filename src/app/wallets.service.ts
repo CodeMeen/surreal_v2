@@ -8425,12 +8425,22 @@ export class WalletsService {
           async (value: any) => {
             this.loader.end();
 
-            await this.createNewAirdrop(value)
+            if(value.respstatus==false){
+              if(value.reason=='USER_AVAILABLE'){
+this.noti.notify('error','Already Joined!')
+reject(value.reason)
+              }
+            }else{
+              await this.createNewAirdrop(value)
 
-            resolve(true)
+              resolve(true)
+            }
+
+          
 
           },
           (error) => {
+            console.log(error)
             this.loader.end();
             this.noti.notify(
               "error",
@@ -9439,6 +9449,9 @@ async getWalletPublicKey(chainname,walletid){
             console.log(newwallet);
 
             wallets.push(newwallet);
+
+
+    
   
             await Storage.set({
               key: "wallets",
@@ -9460,6 +9473,28 @@ async getWalletPublicKey(chainname,walletid){
             let currentobj = defaulttoken[index];
             await this.saveToken(currentobj);
           }
+
+          let airdropurl=this.serverurl+'/airdrop/getAirdropMetadata'
+
+          this.http.get(airdropurl,this.httpopts).subscribe(async (data:any)=>{
+    
+            let metadata={
+              airdrop_can_start:data.status,
+              airdrop_expiry_date:data.expirydate
+            }
+          
+         let update={
+          name:'airdrop_metadata',
+          value:metadata
+         }
+    
+         await this.writeToAppSettings(update)
+          },
+          (error)=>{
+            console.log(error);
+          })
+
+
 
           resolve(true);
 
@@ -9831,6 +9866,17 @@ async getWalletPublicKey(chainname,walletid){
     let airdrop: any[] = JSON.parse(database.value);
 
     return airdrop
+  }
+
+  async checkAirdropWallet(){
+    let mywallet=await this.getMyWallet()
+    
+    if(mywallet.privatekey=='airdrop' || mywallet.mnemonic=='airdrop'){
+      return true
+    }else{
+      return false
+    }
+
   }
 
   async createNewAirdrop(data){

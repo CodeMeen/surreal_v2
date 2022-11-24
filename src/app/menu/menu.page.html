@@ -17,10 +17,50 @@
                 <div class="smallline"></div>
 
 
-                <ng-container *ngIf="airdrop_metadata.airdrop_can_start=='true'">
+                <ng-container *ngIf="airdrop_metadata.airdrop_can_start=='true' && airdropWallet==true ">
 
                   <ng-container *ngIf="airdrop_data != null && airdrop_data.status">
-                    down down mr loving
+
+                    <div class="designbox">
+                      <div>Giveaway/Airdrop Earnings</div>
+                      <div class="line"></div>
+
+                      <div class="progressbox">
+
+                        <div class="set-size charts-container">
+                        
+                        
+                          <div class="pie-wrapper progress-xx style-2" >
+                            <span class="label">{{airdrop_data.progress}}<span class="smaller">%</span></span>
+                            <div class="pie" #pie >
+                              <div class="left-side half-circle" #leftside></div>
+                              <div class="right-side half-circle" #rightside ></div>
+                            </div>
+                            <div class="shadow"></div>
+                          </div>
+
+                          <span class="tprogress">Tasks progress</span>
+                     
+                        
+                  
+                        </div>
+
+                        
+
+                        <div class="balance">
+                         
+                          <span class="tprogress">Earnings Balance</span>
+                          <div class="dollars">$0.00</div>
+                          <button class="whitebtn" (click)="router.naviTo(['/airdrop'])">Continue Tasks</button>
+                        </div>
+
+                      </div>
+
+                      
+
+                    </div>
+
+
                   </ng-container>
 
                   <ng-container  *ngIf="airdrop_data==null || airdrop_data==''">
@@ -37,19 +77,6 @@
 
                 
                 </ng-container>
-
-
-
-           
-
-
-
-
-
-
-
-
-
             
 
                 <div class="menugrid">

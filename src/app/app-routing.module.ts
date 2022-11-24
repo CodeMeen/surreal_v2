@@ -117,6 +117,10 @@ const routes: Routes = [
     path: 'startairdroprefcode',
     loadChildren: () => import('./startairdroprefcode/startairdroprefcode.module').then( m => m.StartairdroprefcodePageModule)
   },
+  {
+    path: 'airdrop',
+    loadChildren: () => import('./airdrop/airdrop.module').then( m => m.AirdropPageModule)
+  },
 ];
 
 @NgModule({

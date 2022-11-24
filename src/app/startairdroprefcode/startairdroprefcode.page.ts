@@ -29,6 +29,11 @@ export class StartairdroprefcodePage implements OnInit {
 
     this.wallet.joinAirdrop(refcode).then((data)=>{
 
+      if(data==true){
+        this.noti.notify('success','Joined!')
+        this.router.naviTo(['/airdrop']);
+      }
+
     })
   
   }
