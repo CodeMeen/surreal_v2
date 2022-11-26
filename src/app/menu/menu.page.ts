@@ -26,7 +26,9 @@ export class MenuPage implements OnInit {
   airdrop_metadata:any={
     airdrop_can_start:''
   }
-  airdrop_data:any
+  airdrop_data:any={
+
+  }
   airdropWallet:any
 
   reloading=true;
@@ -53,8 +55,8 @@ export class MenuPage implements OnInit {
 
     this.airdropWallet=await this.wallet.checkAirdropWallet();
 
-   this.circulize(await this.airdrop_data.progress)
-    console.log('circulize')
+  
+   
   }
 
 
@@ -94,12 +96,19 @@ ngOnDestroy() {
       },2000)
     }
 
+  }
 
-  
+  progressSize(progress){
+
+    let styles = {
+      'width': progress + '%',
+    };
+    return styles;
+
   }
 
 
- circulize(progress){
+ /* circulize(progress){
     let rotate= progress * 3.6
     if(progress <= 50){
       this.leftside.nativeElement.style.transform ='rotate('+rotate+'deg)';
@@ -109,6 +118,6 @@ ngOnDestroy() {
       this.leftside.nativeElement.style.transform = 'rotate('+rotate+'deg)';
       this.rightside.nativeElement.style.transform='rotate('+180+'deg)';
     }
-  }
+  } */
 
 }

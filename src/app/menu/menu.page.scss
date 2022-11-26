@@ -252,221 +252,86 @@
         margin-top:10px;
     }
 
-  // -- vars
-$bg-color: #fff;
-$default-size: 60px;
-$label-font-size: $default-size / 4;
-$label-font-size-redo: $default-size * 4;
-
-// -- mixins
-@mixin size($width, $height) {
-  height: $height;
-  width: $width;
-}
-
-@mixin draw-progress($progress, $color) {
-    .progress-xx{
-        .pie {
-            .half-circle {
-              border-color: $color;
-            }
-        
-            .left-side {
-              transform: rotate($progress * 3.6deg);
-            }
-        
-            @if $progress <= 50 {
-              .right-side {
-                display: none;
-              }
-            } @else {
-              clip: rect(auto, auto, auto, auto);
-        
-              .right-side {
-                transform: rotate(180deg);
-              }
-            }
-          }
-    }
-
-}
-
-@mixin draw-progress--solid($progress, $color, $bg-color) {
-  background: linear-gradient(to right, $color 50%, $bg-color 50%);
-  
-  &:before {
-    @if $progress <= 50 {
-      background: $bg-color;
-      transform: rotate((100 - (50 - $progress)) / 100 * 360deg * -1);
-    } @else {
-      background: $color;
-      transform: rotate((100 - $progress) / 100 * 360deg);
-    }
-  }
-}
 
 
-
-.charts-container {
-  &:after {
-    clear: both;
-    content: '';
-    display: table;
-  }
-}
-
-.pie-wrapper {
-  @include size($default-size, $default-size);
- 
-  margin: 15px;
-  position: relative;
-  
-  &:nth-child(3n + 1) {
-    clear: both;
-  }
-
-  .pie {
-    @include size(100%, 100%);
-    clip: rect(0, $default-size, $default-size, $default-size / 2);
-    left: 0;
-    position: absolute;
-    top: 0;
-
-    .half-circle {
-      @include size(100%, 100%);
-      border: ($default-size / 10) solid #fff;
-      border-radius: 50%;
-      clip: rect(0, $default-size / 2, $default-size, 0);
-      left: 0;
-      position: absolute;
-      top: 0;
-    }
-  }
-
-  .label {
-    background: $bg-color;
-    border-radius: 50%;
-    color: #fff !important;
-    cursor: default;
-    display: block;
-    font-size: 13px;
-    position: absolute;
-    text-align: center;
-    line-height: $default-size;
-    width:100%;
-
-    .smaller{
-        color:#fff !important;
-    }
-   
-  }
-
-  .shadow {
-    @include size(100%, 100%);
-    border: $default-size / 10 solid rgba(0, 0, 0, 0.2);
-    border-radius: 50%;
-  }
-
-  &.style-2 {
-    .label {
-      background: none;
-      color: #7f8c8d;
-
-      .smaller {
-        color: #bdc3c7;
-      }
-    }
-  }
-
-  &.progress-30 {
-    @include draw-progress(30, #3498db);
-  }
-
-  &.progress-60 {
-    @include draw-progress(60, #9b59b6);
-  }
-
-  &.progress-90 {
-    @include draw-progress(90, #e67e22);
-  }
-
-  &.progress-45 {
-    @include draw-progress(12, #fff);
-  }
-
-  &.progress-75 {
-    @include draw-progress(75, #8e44ad);
-  }
-
-  &.progress-95 {
-    @include draw-progress(95, #e74c3c);
-  }
-}
-
-.pie-wrapper--solid {
-  border-radius: 50%;
-  overflow: hidden;
-
-  &:before {
-    border-radius: 0 100% 100% 0 / 50%;
-    content: '';
-    display: block;
-    height: 100%;
-    margin-left: 50%;
-    transform-origin: left;
+    .tprogress{
+      font-size: 13px;
+      font-family: mntsreg;
   }
   
-  .label {
-    background: transparent;
+  
+  .progressbox{
+     // display:grid;
+      //grid-template-columns:37% 63%;
+      margin-top: 10px;
   }
   
-  &.progress-65 {
-    @include draw-progress--solid(65, #e67e22, $bg-color);
+  .dollars{
+      font-size: 25px;
+      padding: 10px;
+      font-family: mntssemibold;
   }
   
-  &.progress-25 {
-    @include draw-progress--solid(25, #9b59b6, $bg-color);
+  .whitebtn{
+      padding: 7px 20px;
+      color:#000;
+      background:#fff;
+      font-size:13px;
+      border-radius:20px;
+      font-family: mntssemibold;
+      width: 100%;
+      text-align:center;
+      border:none;
+      display:flex;
+      justify-content: center;
+      align-items: center;
   }
   
-  &.progress-88 {
-    @include draw-progress--solid(88, #3498db, $bg-color);
+  
+  .balance{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
   }
-}
-
-.tprogress{
-    font-size: 13px;
-    font-family: mntsreg;
-}
-
-
-.progressbox{
-    display:grid;
-    grid-template-columns:37% 63%;
-    margin-top: 10px;
-}
-
-.dollars{
-    font-size: 25px;
-    padding: 10px;
-    font-family: mntssemibold;
-}
-
-.whitebtn{
-    padding: 7px 20px;
-    color:#000;
-    background:#fff;
-    font-size:13px;
-    border-radius:20px;
-    font-family: mntsreg;
-    width: 80%;
-    text-align:center;
-    border:none;
-}
-
-
-.balance{
-  margin-left:10px;
-}
+      
+  .larr{
+    font-size: 15px;
     
+    margin-left:7px;
+  }
+  
+  .pbox{
+    height:10px;
+    border-radius:20px;
+    background: rgba(0,0,0,0.3);
+    width:85%;
+    position: relative;
+    
+  }
+  
+  .x2{
+    display:flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .xtextr{
+    font-size: 14px;
+    color:#fff;
+    font-family: mntssemibold;
+    padding: 10px;
+   padding-right: 20px;
+  }
+  
+  .prg{
+    position: absolute;
+    height:10px;
+    border-radius:20px;
+    background: #fff;
+    transition: 0.5s;
+  }
+  
 
 }
+
+

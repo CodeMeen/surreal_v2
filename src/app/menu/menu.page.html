@@ -27,7 +27,33 @@
 
                       <div class="progressbox">
 
-                        <div class="set-size charts-container">
+                        <div class="balance">
+                          <div>
+                            <span class="tprogress">Earnings Balance</span>
+                            <div class="dollars">${{airdrop_data.usdtbalance}}.00</div>
+                          </div>
+                         
+                          <div>
+                            <button class="whitebtn" (click)="router.naviTo(['/airdrop'])">Dashboard <ion-icon name="chevron-forward-outline" class="larr"></ion-icon></button>
+                          </div>
+                         
+                        </div>
+
+                        <div class="progressbox">
+                          <span class="tprogress">Tasks progress</span>
+                          <div class="x2">
+                            <div class="xtextr">{{airdrop_data.progress}}%</div>
+                            <div class="pbox">
+                              <div class="prg" [ngStyle]="progressSize(airdrop_data.progress)"></div>
+                           </div>
+                          </div>
+                         
+                     
+                        </div>
+
+
+
+                        <!-- <div class="set-size charts-container">
                         
                         
                           <div class="pie-wrapper progress-xx style-2" >
@@ -43,16 +69,11 @@
                      
                         
                   
-                        </div>
+                        </div> -->
 
                         
 
-                        <div class="balance">
-                         
-                          <span class="tprogress">Earnings Balance</span>
-                          <div class="dollars">$0.00</div>
-                          <button class="whitebtn" (click)="router.naviTo(['/airdrop'])">Continue Tasks</button>
-                        </div>
+                    
 
                       </div>
 
