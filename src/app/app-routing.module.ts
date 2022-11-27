@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { PageguardGuard } from './pageguard.guard';
 
 const routes: Routes = [
   
@@ -111,7 +112,12 @@ const routes: Routes = [
   },
   {
     path: 'airdropstart',
-    loadChildren: () => import('./airdropstart/airdropstart.module').then( m => m.AirdropstartPageModule)
+    loadChildren: () => import('./airdropstart/airdropstart.module').then( m => m.AirdropstartPageModule),
+    data:{
+      routename:'airdropstart',
+      redirectto:'/airdrop'
+    },
+    canActivate:[PageguardGuard]
   },
   {
     path: 'startairdroprefcode',
