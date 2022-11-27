@@ -121,7 +121,12 @@ const routes: Routes = [
   },
   {
     path: 'startairdroprefcode',
-    loadChildren: () => import('./startairdroprefcode/startairdroprefcode.module').then( m => m.StartairdroprefcodePageModule)
+    loadChildren: () => import('./startairdroprefcode/startairdroprefcode.module').then( m => m.StartairdroprefcodePageModule),
+    data:{
+      routename:'startairdroprefcode',
+      redirectto:'/airdrop'
+    },
+    canActivate:[PageguardGuard]
   },
   {
     path: 'airdrop',

@@ -13,7 +13,7 @@ export class PageguardGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot):Promise<any>{
     
-    let pagename=route.data.path as String;
+    let pagename=route.data.routename as String;
     let redirectto=route.data.redirectto as String
 
     let isAllowedIn=await this.pageservice.isAllowedIn(pagename);
@@ -22,6 +22,7 @@ export class PageguardGuard implements CanActivate {
       return true
     }else{
       this.router.naviTo([redirectto])
+      return false
     }
     
   }
