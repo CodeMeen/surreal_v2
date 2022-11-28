@@ -19,10 +19,6 @@ import { FormGroupName } from '@angular/forms';
 export class MenuPage implements OnInit {
  
 
-  @ViewChild('pie') pie: ElementRef;
-  @ViewChild('leftside') leftside: ElementRef;
-  @ViewChild('rightside') rightside: ElementRef;
-
   airdrop_metadata:any={
     airdrop_can_start:''
   }

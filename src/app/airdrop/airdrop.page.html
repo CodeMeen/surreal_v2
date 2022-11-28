@@ -11,6 +11,47 @@
           <div></div>
       </div>
 
+
+      <div class="balancetext" style="font-size: 16px;">Earnings Dashboard</div>
+
+      <div class="smallline" style="margin-top:10px"></div>
+
+
+      <div class="xrac">
+        <div class="baltitle">earnings balance</div>
+       <div class="balancetext">$0.00</div> 
       </div>
+
+      <div class="drawbox">
+        <button class="withdrawbtn">Withdraw To Wallet</button>
+      </div>
+
+      <div class="sectiontitle">Tasks</div>
+
+
+      <div class="eachtask">
+        <div class="xaflex">
+          <div class="criccheck"></div>
+          <div class="cricname">completed</div>
+        </div>
+        <div>Join Giveaway/Airdrop</div> 
+
+        <div class="progressbox">
+          <span class="tprogress">Task progress</span>
+          <div class="x2">
+            <div class="xtextr">{{airdrop_data.progress}}%</div>
+            <div class="pbox">
+              <div class="prg" [ngStyle]="progressSize(airdrop_data.progress)"></div>
+           </div>
+          </div>
+         
+     
+        </div>
+        
+      </div>
+      
+      </div>
+
+   
 
 </ion-content>

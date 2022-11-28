@@ -115,7 +115,7 @@ const routes: Routes = [
     loadChildren: () => import('./airdropstart/airdropstart.module').then( m => m.AirdropstartPageModule),
     data:{
       routename:'airdropstart',
-      redirectto:'/airdrop'
+      redirectto:'/account/menu'
     },
     canActivate:[PageguardGuard]
   },
@@ -124,7 +124,7 @@ const routes: Routes = [
     loadChildren: () => import('./startairdroprefcode/startairdroprefcode.module').then( m => m.StartairdroprefcodePageModule),
     data:{
       routename:'startairdroprefcode',
-      redirectto:'/airdrop'
+      redirectto:'/account/menu'
     },
     canActivate:[PageguardGuard]
   },

@@ -13,8 +13,23 @@ import { WalletsService } from "../wallets.service";
   encapsulation:ViewEncapsulation.None
 })
 export class AirdropPage implements OnInit {
+  airdrop_metadata:any={
+    airdrop_can_start:''
+  }
+
+  tasksignup:any;
+  taskrefer:any;
+  taskshare:any;
+
+
+  airdrop_data:any={
+
+  }
+  airdropWallet:any
 
   reloading=true;
+
+ 
  
   constructor(
     private route: ActivatedRoute,
@@ -24,18 +39,114 @@ export class AirdropPage implements OnInit {
     public events: EventsService
   ) {}
 
-  async reloadFunc(){
+
+  async setSignUpTask(airdrop){
+    let alltasks=airdrop.task
+      
+    let serv=alltasks.filter((data)=>{
+     return data.tag== 'joinairdrop'
+    })
+
+    this.tasksignup=serv[0]
+  }
+
+  async setReferTask(airdrop){
+    let task={
+      name:'',
+      totalprogress:0,
+      totaltask:0,
+      status:false,
+      tasks:[]
+    }
+
+    let alltasks=airdrop.task
+      
+   let serv= alltasks.filter((data)=>{
+     return data.tag== 'refer'
+    })
+
+ 
+
+    task.totaltask=serv.length
+    task.name ='Refer '+serv.length+' Friends';
+
+    if(serv[0].status==true && serv[1].status==true){
+  
+   task.totalprogress=100
+   task.status==true
+   
+    }else{
+
+      if(serv[0].status==true){
+
+      }
+
+      if(serv[1].status==true){
+        
+      }
+     
+     
+    }
+
+
+    task.tasks=serv
 
   }
+
+  async startFunc(){
+    let airdrop, appsettings;
+
+    airdrop=await this.wallet.getAirdrop();
+    appsettings=await this.wallet.getAppSettings();
+
+    this.airdrop_metadata=appsettings.airdrop_metadata
+    this.airdrop_data=airdrop
+
+    await this.setSignUpTask(airdrop)
+
+
+
+
+
+    this.airdropWallet=await this.wallet.checkAirdropWallet();
 
   
-  ngOnInit() {
+   
   }
 
-  ionViewWillEnter(){
+
+    async ngOnInit() {
+    await this.startFunc();
+  }
+
+  async reloadFunc(){
+
+    this.startFunc();
+
+    if(this.reloading==true) {
+      setTimeout(async () =>{
+        this.reloadFunc();
+      },2000)
+    }
+
+  }
+
+  progressSize(progress){
+
+    let styles = {
+      'width': progress + '%',
+    };
+    return styles;
+
+  }
+
+  async ionViewWillEnter(){
     console.log('Entering AirDrop..')
+
+    await this.startFunc();
+   
     this.reloading=true
-    this.reloadFunc()
+  this.reloadFunc()
   }
 
 

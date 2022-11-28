@@ -5,6 +5,142 @@
     position: relative;
     width: 100%;
     background: var(--ion-background-color);
+    
+    .drawbox{
+        display:flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .tprogress{
+        font-size: 13px;
+        font-family: mntsreg;
+        padding-left:10px;
+        color:rgba(255,255,255,0.7)
+    }
+    
+    
+    .progressbox{
+       // display:grid;
+        //grid-template-columns:37% 63%;
+        margin-top: 10px;
+    }
+    
+    .dollars{
+        font-size: 25px;
+        padding: 10px;
+        font-family: mntssemibold;
+    }
+    
+    .whitebtn{
+        padding: 7px 20px;
+        color:#000;
+        background:#fff;
+        font-size:13px;
+        border-radius:20px;
+        font-family: mntssemibold;
+        width: 100%;
+        text-align:center;
+        border:none;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    
+    .balance{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    }
+        
+    .larr{
+      font-size: 15px;
+      
+      margin-left:7px;
+    }
+    
+    .pbox{
+      height:10px;
+      border-radius:20px;
+      background: rgba(0,0,0,0.3);
+      width:85%;
+      position: relative;
+      
+    }
+    
+    .x2{
+      display:flex;
+      align-items: center;
+      margin-top: 3px;
+    }
+    
+    .xtextr{
+      font-size: 14px;
+      color:#fff;
+      font-family: mntssemibold;
+      padding: 10px;
+     padding-right: 20px;
+    }
+    
+    .prg{
+      position: absolute;
+      height:10px;
+      border-radius:20px;
+      background: #fff;
+      transition: 0.5s;
+    }
+
+    .xaflex{
+        display: flex;
+        padding:10px 0px;
+        border-bottom: 1px solid rgba(255,255,255,0.3);
+        margin-bottom: 13px;
+    }
+
+    .criccheck{
+        height: 23px;
+        width:23px;
+        border:1px solid rgba(255,255,255,0.7);
+        border-radius:50%;
+    }
+.cricname{
+    text-transform: uppercase;
+ justify-self: center;
+ align-self: center;
+ font-size: 11px;
+ padding-left:13px;
+}
+    .eachtask{
+       
+            padding:20px;
+            border-radius: 10px;
+            color:white;
+            margin:20px 10px;
+            margin-bottom:0px;
+            font-size: 16px;
+            font-weight: bold;
+            font-family: mntssemibold;
+            background: linear-gradient( to bottom right, var(--ion-color-primary), var(--ion-color-primary), rgb(154, 78, 174));
+            
+    }
+
+    .sectiontitle{
+        font-size: 14px;
+        font-family:mntssemibold;
+        padding:20px;
+        text-transform: uppercase;
+    }
+    .withdrawbtn{
+        background:var(--ion-color-primary);
+        color:white;
+        padding:10px 20px;
+        font-family: mntssemibold;
+        border-radius:20px;
+    }
+    .xrac{
+        margin:10px 0px;
+        margin-top: 14px;
+    }
     .pendingicon {
         color: orange !important;
     }
@@ -168,30 +304,31 @@
         padding: 0px 20px;
     }
     .baltitle {
-        padding: 20px;
+        padding: 7px 0px;
         text-align: center;
-        font-size: 12px;
+        font-size: 11px;
         font-family: mntsreg;
         text-transform: uppercase;
         letter-spacing: 0.1em;
         opacity: 0.7;
-        padding-bottom: 0px;
+        padding-top: 15px;
     }
     .balancetext {
         font-size: 25px;
         font-family: mntssemibold;
         text-align: center;
         padding: 15px;
-        padding-bottom: 0px;
+padding-bottom: 10px;
         letter-spacing: 1px;
     }
     .smallbaltext {
-        font-size: 15px;
+        font-size: 12px;
         font-family: mntsreg;
         text-align: center;
         padding: 7px 0px;
         letter-spacing: 1px;
-        padding-bottom: 20px;
+        padding: 20px 0px;
+        padding-top: 15px;
         color: #5d6969;
     }
     .actiontab {
