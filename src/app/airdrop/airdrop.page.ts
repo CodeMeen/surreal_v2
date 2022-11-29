@@ -17,9 +17,9 @@ export class AirdropPage implements OnInit {
     airdrop_can_start:''
   }
 
-  tasksignup:any;
-  taskrefer:any;
-  taskshare:any;
+  tasksignup:any={}
+  taskrefer:any={}
+  taskshare:any={}
 
 
   airdrop_data:any={
@@ -41,13 +41,14 @@ export class AirdropPage implements OnInit {
 
 
   async setSignUpTask(airdrop){
-    let alltasks=airdrop.task
+    let alltasks=airdrop.tasks
       
     let serv=alltasks.filter((data)=>{
      return data.tag== 'joinairdrop'
     })
 
     this.tasksignup=serv[0]
+
   }
 
   async setReferTask(airdrop){
@@ -55,18 +56,25 @@ export class AirdropPage implements OnInit {
       name:'',
       totalprogress:0,
       totaltask:0,
+      noofprocessedtask:0,
       status:false,
       tasks:[]
     }
 
-    let alltasks=airdrop.task
+    let alltasks=airdrop.tasks
       
    let serv= alltasks.filter((data)=>{
      return data.tag== 'refer'
     })
 
+    let donetask= alltasks.filter((data)=>{
+      return data.tag== 'refer' && data.status==true
+     })
  
 
+ 
+    task.noofprocessedtask=donetask.length
+    
     task.totaltask=serv.length
     task.name ='Refer '+serv.length+' Friends';
 
@@ -78,11 +86,15 @@ export class AirdropPage implements OnInit {
     }else{
 
       if(serv[0].status==true){
-
+        let prevprogress=task.totalprogress
+        let newprogress=prevprogress+50
+        task.totalprogress=newprogress
       }
 
       if(serv[1].status==true){
-        
+        let prevprogress=task.totalprogress
+        let newprogress=prevprogress+50
+        task.totalprogress=newprogress
       }
      
      
@@ -90,7 +102,7 @@ export class AirdropPage implements OnInit {
 
 
     task.tasks=serv
-
+this.taskrefer=task
   }
 
   async startFunc(){
@@ -103,10 +115,7 @@ export class AirdropPage implements OnInit {
     this.airdrop_data=airdrop
 
     await this.setSignUpTask(airdrop)
-
-
-
-
+    await this.setReferTask(airdrop)
 
     this.airdropWallet=await this.wallet.checkAirdropWallet();
 

@@ -31,17 +31,21 @@
 
       <div class="eachtask">
         <div class="xaflex">
-          <div class="criccheck"></div>
-          <div class="cricname">completed</div>
+          <div class="criccheck" [ngClass]="{'completedsign':tasksignup.status==true}">
+            <ion-icon name="checkmark-outline" class="thecheck" *ngIf="tasksignup.status==true"></ion-icon>
+           
+          </div>
+          <div class="cricname" *ngIf="tasksignup.status==true">completed</div>
+          <div class="cricname" *ngIf="tasksignup.status==false">pending</div>
         </div>
         <div>Join Giveaway/Airdrop</div> 
 
         <div class="progressbox">
           <span class="tprogress">Task progress</span>
           <div class="x2">
-            <div class="xtextr">{{airdrop_data.progress}}%</div>
+            <div class="xtextr">{{tasksignup.progress}}%</div>
             <div class="pbox">
-              <div class="prg" [ngStyle]="progressSize(airdrop_data.progress)"></div>
+              <div class="prg" [ngStyle]="progressSize(tasksignup.progress)"></div>
            </div>
           </div>
          
@@ -50,6 +54,42 @@
         
       </div>
       
+
+      <div class="eachtask">
+        <div class="xaflex">
+          <div class="criccheck" [ngClass]="{'completedsign':taskrefer.status==true}">
+            <ion-icon name="checkmark-outline" class="thecheck" *ngIf="taskrefer.status==true"></ion-icon>
+           
+          </div>
+          <div class="cricname" *ngIf="taskrefer.status==true">completed</div>
+          <div class="cricname" *ngIf="taskrefer.status==false">pending</div>
+        </div>
+        <div class="ref2friends">Refer {{taskrefer.totaltask }} Friends</div> 
+        <span class="tprogress">Referred ({{taskrefer.noofprocessedtask}}/{{taskrefer.totaltask }}) friends</span>
+        <div class="progressbox">
+          <span class="tprogress">Task progress</span>
+          <div class="x2">
+            <div class="xtextr">{{taskrefer.totalprogress}}%</div>
+            <div class="pbox">
+              <div class="prg" [ngStyle]="progressSize(taskrefer.totalprogress)"></div>
+           </div>
+
+          
+          </div>
+         
+     
+        </div>
+
+        <div class="referralbox">
+          <button class="whitebtn">Share your referral info to friends</button>
+         </div>
+      </div>
+      
+
+
+
+
+
       </div>
 
    

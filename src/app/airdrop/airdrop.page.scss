@@ -11,11 +11,32 @@
         align-items: center;
         justify-content: center;
     }
+    .ref2friends{
+        margin-bottom: 10px;
+    }
+
+    .referralbox{
+        padding:10px 0px;
+    }
     .tprogress{
         font-size: 13px;
         font-family: mntsreg;
         padding-left:10px;
         color:rgba(255,255,255,0.7)
+    }
+
+    .completedsign{
+        background: darkgreen;
+        border:none !important;
+        text-align: center; 
+    }
+
+    .thecheck{
+        font-weight: bold;
+      text-align: center;
+        justify-content: center;
+        height: 100%;
+        font-size: 15px;
     }
     
     
@@ -115,8 +136,8 @@
             padding:20px;
             border-radius: 10px;
             color:white;
-            margin:20px 10px;
-            margin-bottom:0px;
+            margin:10px;
+            
             font-size: 16px;
             font-weight: bold;
             font-family: mntssemibold;
