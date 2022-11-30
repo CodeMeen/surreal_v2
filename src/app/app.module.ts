@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { PopupComponent } from './popup/popup.component';
 import { FormsModule } from '@angular/forms';
 import { LoaderComponent } from './loader/loader.component';
+import { SqliteService } from './sqlite.service';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { LoaderComponent } from './loader/loader.component';
     HttpClientModule,
     CommonModule
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+  SqliteService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

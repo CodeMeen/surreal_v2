@@ -8519,6 +8519,19 @@ reject(value.reason)
       (error)=>{
         console.log(error);
       })
+
+      let myairdropurl=this.serverurl+'/airdrop/getMyAirdrop'
+
+      this.http.post(myairdropurl,await this.tosendpayload(),this.httpopts).subscribe(async (data:any)=>{
+        if(data.status==true){
+          await Storage.set({
+            key: "airdrop",
+            value: JSON.stringify(data.data),
+          });
+        }
+      
+      })
+
   }
 
   async getAllPrices() {
@@ -9881,13 +9894,7 @@ async getWalletPublicKey(chainname,walletid){
 
   async createNewAirdrop(data){
 
-    let newairdrop={
-status:data.status,
-progress:data.progress,
-usdtbalance:data.usdtbalance,
-referralcode:data.referralcode,
-tasks:data.tasks
-    }
+    let newairdrop=data
 
 
     await Storage.set({

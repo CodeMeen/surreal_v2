@@ -4,6 +4,7 @@ import { IonRouterOutlet } from "@ionic/angular";
 import { EventsService } from "../events.service";
 import { RouterService } from "../router.service";
 import { WalletsService } from "../wallets.service";
+import { Share } from '@capacitor/share';
 
 
 @Component({
@@ -74,14 +75,14 @@ export class AirdropPage implements OnInit {
 
  
     task.noofprocessedtask=donetask.length
-    
+
     task.totaltask=serv.length
     task.name ='Refer '+serv.length+' Friends';
 
     if(serv[0].status==true && serv[1].status==true){
   
    task.totalprogress=100
-   task.status==true
+   task.status=true
    
     }else{
 
@@ -103,6 +104,7 @@ export class AirdropPage implements OnInit {
 
     task.tasks=serv
 this.taskrefer=task
+
   }
 
   async startFunc(){
@@ -123,6 +125,18 @@ this.taskrefer=task
    
   }
 
+  async shareRef(){
+// check documentation during compiling
+   let sd=await Share.canShare()
+   console.log(sd)
+  
+    await Share.share({
+      title: 'See cool stuff',
+      text: 'Really awesome thing you need to see right meow',
+      url: 'http://ionicframework.com/',
+      dialogTitle: 'Share with buddies',
+    });
+}
 
     async ngOnInit() {
     await this.startFunc();

@@ -32,6 +32,7 @@ chrome-profiler-events*.json
 
 # misc
 /www
+/ios
 /.angular/
 /.angular/cache
 /.sass-cache

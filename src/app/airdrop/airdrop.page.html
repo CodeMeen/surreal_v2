@@ -19,7 +19,7 @@
 
       <div class="xrac">
         <div class="baltitle">earnings balance</div>
-       <div class="balancetext">$0.00</div> 
+       <div class="balancetext">${{airdrop_data.usdtbalance}}.00</div> 
       </div>
 
       <div class="drawbox">
@@ -81,7 +81,7 @@
         </div>
 
         <div class="referralbox">
-          <button class="whitebtn">Share your referral info to friends</button>
+          <button class="whitebtn" (click)="shareRef()">Share your referral info to friends</button>
          </div>
       </div>
       
