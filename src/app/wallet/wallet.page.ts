@@ -11,7 +11,6 @@ import { EventsParams, SwiperComponent } from "swiper/angular";
 import SwiperCore, { SwiperOptions, Pagination } from "swiper";
 import { ActivatedRoute, NavigationExtras } from "@angular/router";
 import { RouterService } from "../router.service";
-import { Storage } from "@capacitor/storage";
 import { WalletsService } from "../wallets.service";
 import { IonRouterOutlet } from "@ionic/angular";
 import { EventsService } from "../events.service";

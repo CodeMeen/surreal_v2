@@ -2,7 +2,6 @@ import { AfterContentChecked, ChangeDetectorRef, Component,ViewChild,ViewEncapsu
 import {SwiperComponent} from 'swiper/angular';
 import SwiperCore, { SwiperOptions,Pagination } from 'swiper';
 import { RouterService } from '../router.service';
-import { Storage } from '@capacitor/storage';
 import { WalletsService } from '../wallets.service';
 
 SwiperCore.use([Pagination]);

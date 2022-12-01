@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Storage } from "@capacitor/storage";
 import { promise } from "protractor";
 import { HomePageRoutingModule } from "./home/home-routing.module";
 import { LoaderService } from "./loader.service";
