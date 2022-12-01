@@ -48,6 +48,7 @@ if(appPlatform !== 'web'){
         let result: any = await this._sqlite.echo('SQL WORKING');
         console.log(' from Echo ' + result.value);
       
+        
         // initialize the connection
         let db = await this._sqlite.createConnection(
           'surrealwallet',
@@ -62,11 +63,13 @@ if(appPlatform !== 'web'){
         const createTable: string = `
       CREATE TABLE IF NOT EXISTS database (
           id INTEGER PRIMARY KEY NOT NULL,
-          data LONGTEXT,
+          key LONGTEXT,
+          value LONGTEXT,
           last_modified INTEGER DEFAULT (strftime('%s', 'now'))
       );`
       
       let ret: any = await db.execute(createTable);
+      console.log(ret)
       console.log('$$$ ret.changes.changes in db ' + ret.changes.changes);
 
       if (ret.changes.changes < 0) {

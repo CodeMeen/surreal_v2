@@ -18,56 +18,104 @@ export class StorageService {
       await Preferences.set(data);
     }else{
 
-      try {
-        let db = await this._sqlite.createConnection(
-          'surrealwallet',
-          false,
-          'no-encryption',
-          1,
-        );
+      let db = await this._sqlite.createConnection(
+        'surrealwallet',
+        false,
+        'no-encryption',
+        1,
+      );
+  
     
-        // open db testEncryption
-        await db.open();
-    
-        let dbquery=''
+      await db.open();
 
-        await this._sqlite.closeConnection('surrealwallet');
+      try {
+      
+
+       let ret = await db.query(`SELECT value FROM database WHERE key='`+data.key+`';`);
+
+       console.log('Search For Value Ret: '+ret)
+
+       if ( ret.values.length <= 0 ){
+        let rex = await db.execute(`INSERT INTO database(key,value)VALUES('`+data.key+`','`+data.value+`');`)
+
+        if (rex.changes.changes < 0) {
+          console.log('Error Ret: '+rex)
+          throw 'ERROR UPDATING DATABASE'
+        }else{
+          console.log('Data Insert Ret: '+rex)
+        }
+
+       }else{
+
+        let rex = await db.execute(`UPDATE database SET value='`+data.value+`' WHERE key='`+data.key+`';`);
+
+        if (rex.changes.changes < 0) {
+          console.log('Error Ret: '+rex)
+          throw 'ERROR UPDATING DATABASE'
+        }else{
+          console.log('Data Update Ret: '+rex)
+        }
+
+       }
+  
+
+       
 
       } catch (error) {
         throw error
       }
+
+
+      await this._sqlite.closeConnection('surrealwallet');
 
     }
    
   }
 
-  async get(property){
+  async get(data){
     let appPlatform=Capacitor.getPlatform();
+    let resp;
 
     if(appPlatform==='web'){
-      let data= await Preferences.get(property);
-      return data
+      let res= await Preferences.get(data);
+      resp=res
     }else{
-      try {
-        let db = await this._sqlite.createConnection(
-          'surrealwallet',
-          false,
-          'no-encryption',
-          1,
-        );
-    
-        // open db testEncryption
-        await db.open();
-    
-        let dbquery=''
+
+      let db = await this._sqlite.createConnection(
+        'surrealwallet',
+        false,
+        'no-encryption',
+        1,
+      );
   
-        await this._sqlite.closeConnection('surrealwallet');
+      // open db
+      await db.open();
+
+
+      try {
+       
+        let ret = await db.query(`SELECT value FROM database WHERE key='`+data.key+`';`);
+
+        console.log('Get Data Ret: '+ret)
+
+       
+ 
+        if ( ret.values.length <= 0 ){ 
+          resp=null
+        }else{
+         resp=ret.values[0]
+        }
+  
+       
       } catch (error) {
         throw error
       }
+
+      await this._sqlite.closeConnection('surrealwallet');
       
     }
-  
+   
+    return resp;
    
   }
 }

@@ -48,8 +48,9 @@ export class HomePage implements AfterContentChecked,OnInit{
       let wallets=await this.wallet.getAllWallet();
 
       if(!wallets){
-
+console.log('IM DOING THIS IF THERE IS ERROR IN GETTING ALL WALLET')
       }else{
+console.log('IM DOING THIS IF I GOT ALL WALLET')
 this.router.naviTo(['/account']);
       }
 
