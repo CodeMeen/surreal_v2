@@ -3,6 +3,7 @@ import { App } from '@capacitor/app';
 import { Platform } from '@ionic/angular';
 import { SqliteService } from './sqlite.service';
 import { Capacitor } from '@capacitor/core';
+import { SlowBuffer } from 'buffer';
 
 @Component({
   selector: 'app-root',
@@ -44,8 +45,7 @@ if(appPlatform !== 'web'){
   
     this._sqlite.initializePlugin().then(async (dat) => {
       this.initPlugin = dat;
-      console.log('Init Plugin' + this.initPlugin);
-
+     
            // initialize the connection
            let db = await this._sqlite.createConnection(
             'surrealwalletxx',
@@ -76,6 +76,10 @@ if(appPlatform !== 'web'){
       if (ret.changes.changes < 0) {
        console.log('Error Executing Table')
       }
+
+      let selectTable:any = await db.query('SELECT * FROM database;');
+      console.log(selectTable.values[1])
+
 
       await this._sqlite.closeConnection('surrealwalletxx').then(()=>{
         console.log('Connection Closed On App Init')
