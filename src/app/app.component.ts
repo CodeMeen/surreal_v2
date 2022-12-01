@@ -24,11 +24,13 @@ export class AppComponent {
           App.exitApp();
         });
 
+       await this.initializeApp();
+
       })
 
 
 
-    this.initializeApp();
+  
   
  
 }
@@ -40,26 +42,25 @@ if(appPlatform !== 'web'){
   console.log("Using SqlLite as Storage On "+appPlatform)
   this.platform.ready().then(async () => {
   
-    this._sqlite.initializePlugin().then(async ret => {
-      this.initPlugin = ret;
-      console.log('>>>> in App  this.initPlugin ' + this.initPlugin);
+    this._sqlite.initializePlugin().then(async (dat) => {
+      this.initPlugin = dat;
+      console.log('Init Plugin' + this.initPlugin);
 
-      try{
+           // initialize the connection
+           let db = await this._sqlite.createConnection(
+            'surrealwalletxx',
+            false,
+            'no-encryption',
+            1,
+          );
+        
+          // open db surrealwallet
+          await db.open();
+
+      
         let result: any = await this._sqlite.echo('SQL WORKING');
         console.log(' from Echo ' + result.value);
-      
         
-        // initialize the connection
-        let db = await this._sqlite.createConnection(
-          'surrealwallet',
-          false,
-          'no-encryption',
-          1,
-        );
-      
-        // open db surrealwallet
-        await db.open();
-      
         const createTable: string = `
       CREATE TABLE IF NOT EXISTS database (
           id INTEGER PRIMARY KEY NOT NULL,
@@ -70,18 +71,15 @@ if(appPlatform !== 'web'){
       
       let ret: any = await db.execute(createTable);
       console.log(ret)
-      console.log('$$$ ret.changes.changes in db ' + ret.changes.changes);
+      console.log('Changes in db ' + ret.changes.changes);
 
       if (ret.changes.changes < 0) {
-        return Promise.reject(new Error('Execute Table failed'));
+       console.log('Error Executing Table')
       }
 
-      await this._sqlite.closeConnection('surrealwallet');
-      
-      
-      }catch(e){
-      throw 'ERROR_INITIALING DATABASE: '+e
-      }
+      await this._sqlite.closeConnection('surrealwalletxx').then(()=>{
+        console.log('Connection Closed On App Init')
+      });
     });
   });
 }else{

@@ -19,7 +19,7 @@ export class StorageService {
     }else{
 
       let db = await this._sqlite.createConnection(
-        'surrealwallet',
+        'surrealwalletxx',
         false,
         'no-encryption',
         1,
@@ -27,9 +27,6 @@ export class StorageService {
   
     
       await db.open();
-
-      try {
-      
 
        let ret = await db.query(`SELECT value FROM database WHERE key='`+data.key+`';`);
 
@@ -40,7 +37,7 @@ export class StorageService {
 
         if (rex.changes.changes < 0) {
           console.log('Error Ret: '+rex)
-          throw 'ERROR UPDATING DATABASE'
+          console.log('ERROR UPDATING DATABASE')
         }else{
           console.log('Data Insert Ret: '+rex)
         }
@@ -51,7 +48,7 @@ export class StorageService {
 
         if (rex.changes.changes < 0) {
           console.log('Error Ret: '+rex)
-          throw 'ERROR UPDATING DATABASE'
+          console.log('ERROR UPDATING DATABASE')
         }else{
           console.log('Data Update Ret: '+rex)
         }
@@ -59,14 +56,10 @@ export class StorageService {
        }
   
 
-       
 
-      } catch (error) {
-        throw error
-      }
-
-
-      await this._sqlite.closeConnection('surrealwallet');
+      await this._sqlite.closeConnection('surrealwalletxx').then(()=>{
+        console.log('Connection closed on SET: ')
+      });
 
     }
    
@@ -82,7 +75,7 @@ export class StorageService {
     }else{
 
       let db = await this._sqlite.createConnection(
-        'surrealwallet',
+        'surrealwalletxx',
         false,
         'no-encryption',
         1,
@@ -90,28 +83,21 @@ export class StorageService {
   
       // open db
       await db.open();
-
-
-      try {
        
         let ret = await db.query(`SELECT value FROM database WHERE key='`+data.key+`';`);
 
         console.log('Get Data Ret: '+ret)
 
-       
- 
         if ( ret.values.length <= 0 ){ 
           resp=null
         }else{
          resp=ret.values[0]
         }
-  
-       
-      } catch (error) {
-        throw error
-      }
 
-      await this._sqlite.closeConnection('surrealwallet');
+
+      await this._sqlite.closeConnection('surrealwalletxx').then(()=>{
+        console.log('Connection closed on GET')
+      })
       
     }
    
