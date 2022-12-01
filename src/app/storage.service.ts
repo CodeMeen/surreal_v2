@@ -10,9 +10,6 @@ export class StorageService {
 
   constructor(private _sqlite: SqliteService) { }
 
-
-  
-
   async set(data){
 
     let appPlatform=Capacitor.getPlatform();
@@ -35,7 +32,7 @@ export class StorageService {
         let dbquery=''
 
         await this._sqlite.closeConnection('surrealwallet');
-        
+
       } catch (error) {
         throw error
       }
