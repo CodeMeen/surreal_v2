@@ -2,6 +2,7 @@ import { Component} from '@angular/core';
 import { App } from '@capacitor/app';
 import { Platform } from '@ionic/angular';
 import { SqliteService } from './sqlite.service';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-root',
@@ -33,6 +34,10 @@ export class AppComponent {
 }
 
 async initializeApp() {
+let appPlatform=Capacitor.getPlatform();
+   
+if(appPlatform !== 'web'){
+  console.log("Using SqlLite as Storage On "+appPlatform)
   this.platform.ready().then(async () => {
   
     this._sqlite.initializePlugin().then(async ret => {
@@ -76,6 +81,11 @@ async initializeApp() {
       }
     });
   });
+}else{
+  console.log("Using Capacitor Preferences as Storage On "+appPlatform)
+}
+
+ 
 }
 
 

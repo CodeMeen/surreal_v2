@@ -5,6 +5,7 @@ import { promise } from "protractor";
 import { HomePageRoutingModule } from "./home/home-routing.module";
 import { LoaderService } from "./loader.service";
 import { NotiService } from "./noti.service";
+import { StorageService } from "./storage.service";
 
 @Injectable({
   providedIn: "root",
@@ -7611,7 +7612,8 @@ export class WalletsService {
   constructor(
     private http: HttpClient,
     public loader: LoaderService,
-    public noti: NotiService
+    public noti: NotiService,
+    public storage: StorageService
   ) {}
 
   //to server
@@ -7620,7 +7622,7 @@ export class WalletsService {
   currentViewData: any[] = [];
 
   async getAppId(){
-    let database = await Storage.get({ key: "appsettings" });
+    let database = await this.storage.get({ key: "appsettings" });
     let appsettings: any = JSON.parse(database.value);
 
     return appsettings.appId
@@ -7663,7 +7665,7 @@ export class WalletsService {
       cid = walletid;
     }
 
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets: any[] = JSON.parse(database.value);
 
     let searchwallet = wallets.filter((el) => el.id == cid);
@@ -7672,7 +7674,7 @@ export class WalletsService {
 
     mywallet.currentViewData = newCurrentData;
 
-    await Storage.set({
+    await this.storage.set({
       key: "wallets",
       value: JSON.stringify(wallets),
     });
@@ -7687,7 +7689,7 @@ export class WalletsService {
       cid = walletid;
     }
 
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets = JSON.parse(database.value);
 
     let mywallet = wallets.filter((el) => el.id == cid);
@@ -7785,7 +7787,7 @@ export class WalletsService {
       cid = walletid;
     }
 
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets = JSON.parse(database.value);
 
     let mywallet = wallets.filter((el) => el.id == cid);
@@ -7808,7 +7810,7 @@ export class WalletsService {
       cid = walletid;
     }
 
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets = JSON.parse(database.value);
 
     let mywallet = wallets.filter((el) => el.id == cid);
@@ -7847,7 +7849,7 @@ export class WalletsService {
       cid = walletid;
     }
 
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets = JSON.parse(database.value);
 
     let mywallet = wallets.filter((el) => el.id == cid);
@@ -7893,7 +7895,7 @@ export class WalletsService {
       cid = walletid;
     }
 
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets = JSON.parse(database.value);
 
     let mywallet = wallets.filter((el) => el.id == cid);
@@ -8524,7 +8526,7 @@ reject(value.reason)
 
       this.http.post(myairdropurl,await this.tosendpayload(),this.httpopts).subscribe(async (data:any)=>{
         if(data.status==true){
-          await Storage.set({
+          await this.storage.set({
             key: "airdrop",
             value: JSON.stringify(data.data),
           });
@@ -8582,7 +8584,7 @@ reject(value.reason)
       cid = walletid;
     }
 
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets: any[] = JSON.parse(database.value);
 
     let searchwallet = wallets.filter((el) => el.id == cid);
@@ -8603,7 +8605,7 @@ reject(value.reason)
 
       thetoken["usdprice"] = usdprice;
 
-      await Storage.set({
+      await this.storage.set({
         key: "wallets",
         value: JSON.stringify(wallets),
       });
@@ -8619,7 +8621,7 @@ cid=await this.getCurrentWalletId();
 cid=walletid;
   }
 
-  let database=await Storage.get({ key: 'wallets' });
+  let database=await this.storage.get({ key: 'wallets' });
   let wallets:any[]=JSON.parse(database.value);
 
 
@@ -8656,7 +8658,7 @@ console.log('Updated Wallet: '+JSON.stringify(wallets))
 
 
 
-await Storage.set({
+await this.storage.set({
 key: 'wallets',
 value: JSON.stringify(wallets)
 }); 
@@ -8678,7 +8680,7 @@ value: JSON.stringify(wallets)
       cid = walletid;
     }
 
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets: any[] = JSON.parse(database.value);
 
     let searchwallet = wallets.filter((el) => el.id == cid);
@@ -8697,7 +8699,7 @@ value: JSON.stringify(wallets)
       cid = walletid;
     }
 
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets: any[] = JSON.parse(database.value);
 
     let searchwallet = wallets.filter((el) => el.id == cid);
@@ -8725,7 +8727,7 @@ value: JSON.stringify(wallets)
       cid = walletid;
     }
 
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets: any[] = JSON.parse(database.value);
 
     let searchwallet = wallets.filter((el) => el.id == cid);
@@ -8751,7 +8753,7 @@ value: JSON.stringify(wallets)
         thetoken["usdprice"] = usdprice;
       }
 
-      await Storage.set({
+      await this.storage.set({
         key: "wallets",
         value: JSON.stringify(wallets),
       });
@@ -8767,7 +8769,7 @@ value: JSON.stringify(wallets)
       cid = walletid;
     }
 
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets: any[] = JSON.parse(database.value);
 
     let searchwallet = wallets.filter((el) => el.id == cid);
@@ -8776,7 +8778,7 @@ value: JSON.stringify(wallets)
 
     mywallet["mynfts"] = nfts;
 
-    await Storage.set({
+    await this.storage.set({
       key: "wallets",
       value: JSON.stringify(wallets),
     });
@@ -8873,7 +8875,7 @@ value: JSON.stringify(wallets)
       cid = walletid;
     }
 
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets = JSON.parse(database.value);
 
     let mywallet = wallets.filter((el) => el.id == cid);
@@ -9110,7 +9112,7 @@ value: JSON.stringify(wallets)
       cid = walletid;
     }
 
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets: any[] = JSON.parse(database.value);
 
     let searchwallet = wallets.filter((el) => el.id == cid);
@@ -9136,7 +9138,7 @@ value: JSON.stringify(wallets)
       thetoken["pendingTxs"] = newarr;
     }
 
-    await Storage.set({
+    await this.storage.set({
       key: "wallets",
       value: JSON.stringify(wallets),
     });
@@ -9151,7 +9153,7 @@ value: JSON.stringify(wallets)
       cid = walletid;
     }
 
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets: any[] = JSON.parse(database.value);
 
     let searchwallet = wallets.filter((el) => el.id == cid);
@@ -9185,7 +9187,7 @@ value: JSON.stringify(wallets)
     }
 
   
-    await Storage.set({
+    await this.storage.set({
     key: "wallets",
     value: JSON.stringify(wallets),
   });
@@ -9201,7 +9203,7 @@ value: JSON.stringify(wallets)
       cid = walletid;
     }
 
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets: any[] = JSON.parse(database.value);
 
     let searchwallet = wallets.filter((el) => el.id == cid);
@@ -9225,7 +9227,7 @@ value: JSON.stringify(wallets)
         thetoken[name] = value;
       }
 
-      await Storage.set({
+      await this.storage.set({
         key: "wallets",
         value: JSON.stringify(wallets),
       });
@@ -9255,7 +9257,7 @@ value: JSON.stringify(wallets)
       cid = walletid;
     }
 
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets: any[] = JSON.parse(database.value);
 
     let searchwallet = wallets.filter((el) => el.id == cid);
@@ -9264,7 +9266,7 @@ value: JSON.stringify(wallets)
 
     mywallet["network"] = network;
 
-    await Storage.set({
+    await this.storage.set({
       key: "wallets",
       value: JSON.stringify(wallets),
     });
@@ -9283,7 +9285,7 @@ async selectWallet(walletid){
     }
   })
 
-  await Storage.set({
+  await this.storage.set({
     key: "wallets",
     value: JSON.stringify(allWallets),
   });
@@ -9311,7 +9313,7 @@ async selectWallet(walletid){
     } else {
       //replace with get token balance,dont forget
 
-      let database = await Storage.get({ key: "wallets" });
+      let database = await this.storage.get({ key: "wallets" });
       let wallets: any[] = JSON.parse(database.value);
 
       let searchwallet = wallets.filter((el) => el.id == cid);
@@ -9320,7 +9322,7 @@ async selectWallet(walletid){
 
       mywallet.mytokens.push(senttoken);
 
-      await Storage.set({
+      await this.storage.set({
         key: "wallets",
         value: JSON.stringify(wallets),
       });
@@ -9330,7 +9332,7 @@ async selectWallet(walletid){
   }
 
   async getAppSettings(){
-    let database = await Storage.get({ key: "appsettings" });
+    let database = await this.storage.get({ key: "appsettings" });
     let settings: any[] = JSON.parse(database.value);
 
     return settings
@@ -9338,7 +9340,7 @@ async selectWallet(walletid){
 
 
   async saveAppSettings(settings){
-    await Storage.set({
+    await this.storage.set({
       key: "appsettings",
       value: JSON.stringify(settings),
     });
@@ -9354,7 +9356,7 @@ async selectWallet(walletid){
       cid = walletid;
     }
 
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets: any[] = JSON.parse(database.value);
 
     let searchwallet = wallets.filter((el) => el.id == cid);
@@ -9370,7 +9372,7 @@ async selectWallet(walletid){
       }
     }
 
-    await Storage.set({
+    await this.storage.set({
       key: "wallets",
       value: JSON.stringify(wallets),
     });
@@ -9466,13 +9468,13 @@ async getWalletPublicKey(chainname,walletid){
 
     
   
-            await Storage.set({
+            await this.storage.set({
               key: "wallets",
               value: JSON.stringify(wallets),
             });
 
 
-            await Storage.set({
+            await this.storage.set({
               key: "appsettings",
               value: JSON.stringify(appsettings),
             });
@@ -9549,7 +9551,7 @@ async getWalletPublicKey(chainname,walletid){
 
           console.log(data);
 
-          let database = await Storage.get({ key: "wallets" });
+          let database = await this.storage.get({ key: "wallets" });
           let wallets = JSON.parse(database.value);
 
 
@@ -9582,7 +9584,7 @@ async getWalletPublicKey(chainname,walletid){
 
             wallets.push(newwallet);
   
-            await Storage.set({
+            await this.storage.set({
               key: "wallets",
               value: JSON.stringify(wallets),
             });
@@ -9641,7 +9643,7 @@ async getWalletPublicKey(chainname,walletid){
             reject('Invalid Private Key');
           }else{
 
-            let database = await Storage.get({ key: "wallets" });
+            let database = await this.storage.get({ key: "wallets" });
             let wallets = JSON.parse(database.value);
 
             wallets.forEach(el => {
@@ -9663,7 +9665,7 @@ async getWalletPublicKey(chainname,walletid){
 
             wallets.push(newwallet)
 
-            await Storage.set({
+            await this.storage.set({
               key: "wallets",
               value: JSON.stringify(wallets),
             });
@@ -9716,7 +9718,7 @@ async getWalletPublicKey(chainname,walletid){
             reject('Invalid Mnemonic');
           }else{
 
-            let database = await Storage.get({ key: "wallets" });
+            let database = await this.storage.get({ key: "wallets" });
             let wallets = JSON.parse(database.value);
 
             wallets.forEach(el => {
@@ -9738,7 +9740,7 @@ async getWalletPublicKey(chainname,walletid){
 
             wallets.push(newwallet)
 
-            await Storage.set({
+            await this.storage.set({
               key: "wallets",
               value: JSON.stringify(wallets),
             });
@@ -9770,7 +9772,7 @@ async getWalletPublicKey(chainname,walletid){
   }
 
   private async getCurrentWalletId() {
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets = JSON.parse(database.value);
 
     let mywallet = wallets.filter((el) => el.currentview == true);
@@ -9779,7 +9781,7 @@ async getWalletPublicKey(chainname,walletid){
   }
 
   private async getCurrentWalletIndex() {
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets = JSON.parse(database.value);
 
     let currentindex;
@@ -9805,7 +9807,7 @@ async getWalletPublicKey(chainname,walletid){
       cid = walletid;
     }
 
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets = JSON.parse(database.value);
 
     let mywallet = wallets.filter((el) => el.id == cid);
@@ -9822,7 +9824,7 @@ async getWalletPublicKey(chainname,walletid){
       cid = walletid;
     }
 
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets = JSON.parse(database.value);
 
     let walletsearch = wallets.filter((el) => el.id == cid);
@@ -9831,7 +9833,7 @@ async getWalletPublicKey(chainname,walletid){
 
     mywallet[data.name]=data.value
 
-    await Storage.set({
+    await this.storage.set({
       key: "wallets",
       value: JSON.stringify(wallets),
     })
@@ -9840,19 +9842,19 @@ async getWalletPublicKey(chainname,walletid){
 
 
   async writeToAppSettings(data){
-    let database = await Storage.get({ key: "appsettings" });
+    let database = await this.storage.get({ key: "appsettings" });
     let appsettings = JSON.parse(database.value);
 
     appsettings[data.name]=data.value
 
-    await Storage.set({
+    await this.storage.set({
       key: "appsettings",
       value: JSON.stringify(appsettings),
     })
   }
 
   async getAllWallet() {
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets: any[] = JSON.parse(database.value);
 
     return wallets;
@@ -9861,7 +9863,7 @@ async getWalletPublicKey(chainname,walletid){
   
 
   async newWalletId(){
-    let database = await Storage.get({ key: "wallets" });
+    let database = await this.storage.get({ key: "wallets" });
     let wallets: any[] = JSON.parse(database.value);
 
     let lastWallet=wallets.splice(-1);
@@ -9875,7 +9877,7 @@ async getWalletPublicKey(chainname,walletid){
   }
 
   async getAirdrop(){
-    let database = await Storage.get({ key: "airdrop" });
+    let database = await this.storage.get({ key: "airdrop" });
     let airdrop: any[] = JSON.parse(database.value);
 
     return airdrop
@@ -9897,7 +9899,7 @@ async getWalletPublicKey(chainname,walletid){
     let newairdrop=data
 
 
-    await Storage.set({
+    await this.storage.set({
       key: "airdrop",
       value: JSON.stringify(newairdrop),
     });
@@ -9934,7 +9936,7 @@ async getWalletPublicKey(chainname,walletid){
     }
 
 
-    await Storage.set({
+    await this.storage.set({
       key: "wallets",
       value: JSON.stringify(filtered),
     });

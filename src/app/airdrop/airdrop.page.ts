@@ -125,7 +125,7 @@ this.taskrefer=task
    
   }
 
-  async shareRef(){
+async shareRef(){
 // check documentation during compiling
    let sd=await Share.canShare()
    console.log(sd)
@@ -137,6 +137,7 @@ this.taskrefer=task
       dialogTitle: 'Share with buddies',
     });
 }
+
 
     async ngOnInit() {
     await this.startFunc();
