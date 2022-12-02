@@ -9854,6 +9854,7 @@ async getWalletPublicKey(chainname,walletid){
 
   async getAllWallet() {
     let database = await this.storage.get({ key: "wallets" });
+
     let wallets: any[] = JSON.parse(database.value);
 
     return wallets;

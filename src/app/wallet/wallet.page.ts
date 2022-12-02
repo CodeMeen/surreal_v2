@@ -73,8 +73,8 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
 
     if (nocomma === true) {
       return rx.toString();
-    } else if (nocomma === false || !nocomma) {
-      return rx.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    }else{
+      return rx.toString();
     }
   }
 
@@ -106,7 +106,7 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
       }
     }
 
-    this.totalbalance = this.numberize(total, false, 2);
+    this.totalbalance = this.numberize(total, 2);
   }
   async goToBack() {}
 
@@ -290,7 +290,8 @@ await this.updateNfts()
 
       this.numoftk = this.mywallet.mytokens.length;
     } catch (error) {
-      this.router.naviTo(["home"]);
+      console.log(error)
+      this.router.naviTo(["junc"]);
     }
 
     this.calculatebalance();

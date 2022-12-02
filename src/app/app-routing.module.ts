@@ -6,7 +6,7 @@ const routes: Routes = [
   
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'junc',
     pathMatch: 'full'
   },
   {
@@ -131,6 +131,10 @@ const routes: Routes = [
   {
     path: 'airdrop',
     loadChildren: () => import('./airdrop/airdrop.module').then( m => m.AirdropPageModule)
+  },
+  {
+    path: 'junc',
+    loadChildren: () => import('./junc/junc.module').then( m => m.JuncPageModule)
   },
 ];
 

@@ -94,8 +94,8 @@ await this.wallet.getTxs(this.mytoken).then(async (value: any) => {
 
     if (nocomma === true) {
       return rx.toString();
-    } else if (nocomma == false || !nocomma) {
-      return rx.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    }else{
+      return rx.toString();
     }
   }
 
