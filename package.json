@@ -21,6 +21,7 @@
     "@angular/router": "~13.2.2",
     "@awesome-cordova-plugins/clipboard": "^5.44.0",
     "@capacitor-community/sqlite": "^4.2.2",
+    "@capacitor/android": "4.5.0",
     "@capacitor/app": "^4.0.0",
     "@capacitor/browser": "^4.0.0",
     "@capacitor/clipboard": "^4.0.0",

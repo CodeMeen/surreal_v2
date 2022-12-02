@@ -167,7 +167,9 @@ export class StorageService {
          // console.log('Get Data Ret: '+JSON.stringify(ret))
   
           if ( ret.values.length <= 0 ){ 
-            resp=null
+            resp={
+              value:null
+            }
           }else{
            resp=ret.values[0]
           }

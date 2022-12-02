@@ -63,7 +63,9 @@ export class SendtokenPage implements OnInit {
       rx = x.toFixed(2);
     }
 
-    return rx.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    return rx.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    // return rx.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   }
 
   async switchType() {

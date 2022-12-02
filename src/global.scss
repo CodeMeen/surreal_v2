@@ -73,3 +73,50 @@
 body {
     font-family: mntsreg !important;
 }
+
+ /*.purpbox{
+    padding-top: 40px;
+    height: 350px !important;
+} */
+
+.purpheader{
+    position: fixed;
+    width:100%;
+    z-index:1;
+    top: 0;
+}
+
+.view{
+    position:static !important;
+    padding-top: 80px;
+}
+
+
+.walletview{
+padding-top: 0px !important;
+
+}
+
+.sendingselectview{
+    padding-top: 0px !important;
+}
+
+.receivingselectview{
+    padding-top: 0px !important;
+}
+.downnav{
+    padding-bottom: 30px !important;
+}
+
+.onios{
+    .walletview{
+        padding-top: 0px !important;
+
+        .balancemodalbox{
+            margin-top: 70px;
+        }
+        
+        }
+        
+        
+}
