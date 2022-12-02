@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'io.surreal.wallet',
   appName: 'Surreal Wallet',
   webDir: 'www',
   bundledWebRuntime: false
