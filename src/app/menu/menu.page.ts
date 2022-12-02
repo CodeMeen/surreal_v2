@@ -48,11 +48,14 @@ export class MenuPage implements OnInit {
 
     console.log('Airdrop',airdrop)
     console.log('App Settings',appsettings)
+   
 
     this.airdrop_metadata=appsettings.airdrop_metadata
     this.airdrop_data=airdrop
 
     this.airdropWallet=await this.wallet.checkAirdropWallet();
+
+   
 
   
    
