@@ -31,6 +31,9 @@ export class HomePage implements AfterContentChecked,OnInit{
   async getStarted(){
     await this.wallet.createDefault().then(()=>{
       this.router.naviTo(['/account']);
+    },
+    (error)=>{
+      console.log('Error',error)
     })
    
   }

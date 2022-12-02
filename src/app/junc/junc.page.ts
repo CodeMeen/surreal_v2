@@ -19,7 +19,7 @@ export class JuncPage implements OnInit {
    
 console.log(wallets)
     if(!wallets){
-
+this.router.naviTo(['/home'])
     }else{
 
 this.router.naviTo(['/account']);
