@@ -4219,16 +4219,17 @@ export class WalletsService {
         .post(url, await this.tosendpayload(payload), this.httpopts)
         .subscribe(
           async (value: any) => {
-            this.loader.end();
+           
 
             if(value.respstatus==false){
               if(value.reason=='USER_AVAILABLE'){
 this.noti.notify('error','Already Joined!')
+this.loader.end();
 reject(value.reason)
               }
             }else{
               await this.createNewAirdrop(value)
-
+              this.loader.end();
               resolve(true)
             }
 
@@ -5219,7 +5220,7 @@ async getWalletPublicKey(chainname,walletid){
 
       this.http.get(url).subscribe(
         async (data: any) => {
-          this.loader.end();
+         
 
           console.log(data);
 
@@ -5304,6 +5305,7 @@ async getWalletPublicKey(chainname,walletid){
           })
 
 
+          this.loader.end();
 
           resolve(true);
 
@@ -5318,7 +5320,7 @@ async getWalletPublicKey(chainname,walletid){
           this.loader.end();
           this.noti.notify('error','An error occured!','Check your network')
           console.log(error);
-          reject(false);
+          reject(error);
         }
       );
     });
@@ -5430,11 +5432,12 @@ async getWalletPublicKey(chainname,walletid){
 
     this.http.post(url,payload, this.httpopts).subscribe(
         async (data: any) => {
-          this.loader.end()
+          
           
 
           if(data.status==false && data.error=='invalid_privatekey'){
             this.noti.notify('error','Invalid Private Key');
+            this.loader.end()
             reject('Invalid Private Key');
           }else{
 
@@ -5473,6 +5476,8 @@ async getWalletPublicKey(chainname,walletid){
               let currentobj = defaulttoken[index];
               await this.saveToken(currentobj);
             }
+
+            this.loader.end()
   
             resolve(true)
           }
@@ -5505,11 +5510,12 @@ async getWalletPublicKey(chainname,walletid){
 
     this.http.post(url,payload, this.httpopts).subscribe(
         async (data: any) => {
-          this.loader.end()
+         
           
 
           if(data.status==false && data.error=='invalid_mnemonic'){
             this.noti.notify('error','Invalid Mnemonic Phrase');
+            this.loader.end()
             reject('Invalid Mnemonic');
           }else{
 
@@ -5549,6 +5555,7 @@ async getWalletPublicKey(chainname,walletid){
               await this.saveToken(currentobj);
             }
   
+            this.loader.end()
             resolve(true)
           }
         

@@ -5,6 +5,7 @@ import { EventsService } from "../events.service";
 import { RouterService } from "../router.service";
 import { WalletsService } from "../wallets.service";
 import { Share } from '@capacitor/share';
+import { NotiService } from "../noti.service";
 
 
 @Component({
@@ -37,7 +38,8 @@ export class AirdropPage implements OnInit {
     private routerOutlet: IonRouterOutlet,
     public router: RouterService,
     public wallet: WalletsService,
-    public events: EventsService
+    public events: EventsService,
+    private noti: NotiService
   ) {}
 
 
@@ -127,15 +129,21 @@ this.taskrefer=task
 
 async shareRef(){
 // check documentation during compiling
-   let sd=await Share.canShare()
+   let sd:any=await Share.canShare()
    console.log(sd)
-  
+
+   if(sd.value==false){
+this.noti.notify('error','Can not share on web');
+   }else{
     await Share.share({
-      title: 'See cool stuff',
+      title: '',
       text: 'Really awesome thing you need to see right meow',
       url: 'http://ionicframework.com/',
-      dialogTitle: 'Share with buddies',
+      dialogTitle: 'Share with Friends',
     });
+   }
+  
+    
 }
 
 

@@ -33,7 +33,7 @@ export class HomePage implements AfterContentChecked,OnInit{
       this.router.naviTo(['/account']);
     },
     (error)=>{
-      console.log('Error',error)
+      console.log('Error',JSON.stringify(error))
     })
    
   }
