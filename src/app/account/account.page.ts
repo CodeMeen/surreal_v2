@@ -14,8 +14,6 @@ import { WalletsService } from '../wallets.service';
 export class AccountPage implements OnInit {
   
   panelmode;
-
-
   
   constructor(public router:Router,private routerOutlet: IonRouterOutlet,public events:EventsService,public wallet: WalletsService) { }
 

@@ -3,6 +3,7 @@ import {SwiperComponent} from 'swiper/angular';
 import SwiperCore, { SwiperOptions,Pagination } from 'swiper';
 import { RouterService } from '../router.service';
 import { WalletsService } from '../wallets.service';
+import { IonRouterOutlet } from '@ionic/angular';
 
 SwiperCore.use([Pagination]);
 
@@ -24,7 +25,7 @@ export class HomePage implements AfterContentChecked,OnInit{
 
  
 
-  constructor(private cd: ChangeDetectorRef,private router: RouterService,private wallet: WalletsService) {
+  constructor(private cd: ChangeDetectorRef,private router: RouterService,private routerOutlet: IonRouterOutlet,private wallet: WalletsService) {
 
   }
 
@@ -45,6 +46,11 @@ export class HomePage implements AfterContentChecked,OnInit{
     }
     
     }
+
+    async ionViewDidEnter() {
+    
+      this.routerOutlet.swipeGesture = false;
+  }
 
     async ngOnInit(){
 
