@@ -5,7 +5,7 @@ import { Capacitor } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver'
-import { SlowBuffer } from 'buffer';
+
 
 
 @Injectable({
@@ -17,7 +17,6 @@ export class StorageService {
   private _storage: Storage | null = null;
 
   constructor(private _sqlite: SqliteService,private platform: Platform,private storage: Storage) { 
-    this.init();
   }
 
   async init() {
