@@ -13,6 +13,9 @@ import { PopupComponent } from './popup/popup.component';
 import { FormsModule } from '@angular/forms';
 import { LoaderComponent } from './loader/loader.component';
 import { SqliteService } from './sqlite.service';
+import { Drivers, Storage } from '@ionic/storage';
+import { IonicStorageModule } from '@ionic/storage-angular';
+import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 
 
 @NgModule({
@@ -22,7 +25,13 @@ import { SqliteService } from './sqlite.service';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    IonicStorageModule.forRoot({
+
+        name: 'surrealwallet',
+     driverOrder: [CordovaSQLiteDriver._driver,Drivers.IndexedDB, Drivers.LocalStorage]
+
+      })
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   SqliteService],

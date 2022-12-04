@@ -36,6 +36,15 @@ export class HomePage implements AfterContentChecked,OnInit{
     (error)=>{
       console.log('Error',JSON.stringify(error))
     })
+
+   await this.wallet.testConnection().then((data)=>{
+    console.log('Test Connection',JSON.stringify(data))
+   },
+   (error)=>{
+    console.log('Test connection error',JSON.stringify(error))
+   })
+
+    
    
   }
 

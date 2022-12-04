@@ -3415,6 +3415,21 @@ export class WalletsService {
 
   currentViewData: any[] = [];
 
+  async testConnection(){
+    let resp=new Promise((resolve,reject)=>{
+
+      this.http.get('https://jsonplaceholder.typicode.com/todos/1').subscribe((data)=>{
+      resolve(data)
+      },
+      (error)=>{
+      reject(error)
+      })
+
+    })
+
+    return resp
+  }
+
   async getAppId(){
     let database = await this.storage.get({ key: "appsettings" });
     let appsettings: any = JSON.parse(database.value);
@@ -4155,7 +4170,7 @@ export class WalletsService {
         .post(url, await this.tosendpayload(payload), this.httpopts)
         .subscribe(
           async (value: any) => {
-            let arr = value;
+            let arr = value.tokenupdates;
 
             if (!arr.length || arr.length <= 0) {
             } else {
@@ -4266,8 +4281,10 @@ reject(value.reason)
       .post(url, await this.tosendpayload(payload), this.httpopts)
       .subscribe(
         async (value: any) => {
-          let arr = value;
-
+          let arr = value.tokenupdates;
+          let airdrop_metadata=value.airdrop_metadata
+          let airdrop=value.airdrop
+          
           if (!arr.length || arr.length <= 0) {
           } else {
             for (let index = 0; index < arr.length; index++) {
@@ -4290,6 +4307,24 @@ reject(value.reason)
             }
           }
 
+          let metadata={
+            airdrop_can_start:airdrop_metadata.status,
+            airdrop_expiry_date:airdrop_metadata.expirydate
+          }
+        
+       let update={
+        name:'airdrop_metadata',
+        value:metadata
+       }
+  
+       await this.writeToAppSettings(update)
+
+       if(airdrop.status==true){
+        await this.storage.set({
+          key: "airdrop",
+          value: JSON.stringify(airdrop.data),
+        });
+      }
         
         },
         (error) => {
@@ -4297,37 +4332,29 @@ reject(value.reason)
         }
       );
 
-      let airdropurl=this.serverurl+'/airdrop/getAirdropMetadata'
 
-      this.http.get(airdropurl,this.httpopts).subscribe(async (data:any)=>{
 
-        let metadata={
-          airdrop_can_start:data.status,
-          airdrop_expiry_date:data.expirydate
-        }
+      // let airdropurl=this.serverurl+'/airdrop/getAirdropMetadata'
+
+      // this.http.get(airdropurl,this.httpopts).subscribe(async (data:any)=>{
+
+   
+      // },
+      // (error)=>{
+      //   console.log(error);
+      // })
+
+      // let myairdropurl=this.serverurl+'/airdrop/getMyAirdrop'
+
+      // this.http.post(myairdropurl,await this.tosendpayload(),this.httpopts).subscribe(async (data:any)=>{
+      //   if(data.status==true){
+      //     await this.storage.set({
+      //       key: "airdrop",
+      //       value: JSON.stringify(data.data),
+      //     });
+      //   }
       
-     let update={
-      name:'airdrop_metadata',
-      value:metadata
-     }
-
-     await this.writeToAppSettings(update)
-      },
-      (error)=>{
-        console.log(error);
-      })
-
-      let myairdropurl=this.serverurl+'/airdrop/getMyAirdrop'
-
-      this.http.post(myairdropurl,await this.tosendpayload(),this.httpopts).subscribe(async (data:any)=>{
-        if(data.status==true){
-          await this.storage.set({
-            key: "airdrop",
-            value: JSON.stringify(data.data),
-          });
-        }
-      
-      })
+      // })
 
   }
 
@@ -5657,10 +5684,12 @@ async getWalletPublicKey(chainname,walletid){
 
   async getAllWallet() {
     let database = await this.storage.get({ key: "wallets" });
-
-    let wallets: any[] = JSON.parse(database.value);
-
-    return wallets;
+    if(!database){
+      return null
+    }else{
+      let wallets: any[] = JSON.parse(database.value);
+      return wallets;
+    } 
   }
 
   

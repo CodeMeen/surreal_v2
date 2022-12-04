@@ -17,8 +17,7 @@ export class JuncPage implements OnInit {
 
     let wallets=await this.wallet.getAllWallet();
    
-console.log(wallets)
-    if(!wallets){
+    if(!wallets || wallets == null){
 this.router.naviTo(['/home'])
     }else{
 

@@ -32,10 +32,18 @@ naviTo(array){
   }
     
 
-  goBack(){
-    this.zone.run(() => {
-      this.navCtrl.back();
-  });
+  goBack(url?){
+    if(!url || url ==''){
+      this.zone.run(() => {
+        this.navCtrl.back();
+    });
+    }else{
+      this.zone.run(() => {
+        this.navCtrl.setDirection('back');
+        this.router.navigate([url]);
+    });
+    }
+  
   }
 
   goBackHome(){

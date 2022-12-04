@@ -6,6 +6,7 @@ import { RouterService } from "../router.service";
 import { WalletsService } from "../wallets.service";
 import { Share } from '@capacitor/share';
 import { NotiService } from "../noti.service";
+import { Clipboard } from '@capacitor/clipboard';
 
 
 @Component({
@@ -127,18 +128,22 @@ this.taskrefer=task
    
   }
 
-async shareRef(){
+async shareRef(message){
 // check documentation during compiling
    let sd:any=await Share.canShare()
    console.log(sd)
 
    if(sd.value==false){
-this.noti.notify('error','Can not share on web');
+    await Clipboard.write({
+      string:message
+    });
+
+    this.noti.notify('success','Copied!','Paste your referral info to your friends');
+
    }else{
     await Share.share({
-      title: '',
-      text: 'Really awesome thing you need to see right meow',
-      url: 'http://ionicframework.com/',
+      title: 'Join App lauch Giveaway/Airdrop',
+      text: message,
       dialogTitle: 'Share with Friends',
     });
    }
