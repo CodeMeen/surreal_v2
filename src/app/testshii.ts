@@ -1,28 +1,4 @@
-import { Injectable } from '@angular/core';
-
-import { SqliteService } from './sqlite.service';
-import { Preferences } from '@capacitor/preferences';
-import { Capacitor } from '@capacitor/core';
-
-import { Platform } from '@ionic/angular';
-import { Storage } from '@ionic/storage-angular';
-import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver'
-
-
-
-@Injectable({
-  providedIn: 'root'
-})
-export class StorageService {
-  initialized:any=false
-  db:any
-
-  
-  private _storage: Storage | null = null;
-
-  constructor(private _sqlite: SqliteService,private platform: Platform,private storage: Storage) { 
-  }
-
+/*
   async init() {
     let res=new Promise(async (resolve,reject)=>{
       if(this.initialized==false){
@@ -32,7 +8,7 @@ export class StorageService {
         await this.storage.create().then((storage)=>{
          this._storage = storage;
          this.initialized=true
-         
+         console.log('THIS SHITT INITIALIZED!')
          resolve(this.initialized)
         },
         (error)=>{
@@ -43,6 +19,7 @@ export class StorageService {
         
        }else{
          this.initialized=true
+
          resolve(this.initialized)
        }
     })
@@ -50,9 +27,10 @@ export class StorageService {
   return res
   }
 
-   public async set(data) {
+  
+   public async setOld(data) {
     await this.init().then(async ()=>{
-      await this._storage.set(data.key, data.value);
+      await this._storage?.set(data.key, data.value);
     },
     (error)=>{
      console.log('Could Not Init Storage',error)
@@ -60,7 +38,7 @@ export class StorageService {
  
   }
 
-  public async get(data){
+  public async getOld(data){
     let fetcheddata;
 
     await this.init().then(async ()=>{
@@ -95,6 +73,8 @@ return fetcheddata
    console.log(resp)
    return resp
   }
+
+  */
 
   // async initializeStorage() {
 
@@ -274,6 +254,3 @@ return fetcheddata
 //     return resp;
    
 //   }
-
-
-}
