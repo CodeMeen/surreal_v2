@@ -107,6 +107,11 @@ this.noti.notify('success','Saved!')
 
     }
 
+    async ionViewDidEnter() {
+    
+      this.routerOutlet.swipeGesture = true;
+    }
+
   async ngOnInit() {
 await this.startfunc()
   }

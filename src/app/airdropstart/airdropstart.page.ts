@@ -4,6 +4,7 @@ import { EventsService } from '../events.service';
 import { NotiService } from '../noti.service';
 import { PopupService } from '../popup.service';
 import { RouterService } from "../router.service";
+import { IonRouterOutlet } from '@ionic/angular';
 
 @Component({
   selector: 'app-airdropstart',
@@ -22,7 +23,7 @@ export class AirdropstartPage implements OnInit {
 
   countdown:any;
 
-  constructor(public wallet: WalletsService,private events:EventsService, public noti:NotiService, public popup: PopupService,public router: RouterService ) { }
+  constructor(public wallet: WalletsService,private events:EventsService, public noti:NotiService, public popup: PopupService,public router: RouterService, private routerOutlet: IonRouterOutlet, ) { }
 
 
   myfunc = setInterval(async ()=> {
@@ -66,6 +67,11 @@ async startFunc(){
 startAirdrop(){
   this.router.naviTo(['/startairdroprefcode'])
 
+}
+
+async ionViewDidEnter() {
+    
+  this.routerOutlet.swipeGesture = true;
 }
 
 

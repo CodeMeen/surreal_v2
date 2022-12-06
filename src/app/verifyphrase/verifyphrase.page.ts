@@ -211,6 +211,11 @@ this.noti.notify('success','Wallet has been backed up successfully!')
     }
   }
 
+  async ionViewDidEnter() {
+    
+    this.routerOutlet.swipeGesture = false;
+  }
+
   async ngOnInit() {
     await this.startfunc()
   }

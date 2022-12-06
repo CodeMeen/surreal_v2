@@ -42,7 +42,8 @@ export class SendtokenPage implements OnInit {
     private wallet: WalletsService,
     public noti: NotiService,
     private cd: ChangeDetectorRef,
-    public loader: LoaderService
+    public loader: LoaderService,
+    private routerOutlet: IonRouterOutlet
   ) {}
 
   max() {
@@ -213,6 +214,12 @@ export class SendtokenPage implements OnInit {
      
     }
   }
+
+  async ionViewDidEnter() {
+    
+    this.routerOutlet.swipeGesture = true;
+  }
+
 
   async ngOnInit() {
     await this.syncToken().then(async (value) => {

@@ -161,6 +161,11 @@ this.selectToken(tokenname,tokentype);
 
   }
 
+  async ionViewDidEnter() {
+    
+    this.routerOutlet.swipeGesture = true;
+}
+
  
   async ngOnInit() {
     this.routerOutlet.swipeGesture = true;

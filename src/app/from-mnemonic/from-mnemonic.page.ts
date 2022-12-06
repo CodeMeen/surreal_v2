@@ -63,6 +63,12 @@ this.inputflag=true
       })
     }
 
+
+    async ionViewDidEnter() {
+    
+      this.routerOutlet.swipeGesture = true;
+    }
+    
   async ngOnInit() {
 
     await this.setWalletName()

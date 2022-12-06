@@ -19,9 +19,7 @@ export class StorageService {
   db:any
 
 
-  private _storage: Storage | null = null;
-
-  constructor(private _sqlite: SqliteService,private platform: Platform,private storage: Storage) { 
+  constructor(private _sqlite: SqliteService,private platform: Platform) { 
   }
 
   /*
@@ -144,6 +142,10 @@ return fetcheddata
               
                let ret: any = await this.db.execute(createTable);
                console.log(ret)
+
+                 // close db surrealwallet
+                 await this.db.close();
+        
                console.log('Changes in db ' + ret.changes.changes);
 
 
@@ -186,6 +188,9 @@ return fetcheddata
          if(appPlatform==='web'){
            await Preferences.set(data);
          }else{
+
+            // open db surrealwallet
+            await this.db.open();
     
            let db = this.db
     
@@ -219,6 +224,9 @@ return fetcheddata
          /*  await this._sqlite.closeConnection('surrealwalletxx').then(()=>{
              console.log('Connection closed on SET: ')
            }); */
+
+             // close db surrealwallet
+             await this.db.close();
     
          }
   
@@ -244,6 +252,9 @@ return fetcheddata
          let res= await Preferences.get(data);
          resp=res
        }else{
+
+         // open db surrealwallet
+         await this.db.open();
   
          let db = this.db
         
@@ -263,7 +274,8 @@ return fetcheddata
         /*  await this._sqlite.closeConnection('surrealwalletxx').then(()=>{
            console.log('Connection closed on GET')
          }) */
-        
+          // open db surrealwallet
+      await this.db.close();
        }
      },
      ()=>{
@@ -271,6 +283,8 @@ return fetcheddata
        console.log('An error occured While Initializing Storage');
      }
      )
+
+    
 
   
     

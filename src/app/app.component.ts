@@ -2,7 +2,7 @@ import { Component} from '@angular/core';
 import { App } from '@capacitor/app';
 import { Platform } from '@ionic/angular';
 import { Capacitor } from '@capacitor/core';
-import { SlowBuffer } from 'buffer';
+
 
 @Component({
   selector: 'app-root',

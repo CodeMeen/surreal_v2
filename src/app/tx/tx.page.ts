@@ -121,6 +121,10 @@ export class TxPage implements OnInit {
     await Browser.open({ url: mapurl });
   }
 
+  async ionViewDidEnter() {
+    
+    this.routerOutlet.swipeGesture = true;
+  }
 
   async ngOnInit() {
     this.mytoken = await this.wallet.readViewData("mytoken");

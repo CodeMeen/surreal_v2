@@ -38,6 +38,12 @@ export class StartairdroprefcodePage implements OnInit {
   
   }
 
+
+  async ionViewDidEnter() {
+    
+    this.routerOutlet.swipeGesture = true;
+  }
+  
   ngOnInit() {
   }
 

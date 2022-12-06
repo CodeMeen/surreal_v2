@@ -4,6 +4,7 @@ import { EventsService } from '../events.service';
 import { NotiService } from '../noti.service';
 import { PopupService } from '../popup.service';
 import { RouterService } from "../router.service";
+import { IonRouterOutlet } from '@ionic/angular';
 @Component({
   selector: 'app-swaptoken',
   templateUrl: './swaptoken.page.html',
@@ -28,7 +29,7 @@ export class SwaptokenPage implements OnInit {
     'totokenusd':0
   }
 
-  constructor(public wallet: WalletsService,private events:EventsService, public noti:NotiService, public popup: PopupService,public router: RouterService ) { }
+  constructor(public wallet: WalletsService,private events:EventsService,private routerOutlet: IonRouterOutlet, public noti:NotiService, public popup: PopupService,public router: RouterService ) { }
 
   numberize(x,nocomma?,num?) {
     let rx;
@@ -329,6 +330,10 @@ ionViewWillEnter(){
     
   }
 
+  async ionViewDidEnter() {
+    
+    this.routerOutlet.swipeGesture = true;
+  }
 
 ngOnInit() {
   

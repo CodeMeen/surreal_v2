@@ -51,6 +51,11 @@ export class NewWalletPage implements OnInit {
     })
   }
 
+  async ionViewDidEnter() {
+    
+    this.routerOutlet.swipeGesture = true;
+  }
+
 async ngOnInit() {
 
   await this.setWalletName()

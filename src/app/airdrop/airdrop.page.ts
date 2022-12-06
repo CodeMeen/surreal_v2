@@ -177,6 +177,11 @@ async shareRef(message){
 
   }
 
+  async ionViewDidEnter() {
+    
+    this.routerOutlet.swipeGesture = true;
+}
+
   async ionViewWillEnter(){
     console.log('Entering AirDrop..')
 

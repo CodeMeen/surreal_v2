@@ -31,7 +31,7 @@ export class AccountPage implements OnInit {
 
       setTimeout(async ()=>{
        await this.alwaysupdatebalances()
-      },30000)
+      },35000)
       
  
     

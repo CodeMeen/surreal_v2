@@ -80,6 +80,12 @@ export class ExportwalletPage implements OnInit {
               }
      }
 
+
+     async ionViewDidEnter() {
+    
+      this.routerOutlet.swipeGesture = true;
+    }
+
     
 
   async ngOnInit() {

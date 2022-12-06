@@ -106,6 +106,12 @@ async confirmTx(){
 
   }
 
+  async ionViewDidEnter() {
+    
+    this.routerOutlet.swipeGesture = true;
+  }
+  
+
 
  async ngOnInit() {
 

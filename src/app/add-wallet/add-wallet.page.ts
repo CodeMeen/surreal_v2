@@ -61,6 +61,11 @@ export class AddWalletPage implements OnInit {
         this.popup.initpopup(tyInfo,selectfunc)
     }
 
+    async ionViewDidEnter() {
+    
+      this.routerOutlet.swipeGesture = true;
+  }
+
   ngOnInit() {
 
   }

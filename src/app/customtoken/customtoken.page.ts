@@ -31,7 +31,8 @@ export class CustomtokenPage implements OnInit {
     private wallet: WalletsService,
     public noti: NotiService,
     private cd: ChangeDetectorRef,
-    public loader: LoaderService
+    public loader: LoaderService,
+    private routerOutlet: IonRouterOutlet
     ) { }
 
     async pasteAddress() {
@@ -99,6 +100,12 @@ export class CustomtokenPage implements OnInit {
        
       })
     }
+
+    async ionViewDidEnter() {
+    
+      this.routerOutlet.swipeGesture = true;
+    }
+    
 
   ngOnInit() {
   }

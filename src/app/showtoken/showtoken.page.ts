@@ -171,6 +171,12 @@ await this.wallet.getTxs(this.mytoken).then(async (value: any) => {
   }
 
 
+  async ionViewDidEnter() {
+    
+    this.routerOutlet.swipeGesture = true;
+  }
+
+  
   ngOnDestroy() {
   this.reloading=false
   console.log("Left ShowToken")

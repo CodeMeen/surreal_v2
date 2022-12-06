@@ -5,6 +5,7 @@ import { NotiService } from '../noti.service';
 import { RouterService } from '../router.service';
 import { WalletsService } from '../wallets.service';
 import { Clipboard } from '@capacitor/clipboard';
+import { IonRouterOutlet } from '@ionic/angular';
 
 @Component({
   selector: 'app-receivetoken',
@@ -18,7 +19,7 @@ export class ReceivetokenPage implements OnInit {
   qrInfo;
 
 
-  constructor(private http: HttpClient,private route: ActivatedRoute,public router:RouterService,private wallet:WalletsService,public noti:NotiService) { }
+  constructor(private http: HttpClient,private route: ActivatedRoute,public router:RouterService,private wallet:WalletsService,public noti:NotiService,private routerOutlet: IonRouterOutlet) { }
 
   async copyAddr(){
     await Clipboard.write({
@@ -43,6 +44,11 @@ export class ReceivetokenPage implements OnInit {
 
     this.qrInfo=this.mytoken.publickey;
 
+  }
+
+  async ionViewDidEnter() {
+    
+    this.routerOutlet.swipeGesture = true;
   }
 
   async ngOnInit() {

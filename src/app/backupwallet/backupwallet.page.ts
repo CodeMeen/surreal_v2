@@ -49,6 +49,11 @@ export class BackupwalletPage implements OnInit {
       this.noti.notify('success','Copied!');
     }
     
+    async ionViewDidEnter() {
+    
+      this.routerOutlet.swipeGesture = true;
+    }
+    
 
   async ngOnInit() {
   await this.startfunc();
