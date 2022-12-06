@@ -114,7 +114,7 @@ await this.wallet.getTxs(this.mytoken).then(async (value: any) => {
     if(this.reloading==true) {
       setTimeout(async () =>{
         this.reloadFunc();
-      },3000)
+      },this.wallet.reloadtime)
     }
 
   

@@ -302,7 +302,7 @@ if(value.status==true){
     if(this.reloading==true) {
       setTimeout(async () =>{
         this.reloadFunc();
-      },3000)
+      },this.wallet.reloadtime)
     }
 
   

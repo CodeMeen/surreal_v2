@@ -16,7 +16,7 @@ export class AppComponent {
   
   ) {
 
-
+/*
     this.platform.ready().then(async () => {
       this.platform.backButton.subscribeWithPriority(
         666666, () => {
@@ -24,6 +24,8 @@ export class AppComponent {
         });
 
       })
+
+      */
 
 
 
