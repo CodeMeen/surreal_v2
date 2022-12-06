@@ -163,7 +163,7 @@ async shareRef(message){
     if(this.reloading==true) {
       setTimeout(async () =>{
         this.reloadFunc();
-      },2000)
+      },this.wallet.reloadtime)
     }
 
   }
