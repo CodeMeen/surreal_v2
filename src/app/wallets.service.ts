@@ -3400,10 +3400,10 @@ export class WalletsService {
   };
 
 
-   urltwo="http://172.20.10.2:3000"
-  serverurl = "http://localhost:3000";
+   urltwo="http://localhost:3000"
+  serverurl = "http://172.20.10.2:3000";
 
-  reloadtime=15000
+  reloadtime=12000
 
   constructor(
     private http: HttpClient,
