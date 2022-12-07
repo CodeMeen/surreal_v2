@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PopupService } from '../popup.service';
+import { WalletsService } from '../wallets.service';
 
 @Component({
   selector: 'app-popup',
@@ -11,7 +12,7 @@ export class PopupComponent implements OnInit {
   searchdata;
 
 
-  constructor(public popUp: PopupService) {
+  constructor(public popUp: PopupService,public wallet: WalletsService) {
    }
 
   listfunc=(paramfunc,data)=>{

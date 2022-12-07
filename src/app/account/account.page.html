@@ -3,7 +3,7 @@
 
     </ion-router-outlet>
 
-    <div class="downnav" [ngClass]="{'dark':panelmode=='dark','light':panelmode=='light'}">
+    <div class="downnav {{wallet.appPlatform}}" [ngClass]="{'dark':panelmode=='dark','light':panelmode=='light'}">
         <div routerLink="/account/wallet" class="eachdnav" routerLinkActive="eachdnavactive" (click)="panelmode='light';">
             <ion-icon name="wallet" class="eachdnavicon"></ion-icon>
         </div>

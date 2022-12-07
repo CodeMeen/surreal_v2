@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NotiService } from '../noti.service';
+import { WalletsService } from '../wallets.service';
 
 @Component({
   selector: 'app-notipanel',
@@ -8,7 +9,7 @@ import { NotiService } from '../noti.service';
 })
 export class NotipanelComponent implements OnInit {
 
-  constructor(public noti:NotiService) { }
+  constructor(public noti:NotiService,public wallet: WalletsService) { }
 
   ngOnInit() {}
 

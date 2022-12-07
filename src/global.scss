@@ -74,11 +74,6 @@ body {
     font-family: mntsreg !important;
 }
 
- /*.purpbox{
-    padding-top: 40px;
-    height: 350px !important;
-} */
-
 .purpheader{
     position: fixed;
     width:100%;
@@ -87,34 +82,85 @@ body {
 }
 
 .view{
-    padding-top: 92px;
+    padding-bottom: 92px !important; 
+
+    
+}
+
+.view.web{
+    padding-top: 92px !important;
 }
 
 
-.walletview{
+
+.view.ios{
+    padding-top: 135px;
+
+    .purpheader{
+        top:43px !important;
+      }
+
+      .buttonbelow{
+       bottom: 20px !important;
+      }
+}
+
+
+.walletview.web{
+    padding-top: 0px !important;   
+}
+
+.walletview.ios{
 padding-top: 0px !important;
 
+  .purpbox{  
+    height: 367px !important;
+  }
+
+  .purpheader{
+    top:43px !important;
+  }
+
+  .balancemodal{
+    margin-top:105px;
+  }
+
 }
 
-.sendingselectview{
+.sendingselectview.web{
     padding-top: 0px !important;
 }
 
-.receivingselectview{
+.receivingselectview.web{
     padding-top: 0px !important;
 }
-.downnav{
-    padding-bottom: 30px !important;
+
+
+.downnav.web{
+    padding-bottom: 20px !important;
 }
 
-.onios{
-    .walletview{
-        padding-top: 0px !important;
+.downnav.ios{
+    padding-bottom: 33px !important;
+}
 
-        .balancemodalbox{
-            margin-top: 70px;
-        }
-         }
-        
-        
+.notipanel.ios{
+    padding-top: 47px !important;
+}
+
+.popupdiv.ios {
+    .popaction{
+        bottom:20px !important;
+    }
+    
+    .popupminiheight{
+        height:32%;
+      }
+      
+      
+      .popupmaxheight{
+        height:52%;
+      }
+
+    
 }

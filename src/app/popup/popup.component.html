@@ -1,7 +1,7 @@
 <div class="blackoverl" (click)='popUp.close();' [ngClass]="{'overlshow':popUp.popopened,'lightoverl':popUp.transparent,'opaqueoverl':!popUp.transparent}">
 </div>
 
-<div class="popupdiv popupshadow" #popupdiv [ngClass]="{'popshow':popUp.popopened,'popupmaxheight':popUp.height==='maxi','popupminiheight':popUp.height==='mini'}">
+<div class="popupdiv popupshadow {{wallet.appPlatform}}" #popupdiv [ngClass]="{'popshow':popUp.popopened,'popupmaxheight':popUp.height==='maxi','popupminiheight':popUp.height==='mini'}">
     <div class="popupdownbtn" (click)='popUp.close();'></div>
 
     <div *ngIf="popUp.search && popUp.type==='list'">

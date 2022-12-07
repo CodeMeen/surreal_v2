@@ -1,5 +1,9 @@
-<div class="notipanel" [ngClass]="{'notishow':noti.opened,'notisuccess':noti.type==='success','notierr':noti.type==='networkerr' || noti.type==='servererr' || noti.type==='error'}">
-  <div class="notiimgcont">
+<div class="notipanel {{wallet.appPlatform}}" [ngClass]="{'notishow':noti.opened,'notisuccess':noti.type==='success','notierr':noti.type==='networkerr' || noti.type==='servererr' || noti.type==='error'}">
+  
+  
+  
+  
+    <div class="notiimgcont">
       <div class="notiimg" [ngClass]="{'nuisuccess':noti.type==='success','no-wifi':noti.type==='networkerr','nuierror':noti.type==='servererr' || noti.type==='error'}"></div>
   </div>
 
