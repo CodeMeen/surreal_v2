@@ -28,7 +28,7 @@ export class CustomtokenPage implements OnInit {
   constructor( private http: HttpClient,
     private route: ActivatedRoute,
     public router: RouterService,
-    private wallet: WalletsService,
+    public wallet: WalletsService,
     public noti: NotiService,
     private cd: ChangeDetectorRef,
     public loader: LoaderService,

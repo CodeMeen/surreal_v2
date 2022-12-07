@@ -19,7 +19,7 @@ export class ReceivetokenPage implements OnInit {
   qrInfo;
 
 
-  constructor(private http: HttpClient,private route: ActivatedRoute,public router:RouterService,private wallet:WalletsService,public noti:NotiService,private routerOutlet: IonRouterOutlet) { }
+  constructor(private http: HttpClient,private route: ActivatedRoute,public router:RouterService,public wallet:WalletsService,public noti:NotiService,private routerOutlet: IonRouterOutlet) { }
 
   async copyAddr(){
     await Clipboard.write({

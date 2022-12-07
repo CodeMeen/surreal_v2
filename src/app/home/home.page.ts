@@ -25,7 +25,7 @@ export class HomePage implements AfterContentChecked,OnInit{
 
  
 
-  constructor(private cd: ChangeDetectorRef,private router: RouterService,private routerOutlet: IonRouterOutlet,private wallet: WalletsService) {
+  constructor(private cd: ChangeDetectorRef,private router: RouterService,private routerOutlet: IonRouterOutlet,public wallet: WalletsService) {
 
   }
 

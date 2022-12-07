@@ -2,9 +2,9 @@
 
 <ion-content>
 
-  <div class="sendingselectview view">
+  <div class="sendingselectview view {{wallets.appPlatform}}">
       <div class="header">
-          <div class="goback" (click)="router.goBack()">
+          <div class="goback" (click)="router.goBack('/account')">
               <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
           </div>
           <div class="searchtoken">

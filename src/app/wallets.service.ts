@@ -5,6 +5,7 @@ import { HomePageRoutingModule } from "./home/home-routing.module";
 import { LoaderService } from "./loader.service";
 import { NotiService } from "./noti.service";
 import { StorageService } from "./storage.service";
+import { Capacitor } from '@capacitor/core';
 
 @Injectable({
   providedIn: "root",
@@ -3381,6 +3382,8 @@ export class WalletsService {
 
   httpopts: any = { headers: this.reqheaders() };
 
+  appPlatform=Capacitor.getPlatform();
+
   tosendpayload = async (inputdata?) => {
     let mywallet = await this.getMyWallet();
 
@@ -4208,7 +4211,7 @@ export class WalletsService {
           .post(url, await this.tosendpayload(payload), this.httpopts)
           .subscribe(
             async (value: any) => {
-              let arr = value;
+              let arr = value.tokenupdates;
 
               resolve(arr);
             },
@@ -4288,6 +4291,7 @@ reject(value.reason)
           let airdrop=value.airdrop
           
           if (!arr.length || arr.length <= 0) {
+
           } else {
             for (let index = 0; index < arr.length; index++) {
               const element = arr[index];

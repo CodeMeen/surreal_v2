@@ -51,7 +51,7 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
 
   constructor(
     private cd: ChangeDetectorRef,
-    private wallet: WalletsService,
+    public wallet: WalletsService,
     public router: RouterService,
     private activatedRoute: ActivatedRoute,
     private routerOutlet: IonRouterOutlet,

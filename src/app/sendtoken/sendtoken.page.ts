@@ -39,7 +39,7 @@ export class SendtokenPage implements OnInit {
     private http: HttpClient,
     private route: ActivatedRoute,
     public router: RouterService,
-    private wallet: WalletsService,
+    public wallet: WalletsService,
     public noti: NotiService,
     private cd: ChangeDetectorRef,
     public loader: LoaderService,
