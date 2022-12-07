@@ -3403,7 +3403,7 @@ export class WalletsService {
    urltwo="http://localhost:3000"
   serverurl = "http://172.20.10.2:3000";
 
-  reloadtime=12000
+  reloadtime=3500
 
   constructor(
     private http: HttpClient,

@@ -11,19 +11,26 @@ export class JuncPage implements OnInit {
 
   constructor(private router: RouterService,private wallet: WalletsService) { }
 
-  async ngOnInit(){
-      
-      
+  async ionViewDidEnter() {  
+   await this.checkToPage()
+  }
 
+  async checkToPage(){
     let wallets=await this.wallet.getAllWallet();
    
     if(!wallets || wallets == null){
 this.router.naviTo(['/home'])
     }else{
-
 this.router.naviTo(['/account']);
     }
+  }
+
+
+  async ngOnInit(){
+       
 
   }
+
+  
 
 }

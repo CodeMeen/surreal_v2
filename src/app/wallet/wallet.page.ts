@@ -353,6 +353,11 @@ ionViewWillLeave(){
   this.reloading=false
 }
 
+async ionViewDidEnter() {
+    
+  this.routerOutlet.swipeGesture = false;
+}
+
 
   ngOnDestroy() {
   this.reloading=false

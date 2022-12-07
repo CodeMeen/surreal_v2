@@ -8,6 +8,7 @@ import { Platform } from '@ionic/angular';
 
 import { Storage } from '@ionic/storage-angular';
 import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver'
+import { Thumbs } from 'swiper';
 
 
 
@@ -115,18 +116,32 @@ return fetcheddata
            console.log("Using SqlLite as Storage On "+appPlatform)
            this.platform.ready().then(async () => {
           
-             this._sqlite.initializePlugin().then(async (dat) => {
+             await this._sqlite.initializePlugin().then(async (dat) => {
+             
+
+
                 this.initialized=dat
                      // initialize the connection
-                    this.db = await this._sqlite.createConnection(
+                    await this._sqlite.createConnection(
                      'surrealwalletxx',
                      false,
                      'no-encryption',
                      1,
-                   );
+                   ).then(async (data)=>{
+                     this.db=data
+                   },
+                   (error)=>{
+                     reject(error)
+                   })
+
+                   let dbisopen:any=await this.db.isDBOpen()
                 
                     // open db surrealwallet
-                   await this.db.open();
+
+                    if(dbisopen.result == false || !dbisopen.result){
+                      await this.db.open();
+                    }
+                  
         
               
                  let result: any = await this._sqlite.echo('SQL WORKING');
@@ -141,12 +156,22 @@ return fetcheddata
                );`
               
                let ret: any = await this.db.execute(createTable);
-               console.log(ret)
-
-                 // close db surrealwallet
-                 await this.db.close();
-        
+            
                console.log('Changes in db ' + ret.changes.changes);
+
+              
+       
+                
+               
+               
+               // close db surrealwallet
+               
+                 if(dbisopen.result == true){
+                  await this.db.close();
+                }
+               
+        
+               
 
 
               /* await this._sqlite.closeConnection('surrealwalletxx').then(()=>{
@@ -154,14 +179,16 @@ return fetcheddata
                }); */
         
                if (ret.changes.changes < 0) {
-                 reject(false)
-               }else{
-                 resolve(true)
-               }
-        
+                reject(false)
+              }else{
+                resolve(true)
+              }
                
         
         
+             },
+             (error)=>{
+              reject(error)
              });
            });
          }else{
@@ -189,8 +216,17 @@ return fetcheddata
            await Preferences.set(data);
          }else{
 
-            // open db surrealwallet
+          let dbisopen:any=await this.db.isDBOpen()
+
+          
+                
+          // open db surrealwallet
+
+      
+          if(dbisopen.result == false || !dbisopen.result){
             await this.db.open();
+          }
+        
     
            let db = this.db
     
@@ -226,15 +262,18 @@ return fetcheddata
            }); */
 
              // close db surrealwallet
-             await this.db.close();
+             if(dbisopen.result == true){
+              await this.db.close();
+            }
+           
     
          }
   
 
 
      },
-     ()=>{
-       console.log('An error occured While Initializing Storage');
+     (error)=>{
+       console.log('An error occured While Initializing Storage',error);
      }
      )
 
@@ -253,8 +292,17 @@ return fetcheddata
          resp=res
        }else{
 
-         // open db surrealwallet
-         await this.db.open();
+        let dbisopen:any=await this.db.isDBOpen()
+                
+        // open db surrealwallet
+
+      
+
+    
+        if(dbisopen.result == false || !dbisopen.result){
+          await this.db.open();
+        }
+      
   
          let db = this.db
         
@@ -274,13 +322,16 @@ return fetcheddata
         /*  await this._sqlite.closeConnection('surrealwalletxx').then(()=>{
            console.log('Connection closed on GET')
          }) */
-          // open db surrealwallet
-      await this.db.close();
+
+           // close db surrealwallet
+           if(dbisopen.result == true){
+            await this.db.close();
+          }
        }
      },
-     ()=>{
+     (error)=>{
        resp=null;
-       console.log('An error occured While Initializing Storage');
+       console.log('An error occured While Initializing Storage',error);
      }
      )
 

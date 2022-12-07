@@ -79,6 +79,10 @@ ngOnDestroy() {
   this.reloading=false
   }
 
+  async ionViewDidEnter() {
+    
+    this.routerOutlet.swipeGesture = false;
+  }
 
 
   async ngOnInit() {

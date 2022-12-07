@@ -300,6 +300,11 @@ arr[1].switch=newswitch
   console.log("Left Settings..")
   }
 
+  async ionViewDidEnter() {
+    
+    this.routerOutlet.swipeGesture = false;
+  }
+
 
   async ngOnInit() {
    await this.updatePage()
