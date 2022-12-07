@@ -136,6 +136,23 @@ padding-top: 0px !important;
 }
 
 
+.sendingselectview.ios{
+    padding-top: 55px !important;
+
+    .header{
+     top:50px;
+    }
+
+}
+
+.receivingselectview.ios{
+    padding-top: 55px !important;
+    .header{
+        top:50px;
+       }
+}
+
+
 .downnav.web{
     padding-bottom: 20px !important;
 }
@@ -145,11 +162,11 @@ padding-top: 0px !important;
 }
 
 .notipanel.ios{
-    padding-top: 47px !important;
+    padding-top: 53px !important;
 }
 
 .popupdiv.ios {
-    .popaction{
+    .popaction{ 
         bottom:20px !important;
     }
     
