@@ -89,10 +89,24 @@ body {
     padding-bottom: 92px !important;     
 }
 
+
+
+
+//View
 .view.web{
     padding-top: 92px !important;
 }
 
+.view.android{
+    padding-top: 102px !important;
+    .purpheader{
+        top:10px !important;
+      }
+
+      .buttonbelow{
+       bottom: 20px !important;
+      }
+}
 
 
 .view.ios{
@@ -108,9 +122,29 @@ body {
 }
 
 
+// walletview
+
 .walletview.web{
     padding-top: 0px !important;   
 }
+
+.walletview.android{
+    padding-top: 0px !important;
+    
+
+    .purpbox{  
+        height: 320px !important;
+      }
+      
+      .purpheader{
+        top:10px !important;
+      }
+    
+      .balancemodal{
+        margin-top:70px !important;
+      }
+    
+    }
 
 .walletview.ios{
 padding-top: 0px !important;
@@ -129,11 +163,8 @@ padding-top: 0px !important;
 
 }
 
+// sending select
 .sendingselectview.web{
-    padding-top: 0px !important;
-}
-
-.receivingselectview.web{
     padding-top: 0px !important;
 }
 
@@ -147,6 +178,23 @@ padding-top: 0px !important;
 
 }
 
+.sendingselectview.android{
+    padding-top: 10px !important;
+    .header{
+        top:10px;
+       }
+}
+
+
+
+
+// receiving select
+
+.receivingselectview.web{
+    padding-top: 0px !important;
+}
+
+
 .receivingselectview.ios{
     padding-top: 55px !important;
     .header{
@@ -154,6 +202,15 @@ padding-top: 0px !important;
        }
 }
 
+.receivingselectview.android{
+    padding-top: 10px !important;
+    .header{
+        top:10px;
+       }
+}
+
+
+//downnav
 
 .downnav.web{
     padding-bottom: 20px !important;
@@ -162,6 +219,14 @@ padding-top: 0px !important;
 .downnav.ios{
     padding-bottom: 33px !important;
 }
+
+.downnav.android{
+    padding-bottom: 20px !important;
+}
+
+
+
+
 
 .notipanel.ios{
     padding-top: 53px !important;
@@ -181,5 +246,13 @@ padding-top: 0px !important;
         height:52%;
       }
 
+    
+}
+
+.popupdiv.android {
+    .popaction{ 
+        bottom:10px !important;
+    }
+    
     
 }

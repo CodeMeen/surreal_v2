@@ -241,7 +241,8 @@ return fetcheddata
     
            let db = this.db
     
-            let ret = await db.query(`SELECT * FROM database WHERE key='`+data.key+`';`);
+            let ret = await db.query(`SELECT value FROM database WHERE key='`+data.key+`';`);
+            console.log('Return for execute',JSON.stringify(ret))
     
     
             if ( ret.values.length <= 0 ){
@@ -322,7 +323,8 @@ return fetcheddata
          let db = this.db
         
          
-           let ret = await db.query(`SELECT * FROM database WHERE key='`+data.key+`';`);
+           let ret = await db.query(`SELECT value FROM database WHERE key='`+data.key+`';`);
+           console.log('Return for execute',JSON.stringify(ret))
   
   
            if ( ret.values.length <= 0 ){ 
