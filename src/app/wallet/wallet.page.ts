@@ -17,6 +17,7 @@ import { EventsService } from "../events.service";
 import { NgxImageCompressService } from "ngx-image-compress";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { LoaderService } from "../loader.service";
+import { HostListener } from'@angular/core';
 
 SwiperCore.use([Pagination]);
 
@@ -26,6 +27,10 @@ SwiperCore.use([Pagination]);
   styleUrls: ["./wallet.page.scss"],
   encapsulation: ViewEncapsulation.None,
 })
+
+@HostListener('window:scroll', ['$event'])
+
+
 export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
   @ViewChild("swiper") swiper: SwiperComponent;
 
@@ -64,6 +69,15 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
     public loader: LoaderService
   ) {
 
+  }
+
+  onWindowScroll() {
+    let element = document.querySelector('purpheader') as HTMLElement;
+    if (window.pageYOffset > element.clientHeight) {
+      element.classList.add('opaqueheader');
+    } else {
+      element.classList.remove('opaqueheader');
+    }
   }
 
   numberize(x, nocomma?, num?) {

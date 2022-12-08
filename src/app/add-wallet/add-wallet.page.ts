@@ -6,6 +6,7 @@ import { NotiService } from '../noti.service';
 import { PopupService } from '../popup.service';
 import { RouterService } from '../router.service';
 import { WalletsService } from '../wallets.service';
+import { HostListener } from'@angular/core';
 
 @Component({
   selector: 'app-add-wallet',
@@ -13,12 +14,24 @@ import { WalletsService } from '../wallets.service';
   styleUrls: ['./add-wallet.page.scss'],
   encapsulation:ViewEncapsulation.None
 })
+
+@HostListener('window:scroll', ['$event'])
+
 export class AddWalletPage implements OnInit {
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
     ,public loader: LoaderService) { }
 
     step:any
+
+    onWindowScroll() {
+      let element = document.querySelector('.purpheader') as HTMLElement;
+      if (window.pageYOffset > element.clientHeight) {
+        element.classList.add('opaqueheader');
+      } else {
+        element.classList.remove('opaqueheader');
+      }
+    }
 
     async importWallet(){
 
