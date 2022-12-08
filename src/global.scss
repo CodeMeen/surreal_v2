@@ -81,10 +81,12 @@ body {
     top: 0;
 }
 
-.view{
-    padding-bottom: 92px !important; 
+.buttonbelow{
+    position:absolute !important;
+}
 
-    
+.view{
+    padding-bottom: 92px !important;     
 }
 
 .view.web{

@@ -51,7 +51,7 @@ export class BackupwalletPage implements OnInit {
     
     async ionViewDidEnter() {
     
-      this.routerOutlet.swipeGesture = true;
+      this.routerOutlet.swipeGesture = false;
     }
     
 

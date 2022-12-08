@@ -35,6 +35,9 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
   };
 
   mywallet: any = {};
+
+  currentwalletid:any
+
   mytokens: any[] = [];
   mynfts: any[] = [];
   network:any;
@@ -137,6 +140,7 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
 
     let data = await this.wallet.getMyWallet();
     this.mywallet = data;
+    
 
     // update tokens
     let newtokens: any = await this.wallet.getMyTokens();
@@ -163,6 +167,19 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
 await this.updateNfts()
     //
 
+    // Incase Wallet Changes
+
+    let currentwalletid=this.currentwalletid
+    let newid=data.id
+
+    if(currentwalletid != newid){
+      await this.getView().then(async () => {
+        console.log("Wallet Page Updated..");
+       
+       this.loadNftImgs();
+      }); 
+    }
+
     // Incase wallet network changes this happens
 
     let currentNetwork=this.mywallet.network;
@@ -170,7 +187,14 @@ await this.updateNfts()
     let loadNetwork=await this.wallet.getCurrentNetworkName()
 
     if(currentNetwork!=loadNetwork) {
-    
+
+      await this.getView().then(async () => {
+        console.log("Wallet Page Updated..");
+       
+       this.loadNftImgs();
+      }); 
+
+    /*
       let data = await this.wallet.getMyWallet();
       this.mywallet = data;
       this.mytokens = await this.wallet.getMyTokens();
@@ -180,6 +204,8 @@ await this.updateNfts()
         this.mynfts =value
         this.loadNftImgs()
       })
+
+      */
     }
 
 
@@ -284,6 +310,9 @@ await this.updateNfts()
     try {
       let data = await this.wallet.getMyWallet();
       this.mywallet = data;
+
+      this.currentwalletid=data.id;
+
       this.mytokens = await this.wallet.getMyTokens();
       this.mynfts = await this.wallet.loadMyNfts();
       this.rawnfts=await this.wallet.getRawNfts();

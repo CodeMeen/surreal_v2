@@ -123,7 +123,7 @@ export class TxPage implements OnInit {
 
   async ionViewDidEnter() {
     
-    this.routerOutlet.swipeGesture = true;
+    this.routerOutlet.swipeGesture = false;
   }
 
   async ngOnInit() {

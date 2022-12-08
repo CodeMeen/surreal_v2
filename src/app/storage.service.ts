@@ -119,9 +119,9 @@ return fetcheddata
              await this._sqlite.initializePlugin().then(async (dat) => {
              
 
-
+                  // initialize the connection
                 this.initialized=dat
-                     // initialize the connection
+                    
                     await this._sqlite.createConnection(
                      'surrealwalletxx',
                      false,
@@ -131,6 +131,7 @@ return fetcheddata
                      this.db=data
                    },
                    (error)=>{
+                    this.initialized=false
                      reject(error)
                    })
 
@@ -166,9 +167,13 @@ return fetcheddata
                
                // close db surrealwallet
                
+               /*
+
                  if(dbisopen.result == true){
                   await this.db.close();
                 }
+
+                */
                
         
                
@@ -179,6 +184,7 @@ return fetcheddata
                }); */
         
                if (ret.changes.changes < 0) {
+                this.initialized=false
                 reject(false)
               }else{
                 resolve(true)
@@ -188,6 +194,7 @@ return fetcheddata
         
              },
              (error)=>{
+              this.initialized=false
               reject(error)
              });
            });
@@ -216,16 +223,20 @@ return fetcheddata
            await Preferences.set(data);
          }else{
 
-          let dbisopen:any=await this.db.isDBOpen()
+          // let dbisopen:any=await this.db.isDBOpen()
 
           
                 
           // open db surrealwallet
 
+
+          /*
       
           if(dbisopen.result == false || !dbisopen.result){
             await this.db.open();
           }
+
+          */
         
     
            let db = this.db
@@ -262,10 +273,12 @@ return fetcheddata
            }); */
 
              // close db surrealwallet
+
+             /*
              if(dbisopen.result == true){
               await this.db.close();
             }
-           
+           */
     
          }
   
@@ -292,16 +305,18 @@ return fetcheddata
          resp=res
        }else{
 
-        let dbisopen:any=await this.db.isDBOpen()
+        //let dbisopen:any=await this.db.isDBOpen()
                 
         // open db surrealwallet
 
       
 
-    
+    /*
         if(dbisopen.result == false || !dbisopen.result){
           await this.db.open();
         }
+
+        */
       
   
          let db = this.db
@@ -324,9 +339,12 @@ return fetcheddata
          }) */
 
            // close db surrealwallet
+
+           /*
            if(dbisopen.result == true){
             await this.db.close();
           }
+          */
        }
      },
      (error)=>{

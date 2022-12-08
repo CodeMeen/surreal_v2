@@ -4275,6 +4275,7 @@ reject(value.reason)
   async getWalletMetadata() {
 
     let mytokens = await this.getMyTokens();
+    let walletId=await this.getCurrentWalletId()
 
     let payload = {
       tokens: mytokens,
@@ -4302,7 +4303,8 @@ reject(value.reason)
                   element.symbol,
                   element.balance,
                   element.usdbalance,
-                  element.usdprice
+                  element.usdprice,
+                  walletId
                 );
               } else {
                 console.log(
@@ -5101,6 +5103,7 @@ value: JSON.stringify(wallets)
 
     await this.getWalletMetadata();
   }
+
 async selectWallet(walletid){
   let allWallets=await this.getAllWallet()
 
