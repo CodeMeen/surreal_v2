@@ -30,7 +30,7 @@ let arr=[]
 
 let allWallet=await this.wallet.getAllWallet()
 
-allWallet.forEach( async el=> {
+allWallet.forEach( async (el)=> {
   let eachdata= {'listname':el.name,'imgurl':'',
   value:el.id,
   'listid':el.id,

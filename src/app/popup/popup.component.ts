@@ -24,7 +24,8 @@ paramfunc(action);
   };
 
   runnAction(func,action?){
-    func(action);
+    func(action)
+    
   }
 
   closepop(){

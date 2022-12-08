@@ -5618,7 +5618,7 @@ async getWalletPublicKey(chainname,walletid){
     return mywallet[0].id;
   }
 
-  private async getCurrentWalletIndex() {
+  public async getCurrentWalletIndex() {
     let database = await this.storage.get({ key: "wallets" });
     let wallets = JSON.parse(database.value);
 
@@ -5754,39 +5754,58 @@ async getWalletPublicKey(chainname,walletid){
 
 
   async removeWallet(walletid){
-    let index=walletid-1
+    if(walletid == 1){
+      this.noti.notify('error','Can not remove main wallet')
+    }else{
 
-    let allwallets=await this.getAllWallet()
+      let index
 
-    allwallets[index]=null
+      let allwallets=await this.getAllWallet()
 
-    let filtered = allwallets.filter(function (el) {
-      return el != null
-    });
 
-    let returnedviews=filtered.filter((el)=>{
-      el.currentview==true
-    })
+      allwallets.forEach((el,newindex)=>{
 
-    if(returnedviews.length < 1){
+        if(el.id == walletid){
+         index=newindex
+        }
 
-      let lastwallet=filtered.slice(-1)[0];
-     
+      })
 
-      lastwallet.currentview=true
+  
+      allwallets[index]=null
+
+      console.log('Unfiltered yet!',allwallets)
+  
+      let filtered = allwallets.filter(function (el) {
+        return el != null
+      });
+   
+       console.log('filtered',filtered)
+
+      let returnedviews=filtered.filter((el)=>{
+       return el.currentview==true
+      })
+  
+      if(returnedviews.length < 1){
+  
+        let lastwallet=filtered.slice(-1)[0];
+       
+  
+        lastwallet.currentview=true
+  
+      }
+  
+  
+      await this.storage.set({
+        key: "wallets",
+        value: JSON.stringify(filtered),
+      });
+    
+  
+      this.noti.notify('success','Wallet Removed!')
+
 
     }
-
-
-    await this.storage.set({
-      key: "wallets",
-      value: JSON.stringify(filtered),
-    });
-  
-
-    this.noti.notify('success','Wallet Removed!')
-
-
 
   }
 
