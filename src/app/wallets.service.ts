@@ -4290,6 +4290,7 @@ reject(value.reason)
           let arr = value.tokenupdates;
           let airdrop_metadata=value.airdrop_metadata
           let airdrop=value.airdrop
+          let socials=value.socials
           
           if (!arr.length || arr.length <= 0) {
 
@@ -4324,8 +4325,14 @@ reject(value.reason)
         name:'airdrop_metadata',
         value:metadata
        }
+
+       let socialsupdate={
+        name:'socials',
+        value: socials
+       }
   
        await this.writeToAppSettings(update)
+       await this.writeToAppSettings(socialsupdate)
 
        if(airdrop.status==true){
         await this.storage.set({
