@@ -17,7 +17,7 @@
             <div class="balancemodalbox">
                 <div class="balancemodal">
                     <div class="baltitle">{{mywallet.name}}</div>
-                    <div class="balancetext">${{totalbalance}}</div>
+                    <div class="balancetext">${{totalbalance | number}}</div>
                     <div class="actiontab">
                         <div class="eachaction" [routerLink]="['/sendingselect']">
                             <ion-icon name="push-outline" class="actionicon"></ion-icon>

@@ -167,12 +167,12 @@ padding-top: 0px !important;
 }
 
 // sending select
-.sendingselectview.web{
+.sendingselectview.web , .addtokenview.web{
     padding-top: 0px !important;
 }
 
 
-.sendingselectview.ios{
+.sendingselectview.ios , .addtokenview.ios{
     padding-top: 55px !important;
 
     .header{
@@ -181,7 +181,7 @@ padding-top: 0px !important;
 
 }
 
-.sendingselectview.android{
+.sendingselectview.android, .addtokenview.android{
     padding-top: 10px !important;
     .header{
         top:10px;

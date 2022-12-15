@@ -12,7 +12,7 @@
       </div>
 
 
-      <div class="balancetext" style="font-size: 16px;">Earnings Dashboard</div>
+      <div class="balancetext" style="font-size: 16px;">Giveaway/Airdrop</div>
 
       <div class="smallline" style="margin-top:10px"></div>
 
@@ -33,10 +33,12 @@
         <div class="xaflex">
           <div class="criccheck" [ngClass]="{'completedsign':tasksignup.status==true}">
             <ion-icon name="checkmark-outline" class="thecheck" *ngIf="tasksignup.status==true"></ion-icon>
-           
+            
           </div>
           <div class="cricname" *ngIf="tasksignup.status==true">completed</div>
           <div class="cricname" *ngIf="tasksignup.status==false">pending</div>
+
+          <div *ngIf="tasksignup.status==true" class="amountearned">+{{tasksignup.amount}}</div>
         </div>
         <div>Join Giveaway/Airdrop</div> 
 
@@ -53,16 +55,49 @@
         </div>
         
       </div>
+
+      <div class="eachtask">
+        <div class="xaflex">
+          <div class="criccheck" [ngClass]="{'completedsign':taskjointg.status==true}">
+            <ion-icon name="checkmark-outline" class="thecheck" *ngIf="taskjointg.status==true"></ion-icon>
+            
+          </div>
+          <div class="cricname" *ngIf="taskjointg.status==true">completed</div>
+          <div class="cricname" *ngIf="taskjointg.status==false">pending</div>
+
+          <div *ngIf="taskjointg.status==true" class="amountearned">+{{taskjointg.amount}}</div>
+        </div>
+        <div>Follow Giveaway/Airdrop Updates On Telegram</div> 
+
+        <div class="progressbox">
+          <span class="tprogress">Task progress</span>
+          <div class="x2">
+            <div class="xtextr">{{taskjointg.progress}}%</div>
+            <div class="pbox">
+              <div class="prg" [ngStyle]="progressSize(taskjointg.progress)"></div>
+           </div>
+          </div>
+         
+     
+        </div>
+
+        <div class="referralbox">
+          <button class="whitebtn" (click)="joinTg()">Join Telegram Group </button>
+         </div>
+        
+      </div>
       
 
       <div class="eachtask">
         <div class="xaflex">
           <div class="criccheck" [ngClass]="{'completedsign':taskrefer.status==true}">
             <ion-icon name="checkmark-outline" class="thecheck" *ngIf="taskrefer.status==true"></ion-icon>
-           
+          
           </div>
           <div class="cricname" *ngIf="taskrefer.status==true">completed</div>
           <div class="cricname" *ngIf="taskrefer.status==false">pending</div>
+
+          <div *ngIf="taskrefer.status==true" class="amountearned">+{{taskrefer.amount}}</div>
         </div>
         <div class="ref2friends">Refer {{taskrefer.totaltask }} Friends</div> 
         <span class="tprogress">Referred ({{taskrefer.noofprocessedtask}}/{{taskrefer.totaltask }}) friends</span>
@@ -89,7 +124,7 @@
         <div class="xaflex">
           <div class="criccheck" [ngClass]="{'completedsign':taskrefer.status==true}">
             <ion-icon name="checkmark-outline" class="thecheck" *ngIf="taskrefer.status==true"></ion-icon>
-           
+             
           </div>
           <div class="cricname" *ngIf="taskrefer.status==true">completed</div>
           <div class="cricname" *ngIf="taskrefer.status==false">pending</div>

@@ -7,6 +7,7 @@ import { WalletsService } from "../wallets.service";
 import { Share } from '@capacitor/share';
 import { NotiService } from "../noti.service";
 import { Clipboard } from '@capacitor/clipboard';
+import { Browser } from "@capacitor/browser";
 
 
 @Component({
@@ -23,6 +24,7 @@ export class AirdropPage implements OnInit {
   tasksignup:any={}
   taskrefer:any={}
   taskshare:any={}
+  taskjointg:any={}
 
 
   airdrop_data:any={
@@ -32,6 +34,7 @@ export class AirdropPage implements OnInit {
 
   reloading=true;
 
+  appsettings:any
  
  
   constructor(
@@ -44,6 +47,10 @@ export class AirdropPage implements OnInit {
   ) {}
 
 
+  async openLink(mapurl){
+    await Browser.open({ url: mapurl }); 
+  }
+
   async setSignUpTask(airdrop){
     let alltasks=airdrop.tasks
       
@@ -55,6 +62,16 @@ export class AirdropPage implements OnInit {
 
   }
 
+  async setTgTask(airdrop){
+    let alltasks=airdrop.tasks
+      
+    let serv=alltasks.filter((data)=>{
+     return data.tag== 'jointelegram'
+    })
+
+    this.taskjointg=serv[0]
+  }
+
   async setReferTask(airdrop){
     let task={
       name:'',
@@ -62,6 +79,7 @@ export class AirdropPage implements OnInit {
       totaltask:0,
       noofprocessedtask:0,
       status:false,
+      amount:0,
       tasks:[]
     }
 
@@ -92,12 +110,20 @@ export class AirdropPage implements OnInit {
       if(serv[0].status==true){
         let prevprogress=task.totalprogress
         let newprogress=prevprogress+50
+
+        let newamountgained=task.amount+serv[0].amount
+        task.amount=newamountgained
+
         task.totalprogress=newprogress
       }
 
       if(serv[1].status==true){
         let prevprogress=task.totalprogress
         let newprogress=prevprogress+50
+
+        let newamountgained=task.amount+serv[1].amount
+        task.amount=newamountgained
+
         task.totalprogress=newprogress
       }
      
@@ -116,17 +142,22 @@ this.taskrefer=task
     airdrop=await this.wallet.getAirdrop();
     appsettings=await this.wallet.getAppSettings();
 
+    this.appsettings=appsettings
+
     this.airdrop_metadata=appsettings.airdrop_metadata
     this.airdrop_data=airdrop
 
     await this.setSignUpTask(airdrop)
     await this.setReferTask(airdrop)
+    await this.setTgTask(airdrop)
 
     this.airdropWallet=await this.wallet.checkAirdropWallet();
-
-  
    
   }
+
+async joinTg(){
+
+}
 
 async shareRef(message){
 // check documentation during compiling

@@ -25,7 +25,10 @@
         border-radius: 50px;
     }
     .buttonc {
+        position:absolute;
+        bottom:20px;
         padding: 20px;
+        width: 100%;
     }
     .smalltext {
         color: #5d6969;
@@ -34,7 +37,7 @@
         font-family: mntsreg;
     }
     .swiper {
-        height: 70%;
+        height: 84%;
         position: relative;
     }
     .line {
