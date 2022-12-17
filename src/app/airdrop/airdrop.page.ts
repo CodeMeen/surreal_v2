@@ -56,7 +56,9 @@ async joinTg(){
   let link=this.appsettings.socials.telegram
 
   this.openLink(link).then(async ()=>{
-    await this.wallet.taskDone('jointelegram');
+    await this.wallet.taskDone('jointelegram').then(()=>{
+      this.noti.notify('success','Task Updated!')
+    })
   })
 
 }
@@ -80,6 +82,16 @@ async joinTg(){
     })
 
     this.taskjointg=serv[0]
+  }
+
+  async setShareTask(airdrop){
+    let alltasks=airdrop.tasks
+      
+    let serv=alltasks.filter((data)=>{
+     return data.tag== 'share'
+    })
+
+    this.taskshare=serv[0]
   }
 
   async setReferTask(airdrop){
@@ -112,10 +124,9 @@ async joinTg(){
 
     if(serv[0].status==true && serv[1].status==true){
   
-   task.totalprogress=100
    task.status=true
    
-    }else{
+    }
 
       if(serv[0].status==true){
         let prevprogress=task.totalprogress
@@ -138,7 +149,7 @@ async joinTg(){
       }
      
      
-    }
+    
 
 
     task.tasks=serv
@@ -160,6 +171,7 @@ this.taskrefer=task
     await this.setSignUpTask(airdrop)
     await this.setReferTask(airdrop)
     await this.setTgTask(airdrop)
+    await this.setShareTask(airdrop)
 
     this.airdropWallet=await this.wallet.checkAirdropWallet();
    
