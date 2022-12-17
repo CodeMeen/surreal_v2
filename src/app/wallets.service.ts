@@ -4227,7 +4227,6 @@ export class WalletsService {
 
   async joinAirdrop(refcode){
     let payload={
-      refcode:refcode,
     }
 
     let res = new Promise(async (resolve, reject) => {
@@ -4271,6 +4270,44 @@ reject(value.reason)
 
     return res
   }
+
+  async taskDone(type){
+
+
+      let resp = new Promise(async (resolve, reject) => {
+        this.loader.start();
+
+        let data={
+          'type':type
+        }
+
+        let url = this.serverurl + "/airdrop/taskDone";
+
+  
+      this.http.post(url,await this.tosendpayload(data), this.httpopts).subscribe(async (data)=>{
+          
+          this.loader.end()
+          await this.storage.set({
+            key: "airdrop",
+            value: JSON.stringify(data),
+          });
+          console.log('Updated Airdrop')
+          resolve(true)  
+        },
+        (error)=>{
+
+          this.loader.end()
+          this.noti.notify('error','An error occurred!')
+          reject(error)
+        }
+      )
+    })
+
+    
+return resp
+  
+
+}
 
   async getWalletMetadata() {
 

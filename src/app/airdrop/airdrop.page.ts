@@ -51,6 +51,16 @@ export class AirdropPage implements OnInit {
     await Browser.open({ url: mapurl }); 
   }
 
+
+async joinTg(){
+  let link=this.appsettings.socials.telegram
+
+  this.openLink(link).then(async ()=>{
+    await this.wallet.taskDone('jointelegram');
+  })
+
+}
+
   async setSignUpTask(airdrop){
     let alltasks=airdrop.tasks
       
@@ -155,9 +165,6 @@ this.taskrefer=task
    
   }
 
-async joinTg(){
-
-}
 
 async shareRef(message){
 // check documentation during compiling
