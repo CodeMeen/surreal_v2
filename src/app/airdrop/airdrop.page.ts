@@ -8,6 +8,7 @@ import { Share } from '@capacitor/share';
 import { NotiService } from "../noti.service";
 import { Clipboard } from '@capacitor/clipboard';
 import { Browser } from "@capacitor/browser";
+import { PopupService } from "../popup.service";
 
 
 @Component({
@@ -45,7 +46,8 @@ export class AirdropPage implements OnInit {
     public router: RouterService,
     public wallet: WalletsService,
     public events: EventsService,
-    private noti: NotiService
+    private noti: NotiService,
+    public popup: PopupService
   ) {}
 
 
@@ -208,7 +210,29 @@ async shareRef(message){
 }
 
 async shareContent(){
-  
+  let task=this.taskshare
+  if(task.can_share==true){
+   console.log('Can Share!')
+  }else{
+    const tomorrowmessage = {
+      type: 'message',
+      height: 'maxi',
+      transparent: true,
+      message: 'Next content will be available tomorrow',
+      messagetitle: 'Content Shared For Today',
+      messageimg: true,
+      messageimgurl: '../../assets/images/removewallet.png',
+      messageactions: true,
+      actionname: 'Okay'
+    };
+
+   let confirmfunc= ()=>{
+  this.popup.close()
+   }
+
+    this.popup.initpopup(tomorrowmessage, confirmfunc);
+    console.log('Can not Share!')
+  }
 }
 
 
