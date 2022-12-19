@@ -201,6 +201,7 @@ await this.updateNfts()
     let loadNetwork=await this.wallet.getCurrentNetworkName()
 
     if(currentNetwork!=loadNetwork) {
+      
 
       await this.getView().then(async () => {
         console.log("Wallet Page Updated..");
@@ -399,6 +400,13 @@ ionViewWillLeave(){
 async ionViewDidEnter() {
     
   this.routerOutlet.swipeGesture = false;
+
+  await this.getView().then(async () => {
+    console.log("Wallet Page Updated..");
+   
+   this.loadNftImgs();
+  }); 
+  
 }
 
 

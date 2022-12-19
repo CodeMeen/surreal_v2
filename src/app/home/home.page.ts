@@ -35,18 +35,19 @@ export class HomePage implements AfterContentChecked,OnInit{
     },
     (error)=>{
       console.log('Error',JSON.stringify(error))
-    })
-
-   await this.wallet.testConnection().then((data)=>{
-    console.log('Test Connection',JSON.stringify(data))
-   },
-   (error)=>{
-    console.log('Test connection error',JSON.stringify(error))
-   })
-
-    
-   
+    }) 
   }
+
+ 
+   async checkToPage(){
+     let wallets=await this.wallet.getAllWallet();
+     if(!wallets || wallets == null){
+     }else{
+ this.router.naviTo(['/account']);
+     }
+   }
+
+
 
   ngAfterContentChecked() {
 
@@ -57,8 +58,9 @@ export class HomePage implements AfterContentChecked,OnInit{
     }
 
     async ionViewDidEnter() {
-    
       this.routerOutlet.swipeGesture = false;
+      await this.checkToPage()
+     
   }
 
     async ngOnInit(){

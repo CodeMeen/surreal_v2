@@ -4191,10 +4191,13 @@ export class WalletsService {
                     element.usdprice
                   );
                 } else {
+                  /*
                   console.log(
                     (element.contractaddr || element.chain) +
                       " Balances Not Found"
                   );
+
+                  */
                 }
               }
             }
@@ -4328,6 +4331,7 @@ return resp
           let airdrop_metadata=value.airdrop_metadata
           let airdrop=value.airdrop
           let socials=value.socials
+          let share_image_url=value.share_image_url
           
           if (!arr.length || arr.length <= 0) {
 
@@ -4345,10 +4349,12 @@ return resp
                   walletId
                 );
               } else {
+                /*
                 console.log(
                   (element.contractaddr || element.chain) +
                     " Balances Not Found"
                 );
+                */
               }
             }
           }
@@ -4367,9 +4373,15 @@ return resp
         name:'socials',
         value: socials
        }
+
+       let share_img_update={
+        name:'share_image_url',
+        value: share_image_url
+       }
   
        await this.writeToAppSettings(update)
        await this.writeToAppSettings(socialsupdate)
+       await this.writeToAppSettings(share_img_update)
 
        if(airdrop.status==true){
         await this.storage.set({

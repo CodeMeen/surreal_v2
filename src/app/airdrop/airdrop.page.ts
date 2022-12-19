@@ -23,7 +23,9 @@ export class AirdropPage implements OnInit {
 
   tasksignup:any={}
   taskrefer:any={}
-  taskshare:any={}
+  taskshare:any={
+    'remainingdays':0
+  }
   taskjointg:any={}
 
 
@@ -86,12 +88,16 @@ async joinTg(){
 
   async setShareTask(airdrop){
     let alltasks=airdrop.tasks
+
+
       
     let serv=alltasks.filter((data)=>{
      return data.tag== 'share'
     })
 
     this.taskshare=serv[0]
+
+    this.taskshare.remainingdays=this.taskshare.totalcounter - this.taskshare.hidden_sharecounter
   }
 
   async setReferTask(airdrop){
@@ -199,6 +205,10 @@ async shareRef(message){
    }
   
     
+}
+
+async shareContent(){
+  
 }
 
 

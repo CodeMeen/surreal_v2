@@ -136,6 +136,10 @@ const routes: Routes = [
     path: 'junc',
     loadChildren: () => import('./junc/junc.module').then( m => m.JuncPageModule)
   },
+  {
+    path: 'sharecontent',
+    loadChildren: () => import('./sharecontent/sharecontent.module').then( m => m.SharecontentPageModule)
+  },
 ];
 
 @NgModule({
