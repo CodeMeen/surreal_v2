@@ -22,6 +22,7 @@
     "@awesome-cordova-plugins/clipboard": "^5.44.0",
     "@awesome-cordova-plugins/core": "^6.2.0",
     "@awesome-cordova-plugins/sqlite": "^6.2.0",
+    "@byteowls/capacitor-filesharer": "^4.0.0",
     "@capacitor-community/sqlite": "^4.2.2",
     "@capacitor/android": "4.5.0",
     "@capacitor/app": "^4.0.0",

@@ -212,6 +212,7 @@ async shareRef(message){
 async shareContent(){
   let task=this.taskshare
   if(task.can_share==true){
+    this.router.naviTo(['/sharecontent'])
    console.log('Can Share!')
   }else{
     const tomorrowmessage = {

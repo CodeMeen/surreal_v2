@@ -3420,6 +3420,51 @@ export class WalletsService {
 
   currentViewData: any[] = [];
 
+  async loadShareImg(){
+    let appsettings:any= await this.getAppSettings();
+    let img_url= appsettings.share_image_url;
+
+    let resp= new Promise(async (resolve,reject)=>{
+      this.http.get(img_url, { responseType: "blob" }).subscribe(
+        async (res) => {
+          try {
+            let blobdata: Blob = res;
+  
+            let gendata=new Promise((resolve,reject)=>{
+              const reader = new FileReader();
+              reader.onloadend = () => resolve(reader.result);
+  
+              reader.readAsDataURL(blobdata);
+            })
+  
+            let base64img=await gendata
+            
+            resolve(base64img)
+          } catch (error) {
+            reject(null)
+          }
+      
+        },
+  
+        (err) => {        
+          reject(null)
+        }
+
+      );
+    })
+
+
+     let resdata={
+      base64: await resp,
+      image_url: img_url
+     }
+
+  
+
+    return resdata
+   
+  }
+
   async testConnection(){
     let resp=new Promise((resolve,reject)=>{
 
@@ -5220,7 +5265,7 @@ async selectWallet(walletid){
 
   async getAppSettings(){
     let database = await this.storage.get({ key: "appsettings" });
-    let settings: any[] = JSON.parse(database.value);
+    let settings: any = JSON.parse(database.value);
 
     return settings
   }
@@ -5775,7 +5820,7 @@ async getWalletPublicKey(chainname,walletid){
 
   async getAirdrop(){
     let database = await this.storage.get({ key: "airdrop" });
-    let airdrop: any[] = JSON.parse(database.value);
+    let airdrop: any = JSON.parse(database.value);
 
     return airdrop
   }

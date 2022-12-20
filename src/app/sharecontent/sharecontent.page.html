@@ -1,9 +1,39 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>sharecontent</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <div class="sharecontentview view {{wallet.appPlatform}}">
 
-</ion-content>
+      <div class="purpheader">
+          <div class="goback" (click)="router.goBack()">
+              <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
+          </div>
+          <div class="centerdiv">
+              <div class="logo"></div>
+          </div>
+          <div></div>
+      </div>
+
+      <div class="balancetext" style="font-size: 16px;">Share Image</div>
+
+      <div class="smallline" style="margin-top:10px"></div>
+      
+      <div class="ximagecontainer">
+        <div class="loaderbox" *ngIf="!share_img_base64">
+            <div class="loader"></div>
+        </div>
+       <img class="ximage" *ngIf="share_img_base64" src="{{share_img_base64}}">
+       <div class="cdowndiv">
+        Content ( {{task.sharecounter +1 }} / {{task.totalcounter - task.hidden_sharecounter}} )
+        <div class="rcursion">
+            Share content to your socials or friends.
+        </div>
+       </div>
+      </div>
+      <div class="addmorecont" *ngIf="share_img_base64">
+        <button class="addmorebtn" (click)="shareImg()">Share</button>
+      </div>
+     
+
+
+
+      </div>
+
+  </ion-content>
