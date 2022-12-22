@@ -81,11 +81,14 @@ body {
     top: 0;
 }
 
+/*
 .buttonbelow{
-    position:absolute !important;
-    width:100% !important;
-    z-index:0 !important;
+  //  position:absolute !important;
+   //  width:100% !important;
+   // z-index:0 !important;
 }
+
+*/
 
 .view{
     padding-bottom: 92px !important;
@@ -164,6 +167,20 @@ padding-top: 0px !important;
     margin-top:105px;
   }
 
+}
+
+//homeview
+
+.homeview.web{
+padding-top: 20px !important;
+}
+
+.homeview.android{
+padding-top: 40px !important;
+}
+
+.homeview.ios{
+    padding-top: 70px !important;
 }
 
 // sending select

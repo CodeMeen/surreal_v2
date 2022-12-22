@@ -29,6 +29,7 @@
     "@capacitor/browser": "^4.0.0",
     "@capacitor/clipboard": "^4.0.0",
     "@capacitor/core": "^4.0.0",
+    "@capacitor/filesystem": "^4.1.4",
     "@capacitor/haptics": "^4.0.0",
     "@capacitor/ios": "4.5.0",
     "@capacitor/keyboard": "^4.1.0",

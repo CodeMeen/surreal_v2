@@ -9,6 +9,7 @@ import { NotiService } from "../noti.service";
 import { Clipboard } from "@capacitor/clipboard";
 import { Browser } from "@capacitor/browser";
 import { PopupService } from "../popup.service";
+import { Directory, Filesystem } from '@capacitor/filesystem';
 
 
 @Component({
@@ -20,6 +21,8 @@ import { PopupService } from "../popup.service";
 export class SharecontentPage implements OnInit {
   share_img_base64;
   share_img_url;
+  share_img_uri;
+
   task?: any = {};
 
   constructor(
@@ -42,10 +45,26 @@ export class SharecontentPage implements OnInit {
 
     this.task = serv[0];
 
-    await this.wallet.loadShareImg().then(
-      (data) => {
+    await this.wallet.loadShareImg().then(async (data) => {
         this.share_img_base64 = data.base64;
         this.share_img_url= data.image_url
+        let filename='banner.png'
+
+     await Filesystem.writeFile({
+          path: filename,
+          data: this.share_img_base64,
+          directory: Directory.Cache
+        })
+          .then(async () => {
+           let uriResult:any=await Filesystem.getUri({
+              directory: Directory.Cache,
+              path: filename
+            });
+
+            this.share_img_uri=uriResult.uri
+
+            console.log('Created URI',this.share_img_uri)
+          })
 
       },
       (error) => {
@@ -62,12 +81,22 @@ export class SharecontentPage implements OnInit {
   
     this.noti.notify('error','Can not share file on web');
 
+    this.wallet.taskDone('share').then(()=>{
+      this.noti.notify('success','Task Updated!');
+      this.router.goBack();
+  })
+
    }else{
+    console.log('To share URI',this.share_img_uri)
     await Share.share({
       title: 'Share Image',
-      url:  this.share_img_url,
       dialogTitle: 'Share Image',
-    });
+      files:[this.share_img_uri]
+    }).then(async ()=>{
+       this.wallet.taskDone('share').then(()=>{
+        this.noti.notify('success','Task Updated!')
+    })
+  })
    }
 
 /*

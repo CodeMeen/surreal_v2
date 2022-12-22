@@ -2,7 +2,7 @@
   <div class="airdropview view {{wallet.appPlatform}}">
 
       <div class="purpheader">
-          <div class="goback" (click)="router.goBack()">
+          <div class="goback" (click)="router.goBack('/account/menu')">
               <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
           </div>
           <div class="centerdiv">
@@ -133,7 +133,7 @@
           </div>
           <div class="ref2friends">Share Content</div> 
   
-          <span class="tprogress">Contents Shared ({{taskshare.sharecounter}}/{{taskshare.remainingdays }})</span>
+          <span class="tprogress">Contents Shared ({{taskshare.sharecounter}}/{{taskshare.totalcounter }})</span>
           <div class="progressbox">
             <span class="tprogress">Task progress</span>
             <div class="x2">
