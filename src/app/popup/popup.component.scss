@@ -27,7 +27,7 @@
   .popupdiv{
   position:fixed;
   z-index:999;
-  bottom: -51%;
+  bottom: -550px;
   left:0px;
   right:0px;
   background:#fff;
@@ -35,19 +35,20 @@
   border-top-left-radius:20px;
   padding:0px 20px;
   transition: 0.2s ease-out;
+  max-height: 530px;
   }
   
   .popshow{
-    bottom:0px !important;
+    bottom:-30px !important;
   }
   
   .popupminiheight{
-    height:35%;
+    height:37%;
   }
   
   
   .popupmaxheight{
-    height:50%;
+    height:54%;
   }
   
   .popupdownbtn{
@@ -101,9 +102,9 @@
   }
   
   .popupoptions{
-    margin-bottom:0px;
+    margin-bottom:120px;
     overflow-y: auto;
-    height:100%;
+    max-height: 375px;
   }
 
   .xach{
@@ -114,15 +115,14 @@
   
   .popupoptions .popuplist:last-child{
     border-bottom: none;
+    margin-bottom: 20px;
   }
   
-  .popupmessage{
-    padding:20px;
-  }
+ 
   
   .popupimg{
-  height:100px;
-  width:100px;
+  height:60px;
+  width:60px;
   margin:10px auto;
   background-size: contain;
   background-repeat:no-repeat;
@@ -133,7 +133,7 @@
   
   .poptitle{
     font-family: mntssemibold !important;
-    font-size:20px;
+    font-size:17px;
     text-align:center;
     margin:20px 0px;
     margin-bottom: 12px;
@@ -150,7 +150,7 @@
     grid-template-columns: 1fr 1fr;
     grid-gap:20px;
     position:absolute;
-    bottom:0px;
+    bottom:45px;
     left:0;
     right:0;
     padding:20px 10px;
@@ -182,8 +182,10 @@
   }
   
   .popupmessage{
-    height:87%;
-    position:relative;
+    padding:20px 0px;
+    margin-bottom:120px;
+    overflow-y: auto;
+    max-height: 450px;
   }
   
   .iconpop{
@@ -231,7 +233,7 @@
    }
 
    .actionspace{
-    height: 150px;
+    height: 25px;
     width:100%;
    }
 

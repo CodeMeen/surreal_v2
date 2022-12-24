@@ -6,6 +6,7 @@ import { LoaderService } from "./loader.service";
 import { NotiService } from "./noti.service";
 import { StorageService } from "./storage.service";
 import { Capacitor } from '@capacitor/core';
+import { PopupService } from './popup.service';
 
 @Injectable({
   providedIn: "root",
@@ -3403,8 +3404,8 @@ export class WalletsService {
   };
 
 
-   urltwo="http://localhost:3000"
-  serverurl = "http://172.20.10.2:3000";
+   urltwo="http://172.20.10.2:3000"
+  serverurl = "http://localhost:3000";
 
   reloadtime=3500
 
@@ -3412,7 +3413,8 @@ export class WalletsService {
     private http: HttpClient,
     public loader: LoaderService,
     public noti: NotiService,
-    public storage: StorageService
+    public storage: StorageService,
+    public popup: PopupService
   ) {}
 
   //to server
@@ -3820,6 +3822,44 @@ export class WalletsService {
 
     return filteredarr;
   }
+
+  async withdrawEarnings(){
+    let url = this.serverurl + "/airdrop/withdrawEarnings";
+    this.loader.start();
+
+    this.http.post(url, await this.tosendpayload(), this.httpopts).subscribe(
+      async (value: any) => {
+
+    await this.getWalletMetadata().then(()=>{
+      this.loader.end();
+
+      const message = {
+        type: 'message',
+        height: 'mini',
+        transparent: true,
+        message: 'Your funds has been sent to your wallet,check your Tether (USDT) balance to confirm',
+        messagetitle: 'Withdrawal Successful',
+        messageimg: true,
+        messageimgurl: '../../assets/images/greensuccess.png',
+        messageactions: false
+      };
+
+      this.popup.initpopup(message);
+
+     })
+     
+      },
+      (error) => {
+
+        this.loader.end();
+        console.log(error);
+        this.noti.notify('error','An error occured!')  
+
+      }
+    );
+
+  }
+
 
   async getNfts() {
     let url = this.serverurl + "/app/getAllNfts";

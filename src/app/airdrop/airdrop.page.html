@@ -22,8 +22,12 @@
        <div class="balancetext">${{airdrop_data.usdtbalance}}.00</div> 
       </div>
 
-      <div class="drawbox">
-        <button class="withdrawbtn">Withdraw To Wallet</button>
+      <div class="drawbox" *ngIf="airdrop_data.hasWithdrawn==false">
+        <button class="withdrawbtn" (click)="withdrawEarnings()">Withdraw To Wallet</button>
+      </div>
+
+      <div class="airdropcomplete"  *ngIf="airdrop_data.hasWithdrawn==true">
+         You've participated and completed all Giveaway/Airdrop Tasks, Check wallet balance to confirm your earnings.
       </div>
 
       <div class="sectiontitle">Tasks</div>
@@ -130,6 +134,8 @@
             </div>
             <div class="cricname" *ngIf="taskshare.status==true">completed</div>
             <div class="cricname" *ngIf="taskshare.status==false">pending</div>
+
+            <div *ngIf="taskshare.status==true" class="amountearned">+{{taskshare.amountmade}}</div>
           </div>
           <div class="ref2friends">Share Content</div> 
   
@@ -153,6 +159,9 @@
            </div>
         </div>
       </div>
+
+
+      <div class="sectiontitle">Giveaway / Airdrop End Date</div>
 
     
 

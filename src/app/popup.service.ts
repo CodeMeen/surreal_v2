@@ -95,6 +95,11 @@ this.messageactions=arr.messageactions;
  this.messageactionname=arr.actionname;
  this.messageaction=func;
  this.messageactionparam=funcparam;
+}else{
+ this.messageactions=false;
+ this.messageactionname=null;
+ this.messageaction=false;
+ this.messageactionparam=null;
 }
 
 

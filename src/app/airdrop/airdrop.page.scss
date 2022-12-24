@@ -5,6 +5,14 @@
     position: relative;
     width: 100%;
     background: var(--ion-background-color);
+
+    .airdropcomplete{
+        background:darkgreen;
+        color:white;
+        font-family: mntsreg;
+        font-size:13px;
+        padding:20px;
+    }
     
     .drawbox{
         display:flex;

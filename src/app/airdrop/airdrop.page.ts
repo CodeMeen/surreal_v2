@@ -18,6 +18,13 @@ import { PopupService } from "../popup.service";
   encapsulation:ViewEncapsulation.None
 })
 export class AirdropPage implements OnInit {
+  countDownDate;
+  days: any;
+  hours: any;
+  minutes: any;
+  seconds: any;
+
+
   airdrop_metadata:any={
     airdrop_can_start:''
   }
@@ -50,6 +57,57 @@ export class AirdropPage implements OnInit {
     public popup: PopupService
   ) {}
 
+
+  async withdrawEarnings(){
+   let alltasks=this.airdrop_data.tasks
+
+   let search=alltasks.filter((data)=>{
+    return data.status==true
+   })
+   
+   if(search.length < alltasks.length){
+    const message = {
+      type: 'message',
+      height: 'maxi',
+      transparent: true,
+      message: 'Complete all available tasks,then try again!',
+      messagetitle: 'Tasks Not Completed',
+      messageimg: true,
+      messageimgurl: '../../assets/images/rederror.png',
+      messageactions: true,
+      actionname: 'Okay'
+    };
+
+   let confirmfunc= ()=>{
+  this.popup.close()
+   }
+
+    this.popup.initpopup(message, confirmfunc);
+    
+   }else{
+
+    const newmessage = {
+      type: 'message',
+      height: 'mini',
+      transparent: true,
+      message: 'Your earnings will be sent to your wallet, click confirm to continue',
+      messagetitle: 'Withdraw Earnings',
+      messageimg: false,
+      messageimgurl: '../../assets/images/rederror.png',
+      messageactions: true,
+      actionname: 'Confirm'
+    };
+
+   let confirmfunc=async ()=>{
+   this.popup.close()
+   await this.wallet.withdrawEarnings()
+   }
+
+    this.popup.initpopup(newmessage, confirmfunc);
+
+   }
+
+  }
 
   async openLink(mapurl){
     await Browser.open({ url: mapurl }); 
@@ -166,6 +224,7 @@ this.taskrefer=task
   }
 
   async startFunc(){
+ 
     let airdrop, appsettings;
 
     airdrop=await this.wallet.getAirdrop();
@@ -174,6 +233,9 @@ this.taskrefer=task
     this.appsettings=appsettings
 
     this.airdrop_metadata=appsettings.airdrop_metadata
+    this.countDownDate=new Date(this.airdrop_metadata.airdrop_expiry_date).getTime();
+
+
     this.airdrop_data=airdrop
 
     await this.setSignUpTask(airdrop)
@@ -222,7 +284,7 @@ async shareContent(){
       message: 'Next content will be available tomorrow',
       messagetitle: 'Content Shared For Today',
       messageimg: true,
-      messageimgurl: '../../assets/images/removewallet.png',
+      messageimgurl: '../../assets/images/attention.png',
       messageactions: true,
       actionname: 'Okay'
     };

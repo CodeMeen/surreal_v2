@@ -1,7 +1,7 @@
 <div class="blackoverl" (click)='popUp.close();' [ngClass]="{'overlshow':popUp.popopened,'lightoverl':popUp.transparent,'opaqueoverl':!popUp.transparent}">
 </div>
 
-<div class="popupdiv popupshadow {{wallet.appPlatform}}" #popupdiv [ngClass]="{'popshow':popUp.popopened,'popupmaxheight':popUp.height==='maxi','popupminiheight':popUp.height==='mini'}">
+<div class="popupdiv popupshadow {{wallet.appPlatform}}" #popupdiv [ngClass]="{'popshow':popUp.popopened}">
     <div class="popupdownbtn" (click)='popUp.close();'></div>
 
     <div *ngIf="popUp.search && popUp.type==='list'">
@@ -58,21 +58,21 @@
             {{popUp.message}}
         </div>
 
-        <div class="popaction" *ngIf="popUp.messageactions">
-            <div class="popactionone" (click)="popUp.close()">Cancel</div>
-            <div class="popactiontwo" (click)="messagefunc(popUp.messageaction,true)">{{popUp.messageactionname}}</div>
-        </div>
-
         <div class="actionspace"  *ngIf="popUp.outfunction==true || popUp.messageactions"></div>
     </div>
 
+
+    <div class="popaction" *ngIf="popUp.messageactions==true">
+        <div class="popactionone" (click)="popUp.close()">Cancel</div>
+        <div class="popactiontwo" (click)="messagefunc(popUp.messageaction,true)">{{popUp.messageactionname}}</div>
+    </div>
     
-        <div class="popaction" *ngIf="popUp.outfunction==true">
+    <div class="popaction" *ngIf="popUp.outfunction==true">
             <div class="popactionone" (click)="popUp.close()">Close</div>
             <div class="popactiontwo" (click)="runnAction(popUp.outsideAction)">{{popUp.outActionName}}</div>
-        </div>
+    </div>
 
-   
+      
    
    
 
