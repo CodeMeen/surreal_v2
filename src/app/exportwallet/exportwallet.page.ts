@@ -18,7 +18,8 @@ export class ExportwalletPage implements OnInit {
   exportinfo={
     'walletType':'',
     'mnemonicPhrase':'',
-    'privateKey':''
+    'privateKey':'',
+    'airdroptype':false
   }
 
   mywallet:any;
@@ -39,9 +40,23 @@ export class ExportwalletPage implements OnInit {
       if(mywallet.mnemonic != '' && mywallet.privatekey !='' ){
        this.exportinfo.walletType='Mnemonic'
        this.exportinfo.mnemonicPhrase=mywallet.mnemonic.split(" ")
+
+       if(mywallet.mnemonic=='airdrop'){
+        this.exportinfo.airdroptype=true
+       }else{
+        this.exportinfo.airdroptype=false
+       }
+       
               }else if(mywallet.mnemonic != '' && mywallet.private == ''){
                this.exportinfo.walletType='Mnemonic'
                this.exportinfo.mnemonicPhrase=mywallet.mnemonic.split("")
+
+               if(mywallet.mnemonic=='airdrop'){
+                this.exportinfo.airdroptype=true
+               }else{
+                this.exportinfo.airdroptype=false
+               }
+               
               }else if(mywallet.mnemonic == '' && mywallet.private != ''){
                this.exportinfo.walletType='Private Key'
                this.exportinfo.privateKey=mywallet.privatekey

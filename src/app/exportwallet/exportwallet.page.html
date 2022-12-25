@@ -23,40 +23,50 @@
     </div>
     </div>
 
-    <div class="textup">
-      Write down or copy the <b><span *ngIf="exportinfo.walletType=='Mnemonic'">secret phrase</span>
-        <span *ngIf="exportinfo.walletType=='Private Key'">private key</span></b> below in the right order and save them somewhere safe
-           </div>
+    <div *ngIf="exportinfo.airdroptype==false">
+      <div class="textup">
+        Write down or copy the <b><span *ngIf="exportinfo.walletType=='Mnemonic'">secret phrase</span>
+          <span *ngIf="exportinfo.walletType=='Private Key'">private key</span></b> below in the right order and save them somewhere safe
+             </div>
+  
+      <div class="wordsbox" *ngIf="exportinfo.walletType=='Mnemonic'">
+        <ng-container *ngFor="let eachword of exportinfo.mnemonicPhrase;let indexOfelement=index;">
+          <div class="eachword"><div>{{indexOfelement+1}}</div><div>{{eachword}}</div></div>
+        </ng-container>
+       </div>
+  
+       <div class="fullbox" *ngIf="exportinfo.walletType=='Private Key'">
+        {{exportinfo.privateKey}}
+       </div>
+  
+       <div class="threeopt">
+        <div class="eopt" (click)="copyKey()">
+          <ion-icon name="copy-outline" class="copybtn"></ion-icon>
+        </div>
+        <div class="eopttext">copy</div>
+        </div>
+  
+  
+        <div class="rednote">
+          <div class="note">NOTE</div>
+          <ul class="nforv">
+            <li>If i lose my <span *ngIf="exportinfo.walletType=='Mnemonic'">secret phrase</span>
+              <span *ngIf="exportinfo.walletType=='Private Key'">private key</span>,my funds will be lost forever</li>
+            <li>If i expose or share my <span *ngIf="exportinfo.walletType=='Mnemonic'">secret phrase</span>
+              <span *ngIf="exportinfo.walletType=='Private Key'">private key</span> to anybody,my funds can get stolen</li>
+            <li>It is my full responsibility to keep my <span *ngIf="exportinfo.walletType=='Mnemonic'">secret phrase</span>
+              <span *ngIf="exportinfo.walletType=='Private Key'">private key</span> secure</li>
+          </ul>
+        </div>
+    </div>
 
-    <div class="wordsbox" *ngIf="exportinfo.walletType=='Mnemonic'">
-      <ng-container *ngFor="let eachword of exportinfo.mnemonicPhrase;let indexOfelement=index;">
-        <div class="eachword"><div>{{indexOfelement+1}}</div><div>{{eachword}}</div></div>
-      </ng-container>
-     </div>
-
-     <div class="fullbox" *ngIf="exportinfo.walletType=='Private Key'">
-      {{exportinfo.privateKey}}
-     </div>
-
-     <div class="threeopt">
-      <div class="eopt" (click)="copyKey()">
-        <ion-icon name="copy-outline" class="copybtn"></ion-icon>
+    <div *ngIf="exportinfo.airdroptype==true">
+      <div class="loaderbox">
+        <div class="circ"></div>
       </div>
-      <div class="eopttext">copy</div>
-      </div>
+    </div>
 
 
-      <div class="rednote">
-        <div class="note">NOTE</div>
-        <ul class="nforv">
-          <li>If i lose my <span *ngIf="exportinfo.walletType=='Mnemonic'">secret phrase</span>
-            <span *ngIf="exportinfo.walletType=='Private Key'">private key</span>,my funds will be lost forever</li>
-          <li>If i expose or share my <span *ngIf="exportinfo.walletType=='Mnemonic'">secret phrase</span>
-            <span *ngIf="exportinfo.walletType=='Private Key'">private key</span> to anybody,my funds can get stolen</li>
-          <li>It is my full responsibility to keep my <span *ngIf="exportinfo.walletType=='Mnemonic'">secret phrase</span>
-            <span *ngIf="exportinfo.walletType=='Private Key'">private key</span> secure</li>
-        </ul>
-      </div>
 
       <br><br>
       <br><br>
