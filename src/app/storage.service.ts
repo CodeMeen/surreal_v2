@@ -9,6 +9,7 @@ import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver'
 import { Thumbs } from 'swiper';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 
 
 
@@ -23,82 +24,29 @@ export class StorageService {
   constructor(private _sqlite: SqliteService,private platform: Platform) { 
   }
 
-  /*
+ writeSecretFile = async () => {
+    await Filesystem.writeFile({
+      path: 'secrets/text.txt',
+      data: "This is a test",
+      directory: Directory.Documents,
+      encoding: Encoding.UTF8,
+    });
+  };
+  
+  readSecretFile = async () => {
+    const contents = await Filesystem.readFile({
+      path: 'secrets/text.txt',
+      directory: Directory.Documents,
+      encoding: Encoding.UTF8,
+    });
+  
+    console.log('secrets:', contents);
+  };
 
-  async init() {
-    let res=new Promise(async (resolve,reject)=>{
-      if(this.initialized==false){
 
-        await this.storage.defineDriver(CordovaSQLiteDriver)
-   
-        await this.storage.create().then((storage)=>{
-         this._storage = storage;
-         this.initialized=true
-         
-         resolve(this.initialized)
-        },
-        (error)=>{
-         this.initialized=false
-         console.log("Storage Init Error",error)
-         reject(this.initialized)
-        })
-        
-       }else{
-         this.initialized=true
-         resolve(this.initialized)
-       }
-    })
- 
-  return res
-  }
 
-   public async set(data) {
-    await this.init().then(async ()=>{
-      await this._storage.set(data.key, data.value);
-    },
-    (error)=>{
-     console.log('Could Not Init Storage',error)
-    })
- 
-  }
 
-  public async get(data){
-    let fetcheddata;
 
-    await this.init().then(async ()=>{
-      let resp=await this._storage?.get(data.key);
-      
-      if(!resp){
-       let newresp={
-         value: null
-       }
-       fetcheddata=newresp
-      }else{
-       let newresp={
-         value: resp
-       }
-       fetcheddata=newresp
-      }
-    },
-    (error)=>{
-      let newresp={
-        value: null
-      }
-      fetcheddata=newresp
-     console.log('Could Not Init Storage',error)
-    })
-
-return fetcheddata
-
-  }
-
-  public async length(){
-   let resp= await this._storage.length()
-   console.log(resp)
-   return resp
-  }
-
-  */
 
    async initializeStorage() {
 
@@ -109,10 +57,18 @@ return fetcheddata
 
      }else{
 
-       let res=new Promise((resolve,reject)=>{
+       let res=new Promise(async (resolve,reject)=>{
          let appPlatform=Capacitor.getPlatform();
-       
-         if(appPlatform !== 'web'){
+          
+         if(appPlatform=='android'){
+
+          let perm=await Filesystem.checkPermissions();
+
+          console.log(perm)
+
+          alert(perm)
+
+         }else if(appPlatform == 'ios'){
            console.log("Using SqlLite as Storage On "+appPlatform)
            this.platform.ready().then(async () => {
           
@@ -198,7 +154,7 @@ return fetcheddata
               reject(error)
              });
            });
-         }else{
+         }else if(appPlatform=='web'){
            this.initialized=true
            console.log("Using Capacitor Preferences as Storage On "+appPlatform)
            resolve(true)
@@ -218,10 +174,11 @@ return fetcheddata
      await this.initializeStorage().then(async (dar)=>{
    
          let appPlatform=Capacitor.getPlatform();
+         if(appPlatform=='android'){
 
-         if(appPlatform==='web'){
+         }else if(appPlatform==='web'){
            await Preferences.set(data);
-         }else{
+         }else if(appPlatform==='ios'){
 
           // let dbisopen:any=await this.db.isDBOpen()
 
@@ -301,24 +258,13 @@ return fetcheddata
 
      await this.initializeStorage().then(async (dar)=>{
        let appPlatform=Capacitor.getPlatform();
-       if(appPlatform==='web'){
+       if(appPlatform=='android'){
+
+       }else if(appPlatform=='web'){
          let res= await Preferences.get(data);
          resp=res
-       }else{
+       }else if(appPlatform=='ios'){
 
-        //let dbisopen:any=await this.db.isDBOpen()
-                
-        // open db surrealwallet
-
-      
-
-    /*
-        if(dbisopen.result == false || !dbisopen.result){
-          await this.db.open();
-        }
-
-        */
-      
   
          let db = this.db
         
@@ -334,19 +280,7 @@ return fetcheddata
            }else{
             resp=ret.values[0]
            }
-  
-  
-        /*  await this._sqlite.closeConnection('surrealwalletxx').then(()=>{
-           console.log('Connection closed on GET')
-         }) */
 
-           // close db surrealwallet
-
-           /*
-           if(dbisopen.result == true){
-            await this.db.close();
-          }
-          */
        }
      },
      (error)=>{

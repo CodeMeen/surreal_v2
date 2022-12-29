@@ -63,7 +63,7 @@ export class SharecontentPage implements OnInit {
 
             this.share_img_uri=uriResult.uri
 
-            console.log('Created URI',this.share_img_uri)
+            
           })
 
       },
