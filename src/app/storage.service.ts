@@ -24,30 +24,6 @@ export class StorageService {
   constructor(private _sqlite: SqliteService,private platform: Platform) { 
   }
 
- writeSecretFile = async () => {
-    await Filesystem.writeFile({
-      path: 'secrets/text.txt',
-      data: "This is a test",
-      directory: Directory.Documents,
-      encoding: Encoding.UTF8,
-    });
-  };
-  
-  readSecretFile = async () => {
-    const contents = await Filesystem.readFile({
-      path: 'secrets/text.txt',
-      directory: Directory.Documents,
-      encoding: Encoding.UTF8,
-    });
-  
-    console.log('secrets:', contents);
-  };
-
-
-
-
-
-
    async initializeStorage() {
 
      if(this.initialized==true){
@@ -62,11 +38,56 @@ export class StorageService {
           
          if(appPlatform=='android'){
 
-          let perm=await Filesystem.checkPermissions();
+          console.log("Using FileDb as Storage On "+appPlatform)
 
-          console.log(perm)
+         await Filesystem.readFile({
+            path: 'init.txt',
+            directory: Directory.Data,
+            encoding: Encoding.UTF8
 
-          alert(perm)
+          }).then(
+            async (data:any)=>{
+
+            if(data.data=='DATABASE_INITIALIZED'){
+              this.initialized=true
+              resolve(true)
+            }else{
+
+              await Filesystem.writeFile({
+                path: 'init.txt',
+                data: "DATABASE_INITIALIZED",
+                directory: Directory.Data,
+                encoding: Encoding.UTF8,
+              }).then(()=>{
+                this.initialized=true
+                resolve(true)
+              },
+              (error)=>{
+                this.initialized=false
+                reject(false)
+              })
+    
+
+            }
+
+          },
+          async (error)=>{
+            await Filesystem.writeFile({
+              path: 'init.txt',
+              data: "DATABASE_INITIALIZED",
+              directory: Directory.Data,
+              encoding: Encoding.UTF8,
+            }).then(()=>{
+              this.initialized=true
+              resolve(true)
+            },
+
+            (error)=>{
+              this.initialized=false
+              reject(false)
+            })
+
+          })
 
          }else if(appPlatform == 'ios'){
            console.log("Using SqlLite as Storage On "+appPlatform)
@@ -169,31 +190,26 @@ export class StorageService {
 
   async set(data){
 
-    
-
      await this.initializeStorage().then(async (dar)=>{
    
          let appPlatform=Capacitor.getPlatform();
          if(appPlatform=='android'){
+              let key=data.key
+              let datavalue=data.value
 
+              await Filesystem.writeFile({
+                path: ''+key+'.txt',
+                data: datavalue,
+                directory: Directory.Data,
+                encoding: Encoding.UTF8,
+              });
+
+              
          }else if(appPlatform==='web'){
+
            await Preferences.set(data);
-         }else if(appPlatform==='ios'){
 
-          // let dbisopen:any=await this.db.isDBOpen()
-
-          
-                
-          // open db surrealwallet
-
-
-          /*
-      
-          if(dbisopen.result == false || !dbisopen.result){
-            await this.db.open();
-          }
-
-          */
+         }else if(appPlatform==='ios'){ 
         
     
            let db = this.db
@@ -223,20 +239,7 @@ export class StorageService {
              }
     
             }
-      
-    
-    
-         /*  await this._sqlite.closeConnection('surrealwalletxx').then(()=>{
-             console.log('Connection closed on SET: ')
-           }); */
-
-             // close db surrealwallet
-
-             /*
-             if(dbisopen.result == true){
-              await this.db.close();
-            }
-           */
+ 
     
          }
   
@@ -260,6 +263,25 @@ export class StorageService {
        let appPlatform=Capacitor.getPlatform();
        if(appPlatform=='android'){
 
+        await Filesystem.readFile({
+          path: ''+data.key+'.txt',
+          directory: Directory.Data,
+          encoding: Encoding.UTF8,
+
+        }).then((rez)=>{
+          resp={
+            value:rez.data
+          }
+        },
+        (error)=>{
+
+          resp={
+            value:null
+          }
+
+        }
+        )
+        
        }else if(appPlatform=='web'){
          let res= await Preferences.get(data);
          resp=res
@@ -289,10 +311,7 @@ export class StorageService {
      }
      )
 
-    
 
-  
-    
      return resp;
    
    }
