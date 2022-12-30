@@ -5299,7 +5299,7 @@ async selectWallet(walletid){
         value: JSON.stringify(wallets),
       });
 
-      await this.getTokenMetadata(senttoken);
+     // await this.getTokenMetadata(senttoken);
     }
   }
 
@@ -5433,13 +5433,8 @@ async getWalletPublicKey(chainname,walletid){
 
             }
 
-            console.log(newwallet);
-
             wallets.push(newwallet);
 
-
-    
-  
             await this.storage.set({
               key: "wallets",
               value: JSON.stringify(wallets),
