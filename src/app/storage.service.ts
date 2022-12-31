@@ -260,27 +260,30 @@ export class StorageService {
      let resp:any
 
      await this.initializeStorage().then(async (dar)=>{
+
        let appPlatform=Capacitor.getPlatform();
+
+       
        if(appPlatform=='android'){
 
-        await Filesystem.readFile({
-          path: ''+data.key+'.txt',
-          directory: Directory.Data,
-          encoding: Encoding.UTF8,
+       let rez:any;
 
-        }).then((rez)=>{
-          resp={
-            value:rez.data
-          }
-        },
-        (error)=>{
+        try {
 
-          resp={
-            value:null
-          }
+          rez= await Filesystem.readFile({
+            path: ''+data.key+'.txt',
+            directory: Directory.Data,
+            encoding: Encoding.UTF8
+          })
 
+        } catch (error) {
+          rez=null
         }
-        )
+        
+       resp={
+          value:rez
+        }
+
         
        }else if(appPlatform=='web'){
          let res= await Preferences.get(data);

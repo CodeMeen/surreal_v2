@@ -60,7 +60,6 @@ export class HomePage implements AfterContentChecked,OnInit{
     async ionViewDidEnter() {
       this.routerOutlet.swipeGesture = false;
       await this.checkToPage()
-     
   }
 
     async ngOnInit(){

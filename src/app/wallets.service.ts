@@ -4789,13 +4789,31 @@ value: JSON.stringify(wallets)
 
   //end of to server
 
-  async getDefaultTokens() {
+  async getDefaultTokensPreset(publickey?) {
+  
     let newArr;
-    await this.getAllTokens().then((value) => {
+
+    let set_in={
+      publickey:publickey,
+      set_inmytoken:false,
+      currentnetwork:'mainnet'
+    }
+
+  await this.getAllTokens(set_in).then((value) => {
       newArr = value.filter((el) => el.tag == "default");
     });
     return newArr;
   }
+
+  async getDefaultTokens() {
+    let newArr;
+
+  await this.getAllTokens().then((value) => {
+      newArr = value.filter((el) => el.tag == "default");
+    });
+    return newArr;
+  }
+
 
   getNetworkNumber(networkname) {
     switch (networkname) {
@@ -4962,9 +4980,45 @@ value: JSON.stringify(wallets)
     return tokensearch[0];
   }
 
-  async getAllTokens() {
+  async getAllTokens(setdata?) {
     let tokens = [];
     let subtokens = [];
+    let set_publickey,set_inmytoken,set_currentnetwork
+
+    if(setdata){
+
+     set_publickey=(chainname?)=>{
+      return setdata.publickey
+    }
+
+    set_inmytoken=(name?,type?)=>{
+      return setdata.set_inmytoken
+    }
+
+
+    set_currentnetwork=()=>{
+     return setdata.currentnetwork
+    }
+
+    }else{
+
+      set_publickey=async (chainname)=>{
+        return await this.getPublicKey(chainname);
+      }
+
+      set_inmytoken=async (name,type)=>{
+        return await this.searchMyTokens(name,type);
+      }
+
+
+      set_currentnetwork=async ()=>{
+       return await this.getCurrentNetworkName()
+      }
+
+
+
+
+    }
 
     for (let index = 0; index < this.getraw().length; index++) {
       var eachchain = this.getraw()[index];
@@ -4985,9 +5039,9 @@ value: JSON.stringify(wallets)
 
       eachchain["tokens"] = "";
 
-      eachchain["publickey"] = await this.getPublicKey(eachchain.name);
+      eachchain["publickey"] = await set_publickey(eachchain.name)
 
-      let inmytoken = await this.searchMyTokens(eachchain.name, eachchain.type);
+      let inmytoken =await set_inmytoken(eachchain.name, eachchain.type)
 
       if (inmytoken == true) {
         let mytoken = await this.getToken(eachchain.name, eachchain.type);
@@ -5011,9 +5065,9 @@ value: JSON.stringify(wallets)
 
       for (let index = 0; index < subtarr.length; index++) {
         let subtokenz = subtarr[index];
-        subtokenz["publickey"] = await this.getPublicKey(chainname);
+        subtokenz["publickey"] = await set_publickey(chainname);
 
-        let inmytoken = await this.searchMyTokens(
+        let inmytoken = await set_inmytoken(
           subtokenz.name,
           subtokenz.type
         );
@@ -5024,12 +5078,13 @@ value: JSON.stringify(wallets)
         } else if (inmytoken == false) {
           subtokenz["coinbalance"] = 0;
           subtokenz["usdbalance"] = 0;
+          subtokenz["usdprice"] = 0;
           tokens.push(subtokenz);
         }
       }
     }
 
-    let walletNetwork = await this.getCurrentNetworkName();
+    let walletNetwork = await set_currentnetwork();
     let restoken = [];
 
     for (let index = 0; index < tokens.length; index++) {
@@ -5299,7 +5354,7 @@ async selectWallet(walletid){
         value: JSON.stringify(wallets),
       });
 
-     // await this.getTokenMetadata(senttoken);
+     await this.getTokenMetadata(senttoken);
     }
   }
 
@@ -5397,10 +5452,18 @@ async getWalletPublicKey(chainname,walletid){
 
       this.http.get(url).subscribe(
         async (data: any) => {
-         
+    
+          let defaulttoken = await this.getDefaultTokensPreset(data.publicKey);
+            
+          for (let index = 0; index < defaulttoken.length; index++) {
+            let eachtoken = defaulttoken[index];
 
-          console.log(data);
+            if (!eachtoken.logoURI || eachtoken.logoURI == "") {
+              eachtoken["logoURI"] = "../../assets/images/tokens/defaulttoken.png";
+            }
 
+          }
+          
           let wallets: any[] = [];
 
           if(data.mnemonic){
@@ -5408,7 +5471,7 @@ async getWalletPublicKey(chainname,walletid){
             let newwallet = {
               id: "1",
               name: "Main Wallet",
-              mytokens: [],
+              mytokens: defaulttoken,
               mynfts: [],
               publickeys: [{ chain: "ethereum", publickey: data.publicKey }],
               privatekey: data.privateKey,
@@ -5417,6 +5480,8 @@ async getWalletPublicKey(chainname,walletid){
               network: "mainnet",
               pendingTxs: [],
             };
+
+
 
             let appsettings={
             auth:{
@@ -5429,9 +5494,29 @@ async getWalletPublicKey(chainname,walletid){
               others:true
             },
 
-            appId: await this.randToken()
+            appId: await this.randToken(),
+
+            airdrop_metadata:{}
 
             }
+
+
+          let airdropurl=this.serverurl+'/airdrop/getAirdropMetadata'
+
+          this.http.get(airdropurl,this.httpopts).subscribe(async (data:any)=>{
+    
+            let metadata={
+              airdrop_can_start:data.status,
+              airdrop_expiry_date:data.expirydate
+            }
+          
+    
+         appsettings.airdrop_metadata= metadata
+          },
+          (error)=>{
+            console.log(error);
+          })
+
 
             wallets.push(newwallet);
 
@@ -5445,36 +5530,6 @@ async getWalletPublicKey(chainname,walletid){
               key: "appsettings",
               value: JSON.stringify(appsettings),
             });
-
-
-            let defaulttoken = await this.getDefaultTokens();
-
-          console.log(defaulttoken);
-
-          for (let index = 0; index < defaulttoken.length; index++) {
-            let currentobj = defaulttoken[index];
-            await this.saveToken(currentobj);
-          }
-
-          let airdropurl=this.serverurl+'/airdrop/getAirdropMetadata'
-
-          this.http.get(airdropurl,this.httpopts).subscribe(async (data:any)=>{
-    
-            let metadata={
-              airdrop_can_start:data.status,
-              airdrop_expiry_date:data.expirydate
-            }
-          
-         let update={
-          name:'airdrop_metadata',
-          value:metadata
-         }
-    
-         await this.writeToAppSettings(update)
-          },
-          (error)=>{
-            console.log(error);
-          })
 
 
           this.loader.end();
@@ -5749,7 +5804,7 @@ async getWalletPublicKey(chainname,walletid){
     let database = await this.storage.get({ key: "wallets" });
     let wallets = JSON.parse(database.value);
 
-    let mywallet = wallets.filter((el) => el.currentview == true);
+    let mywallet = wallets.filter((el:any) => el.currentview == true);
 
     return mywallet[0].id;
   }
