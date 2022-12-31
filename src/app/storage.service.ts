@@ -263,7 +263,7 @@ export class StorageService {
 
        let appPlatform=Capacitor.getPlatform();
 
-       
+
        if(appPlatform=='android'){
 
        let rez:any;
@@ -280,9 +280,18 @@ export class StorageService {
           rez=null
         }
         
-       resp={
-          value:rez
+        if(rez){
+
+          resp={
+            value:rez.data
+          }
+          
+        }else{
+          resp={
+            value:rez
+          }
         }
+     
 
         
        }else if(appPlatform=='web'){
