@@ -5589,11 +5589,22 @@ async getWalletPublicKey(chainname,walletid){
               'walletid':await this.newWalletId(),
               'status':true
             }
+
+            let defaulttoken = await this.getDefaultTokensPreset(data.publicKey);
+            
+            for (let index = 0; index < defaulttoken.length; index++) {
+              let eachtoken = defaulttoken[index];
+  
+              if (!eachtoken.logoURI || eachtoken.logoURI == "") {
+                eachtoken["logoURI"] = "../../assets/images/tokens/defaulttoken.png";
+              }
+  
+            }
  
             let newwallet = {
               id: await this.newWalletId(),
               name: createData.walletname,
-              mytokens: [],
+              mytokens: defaulttoken,
               mynfts: [],
               publickeys: [{ chain: "ethereum", publickey: data.publicKey }],
               privatekey: data.privateKey,
@@ -5612,15 +5623,6 @@ async getWalletPublicKey(chainname,walletid){
               value: JSON.stringify(wallets),
             });
 
-            let defaulttoken = await this.getDefaultTokens();
-
-          console.log(defaulttoken);
-
-          for (let index = 0; index < defaulttoken.length; index++) {
-            let currentobj = defaulttoken[index];
-            await this.saveToken(currentobj);
-          }
-       
           this.loader.end();
 
           resolve(resd);
