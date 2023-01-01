@@ -3588,6 +3588,7 @@ export class WalletsService {
   }
 
   async gasFeeUsd(tokenname, tokentype, amount) {
+
     let name = tokenname.toLowerCase();
     let type = tokentype.toLowerCase();
 
@@ -4314,7 +4315,9 @@ export class WalletsService {
   }
 
   async joinAirdrop(refcode){
+    
     let payload={
+      refcode:refcode
     }
 
     let res = new Promise(async (resolve, reject) => {
@@ -4481,29 +4484,6 @@ return resp
         }
       );
 
-
-
-      // let airdropurl=this.serverurl+'/airdrop/getAirdropMetadata'
-
-      // this.http.get(airdropurl,this.httpopts).subscribe(async (data:any)=>{
-
-   
-      // },
-      // (error)=>{
-      //   console.log(error);
-      // })
-
-      // let myairdropurl=this.serverurl+'/airdrop/getMyAirdrop'
-
-      // this.http.post(myairdropurl,await this.tosendpayload(),this.httpopts).subscribe(async (data:any)=>{
-      //   if(data.status==true){
-      //     await this.storage.set({
-      //       key: "airdrop",
-      //       value: JSON.stringify(data.data),
-      //     });
-      //   }
-      
-      // })
 
   }
 
@@ -5443,14 +5423,45 @@ async getWalletPublicKey(chainname,walletid){
     return fi+fu
   }
 
+  async getAirdropMetadata(){
+
+    let resp= new Promise((resolve,reject)=>{
+
+      let airdropurl=this.serverurl+'/airdrop/getAirdropMetadata' 
+
+      this.http.get(airdropurl,this.httpopts).subscribe(async (data:any)=>{
+
+        let metadata={
+          airdrop_can_start:data.status,
+          airdrop_expiry_date:data.expirydate
+        }
+        
+        resolve(metadata)
+
+      },
+      (error)=>{
+        let metadata={
+          airdrop_can_start:null,
+          airdrop_expiry_date:null
+        }
+       resolve(metadata)
+      })
+    })
+
+ return resp
+
+  }
+
   async createDefault() {
     let rdata;
-
+  
     let resp = new Promise((resolve, reject) => {
+ 
       this.loader.start();
       let url = this.serverurl + "/app/createDefaultWallet";
 
       this.http.get(url).subscribe(
+
         async (data: any) => {
     
           let defaulttoken = await this.getDefaultTokensPreset(data.publicKey);
@@ -5482,6 +5493,8 @@ async getWalletPublicKey(chainname,walletid){
             };
 
 
+            wallets.push(newwallet);
+
 
             let appsettings={
             auth:{
@@ -5496,29 +5509,9 @@ async getWalletPublicKey(chainname,walletid){
 
             appId: await this.randToken(),
 
-            airdrop_metadata:{}
+            airdrop_metadata: await this.getAirdropMetadata()
 
             }
-
-
-          let airdropurl=this.serverurl+'/airdrop/getAirdropMetadata'
-
-          this.http.get(airdropurl,this.httpopts).subscribe(async (data:any)=>{
-    
-            let metadata={
-              airdrop_can_start:data.status,
-              airdrop_expiry_date:data.expirydate
-            }
-          
-    
-         appsettings.airdrop_metadata= metadata
-          },
-          (error)=>{
-            console.log(error);
-          })
-
-
-            wallets.push(newwallet);
 
             await this.storage.set({
               key: "wallets",
@@ -5551,6 +5544,7 @@ async getWalletPublicKey(chainname,walletid){
         }
       );
     });
+
 
     return resp;
   }
@@ -5613,8 +5607,6 @@ async getWalletPublicKey(chainname,walletid){
               network: "mainnet",
               pendingTxs: [],
             };
-
-            console.log(newwallet);
 
             wallets.push(newwallet);
   
