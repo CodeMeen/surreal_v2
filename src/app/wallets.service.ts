@@ -7,6 +7,8 @@ import { NotiService } from "./noti.service";
 import { StorageService } from "./storage.service";
 import { Capacitor } from '@capacitor/core';
 import { PopupService } from './popup.service';
+import { RouterService } from "./router.service";
+
 
 @Injectable({
   providedIn: "root",
@@ -3414,7 +3416,8 @@ export class WalletsService {
     public loader: LoaderService,
     public noti: NotiService,
     public storage: StorageService,
-    public popup: PopupService
+    public popup: PopupService,
+    public router: RouterService
   ) {}
 
   //to server
@@ -3842,10 +3845,16 @@ export class WalletsService {
         messagetitle: 'Withdrawal Successful',
         messageimg: true,
         messageimgurl: '../../assets/images/greensuccess.png',
-        messageactions: false
-      };
+        messageactions: true,
+        actionname: 'Go To Wallet'
+    };
 
-      this.popup.initpopup(message);
+   let confirmfunc=async ()=>{
+   this.popup.close()
+   this.router.naviTo(['/account','wallet']);
+   }
+
+      this.popup.initpopup(message,confirmfunc);
 
      })
      
@@ -4315,7 +4324,7 @@ export class WalletsService {
   }
 
   async joinAirdrop(refcode){
-    
+
     let payload={
       refcode:refcode
     }
