@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IonRouterOutlet } from '@ionic/angular';
 import { RouterService } from '../router.service';
 import { WalletsService } from '../wallets.service';
+import { PopupService } from '../popup.service';
 
 
 
@@ -22,7 +23,7 @@ export class ConfirmtxPage implements OnInit {
   }
 
 
-  constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService) { }
+  constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService,public popup: PopupService) { }
 
 
  
@@ -101,6 +102,29 @@ async confirmTx(){
 
   this.refinedTxData['baseChain']=await this.wallet.tokenBaseChain(tx.token.name,tx.token.type)
 
+
+
+  if(this.refinedTxData.eligibility.status==false && this.refinedTxData.eligibility.reason=='low_network_fees' ){
+    const message = {
+      type: 'message',
+      height: 'mini',
+      transparent: true,
+      message: `You dont have enough ${this.refinedTxData.baseChain.name} (${this.refinedTxData.baseChain.symbol}) to cover ${this.refinedTxData.networkFee} ${this.refinedTxData.baseChain.symbol} ($${this.refinedTxData.networkFeeUsd}) network fees`,
+      messagetitle: "Insufficient Gas Fee",
+      messageimg: true,
+      messageimgurl: '../../assets/images/rederror.png',
+      messageactions: true,
+      actionname: 'Top Up ETH'
+  };
+  
+  let confirmfunc=async ()=>{
+  this.popup.close()
+  this.router.naviTo(['/receivetoken',this.refinedTxData.baseChain.name,this.refinedTxData.baseChain.type])
+  }
+  
+    this.popup.initpopup(message,confirmfunc);
+  
+  }
 
   console.log(this.refinedTxData)
 

@@ -27,6 +27,8 @@ export class AirdropPage implements OnInit {
 
   countdown:any;
 
+  doneshowpop: boolean
+
 
   airdrop_metadata:any={
     airdrop_can_start:''
@@ -276,6 +278,8 @@ this.taskrefer=task
     await this.setShareTask(airdrop)
 
     this.airdropWallet=await this.wallet.checkAirdropWallet();
+
+    await this.checkAllTaskDone();
    
   }
 
@@ -333,6 +337,42 @@ async shareContent(){
 
     async ngOnInit() {
     await this.startFunc();
+  }
+
+  async checkAllTaskDone(){
+    let has_withdrawn=this.airdrop_data.hasWithdrawn
+
+    let alltasks=this.airdrop_data.tasks
+
+    let search=alltasks.filter((data)=>{
+     return data.status==true
+    })
+
+    if((search >= alltasks) && has_withdrawn==false){
+
+      if(this.doneshowpop==false){
+        
+        const successmessage = {
+          type: 'message',
+          height: 'maxi',
+          transparent: true,
+          message: 'You have participated and completed all Giveaway/Airdrop tasks,click on the Withdraw To Wallet button to send earnings to your crypto wallet',
+          messagetitle: 'Tasks Completed',
+          messageimg: true,
+          messageimgurl: '../../assets/images/greensuccess.png',
+          messageactions: false
+        };
+  
+        this.popup.initpopup(successmessage);
+
+      }
+      
+
+      this.doneshowpop=true
+    }
+
+
+
   }
 
   async reloadFunc(){
