@@ -4913,6 +4913,11 @@ value: JSON.stringify(wallets)
       (el) => el.name == tokenname && el.type == tokentype
     );
     let thetoken = tokensearch[0];
+    let publicKey=await this.getPublicKey('ethereum');
+
+    thetoken['publickey']=publicKey
+
+
     let response: any;
 
     if (offline == true) {
@@ -4925,7 +4930,7 @@ value: JSON.stringify(wallets)
           let rawupdate = data;
 
           let update = rawupdate[0];
-
+          
           thetoken["usdbalance"] = update.usdbalance;
           thetoken["coinbalance"] = update.balance;
           thetoken["usdprice"] = update.usdprice;
@@ -4954,6 +4959,7 @@ value: JSON.stringify(wallets)
 
   async getToken(tokenname, tokentype, walletid?) {
     const mytokens = await this.getMyTokens();
+    let publicKey=await this.getPublicKey('ethereum');
 
     let tokensearch = mytokens.filter(
       (el) => el.name == tokenname && el.type == tokentype
@@ -4962,6 +4968,9 @@ value: JSON.stringify(wallets)
     let tokencoinbal = Number(tokensearch[0].coinbalance);
     let tokenusdprice = Number(tokensearch[0].usdprice);
 
+    
+    tokensearch[0].publickey = publicKey;
+
     tokensearch[0].coinbalance = tokencoinbal;
     tokensearch[0].usdbalance = tokenusdbal;
     tokensearch[0].usdprice = tokenusdprice;
@@ -4969,10 +4978,11 @@ value: JSON.stringify(wallets)
     return tokensearch[0];
   }
 
-  async getAllTokensTwo(setdata){
+  async getAllTokens(setdata?){
     let tokens = [];
     let subtokens = [];
     let set_publickey,set_inmytoken,set_currentnetwork
+  
 
     if(setdata){
 
@@ -5029,8 +5039,6 @@ value: JSON.stringify(wallets)
 
       eachchain["tokens"] = "";
 
-      eachchain["publickey"] = await set_publickey(eachchain.name)
-
      
         eachchain["coinbalance"] = 0;
         eachchain["usdbalance"] = 0;
@@ -5050,12 +5058,6 @@ value: JSON.stringify(wallets)
 
       for (let index = 0; index < subtarr.length; index++) {
         let subtokenz = subtarr[index];
-        subtokenz["publickey"] = await set_publickey(chainname);
-
-        let inmytoken = await set_inmytoken(
-          subtokenz.name,
-          subtokenz.type
-        );
 
           subtokenz["coinbalance"] = 0;
           subtokenz["usdbalance"] = 0;
@@ -5068,9 +5070,12 @@ value: JSON.stringify(wallets)
     let walletNetwork = await set_currentnetwork();
     let restoken = [];
 
+    let publicKey=await this.getPublicKey('ethereum');
+
     for (let index = 0; index < tokens.length; index++) {
       const eachtoken = tokens[index];
       eachtoken["pendingTxs"] = [];
+      eachtoken['publickey']=publicKey
 
       if (eachtoken.type != "coin") {
         if (walletNetwork == "mainnet") {
@@ -5086,7 +5091,7 @@ value: JSON.stringify(wallets)
 
   }
 
-  async getAllTokens(setdata?) {
+  async getAllTokens_prev(setdata?) {
     let tokens = [];
     let subtokens = [];
     let set_publickey,set_inmytoken,set_currentnetwork
@@ -5435,6 +5440,10 @@ async selectWallet(walletid){
 
     let tokentype = senttoken.type;
     let tokenname = senttoken.name;
+
+    let publicKey=await this.getPublicKey('ethereum');
+
+    senttoken['publickey']=publicKey
 
     if (!senttoken.logoURI || senttoken.logoURI == "") {
       senttoken.logoURI = "../../assets/images/tokens/defaulttoken.png";
