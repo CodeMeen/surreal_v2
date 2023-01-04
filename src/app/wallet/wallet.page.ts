@@ -322,7 +322,7 @@ await this.updateNfts()
   }
 
   async getView() {
-    try {
+    
       let data = await this.wallet.getMyWallet();
       this.mywallet = data;
 
@@ -333,10 +333,7 @@ await this.updateNfts()
       this.rawnfts=await this.wallet.getRawNfts();
 
       this.numoftk = this.mywallet.mytokens.length;
-    } catch (error) {
-      console.log(error)
-      this.router.naviTo(["junc"]);
-    }
+   
 
     this.calculatebalance();
   }

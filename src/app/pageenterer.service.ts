@@ -20,11 +20,23 @@ export class PageentererService {
       return false
       }
 
+    }else if(pagetype=='account'){
+
+      let allwallets:any=await this.wallet.getAllWallet()
+
+      if(!allwallets || allwallets==null){
+        return false
+      }else{
+        return true
+      }
+
+
     }else{
       return true
+    }
+    
     }
 
   }
 
  
-}

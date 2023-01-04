@@ -52,10 +52,6 @@ export class MenuPage implements OnInit {
 
     this.airdropWallet=await this.wallet.checkAirdropWallet();
 
-   
-
-  
-   
   }
 
 

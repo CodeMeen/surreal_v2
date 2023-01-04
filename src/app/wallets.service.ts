@@ -5002,7 +5002,7 @@ value: JSON.stringify(wallets)
     }else{
 
       set_publickey=async (chainname)=>{
-        return await this.getPublicKey(chainname);
+        return await this.getPublicKey('ethereum');
       }
 
       set_inmytoken=async (name,type)=>{
@@ -5013,9 +5013,6 @@ value: JSON.stringify(wallets)
       set_currentnetwork=async ()=>{
        return await this.getCurrentNetworkName()
       }
-
-
-
 
     } 
 
@@ -5070,8 +5067,8 @@ value: JSON.stringify(wallets)
     let walletNetwork = await set_currentnetwork();
     let restoken = [];
 
-    let publicKey=await this.getPublicKey('ethereum');
-
+    let publicKey=await set_publickey()
+    
     for (let index = 0; index < tokens.length; index++) {
       const eachtoken = tokens[index];
       eachtoken["pendingTxs"] = [];
