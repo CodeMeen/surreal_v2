@@ -65,9 +65,9 @@ return rx.toString();
   },
   'listid':index,
   'searchphrase':eachobj.symbol
-}
+    }
 
-arr.push(newobj);
+   arr.push(newobj);
    
   }
 
@@ -101,7 +101,7 @@ this.swap={
   'totokenusd':0
 }
 
-await this.syncTokenPrice('fromtoken')
+  await this.syncTokenPrice('fromtoken')
   }
 
   this.popup.initpopup(selectinfo,selectfunc)

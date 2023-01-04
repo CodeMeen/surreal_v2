@@ -4969,6 +4969,123 @@ value: JSON.stringify(wallets)
     return tokensearch[0];
   }
 
+  async getAllTokensTwo(setdata){
+    let tokens = [];
+    let subtokens = [];
+    let set_publickey,set_inmytoken,set_currentnetwork
+
+    if(setdata){
+
+     set_publickey=(chainname?)=>{
+      return setdata.publickey
+    }
+
+    set_inmytoken=(name?,type?)=>{
+      return setdata.set_inmytoken
+    }
+
+
+    set_currentnetwork=()=>{
+     return setdata.currentnetwork
+    }
+
+    }else{
+
+      set_publickey=async (chainname)=>{
+        return await this.getPublicKey(chainname);
+      }
+
+      set_inmytoken=async (name,type)=>{
+        return await this.searchMyTokens(name,type);
+      }
+
+
+      set_currentnetwork=async ()=>{
+       return await this.getCurrentNetworkName()
+      }
+
+
+
+
+    } 
+
+
+    for (let index = 0; index < this.getraw().length; index++) {
+      var eachchain = this.getraw()[index];
+
+      var subt: any = {};
+      subt = eachchain.tokens;
+
+      if (!subt) {
+      } else {
+        let subtobj = {
+          chainsymbol: eachchain.symbol,
+          chaintype: "token",
+          chainname: eachchain.name,
+          tokens: subt,
+        };
+        subtokens.push(subtobj);
+      }
+
+      eachchain["tokens"] = "";
+
+      eachchain["publickey"] = await set_publickey(eachchain.name)
+
+     
+        eachchain["coinbalance"] = 0;
+        eachchain["usdbalance"] = 0;
+        eachchain["usdprice"] = 0;
+        tokens.push(eachchain);
+      
+    }
+
+    for (let index = 0; index < subtokens.length; index++) {
+      let eachsubtobj: any = subtokens[index];
+
+      let subtarr: any[] = eachsubtobj.tokens;
+
+      let chainsymbol: any = eachsubtobj.chainsymbol;
+      let chaintype: any = eachsubtobj.chaintype;
+      let chainname: any = eachsubtobj.chainname;
+
+      for (let index = 0; index < subtarr.length; index++) {
+        let subtokenz = subtarr[index];
+        subtokenz["publickey"] = await set_publickey(chainname);
+
+        let inmytoken = await set_inmytoken(
+          subtokenz.name,
+          subtokenz.type
+        );
+
+          subtokenz["coinbalance"] = 0;
+          subtokenz["usdbalance"] = 0;
+          subtokenz["usdprice"] = 0;
+          tokens.push(subtokenz);
+        
+      }
+    }
+
+    let walletNetwork = await set_currentnetwork();
+    let restoken = [];
+
+    for (let index = 0; index < tokens.length; index++) {
+      const eachtoken = tokens[index];
+      eachtoken["pendingTxs"] = [];
+
+      if (eachtoken.type != "coin") {
+        if (walletNetwork == "mainnet") {
+          restoken.push(eachtoken);
+        } else {
+        }
+      } else {
+        restoken.push(eachtoken);
+      }
+    }
+
+    return restoken;
+
+  }
+
   async getAllTokens(setdata?) {
     let tokens = [];
     let subtokens = [];
