@@ -140,6 +140,10 @@ const routes: Routes = [
     path: 'sharecontent',
     loadChildren: () => import('./sharecontent/sharecontent.module').then( m => m.SharecontentPageModule)
   },
+  {
+    path: 'sharetextcontent',
+    loadChildren: () => import('./sharetextcontent/sharetextcontent.module').then( m => m.SharetextcontentPageModule)
+  },
 ];
 
 @NgModule({

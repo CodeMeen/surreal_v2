@@ -1,0 +1,37 @@
+<ion-content>
+  <div class="sharetextcontentview view {{wallet.appPlatform}}">
+
+      <div class="purpheader">
+          <div class="goback" (click)="router.goBack()">
+              <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
+          </div>
+          <div class="centerdiv">
+              <div class="logo"></div>
+          </div>
+          <div></div>
+      </div>
+
+      <div class="balancetext" style="font-size: 16px;">My Referral Info</div>
+
+      <div class="smallline" style="margin-top:10px"></div>
+      
+      <div class="ximagecontainer">
+     
+       <div class="cdowndiv">
+        <div class="messagetext">
+          {{airdrop.shareMessage}}
+        </div>
+        <div class="rcursion">
+          Share your referral info to your friends on WhatsApp or socials.
+        </div>
+
+       </div>
+      </div>
+
+      <div class="addmorecont">
+        <button class="addmorebtn" (click)="shareText()">Copy/Share with your friends</button>
+      </div>
+     
+      </div>
+
+  </ion-content>

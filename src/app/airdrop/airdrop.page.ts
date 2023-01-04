@@ -27,7 +27,7 @@ export class AirdropPage implements OnInit {
 
   countdown:any;
 
-  doneshowpop: boolean
+  doneshowpop: boolean = false
 
 
   airdrop_metadata:any={
@@ -286,6 +286,10 @@ this.taskrefer=task
 
 async shareRef(message){
 // check documentation during compiling
+
+this.router.naviTo(['sharetextcontent'])
+
+/*
    let sd:any=await Share.canShare()
    console.log(sd)
 
@@ -303,7 +307,7 @@ async shareRef(message){
       dialogTitle: 'Share with Friends',
     });
    }
-  
+  */
     
 }
 
@@ -351,7 +355,7 @@ async shareContent(){
     if((search >= alltasks) && has_withdrawn==false){
 
       if(this.doneshowpop==false){
-        
+
         const successmessage = {
           type: 'message',
           height: 'maxi',
