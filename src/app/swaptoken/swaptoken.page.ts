@@ -133,7 +133,55 @@ this.swap={
   this.totokenvalue='';
  }
 
- 
+ async clickswap(){
+
+  if(this.fromtokenvalue <= 0 || this.totokenvalue <= 0 || this.fromtokenusd <= 0 || this.totokenusd <= 0 || !this.fromtoken.name || !this.totoken.name || this.successflag==false){
+  }else{
+
+    if(this.currentNetwork != 'mainnet'){
+      const tomorrowmessage = {
+        type: 'message',
+        height: 'maxi',
+        transparent: true,
+        message: 'Token swap is only available on the mainnet,switch network to ethereum mainnet to use token swap',
+        messagetitle: 'Can not swap',
+        messageimg: true,
+        messageimgurl: '../../assets/images/attention.png',
+        messageactions: true,
+        actionname: 'Okay'
+      };
+  
+     let confirmfunc= ()=>{
+    this.popup.close()
+     }
+  
+      this.popup.initpopup(tomorrowmessage, confirmfunc);
+    }else{
+
+      const tomorrowmessage = {
+        type: 'message',
+        height: 'maxi',
+        transparent: true,
+        message: 'An error occured during your request,please try again later!',
+        messagetitle: 'An error occured',
+        messageimg: true,
+        messageimgurl: '../../assets/images/rederror.png',
+        messageactions: true,
+        actionname: 'Okay'
+      };
+  
+     let confirmfunc= ()=>{
+    this.popup.close()
+     }
+  
+      this.popup.initpopup(tomorrowmessage, confirmfunc);
+
+    }
+    
+  }
+
+
+ }
 
  async selectTotoken(){
   let alltoken=await this.wallet.getAllTokens();

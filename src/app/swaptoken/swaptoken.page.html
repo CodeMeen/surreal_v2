@@ -96,9 +96,16 @@
 
 
 <div class="buttonbelow">
-  <button class="whitebtn" [ngClass]="{'faded': fromtokenvalue <= 0 || totokenvalue <= 0 || fromtokenusd <= 0 || totokenusd <= 0 || !fromtoken.name || !totoken.name || successflag==false}">Continue</button>
+  <button class="whitebtn" (click)="clickswap()" [ngClass]="{'faded': fromtokenvalue <= 0 || totokenvalue <= 0 || fromtokenusd <= 0 || totokenusd <= 0 || !fromtoken.name || !totoken.name || successflag==false}">Continue</button>
 </div>
 
+
+<div class="rednote" *ngIf="currentNetwork != 'mainnet'">
+  <div class="note">NOTE</div>
+  <div>
+    Token swap is only available on the mainnet,switch network to ethereum mainnet to use token swap.
+  </div>
+</div>
 
 
 

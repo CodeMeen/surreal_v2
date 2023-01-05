@@ -8,7 +8,25 @@
     background-size: 300%;
    // animation: purpanimation 15s linear infinite alternate;
 
-  
+   .rednote{
+    padding:10px 15px; 
+    background: rgb(250, 127, 127);
+        border-radius: 7px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(2.1px);
+        -webkit-backdrop-filter: blur(2.1px);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        font-size: 13px;
+        color:darkred;
+       font-family: mntsreg;
+       margin: 20px 10px;
+}
+
+.note{
+    text-align: center;
+    font-family: mntssemibold;
+}
+
     .tokentype{
         color:#5d6969;
         font-size: 15px;

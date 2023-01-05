@@ -18,7 +18,7 @@ import { SqliteService } from './sqlite.service';
 @NgModule({
   declarations: [AppComponent,NotipanelComponent,PopupComponent,LoaderComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot({ scrollPadding: false}),
+  imports: [BrowserModule, IonicModule.forRoot({ scrollPadding: true}),
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
