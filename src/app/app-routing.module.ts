@@ -149,6 +149,10 @@ const routes: Routes = [
     path: 'sharetextcontent',
     loadChildren: () => import('./sharetextcontent/sharetextcontent.module').then( m => m.SharetextcontentPageModule)
   },
+  {
+    path: 'about',
+    loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
+  },
 ];
 
 @NgModule({
