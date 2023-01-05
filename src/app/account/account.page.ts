@@ -17,10 +17,9 @@ export class AccountPage implements OnInit {
   
   constructor(public router:Router,private routerOutlet: IonRouterOutlet,public events:EventsService,public wallet: WalletsService) { }
 
- 
-
   async ngOnInit() {
-  
+   
+
     this.routerOutlet.swipeGesture = false;
     let currenturl=this.router.url
 
@@ -30,7 +29,6 @@ this.panelmode='light';
 this.panelmode='light';
     }
 
-   
    
   }
 

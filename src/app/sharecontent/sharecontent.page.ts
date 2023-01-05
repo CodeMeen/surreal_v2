@@ -24,6 +24,7 @@ export class SharecontentPage implements OnInit {
   share_img_uri;
 
   task?: any = {};
+  reloading=true;
 
   constructor(
     private route: ActivatedRoute,
@@ -77,6 +78,20 @@ export class SharecontentPage implements OnInit {
     let sd:any=await Share.canShare()
    console.log(sd)
 
+let airdrop=await this.wallet.getAirdrop();
+let tasks=airdrop.tasks
+let respsh=tasks.filter((data)=>{
+ return data.tag=='share'
+})
+
+
+if(respsh.length >= 1){
+
+  let thetask=respsh[0]
+
+  if(thetask.can_share==true){
+
+
    if(sd.value==false){
   
     this.noti.notify('error','Can not share file on web');
@@ -99,21 +114,45 @@ export class SharecontentPage implements OnInit {
   })
    }
 
-/*
-    FileSharer.share({
-        filename: "banner.png",
-        contentType: "image/png",
-        // If you want to save base64:
-        base64Data: this.share_object_url,
-        // If you want to save a file from a path:
-        path: "",
-    }).then(() => {
-        // do sth
-    }).catch(error => {
-        console.error("File sharing failed", error.message);
-    });
 
-    */
+  }else{
+    this.router.goBack(); 
+  }
+
+}
+
+
+}
+
+async checkcanshare(){
+let airdrop=await this.wallet.getAirdrop();
+let tasks=airdrop.tasks
+let respsh=tasks.filter((data)=>{
+return data.tag=='share'
+})
+
+if(respsh.length >= 1){
+
+  let thetask=respsh[0]
+
+  if(thetask.can_share==true){
+
+  }else{
+    this.router.goBack(); 
+  }
+
+}
+
+}
+async reloadFunc(){
+
+
+  if(this.reloading==true) {
+    setTimeout(async () =>{
+      this.reloadFunc();
+    },this.wallet.reloadtime)
+  }
+
 }
 
   async ionViewDidEnter() {
@@ -122,16 +161,20 @@ export class SharecontentPage implements OnInit {
 
   async ionViewWillEnter() {
     console.log("Entering ShareContent..");
-
     await this.startFunc();
+
+    this.reloading=true
+    this.reloadFunc()
   }
 
   ionViewWillLeave() {
     console.log("Leaving ShareContent..");
+    this.reloading=false
   }
 
   ngOnDestroy() {
     console.log("Left ShareContent..");
+    this.reloading=false
   }
 
   ngOnInit() {}

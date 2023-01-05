@@ -29,6 +29,8 @@ export class SwaptokenPage implements OnInit {
     'totokenusd':0
   }
 
+  currentNetwork:any;
+
   constructor(public wallet: WalletsService,private events:EventsService,private routerOutlet: IonRouterOutlet, public noti:NotiService, public popup: PopupService,public router: RouterService ) { }
 
   numberize(x,nocomma?,num?) {
@@ -256,7 +258,19 @@ await this.syncTokenPrice('totoken')
 
   async syncToken(){
 this.fromtoken=(await this.wallet.getMyTokens())[0];
-this.totoken=await this.wallet.getAToken('Dai','ERC20');
+
+let currentNetwork=await this.wallet.getCurrentNetworkName()
+
+this.currentNetwork=currentNetwork
+
+if(currentNetwork=='mainnet'){
+  this.totoken=await this.wallet.getAToken('Dai','ERC20');
+}else{
+  this.totoken=(await this.wallet.getMyTokens())[0];
+}
+
+
+
   }
 
   async syncTokenPrice(type){

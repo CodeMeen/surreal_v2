@@ -23,18 +23,14 @@ constructor(
     private wallet: WalletsService
   ) {   
     this.platform.ready().then(async () => {
-      let allwallets=await this.wallet.getAllWallet();
-
-      if(!allwallets){
-
-      }else{
+     
         this.isAppActive=true
         this.alwaysupdatebalances('first call:- Update Balance')
         this.alwaysupdateprices('first call:- Update Prices')
         this.alwaysupdatenfts('first call:- Update Nfts')
         this.alwaysgeterc('first call:-Get ERCs in wallet');
         //this.alwaysupdatepages()
-      }
+      
 
 
     })
@@ -62,14 +58,20 @@ async alwaysupdatebalances(message?){
     console.log(message)
   }
 
-  if(this.isAppActive==true){
-    await this.wallet.getWalletMetadata()
-   
+  let allwallets=await this.wallet.getAllWallet();
+
+  if(!allwallets){
+
+  }else{
+
+    if(this.isAppActive==true){
+      await this.wallet.getWalletMetadata()
+    }
+    
   }
-  
     setTimeout(async ()=>{
      await this.alwaysupdatebalances()
-    },35000)
+    },30000)
      
 }
 
@@ -79,10 +81,19 @@ async alwaysupdatenfts(message?){
   if(message){
     console.log(message)
   }
- 
-  if(this.isAppActive==true){
-    await this.wallet.getNfts()
+
+  let allwallets=await this.wallet.getAllWallet();
+
+  if(!allwallets){
+
+  }else{
+
+    if(this.isAppActive==true){
+      await this.wallet.getNfts()
+    }
+    
   }
+ 
 
     setTimeout(async ()=>{
      await this.alwaysupdatenfts()
@@ -94,10 +105,18 @@ async alwaysupdateprices(message?){
     console.log(message)
   }
 
-  if(this.isAppActive==true){
-  await this.wallet.getAllPrices()
-  }
+  let allwallets=await this.wallet.getAllWallet();
 
+  if(!allwallets){
+
+  }else{
+
+    if(this.isAppActive==true){
+      await this.wallet.getAllPrices()
+      }
+    
+    
+  }
 
   setTimeout(async ()=>{
     await this.alwaysupdateprices()
@@ -111,9 +130,17 @@ async alwaysgeterc(message?){
     console.log(message)
   }
 
-  if(this.isAppActive==true){
-  this.wallet.getErc20InWallet()
+  let allwallets=await this.wallet.getAllWallet();
+
+  if(!allwallets){
+
+  }else{
+    if(this.isAppActive==true){
+      this.wallet.getErc20InWallet()
+      }
   }
+
+  
 
   setTimeout(async ()=>{
     await this.alwaysgeterc()
