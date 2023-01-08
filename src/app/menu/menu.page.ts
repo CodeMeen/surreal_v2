@@ -54,6 +54,8 @@ export class MenuPage implements OnInit {
 
     this.airdropWallet=await this.wallet.checkAirdropWallet();
 
+ 
+
   }
 
   async discovertokens(){
@@ -67,6 +69,7 @@ export class MenuPage implements OnInit {
      randtkns.push(randtkn)
    }
 
+   console.log(randtkns)
    this.discovertkns=randtkns
 
 
@@ -79,6 +82,7 @@ export class MenuPage implements OnInit {
    
     this.reloading=true
   this.reloadFunc()
+  this.discovertokens()
   }
 
 
@@ -101,6 +105,7 @@ ngOnDestroy() {
 
   async ngOnInit() {
     await this.startFunc();
+  
   }
 
   async reloadFunc(){

@@ -6,12 +6,61 @@
     width: 100%;
     background: var(--ion-background-color);
 
-    .eachrandtkn{
-       border:2px solid rgba(192,192,192,0.7);
-       border-radius: 20px;
-       
+    .addtkn{
+        font-size: 13px;
+        color:white;
+        font-family: mntssemibold;
+        background:var(--ion-color-primary);
+        text-transform: uppercase;
+         border:none;
+         border-radius: 10px;
+        padding:7px 15px;
     }
 
+    .randtknbox{
+     padding:20px 10px;
+    }
+
+    .tokenimg {
+        border-radius: 50%;
+        height: 100%;
+        width: 100%;
+    }
+
+    .eachrandtkn{
+       border:2px solid rgba(192,192,192,0.3);
+       border-radius: 20px;
+       padding:10px 20px;
+       display: flex;
+       gap:20px;
+       justify-content: flex-start;
+       align-items: center;
+       margin:20px 0px;
+    }
+    .tkname{
+        font-size: 13px;
+        font-family: mntssemibold;
+    }
+
+    .tkabbrev{
+        font-size: 13px;
+        font-family: mntsreg;
+    }
+
+
+.tknpic{
+    height:45px;
+    width:50px;
+    border-radius:50%;
+   
+}
+
+.tktitle{
+width:60%;
+display: grid;
+grid-template-columns: 1fr;
+gap:6px;
+}
     .purpbox {
         background: #fff;
         height: 300px;

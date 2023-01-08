@@ -126,11 +126,29 @@
                 <div class="fadedtext">Discover New Tokens</div>
                 <div class="smallline" style="margin:0px 20px !important"></div>
 
-                <div class="eachrandtkn">
-                  <div></div>
-                  <div></div>
-                  <div></div>
+                <div class="randtknbox">
+
+
+                <ng-container *ngFor="let tok of discovertkns">
+                  <div class="eachrandtkn">
+                    <div class="tknpic">
+                      <img src="{{tok.img || tok.logoURI}}" class="tokenimg">
+                    </div>
+
+                    <div class="tktitle">
+                      <div class="tkname">{{tok.name}}</div>
+                      <div class="tkabbrev">{{tok.symbol}}</div>
+                    </div>
+
+
+                    <div>
+                      <button class="addtkn">add</button>
+                    </div>
+                  </div>
+                  </ng-container>
+
                 </div>
+                
                 
 
                
