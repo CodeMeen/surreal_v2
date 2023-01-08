@@ -54,6 +54,13 @@ export class MenuPage implements OnInit {
 
   }
 
+  async discovertokens(){
+    let alltkns= await this.wallet.getAllTokens()
+   let randtkn= alltkns[Math.floor(Math.random()*alltkns.length)];
+
+
+  }
+
 
   async ionViewWillEnter(){
     console.log('Entering Menu..')
