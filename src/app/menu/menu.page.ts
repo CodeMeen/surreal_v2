@@ -29,6 +29,8 @@ export class MenuPage implements OnInit {
 
   reloading=true;
 
+  discovertkns:any;
+
 
   constructor(private route: ActivatedRoute,private routerOutlet: IonRouterOutlet,public router: RouterService,public wallet:WalletsService, public popup: PopupService,public noti: NotiService
     ,public loader: LoaderService) { }
@@ -55,8 +57,17 @@ export class MenuPage implements OnInit {
   }
 
   async discovertokens(){
+    let randtkns=[]
     let alltkns= await this.wallet.getAllTokens()
-   let randtkn= alltkns[Math.floor(Math.random()*alltkns.length)];
+   
+
+   for (let index = 0; index < 4; index++) {
+
+    let randtkn= alltkns[Math.floor(Math.random()*alltkns.length)];
+     randtkns.push(randtkn)
+   }
+
+   this.discovertkns=randtkns
 
 
   }
