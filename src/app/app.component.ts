@@ -31,8 +31,6 @@ constructor(
         this.alwaysgeterc('first call:-Get ERCs in wallet');
         //this.alwaysupdatepages()
       
-
-
     })
 
     App.addListener('pause',() => {
