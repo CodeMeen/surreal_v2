@@ -18,6 +18,7 @@ import { NgxImageCompressService } from "ngx-image-compress";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { LoaderService } from "../loader.service";
 import { HostListener } from'@angular/core';
+import { threadId } from "worker_threads";
 
 SwiperCore.use([Pagination]);
 
@@ -56,6 +57,8 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
   rawnfts:any
 
   reloading=true;
+  app_notis:any[]
+  new_noti: Boolean =false
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -154,6 +157,17 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
 
     let data = await this.wallet.getMyWallet();
     this.mywallet = data;
+
+    let settings= await this.wallet.getAppSettings();
+    this.app_notis=settings.app_notifications
+
+    let not_viewed=this.app_notis.filter((data)=>{
+      return data.viewed == false
+    })
+
+    if(not_viewed.length >= 1){
+      this.new_noti=true
+    }
     
 
     // update tokens

@@ -1,9 +1,66 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>notis</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <div class="notisview view {{wallet.appPlatform}}">
+  
+    <div class="purpheader">
+      <div class="goback" (click)="router.goBack()">
+          <ion-icon name="chevron-back-outline" class="gobackicon"></ion-icon>
+      </div>
+      <div class="centerdiv">
+          <div class="logo"></div>
+      </div>
+      <div></div>
+  </div>
 
+  <div class="balancemodalbox">
+    <div class="balancemodal">
+      
+       
+        <div class="balancetext" style="font-size: 15px;">Notifications</div>
+    <br>
+        <div class="smallline"></div>
+<br>
+    </div>
+</div>
+
+
+<div class="optionbox">
+
+
+  <ng-container *ngFor="let noti of app_notis">
+  <div class="eachoption">
+
+    <div class="eachtitle">
+
+      <div class="notititle">{{noti.title}}</div> 
+      
+      <div *ngIf="noti.toggler==true" (click)="noti.toggler=!noti.toggler">
+        <ion-icon name="chevron-up-outline" class="downcee"></ion-icon>
+      </div>
+     
+
+      <div  *ngIf="noti.toggler==false" (click)="noti.toggler=!noti.toggler">
+        <ion-icon name="chevron-down-outline" class="downcee"></ion-icon>
+      </div>
+
+
+    </div>
+
+    <div class="eachmessage" *ngIf="noti.toggler==true">
+      {{noti.message}}
+    </div>
+    
+  </div>
+
+  </ng-container>
+
+
+
+</div>
+
+
+
+
+
+
+</div>
 </ion-content>
