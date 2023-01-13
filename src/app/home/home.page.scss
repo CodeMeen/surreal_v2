@@ -4,7 +4,7 @@
     overflow-x: hidden;
     position: relative;
     width: 100%;
-    background: var(--ion-background-color);
+    background: linear-gradient( to top right, var(--ion-color-primary), var(--ion-color-primary), rgb(154, 78, 174));
     .bodycontainer {
         height: 100%;
     }
@@ -14,12 +14,14 @@
         padding: 0px 20px;
         text-align: left;
         font-family: mntssemibold;
+        color:white;
+
     }
     .nbutton {
         width: 100%;
-        padding: 10px 20px;
-        background: rgb(106, 13, 173);
-        color: white;
+        padding: 16px 20px;
+        background: white;
+        color: rgba(106, 13, 173);
         font-size: 16px;
         font-family: mntssemibold;
         border-radius: 50px;
@@ -31,7 +33,7 @@
         width: 100%;
     }
     .smalltext {
-        color: #5d6969;
+        color: white;
         padding: 0px 20px;
         text-align: left;
         font-family: mntsreg;
@@ -56,7 +58,8 @@
         height: 120px;
         width: 120px;
         margin: 20px auto;
-        color: rgba(106, 13, 173, 1);
+       // color: rgba(106, 13, 173, 1);
+       color: white;
     }
     .logohead {
         height: 100px;
@@ -68,7 +71,7 @@
     .logo {
         height: 45px;
         width: 45px;
-        background-image: url(../../assets/images/surreal_purple.svg);
+        background-image: url(../../assets/images/surreal_white.svg);
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
@@ -147,12 +150,12 @@
         width: 13px;
         height: 2px;
         display: inline-block;
-        background: rgba(106, 13, 173, 0.2);
+        background: rgba(255,255,255,0.4);
         margin: 0px 3px;
     }
     .swiper-pagination-bullet-active {
         opacity: 1;
-        background: rgba(106, 13, 173);
+        background: white;
     }
     .swiper-slide-invisible-blank {
         visibility: hidden;

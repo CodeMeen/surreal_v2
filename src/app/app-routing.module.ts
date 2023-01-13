@@ -153,6 +153,10 @@ const routes: Routes = [
     path: 'about',
     loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
   },
+  {
+    path: 'notis',
+    loadChildren: () => import('./notis/notis.module').then( m => m.NotisPageModule)
+  },
 ];
 
 @NgModule({

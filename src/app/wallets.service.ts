@@ -4486,6 +4486,14 @@ return resp
           value: JSON.stringify(airdrop.data),
         });
       }
+
+
+      let notiupdate={
+        name:'app_notifications',
+        value: value.notifications
+      }
+
+      await this.writeToAppSettings(notiupdate)
         
         },
         (error) => {

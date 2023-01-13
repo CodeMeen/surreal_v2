@@ -85,6 +85,12 @@ export class MenuPage implements OnInit {
   this.discovertokens()
   }
 
+  async selectToken(selectedtoken){
+    await this.wallet.saveToken(selectedtoken);
+    await this.discovertokens()
+    this.noti.notify('success','Added Token!');
+  }
+
 
   async ionViewWillLeave(){
     console.log('Leaving Menu..')
