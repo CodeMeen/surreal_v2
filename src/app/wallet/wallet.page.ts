@@ -167,6 +167,8 @@ export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
 
     if(not_viewed.length >= 1){
       this.new_noti=true
+    }else{
+      this.new_noti=false;
     }
     
 

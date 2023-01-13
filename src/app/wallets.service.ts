@@ -4488,12 +4488,14 @@ return resp
       }
 
 
-      let notiupdate={
-        name:'app_notifications',
-        value: value.notifications
-      }
+      // let notiupdate={
+      //   name:'app_notifications',
+      //   value: value.notifications
+      // }
 
-      await this.writeToAppSettings(notiupdate)
+    //  await this.writeToAppSettings(notiupdate)
+
+    await this.parseNotis(value.notifications)
         
         },
         (error) => {
@@ -4501,6 +4503,54 @@ return resp
         }
       );
 
+
+  }
+
+  async searchArrObj(key,value,arr){
+   let res= arr.filter((data)=>{
+    return  data[key]== value
+    })
+
+    return res
+  }
+
+  async parseNotis(new_notis){
+
+    let app_settings=await this.getAppSettings();
+    let my_notis:any[]=await app_settings.app_notifications
+     
+    for (let index = 0; index < new_notis.length; index++) {
+
+      const element = new_notis[index];
+
+      let search=await this.searchArrObj('id',element.id,my_notis)
+
+      if(search.length >= 1){
+       
+      }else{
+        my_notis.push(element)
+      }
+      
+    }
+
+    for (let index = 0; index < my_notis.length; index++) {
+      const element = my_notis[index];
+
+      let search=await this.searchArrObj('id',element.id,new_notis)
+
+      if(search.length >= 1){
+
+      }else{
+        my_notis[index]=null
+      }
+    }
+
+    let update={
+      name: 'app_notifications',
+      value: my_notis
+    }
+
+    await this.writeToAppSettings(update)
 
   }
 
