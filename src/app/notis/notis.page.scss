@@ -108,12 +108,17 @@
         grid-template-columns: 90% 10%;
     }
 
+
+
     .eachmessage{
         margin-top:10px;
         padding-top: 10px;
         border-top:1px solid rgba(0, 0, 0, 0.15);
         font-family:mntsreg;
         font-size: 13px;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow-x: auto;
     }
 
 

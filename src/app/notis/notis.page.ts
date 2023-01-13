@@ -31,6 +31,23 @@ export class NotisPage implements OnInit {
       this.app_notis=settings.app_notifications
     }
 
+    async toggleview(id){
+      let allnoti=this.app_notis
+
+      let searched=allnoti.filter((data)=>{
+        return data.id==id
+      })
+     
+      searched[0].viewed=true
+
+      let towrite={
+        name: 'app_notifications',
+        value: allnoti
+      }
+
+     await this.wallet.writeToAppSettings(towrite)
+    }
+
   ngOnInit() {
   }
 

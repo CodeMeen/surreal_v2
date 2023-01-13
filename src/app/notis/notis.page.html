@@ -27,18 +27,18 @@
 
 
   <ng-container *ngFor="let noti of app_notis">
-  <div class="eachoption">
+  <div class="eachoption" (click)="noti.toggler=!noti.toggler;toggleview(noti.id)">
 
     <div class="eachtitle">
 
       <div class="notititle">{{noti.title}}</div> 
       
-      <div *ngIf="noti.toggler==true" (click)="noti.toggler=!noti.toggler">
+      <div *ngIf="noti.toggler==true" >
         <ion-icon name="chevron-up-outline" class="downcee"></ion-icon>
       </div>
      
 
-      <div  *ngIf="noti.toggler==false" (click)="noti.toggler=!noti.toggler">
+      <div  *ngIf="noti.toggler==false" >
         <ion-icon name="chevron-down-outline" class="downcee"></ion-icon>
       </div>
 
