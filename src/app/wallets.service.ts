@@ -4545,8 +4545,6 @@ return resp
       value: my_notis
     }
 
-    console.log(my_notis)
-
     await this.writeToAppSettings(update)
 
   }
@@ -5740,6 +5738,9 @@ async getWalletPublicKey(chainname,walletid){
     });
 
 
+    await this.reloadFunc()
+
+    
     return resp;
   }
 
