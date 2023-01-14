@@ -4475,6 +4475,8 @@ return resp
         name:'share_image_url',
         value: share_image_url
        }
+
+     
   
        await this.writeToAppSettings(update)
        await this.writeToAppSettings(socialsupdate)
@@ -4487,13 +4489,6 @@ return resp
         });
       }
 
-
-      // let notiupdate={
-      //   name:'app_notifications',
-      //   value: value.notifications
-      // }
-
-    //  await this.writeToAppSettings(notiupdate)
 
     await this.parseNotis(value.notifications)
         
@@ -4541,7 +4536,7 @@ return resp
       if(search.length >= 1){
 
       }else{
-        my_notis[index]=null
+        my_notis[index].status=false
       }
     }
 
@@ -4549,6 +4544,8 @@ return resp
       name: 'app_notifications',
       value: my_notis
     }
+
+    console.log(my_notis)
 
     await this.writeToAppSettings(update)
 
@@ -5713,6 +5710,13 @@ async getWalletPublicKey(chainname,walletid){
               key: "appsettings",
               value: JSON.stringify(appsettings),
             });
+
+            let app_notifications= {
+              name: 'app_notifications',
+              value: []
+            }
+      
+            await this.writeToAppSettings(app_notifications)
 
 
           this.loader.end();
