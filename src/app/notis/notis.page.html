@@ -27,7 +27,7 @@
 
 
   <ng-container *ngFor="let noti of app_notis">
-  <div class="eachoption" (click)="noti.toggler=!noti.toggler;toggleview(noti.id)">
+  <div class="eachoption" *ngIf="noti.status==true" (click)="noti.toggler=!noti.toggler;toggleview(noti.id)">
 
     <div class="eachtitle">
 

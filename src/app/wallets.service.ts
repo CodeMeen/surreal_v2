@@ -5737,10 +5737,6 @@ async getWalletPublicKey(chainname,walletid){
       );
     });
 
-
-    await this.reloadFunc()
-
-    
     return resp;
   }
 
