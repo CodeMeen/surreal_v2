@@ -28,7 +28,7 @@ export class AirdropPage implements OnInit {
   countdown:any;
 
   doneshowpop: boolean = false
-  referrer_code: boolean
+  referrer_code:any
 
 
   airdrop_metadata:any={
@@ -284,32 +284,22 @@ this.taskrefer=task
    
   }
 
+  async saveReferCode(){
+    let refercode= this.referrer_code
+
+    if(refercode=='' || !refercode){
+     this.noti.notify('error','Enter required field!');
+    }else{
+    await this.wallet.addReferrer(refercode)
+    }
+  }
 
 async shareRef(message){
-// check documentation during compiling
+
 
 this.router.naviTo(['sharetextcontent'])
 
-/*
-   let sd:any=await Share.canShare()
-   console.log(sd)
 
-   if(sd.value==false){
-    await Clipboard.write({
-      string:message
-    });
-
-    this.noti.notify('success','Copied!','Paste your referral info to your friends');
-
-   }else{
-    await Share.share({
-      title: 'Join App lauch Giveaway/Airdrop',
-      text: message,
-      dialogTitle: 'Share with Friends',
-    });
-   }
-  */
-    
 }
 
 async shareContent(){
