@@ -28,6 +28,7 @@ export class AirdropPage implements OnInit {
   countdown:any;
 
   doneshowpop: boolean = false
+  referrer_code: boolean
 
 
   airdrop_metadata:any={

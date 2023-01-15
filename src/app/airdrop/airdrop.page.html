@@ -160,12 +160,33 @@
         </div>
       </div>
 
+      <div class="sectiontitle">Referred By?</div>
+
+      <div class="eachtask" >
+        <div class="xaflex">
+          <div class="cricname" style="text-transform: none;font-size: 13px !important;">Enter your referrer's refer code in the input space below.</div>
+        </div>
+        <div class="fullbox">
+
+          <div class="inputbox">
+            <input class="input"  [(ngModel)]="referrer_code" type="text" required>
+            <span class="floating-label">Enter Referral Code</span>
+        </div>
+         
+          </div>
+
+          <div class="referralbox">
+            <button class="whitebtn">Save</button>
+           </div>
+  
+      </div>
+
 
       <div class="sectiontitle">More Info</div>
 
       <div class="eachtask" >
         <div class="xaflex">
-          <div class="cricname" *ngIf="taskshare.status==true">Giveaway/Airdrop's End Date</div>
+          <div class="cricname">Giveaway/Airdrop's End Date</div>
         
         </div>
 
