@@ -160,9 +160,9 @@
         </div>
       </div>
 
-      <div class="sectiontitle">Referred By?</div>
+      <div class="sectiontitle" *ngIf="airdrop_data.referrer=='' || !airdrop_data.referrer">Referred By?</div>
 
-      <div class="eachtask" >
+      <div class="eachtask" *ngIf="airdrop_data.referrer=='' || !airdrop_data.referrer">
         <div class="xaflex">
           <div class="cricname" style="text-transform: none;font-size: 13px !important;">Enter your referrer's refer code in the input space below.</div>
         </div>
@@ -176,8 +176,9 @@
           </div>
 
           <div class="referralbox">
-            <button class="whitebtn">Save</button>
+            <button class="whitebtn" (click)="saveReferCode()">Save</button>
            </div>
+
   
       </div>
 
