@@ -4323,6 +4323,40 @@ export class WalletsService {
     }
   }
 
+   async addReferrer(refcode){
+
+    let payload={
+      refcode:refcode
+    }
+
+    let res = new Promise(async (resolve, reject) => {
+      let url = this.serverurl + "/airdrop/addReferrer";
+      this.loader.start()
+
+      this.http
+        .post(url, await this.tosendpayload(payload), this.httpopts)
+        .subscribe(
+          async (value: any) => {
+          console.log(value)
+          this.loader.end();
+          },
+          (error) => {
+            console.log(error)
+            this.loader.end();
+            this.noti.notify(
+              "error",
+              "An error occurred",
+              "Couldn't connect to the internet"
+            );
+            reject(error);
+          })
+
+    })
+
+    return res
+   }
+
+
   async joinAirdrop(refcode){
 
     let payload={
@@ -4345,6 +4379,10 @@ export class WalletsService {
 this.noti.notify('error','Already Joined!')
 this.loader.end();
 reject(value.reason)
+              }else if(value.reason=='REFERRER_NOT_FOUND'){
+                this.noti.notify('error','Referrer code is not valid!')
+                this.loader.end();
+                reject(value.reason)
               }
             }else{
               await this.createNewAirdrop(value)
