@@ -5747,7 +5747,9 @@ async getWalletPublicKey(chainname,walletid){
 
             appId: await this.randToken(),
 
-            airdrop_metadata: await this.getAirdropMetadata()
+            airdrop_metadata: await this.getAirdropMetadata(),
+
+            app_notifications:[]
 
             }
 
@@ -5762,12 +5764,6 @@ async getWalletPublicKey(chainname,walletid){
               value: JSON.stringify(appsettings),
             });
 
-            let app_notifications= {
-              name: 'app_notifications',
-              value: []
-            }
-      
-            await this.writeToAppSettings(app_notifications)
 
 
           this.loader.end();
