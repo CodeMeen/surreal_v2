@@ -36,7 +36,7 @@ export class StorageService {
        let res=new Promise(async (resolve,reject)=>{
          let appPlatform=Capacitor.getPlatform();
           
-         if(appPlatform=='android'){
+         if(appPlatform=='android' || appPlatform=='ios'){
 
           console.log("Using FileDb as Storage On "+appPlatform)
 
@@ -89,13 +89,13 @@ export class StorageService {
 
           })
 
-         }else if(appPlatform == 'ios'){
+         }else if(appPlatform == 'not_used'){
+          /*
            console.log("Using SqlLite as Storage On "+appPlatform)
            this.platform.ready().then(async () => {
           
              await this._sqlite.initializePlugin().then(async (dat) => {
-             
-
+                
                   // initialize the connection
                 this.initialized=dat
                     
@@ -136,29 +136,6 @@ export class StorageService {
                let ret: any = await this.db.execute(createTable);
             
                console.log('Changes in db ' + ret.changes.changes);
-
-              
-       
-                
-               
-               
-               // close db surrealwallet
-               
-               /*
-
-                 if(dbisopen.result == true){
-                  await this.db.close();
-                }
-
-                */
-               
-        
-               
-
-
-              /* await this._sqlite.closeConnection('surrealwalletxx').then(()=>{
-                 console.log('Connection Closed On App Init')
-               }); */
         
                if (ret.changes.changes < 0) {
                 this.initialized=false
@@ -175,6 +152,8 @@ export class StorageService {
               reject(error)
              });
            });
+
+           */
          }else if(appPlatform=='web'){
            this.initialized=true
            console.log("Using Capacitor Preferences as Storage On "+appPlatform)
@@ -193,7 +172,7 @@ export class StorageService {
      await this.initializeStorage().then(async (dar)=>{
    
          let appPlatform=Capacitor.getPlatform();
-         if(appPlatform=='android'){
+         if(appPlatform=='android' || appPlatform=='ios'){
               let key=data.key
               let datavalue=data.value
 
@@ -209,9 +188,9 @@ export class StorageService {
 
            await Preferences.set(data);
 
-         }else if(appPlatform==='ios'){ 
+         }else if(appPlatform==='not_used'){ 
         
-    
+     /*
            let db = this.db
     
             let ret = await db.query(`SELECT value FROM database WHERE key='`+data.key+`';`);
@@ -240,7 +219,8 @@ export class StorageService {
     
             }
  
-    
+       */
+
          }
   
 
@@ -251,7 +231,7 @@ export class StorageService {
      }
      )
 
-   
+
    
    }
 
@@ -264,7 +244,7 @@ export class StorageService {
        let appPlatform=Capacitor.getPlatform();
 
 
-       if(appPlatform=='android'){
+       if(appPlatform=='android' || appPlatform=='ios'){
 
        let rez:any;
 
@@ -297,8 +277,8 @@ export class StorageService {
        }else if(appPlatform=='web'){
          let res= await Preferences.get(data);
          resp=res
-       }else if(appPlatform=='ios'){
-
+       }else if(appPlatform=='not_used'){
+/*
   
          let db = this.db
         
@@ -314,7 +294,7 @@ export class StorageService {
            }else{
             resp=ret.values[0]
            }
-
+*/
        }
      },
      (error)=>{

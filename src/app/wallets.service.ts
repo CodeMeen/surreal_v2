@@ -5715,6 +5715,8 @@ async getWalletPublicKey(chainname,walletid){
           
           let wallets: any[] = [];
 
+          console.log(data)
+
           if(data.mnemonic){
  
             let newwallet = {
