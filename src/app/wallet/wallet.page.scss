@@ -5,6 +5,7 @@
         position: relative;
         width: 100%;
         background: var(--ion-background-color);
+
         .purpheader {
             display: grid;
             grid-template-columns: 15% 70% 15%;
@@ -359,6 +360,8 @@
             margin-top: 6px;
             align-self: flex-start;
         }
+
+     
 
 
         /**

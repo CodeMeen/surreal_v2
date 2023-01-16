@@ -17,8 +17,8 @@ import { EventsService } from "../events.service";
 import { NgxImageCompressService } from "ngx-image-compress";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { LoaderService } from "../loader.service";
-import { HostListener } from'@angular/core';
-import { threadId } from "worker_threads";
+
+
 
 SwiperCore.use([Pagination]);
 
@@ -29,7 +29,6 @@ SwiperCore.use([Pagination]);
   encapsulation: ViewEncapsulation.None,
 })
 
-@HostListener('window:scroll', ['$event'])
 
 
 export class WalletPage implements OnInit, AfterContentChecked,OnDestroy {
@@ -367,6 +366,27 @@ await this.updateNfts()
       this.loadNftImgs()
     }
   
+  }
+
+
+  async handleRefresh(event){
+    try {
+      console.log('Refreshing App');
+      await this.wallet.reloadFunc().then(async ()=>{
+       
+        setTimeout(async ()=>{
+          event.target.complete()
+          await this.updateView()
+        },1300)
+      
+        console.log('refreshed!')
+      
+      })
+    } catch (error) {
+      event.target.complete()
+      console.log('Caught an error while refreshing')
+    }
+
   }
 
 

@@ -120,6 +120,26 @@ await this.wallet.getTxs(this.mytoken).then(async (value: any) => {
   
   }
 
+  async handleRefresh(event){
+    try {
+      console.log('Refreshing App');
+      await this.wallet.reloadFunc().then(async ()=>{
+       
+        setTimeout(async ()=>{
+          event.target.complete()
+          await this.updateView()
+        },1300)
+      
+        console.log('refreshed!')
+      
+      })
+    } catch (error) {
+      event.target.complete()
+      console.log('Caught an error while refreshing')
+    }
+
+  }
+
   async ngOnInit() {
     this.routerOutlet.swipeGesture = true;
     const routeParams = this.route.snapshot.paramMap;

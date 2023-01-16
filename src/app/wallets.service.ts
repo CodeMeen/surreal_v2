@@ -3409,7 +3409,7 @@ export class WalletsService {
    urltwo="http://localhost:3000"
   serverurl = "http://172.20.10.2:3000";
 
-  reloadtime=3500
+  reloadtime=3000
 
   constructor(
     private http: HttpClient,
@@ -3727,9 +3727,7 @@ export class WalletsService {
 
 
   async reloadFunc(){
-    this.loader.start()
-
-    
+   
     let resp=new Promise((resolve, reject) => {
      
       this.getErc20InWallet().then(async ()=>{
@@ -3737,9 +3735,6 @@ export class WalletsService {
         await this.getWalletMetadata().then(async ()=>{
           await this.getNfts()
           await this.getAllPrices()
-
-
-       this.loader.end()
           resolve(true)
         });
        
@@ -4337,7 +4332,27 @@ export class WalletsService {
         .post(url, await this.tosendpayload(payload), this.httpopts)
         .subscribe(
           async (value: any) => {
-          console.log(value)
+         
+
+          if(value.respstatus==true){
+            let data=value.respdata
+
+            await this.storage.set({
+              key: "airdrop",
+              value: JSON.stringify(data),
+            });
+          this.noti.notify('success','Saved!');       
+          }else{
+            if(value.reason=='REFERRER_NOT_FOUND'){
+              this.noti.notify(
+                "error",
+                "Invalid referrer's code"
+              
+              );
+            }
+
+          }
+
           this.loader.end();
           },
           (error) => {

@@ -1,6 +1,10 @@
-<ion-content (scroll)="onWindowScroll();">
-    <div class="walletview view {{wallet.appPlatform}}">
 
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)" style="background:rgb(154, 78, 174) !important;box-shadow:inset 0px -4px 4px 1px rgba(0,0,0,0.2)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+    <div class="walletview view {{wallet.appPlatform}}">
+   
         <div class="purpbox">
             <div class="purpheader" >
                 <div class="noticont" (click)="router.naviTo(['/notis'])">

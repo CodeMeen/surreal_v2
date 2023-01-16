@@ -9,13 +9,15 @@ import { WalletPageRoutingModule } from './wallet-routing.module';
 import { WalletPage } from './wallet.page';
 import { SwiperModule } from 'swiper/angular';
 
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     WalletPageRoutingModule,
-    SwiperModule
+    SwiperModule,
+
   ],
   declarations: [WalletPage]
 })
