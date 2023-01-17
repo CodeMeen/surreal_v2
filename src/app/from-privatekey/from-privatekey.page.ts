@@ -6,6 +6,8 @@ import { NotiService } from '../noti.service';
 import { PopupService } from '../popup.service';
 import { RouterService } from '../router.service';
 import { WalletsService } from '../wallets.service';
+import { Clipboard } from "@capacitor/clipboard";
+
 
 @Component({
   selector: 'app-from-privatekey',
@@ -40,6 +42,16 @@ this.inputflag=true
 
     }
 
+
+
+    async pasteContent(){
+      const { type, value } = await Clipboard.read();
+      this.importData.pk = value;
+      
+      await this.oninput()
+
+    }
+    
 
     async confirmImport(){
     

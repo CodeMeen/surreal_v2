@@ -110,6 +110,7 @@ if(respsh.length >= 1){
     }).then(async ()=>{
        this.wallet.taskDone('share').then(()=>{
         this.noti.notify('success','Task Updated!')
+        this.router.goBack();
     })
   })
    }

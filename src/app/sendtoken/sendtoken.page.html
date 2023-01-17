@@ -25,7 +25,7 @@
         <div class="fullbox">
 
             <div class="inputbox">
-                <input class="input" [(ngModel)]="recipientaddr" type="text" required>
+                <input class="input" [(ngModel)]="recipientaddr" (click)="pasteAddress()" type="text" required>
                 <span class="floating-label">Recipient Address</span>
                 <div class="choosy" style="grid-template-columns: 1fr !important;">
                     <div class="eachhalf" (click)="pasteAddress()">Paste</div>

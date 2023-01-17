@@ -31,7 +31,7 @@
 
     <hr class="sepline">
       
-      <textarea class="textarea" [(ngModel)]="importData.pk" (keyup)="oninput()" placeholder="Enter Private Key"></textarea>
+      <textarea class="textarea" [(ngModel)]="importData.pk" (keyup)="oninput()" (click)="pasteContent()" placeholder="Enter Private Key"></textarea>
      
       </div>
 
