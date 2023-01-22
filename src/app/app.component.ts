@@ -25,6 +25,12 @@ constructor(
   ) {   
     this.platform.ready().then(async () => {
       await SplashScreen.hide();
+
+      
+      await SplashScreen.show({
+        showDuration: 2500,
+        autoHide: true,
+      });
      
         this.isAppActive=true
         this.alwaysupdatebalances('first call:- Update Balance')
@@ -33,22 +39,20 @@ constructor(
         this.alwaysgeterc('first call:-Get ERCs in wallet');
         //this.alwaysupdatepages()
 
-        await SplashScreen.show({
-          showDuration: 3000,
-          autoHide: true,
-        });
       
     })
 
-    App.addListener('pause',() => {
+    App.addListener('pause',async () => {
       this.isAppActive=false
-      console.log('App is Minimized')
+      console.log('App is Minimized');
+
     })
 
 
-    App.addListener('resume',() => {
+    App.addListener('resume',async () => {
       this.isAppActive=true
       console.log('App is Active')
+
     })
    
 
