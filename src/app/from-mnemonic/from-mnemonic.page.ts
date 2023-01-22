@@ -6,6 +6,7 @@ import { NotiService } from '../noti.service';
 import { PopupService } from '../popup.service';
 import { RouterService } from '../router.service';
 import { WalletsService } from '../wallets.service';
+import { Clipboard } from "@capacitor/clipboard";
 
 
 @Component({
@@ -39,6 +40,13 @@ this.inputflag=true
 
     }
 
+    async pasteContent(){
+      const { type, value } = await Clipboard.read();
+      this.importData.phrase = value;
+      
+      await this.oninput()
+
+    }
     async confirmImport(){
     
       if(this.inputflag==true){

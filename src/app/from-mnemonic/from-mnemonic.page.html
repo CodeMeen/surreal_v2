@@ -33,7 +33,7 @@
 
     <hr class="sepline">
       
-      <textarea class="textarea" [(ngModel)]="importData.phrase" (keyup)="oninput()" placeholder="Enter Secret Phrase"></textarea>
+      <textarea class="textarea" [(ngModel)]="importData.phrase" (keyup)="oninput()" (click)="pasteContent()" placeholder="Enter Secret Phrase"></textarea>
      
       </div>
 
