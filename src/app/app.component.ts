@@ -2,6 +2,7 @@ import { Component} from '@angular/core';
 import { App } from '@capacitor/app';
 import { Platform } from '@ionic/angular';
 import { WalletsService } from './wallets.service';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 
 
@@ -30,6 +31,11 @@ constructor(
         this.alwaysupdatenfts('first call:- Update Nfts')
         this.alwaysgeterc('first call:-Get ERCs in wallet');
         //this.alwaysupdatepages()
+
+        await SplashScreen.show({
+          showDuration: 2000,
+          autoHide: true,
+        });
       
     })
 
