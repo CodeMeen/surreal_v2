@@ -2,7 +2,6 @@ import { Component} from '@angular/core';
 import { App } from '@capacitor/app';
 import { Platform } from '@ionic/angular';
 import { WalletsService } from './wallets.service';
-import { SplashScreen } from '@capacitor/splash-screen';
 
 
 
@@ -24,13 +23,6 @@ constructor(
     private wallet: WalletsService
   ) {   
     this.platform.ready().then(async () => {
-      await SplashScreen.hide();
-
-      
-      await SplashScreen.show({
-        showDuration: 2500,
-        autoHide: true,
-      });
      
         this.isAppActive=true
         this.alwaysupdatebalances('first call:- Update Balance')
