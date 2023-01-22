@@ -31,11 +31,6 @@ constructor(
         this.alwaysupdatenfts('first call:- Update Nfts')
         this.alwaysgeterc('first call:-Get ERCs in wallet');
         //this.alwaysupdatepages()
-
-        await SplashScreen.show({
-          showDuration: 2000,
-          autoHide: true,
-        });
       
     })
 
