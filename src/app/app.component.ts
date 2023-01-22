@@ -24,6 +24,7 @@ constructor(
     private wallet: WalletsService
   ) {   
     this.platform.ready().then(async () => {
+      await SplashScreen.hide();
      
         this.isAppActive=true
         this.alwaysupdatebalances('first call:- Update Balance')
@@ -33,7 +34,7 @@ constructor(
         //this.alwaysupdatepages()
 
         await SplashScreen.show({
-          showDuration: 2000,
+          showDuration: 3000,
           autoHide: true,
         });
       
