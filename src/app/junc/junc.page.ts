@@ -12,7 +12,10 @@ export class JuncPage implements OnInit {
   constructor(private router: RouterService,private wallet: WalletsService) { }
 
   async ionViewDidEnter() {  
-   await this.checkToPage()
+    setTimeout(async ()=>{
+      await this.checkToPage()
+    },1500)
+
   }
 
   async checkToPage(){
