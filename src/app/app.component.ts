@@ -121,7 +121,7 @@ async alwaysupdateprices(message?){
 
   setTimeout(async ()=>{
     await this.alwaysupdateprices()
-  },30000)
+  },300000)
 
 
 }
