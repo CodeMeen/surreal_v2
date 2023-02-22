@@ -221,7 +221,7 @@ async joinTg(){
     task.noofprocessedtask=donetask.length
 
     task.totaltask=serv.length
-    task.name ='Refer '+serv.length+' Friends';
+    task.name ='Refer '+serv.length+' Friend';
 
     /*
     if(serv[0].status==true && serv[1].status==true){
