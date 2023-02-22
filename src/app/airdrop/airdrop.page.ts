@@ -223,21 +223,29 @@ async joinTg(){
     task.totaltask=serv.length
     task.name ='Refer '+serv.length+' Friends';
 
+    /*
     if(serv[0].status==true && serv[1].status==true){
   
-   task.status=true
+     task.status=true
    
+    }
+    */
+
+    if(serv[0].status==true ){
+      task.status=true
     }
 
       if(serv[0].status==true){
         let prevprogress=task.totalprogress
-        let newprogress=prevprogress+50
+        let newprogress=prevprogress+100
 
         let newamountgained=task.amount+serv[0].amount
         task.amount=newamountgained
 
         task.totalprogress=newprogress
       }
+
+      /*
 
       if(serv[1].status==true){
         let prevprogress=task.totalprogress
@@ -248,6 +256,8 @@ async joinTg(){
 
         task.totalprogress=newprogress
       }
+
+      */
      
      
     

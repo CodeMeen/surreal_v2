@@ -3406,8 +3406,8 @@ export class WalletsService {
   };
 
 
-   urltwo="http://localhost:3000"
-  serverurl = "https://surrealwallet.app";
+   urltwo="http://localhost:3000";
+  serverurl=this.urltwo;
 
   reloadtime=3000
 
