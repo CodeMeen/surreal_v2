@@ -231,6 +231,7 @@ async joinTg(){
     }
     */
 
+
     if(serv[0].status==true ){
       task.status=true
     }
