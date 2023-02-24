@@ -92,7 +92,7 @@ async confirmTx(){
 
 
   let netfeevalueusd=await this.wallet.gasFeeUsd(tx.token.name,tx.token.type,tx.networkFee)
-  this.refinedTxData['networkFeeUsd']=await this.reducenumber(netfeevalueusd,7)
+  this.refinedTxData['networkFeeUsd']=await this.reducenumber(netfeevalueusd,4)
 
   this.refinedTxData['maxTotal']=await this.reducenumber(tx.maxTotal,9)
 
