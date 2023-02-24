@@ -91,6 +91,17 @@
   }
 
 
+  .note{
+    font-size: 13px;
+    padding:20px;
+    color:var(--ion-color-primary);
+    font-family:mntsreg;
+  }
+
+  .notetitle{
+    font-family: mntssemibold;
+    margin-bottom: 10px;
+  }
 
     .countd{
         display: grid;

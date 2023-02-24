@@ -150,7 +150,12 @@ export class AirdropPage implements OnInit {
 
 
 async joinTg(){
+
+  
   let link=this.appsettings.socials.telegram
+
+  console.log(this.appsettings)
+  console.log(link)
 
   this.openLink(link).then(async ()=>{
     await this.wallet.taskDone('jointelegram').then(()=>{
