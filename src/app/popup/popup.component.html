@@ -61,6 +61,31 @@
         <div class="actionspace"  *ngIf="popUp.outfunction==true || popUp.messageactions"></div>
     </div>
 
+    <div *ngIf="popUp.type==='countdown'" class="popupcountdown">
+        <div class="poptitle">
+            {{popUp.messagetitle}}
+        </div>
+
+        <div class="poptext">
+            {{popUp.message}}
+        </div>
+
+        <div class="countd" id="countdown">
+            <!--<div class="cdt" id="days">{{popUp.days}}</div>-->
+            <div class="cdt" id="hours">{{popUp.hours}}</div>
+            <div class="cdt" id="mins">{{popUp.minutes}}</div>
+            <div class="cdt" id="secs">{{popUp.seconds}}</div>
+        </div>
+        
+        <div class="poptext">
+            <div class="poptext">
+                {{popUp.messagetwo}}
+            </div>
+        </div>
+
+
+    </div>
+
 
     <div class="popaction" *ngIf="popUp.messageactions==true">
         <div class="popactionone" (click)="popUp.close()">Cancel</div>

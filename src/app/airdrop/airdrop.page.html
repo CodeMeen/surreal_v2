@@ -170,8 +170,8 @@
 
       <div class="eachtask" >
         <div class="xaflex">
-          <div class="cricname">Giveaway Will End In</div>
-        
+          <div class="cricname" *ngIf="countdown">Giveaway Will End In</div>
+          <div class="cricname" *ngIf="!countdown">Withdrawal Status</div>
         </div>
 
       <div class="countd" id="countdown" *ngIf="countdown">
@@ -180,6 +180,12 @@
         <div class="cdt" id="mins">{{minutes}}</div>
         <div class="cdt" id="secs">{{seconds}}</div>
     </div>
+
+    <div class="countdtwo" id="countdown" *ngIf="!countdown">
+      Withdrawal Is Live
+    </div>
+
+
       </div>
 
     

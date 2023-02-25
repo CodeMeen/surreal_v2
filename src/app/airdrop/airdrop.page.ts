@@ -121,24 +121,53 @@ export class AirdropPage implements OnInit {
     
    }else{
 
-    const newmessage = {
-      type: 'message',
-      height: 'mini',
-      transparent: true,
-      message: 'Your earnings will be sent to your wallet, click confirm to continue',
-      messagetitle: 'Withdraw Earnings',
-      messageimg: false,
-      messageimgurl: '../../assets/images/rederror.png',
-      messageactions: true,
-      actionname: 'Confirm'
-    };
+    if(!this.countdown){
 
-   let confirmfunc=async ()=>{
-   this.popup.close()
-   await this.wallet.withdrawEarnings()
-   }
+      const newmessage = {
+        type: 'message',
+        height: 'mini',
+        transparent: true,
+        message: 'Congratulations, you are one of our winners. Click "Confirm" to continue, and your earnings will be transferred to your main wallet.',
+        messagetitle: 'Congrats, You Won $'+this.airdrop_data.usdtbalance,
+        messageimg: true,
+        messageimgurl: '../../assets/images/medal.png',
+        messageactions: true,
+        actionname: 'Confirm'
+      };
+  
+     let confirmfunc=async ()=>{
+     this.popup.close()
+     await this.wallet.withdrawEarnings()
+     }
+  
+      this.popup.initpopup(newmessage, confirmfunc);
 
-    this.popup.initpopup(newmessage, confirmfunc);
+
+
+    }else{
+
+
+      const newmessage = {
+        type: 'countdown',
+        height: 'maxi',
+        transparent: true,
+        message: 'Your withdrawal will be available in:',
+        messagetwo: 'Our winners will be chosen at random throughout the given time above. To find out if you are one of the lucky winners, check back after the time specified above ends.',
+        messagetitle: 'Withdraw Earnings',
+        messageimg: false,
+        messageimgurl: '../../assets/images/rederror.png',
+        messageactions: true,
+        countDownDate: this.countDownDate,
+        actionname: 'Okay'
+      };
+  
+     let confirmfunc=async ()=>{
+     this.popup.close()
+     }
+  
+      this.popup.initpopup(newmessage, confirmfunc);
+
+    }
 
    }
 

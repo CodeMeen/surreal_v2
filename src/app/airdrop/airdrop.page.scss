@@ -122,6 +122,24 @@
             padding:10px 20px;
           }
 
+    .countdtwo{
+        width:90%;
+        margin:20px auto;
+        justify-items: center;
+        
+        color: white !important;
+            
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
+            backdrop-filter: blur(2.1px);
+            -webkit-backdrop-filter: blur(2.1px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            height: auto;
+            padding:10px 20px;
+            text-align: center;
+    }
+
     .airdropcomplete{
         background:darkgreen;
         color:white;
