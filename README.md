@@ -39,9 +39,6 @@ Contributions are welcome! If you would like to contribute to this project, plea
 
 Please ensure your code adheres to the existing code style and includes relevant tests.
 
-## License
-
-This project is licensed under the MIT License
 
 
 
